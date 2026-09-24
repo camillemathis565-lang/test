@@ -1,0 +1,488 @@
+<title>Across the French Borders</title>
+<meta name="description" content="Commercial attractiveness of city centres and commercial zones on both sides of France's land borders">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --ink:#15201d; --ink-2:#4b5753; --ink-3:#7a8581;
+  --rule:#dfe3e0; --grid:#eceeec; --land:#eef0ec; --land-fr:#e4e8e3; --sea:#f6f7f5;
+  --border-line:#15201d;
+  --s1:#2a78d6; --s2:#eb6834;
+  --q0:#e8eef6; --q1:#cde2fb; --q2:#9ec5f4; --q3:#6da7ec; --q4:#3987e5; --q5:#256abf; --q6:#184f95; --q7:#0d366b;
+  --pos:#1c5cab; --neg:#c2410c;
+  --focus:#2a78d6;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121715; --panel:#1a201e; --ink:#eef2f0; --ink-2:#b8c2be; --ink-3:#8a9591;
+    --rule:#2c3532; --grid:#232a28; --land:#1f2624; --land-fr:#27302d; --sea:#121715;
+    --border-line:#eef2f0;
+    --s1:#3987e5; --s2:#d95926;
+    --q0:#1d2a36; --q1:#16345a; --q2:#184f95; --q3:#1c5cab; --q4:#2a78d6; --q5:#5598e7; --q6:#86b6ef; --q7:#cde2fb;
+    --pos:#6da7ec; --neg:#f08a5d;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121715; --panel:#1a201e; --ink:#eef2f0; --ink-2:#b8c2be; --ink-3:#8a9591;
+  --rule:#2c3532; --grid:#232a28; --land:#1f2624; --land-fr:#27302d; --sea:#121715;
+  --border-line:#eef2f0;
+  --s1:#3987e5; --s2:#d95926;
+  --q0:#1d2a36; --q1:#16345a; --q2:#184f95; --q3:#1c5cab; --q4:#2a78d6; --q5:#5598e7; --q6:#86b6ef; --q7:#cde2fb;
+  --pos:#6da7ec; --neg:#f08a5d;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans);}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08}
+h2{font-size:26px;line-height:1.2}
+h3{font-size:18px}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 11.5px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.lede{font-size:17px;color:var(--ink-2)}
+header{display:grid;gap:14px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;font:13px/1.4 var(--mono);color:var(--ink-2)}
+.facts b{color:var(--ink);font-weight:500}
+section{display:grid;gap:16px}
+.sec-head{display:grid;gap:8px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel)}
+.seg button{font:500 13px var(--sans);color:var(--ink-2);background:none;border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible,select:focus-visible,input:focus-visible,th button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+label.ctl{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--ink-2)}
+select,input[type=search]{font:13px var(--sans);color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:6px 8px}
+
+/* map */
+.map-wrap{position:relative;background:var(--panel);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.map-wrap canvas,.map-wrap svg{display:block;width:100%;height:auto}
+.map-wrap svg{position:absolute;inset:0}
+.legend{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;font-size:12.5px;color:var(--ink-2)}
+.ramp{display:flex;align-items:center;gap:8px}
+.ramp .bar{display:flex;height:10px;width:220px;max-width:50vw;border-radius:2px;overflow:hidden}
+.ramp .bar span{flex:1}
+.ramp .ticks{display:flex;justify-content:space-between;width:220px;max-width:50vw;font:11px var(--mono);color:var(--ink-3)}
+.key{display:inline-flex;align-items:center;gap:6px}
+.tip{position:absolute;pointer-events:none;background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:8px 10px;font-size:12.5px;line-height:1.4;box-shadow:0 4px 18px rgba(0,0,0,.12);max-width:260px;z-index:3}
+.tip .t{font-weight:600}
+.tip .r{display:flex;justify-content:space-between;gap:14px;color:var(--ink-2)}
+.tip .r b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+
+/* border balance */
+.bal{display:grid;gap:4px}
+.bal-row{display:grid;grid-template-columns:110px 1fr 1fr 70px;align-items:center;gap:0 10px;font-size:13px}
+.bal-row .lab{font-weight:500}
+.bal-row .l,.bal-row .r{height:18px;position:relative}
+.bal-row .l span{position:absolute;right:0;top:0;bottom:0;background:var(--s2);border-radius:4px 0 0 4px}
+.bal-row .r span{position:absolute;left:0;top:0;bottom:0;background:var(--s1);border-radius:0 4px 4px 0}
+.bal-row .l{border-right:1px solid var(--ink-3)}
+.bal-row .v{font:12px var(--mono);color:var(--ink-2);position:absolute;top:1px;white-space:nowrap}
+.bal-row .l .v{right:calc(var(--w) + 6px)}
+.bal-row .r .v{left:calc(var(--w) + 6px)}
+.bal-row .idx{font:12px var(--mono);text-align:right}
+.bal-head{font:11px var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.bal-head .l,.bal-head .r{height:auto;border:0}
+.bal-head .l{text-align:right;padding-right:8px}
+.bal-head .r{padding-left:8px}
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.note{font-size:13px;color:var(--ink-2)}
+.pill{display:inline-block;font:500 11px var(--mono);padding:2px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--ink-2);white-space:nowrap}
+.pill.in{color:var(--pos);border-color:currentColor}
+.pill.out{color:var(--neg);border-color:currentColor}
+
+/* stacked split */
+.split{display:grid;gap:10px}
+.split-row{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;font-size:13px}
+.stack{display:flex;height:16px;gap:2px}
+.stack span{display:block;height:100%}
+.stack span:first-child{border-radius:4px 0 0 4px}
+.stack span:last-child{border-radius:0 4px 4px 0}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--panel);max-height:560px;overflow-y:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--grid);white-space:nowrap}
+th{position:sticky;top:0;background:var(--panel);font:500 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);z-index:1;border-bottom:1px solid var(--rule)}
+th button{all:unset;cursor:pointer}
+th button[data-dir]::after{content:attr(data-dir);margin-left:4px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.name{white-space:normal;min-width:180px;max-width:320px}
+tr:hover td{background:var(--bg)}
+.scorebar{display:inline-block;height:6px;border-radius:3px;background:var(--q4);vertical-align:middle;margin-right:6px}
+.sens{display:grid;gap:12px}
+.method{display:grid;gap:14px;font-size:14px;color:var(--ink-2)}
+.method code{font:13px var(--mono);background:var(--panel);border:1px solid var(--rule);padding:10px 12px;border-radius:6px;display:block;white-space:pre;overflow-x:auto;color:var(--ink)}
+.method ul{margin:0;padding-left:18px;display:grid;gap:6px;max-width:75ch}
+footer{font-size:12px;color:var(--ink-3)}
+@media (max-width:560px){
+  .bal-row{grid-template-columns:78px 1fr 1fr 48px}
+  .split-row{grid-template-columns:78px 1fr}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Cross-border retail · metropolitan France · 8 land borders</span>
+  <h1>Where shoppers cross France's borders, and which side wins</h1>
+  <p class="lede" id="lede"></p>
+  <div class="facts" id="facts"></div>
+</header>
+
+<section id="map">
+  <div class="sec-head">
+    <span class="eyebrow">Map</span>
+    <h2>Share of residents' spending that goes abroad</h2>
+    <p class="note">Each 2 km square is residents living within 40 km of a French land border. Its colour shows the modelled share of their spending that goes to shops in another country. Circles are city centres and diamonds are peripheral commercial zones, sized by attractiveness score. Hover for details.</p>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Spending segment">
+      <button type="button" id="segComparison" data-seg="comparison" aria-pressed="true">Comparison goods</button>
+      <button type="button" id="segEveryday" data-seg="everyday" aria-pressed="false">Everyday goods</button>
+    </div>
+    <label class="ctl" for="mapBorder">Zoom to
+      <select id="mapBorder"></select>
+    </label>
+    <label class="ctl" for="mapDest">Show
+      <select id="mapDest">
+        <option value="all">centres &amp; zones</option>
+        <option value="city_centre">city centres</option>
+        <option value="commercial_zone">commercial zones</option>
+        <option value="none">no destinations</option>
+      </select>
+    </label>
+  </div>
+  <div class="map-wrap" id="mapWrap">
+    <canvas id="cv"></canvas>
+    <svg id="ov" aria-label="Map of cross-border spending around France"></svg>
+    <div class="tip" id="tip" hidden></div>
+  </div>
+  <div class="legend">
+    <div class="ramp"><div><div class="bar" id="rampBar"></div><div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%+</span></div></div></div>
+    <span class="key"><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--panel)" stroke="var(--ink)" stroke-width="1.6"/></svg>City centre</span>
+    <span class="key"><svg width="14" height="14" aria-hidden="true"><rect x="2.8" y="2.8" width="8.4" height="8.4" transform="rotate(45 7 7)" fill="var(--s2)" stroke="var(--panel)" stroke-width="1.2"/></svg>Commercial zone</span>
+    <span class="key"><svg width="22" height="6" aria-hidden="true"><line x1="0" y1="3" x2="22" y2="3" stroke="var(--border-line)" stroke-width="1.6"/></svg>French land border</span>
+  </div>
+</section>
+
+<section id="balance">
+  <div class="sec-head">
+    <span class="eyebrow">Border by border</span>
+    <h2>Spending leaving and entering France</h2>
+    <p class="note">Modelled annual retail spending by residents of the 40 km border strip. The balance index runs from −1 (spending only leaves France) to +1 (spending only enters France).</p>
+  </div>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Segment for balances">
+      <button type="button" id="balAll" data-bseg="all" aria-pressed="true">All goods</button>
+      <button type="button" id="balComparison" data-bseg="comparison" aria-pressed="false">Comparison</button>
+      <button type="button" id="balEveryday" data-bseg="everyday" aria-pressed="false">Everyday</button>
+    </div>
+  </div>
+  <div class="two">
+    <div class="bal" id="balChart"></div>
+    <div class="split">
+      <h3>Where the crossing spending goes</h3>
+      <p class="note">Share of cross-border spending that goes to city centres and to commercial zones, in each direction.</p>
+      <div class="legend">
+        <span class="key"><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s1)"/></svg>City centres</span>
+        <span class="key"><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s2)"/></svg>Commercial zones</span>
+      </div>
+      <div id="splitChart" class="split"></div>
+    </div>
+  </div>
+</section>
+
+<section id="sensitivity">
+  <div class="sec-head">
+    <span class="eyebrow">How robust is this?</span>
+    <h2>Sensitivity to border friction and prices</h2>
+    <p class="note">The model is not calibrated on observed flows. This table shows France's net cross-border balance (EUR million per year) under weaker and stronger border effects and price sensitivity. A sign that holds across a row is robust.</p>
+  </div>
+  <div class="controls">
+    <label class="ctl" for="sensGamma">Price elasticity γ
+      <select id="sensGamma"></select>
+    </label>
+  </div>
+  <div class="tbl" id="sensTbl"></div>
+</section>
+
+<section id="ranking">
+  <div class="sec-head">
+    <span class="eyebrow">Attractiveness ranking</span>
+    <h2>City centres and commercial zones</h2>
+    <p class="note">Score 0–100: retail mass (45%), share of comparison goods (15%), diversity of shop types (15%), anchor stores (10%), restaurants and cafés (10%), chain presence (5%), as percentile ranks across all destinations. Turnover is the modelled spending of border-strip residents only.</p>
+  </div>
+  <div class="controls">
+    <label class="ctl" for="rkCountry">Country <select id="rkCountry"></select></label>
+    <label class="ctl" for="rkType">Type
+      <select id="rkType"><option value="">all</option><option value="city_centre">city centres</option><option value="commercial_zone">commercial zones</option></select>
+    </label>
+    <label class="ctl" for="rkSearch">Search <input type="search" id="rkSearch" placeholder="town or zone"></label>
+    <span class="note" id="rkCount"></span>
+  </div>
+  <div class="tbl" id="rkTbl"></div>
+</section>
+
+<section id="nuts">
+  <div class="sec-head">
+    <span class="eyebrow">By territory</span>
+    <h2>Départements, arrondissements, Kreise, provinces</h2>
+    <p class="note">For each NUTS 3 area in the border strip: how much of its residents' spending goes abroad, and how much foreign spending its centres and zones capture.</p>
+  </div>
+  <div class="controls">
+    <label class="ctl" for="nuCountry">Country <select id="nuCountry"></select></label>
+  </div>
+  <div class="tbl" id="nuTbl"></div>
+</section>
+
+<section id="method">
+  <div class="sec-head">
+    <span class="eyebrow">Method</span>
+    <h2>How the numbers are built</h2>
+  </div>
+  <div class="method" id="methodBody"></div>
+</section>
+
+<footer>Data: © OpenStreetMap contributors (ODbL) · Eurostat census grid 2021 and price level indices (prc_ppp_ind) · © EuroGeographics for boundaries. Model code: <span class="mono">cross_border/</span> in the project repository.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('data').textContent);
+const NAMES = {FR:"France",BE:"Belgium",LU:"Luxembourg",DE:"Germany",CH:"Switzerland",IT:"Italy",MC:"Monaco",ES:"Spain",AD:"Andorra"};
+const NB = ["BE","LU","DE","CH","IT","MC","ES","AD"];
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmtM = v => { const m=v/1e6; return (Math.abs(m)>=100? d3.format(",.0f")(m) : Math.abs(m)>=10? d3.format(",.0f")(m): d3.format(",.1f")(m)); };
+const pct = v => (v==null||isNaN(v))? "–" : d3.format(".0%")(v);
+const pct1 = v => (v==null||isNaN(v))? "–" : d3.format(".1%")(v);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- header ---------- */
+const balAll = D.balance.filter(b=>b.segment==="all");
+const out = d3.sum(balAll,b=>b.fr_to_nb_eur), inn = d3.sum(balAll,b=>b.nb_to_fr_eur);
+const nC = D.dest.filter(d=>d.type==="city_centre").length, nZ = D.dest.length-nC;
+document.getElementById('lede').textContent =
+  `A Huff gravity model with border friction and price differences, run on ${d3.format(",")(D.meta.n_shops)} OpenStreetMap shops, road travel times and the 2021 census grid. ` +
+  `Residents of the French border strip spend about €${fmtM(out)} million a year in neighbouring countries. Residents on the other side spend about €${fmtM(inn)} million in France.`;
+document.getElementById('facts').innerHTML = [
+  ["Residents modelled", d3.format(".2s")(D.meta.residents).replace("M"," million")],
+  ["City centres", nC], ["Commercial zones", nZ],
+  ["Net for France", (inn-out>=0?"+":"−")+"€"+fmtM(Math.abs(inn-out))+" M/yr"],
+].map(([k,v])=>`<span>${k} <b>${v}</b></span>`).join("");
+
+/* ---------- map ---------- */
+const wrap = document.getElementById('mapWrap'), cv = document.getElementById('cv'), ov = d3.select('#ov'), tip = document.getElementById('tip');
+let seg = "comparison", destFilter = "all", view = "all";
+const cells = D.cells; // [lon,lat,pop,leakEveryday,leakComparison]
+const countries = D.countries, borders = D.borders;
+const VIEWS = {all:"All borders", BE:"Belgium", LU:"Luxembourg", DE:"Germany", CH:"Switzerland", IT:"Italy & Monaco", ES:"Spain & Andorra"};
+const sel = document.getElementById('mapBorder');
+sel.innerHTML = Object.entries(VIEWS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+const qVars = ["--q0","--q1","--q2","--q3","--q4","--q5","--q6","--q7"];
+function qColor(v){ const i = Math.max(0,Math.min(7, Math.floor(v/0.75*8))); return css(qVars[i]); }
+document.getElementById('rampBar').innerHTML = qVars.map(v=>`<span style="background:var(${v})"></span>`).join("");
+
+function focusFeature(){
+  if(view==="all") return {type:"FeatureCollection",features:borders.features};
+  const ids = view==="IT"?["IT","MC"]: view==="ES"?["ES","AD"]:[view];
+  return {type:"FeatureCollection",features:borders.features.filter(f=>ids.includes(f.properties.id))};
+}
+let proj, W, H, dpr, destPts=[];
+function drawMap(){
+  W = wrap.clientWidth; H = Math.round(Math.min(W*0.92, 760)); dpr = window.devicePixelRatio||1;
+  cv.width = W*dpr; cv.height = H*dpr; cv.style.height = H+"px"; ov.attr("viewBox",`0 0 ${W} ${H}`).attr("width",W).attr("height",H);
+  // fit the chosen borders plus the 40 km strip (~0.55 degrees) around them
+  const [[w0,s0],[e0,n0]] = d3.geoBounds(focusFeature()), m = view==="all"? 0.35 : 0.6;
+  const frame = {type:"MultiPoint", coordinates:[[w0-m*1.4,s0-m],[e0+m*1.4,n0+m]]};
+  proj = d3.geoConicConformal().parallels([44,49]).rotate([-3,0]).fitExtent([[12,12],[W-12,H-12]], frame);
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle = css('--sea'); ctx.fillRect(0,0,W,H);
+  const path = d3.geoPath(proj, ctx);
+  countries.features.forEach(f=>{ ctx.beginPath(); path(f); ctx.fillStyle = f.properties.id==="FR"? css('--land-fr'): css('--land'); ctx.fill(); });
+  // cells
+  const cellKm = D.meta.cell_km, pxPerKm = (proj([3,46.5])[0]-proj([2.987,46.5])[0]) / 1.0; // approx at mid-lat
+  const size = Math.max(1.2, Math.abs(pxPerKm)*cellKm*1.05);
+  const li = seg==="everyday"?3:4;
+  for(const c of cells){
+    const p = proj([c[0],c[1]]); if(!p || p[0]<-5||p[1]<-5||p[0]>W+5||p[1]>H+5) continue;
+    ctx.fillStyle = qColor(c[li]); ctx.fillRect(p[0]-size/2,p[1]-size/2,size,size);
+  }
+  // country outlines
+  ctx.lineWidth = 0.6; ctx.strokeStyle = css('--ink-3');
+  countries.features.forEach(f=>{ ctx.beginPath(); path(f); ctx.stroke(); });
+  ctx.lineWidth = 1.6; ctx.strokeStyle = css('--border-line');
+  borders.features.forEach(f=>{ ctx.beginPath(); path(f); ctx.stroke(); });
+  // labels of countries
+  ov.selectAll("*").remove();
+  const lab = {FR:[2.6,47.2],BE:[4.6,50.6],LU:[6.05,49.95],DE:[8.4,48.9],CH:[7.6,46.85],IT:[8.2,45.2],ES:[-0.8,42.2],AD:[1.52,42.62],MC:[7.5,43.68]};
+  const destList = D.dest.filter(d=> destFilter==="all"||d.type===destFilter);
+  const r = d3.scaleSqrt().domain([0,100]).range([0, view==="all"?5.5:9]);
+  destPts = destList.map(d=>{ const p=proj([d.lon,d.lat]); return {d, x:p[0], y:p[1], r: Math.max(1.5,r(d.score)*(d.score/100))}; })
+                    .filter(p=>p.x>-10&&p.y>-10&&p.x<W+10&&p.y<H+10)
+                    .sort((a,b)=>a.d.score-b.d.score);
+  const g = ov.append("g");
+  g.selectAll("path.dz").data(destPts.filter(p=>p.d.type==="commercial_zone")).join("path").attr("class","dz")
+    .attr("d",p=>{const s=p.r*1.25; return `M${p.x},${p.y-s}L${p.x+s},${p.y}L${p.x},${p.y+s}L${p.x-s},${p.y}Z`;})
+    .attr("fill","var(--s2)").attr("stroke","var(--panel)").attr("stroke-width",1);
+  g.selectAll("circle.dc").data(destPts.filter(p=>p.d.type==="city_centre")).join("circle").attr("class","dc")
+    .attr("cx",p=>p.x).attr("cy",p=>p.y).attr("r",p=>p.r)
+    .attr("fill","var(--panel)").attr("fill-opacity",0.9).attr("stroke","var(--ink)").attr("stroke-width",1.3);
+  // name the strongest centres in view
+  const top = destPts.filter(p=>p.d.type==="city_centre").slice().sort((a,b)=>b.d.score-a.d.score).slice(0, view==="all"?14:18);
+  const placed=[];
+  top.forEach(p=>{ const bx=[p.x+p.r+3,p.y-7,p.x+p.r+3+p.d.name.length*6.3,p.y+7];
+    if(placed.some(q=>!(bx[2]<q[0]||bx[0]>q[2]||bx[3]<q[1]||bx[1]>q[3]))) return; placed.push(bx);
+    g.append("text").attr("x",bx[0]).attr("y",p.y+4).text(p.d.name).attr("font-size",11.5).attr("font-family","var(--sans)").attr("font-weight",500)
+      .attr("fill","var(--ink)").attr("stroke","var(--panel)").attr("stroke-width",3).attr("paint-order","stroke"); });
+  Object.entries(lab).forEach(([k,ll])=>{ const p=proj(ll); if(!p||p[0]<0||p[1]<0||p[0]>W||p[1]>H) return; if((k==="MC"||k==="AD"||k==="LU")&&view==="all") return;
+    ov.append("text").attr("x",p[0]).attr("y",p[1]).attr("text-anchor","middle").text(NAMES[k].toUpperCase())
+      .attr("font-family","var(--mono)").attr("font-size",10.5).attr("letter-spacing","0.14em").attr("fill","var(--ink-3)"); });
+}
+const tree = () => d3.quadtree(destPts, p=>p.x, p=>p.y);
+let qt=null;
+function showTip(html, x, y){
+  tip.innerHTML = html; tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.min(Math.max(4, x+14), W-w-4)+"px"; tip.style.top = Math.min(Math.max(4, y+14), H-h-4)+"px";
+}
+wrap.addEventListener('mousemove', e=>{
+  const rc = wrap.getBoundingClientRect(), x = e.clientX-rc.left, y = e.clientY-rc.top;
+  if(!qt) qt = tree();
+  const p = qt.find(x,y,14);
+  if(p){ const d=p.d; showTip(`<div class="t">${esc(d.name)}</div><div class="r"><span>${d.type==="city_centre"?"City centre":"Commercial zone"} · ${NAMES[d.country]}</span></div>
+    <div class="r"><span>Score</span><b>${d.score.toFixed(0)} / 100 (rank ${d.rank})</b></div>
+    <div class="r"><span>Shops</span><b>${d.n_retail}</b></div>
+    <div class="r"><span>Comparison share</span><b>${pct(d.comparison_share)}</b></div>
+    <div class="r"><span>Modelled turnover</span><b>€${fmtM(d.turnover)} M</b></div>
+    <div class="r"><span>From foreign residents</span><b>${pct(d.foreign_share)}</b></div>`, x, y); return; }
+  // nearest cell
+  const ll = proj.invert([x,y]); if(!ll){tip.hidden=true;return;}
+  let best=null, bd=1e9; const tol = (D.meta.cell_km*0.75)/111;
+  for(const c of cells){ const dx=(c[0]-ll[0])*Math.cos(ll[1]*Math.PI/180), dy=c[1]-ll[1]; const dd=dx*dx+dy*dy; if(dd<bd){bd=dd;best=c;} }
+  if(best && Math.sqrt(bd)<tol*1.5){ showTip(`<div class="t">2 km square</div>
+    <div class="r"><span>Residents</span><b>${d3.format(",")(best[2])}</b></div>
+    <div class="r"><span>Comparison spending abroad</span><b>${pct(best[4])}</b></div>
+    <div class="r"><span>Everyday spending abroad</span><b>${pct(best[3])}</b></div>`, x, y); }
+  else tip.hidden = true;
+});
+wrap.addEventListener('mouseleave', ()=> tip.hidden = true);
+document.querySelectorAll('[data-seg]').forEach(b=>b.addEventListener('click',()=>{ seg=b.dataset.seg;
+  document.querySelectorAll('[data-seg]').forEach(x=>x.setAttribute('aria-pressed', x===b)); drawMap(); qt=null; }));
+sel.addEventListener('change',()=>{view=sel.value; drawMap(); qt=null;});
+document.getElementById('mapDest').addEventListener('change',e=>{destFilter=e.target.value; drawMap(); qt=null;});
+let rt; window.addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(()=>{drawMap(); qt=null;},150);});
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{drawMap();});
+new MutationObserver(()=>drawMap()).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+/* ---------- border balance ---------- */
+let bseg = "all";
+function drawBalance(){
+  const rows = D.balance.filter(b=>b.segment===bseg);
+  const mx = d3.max(rows, r=>Math.max(r.fr_to_nb_eur, r.nb_to_fr_eur));
+  const w = v => (v/mx*100).toFixed(2)+"%";
+  document.getElementById('balChart').innerHTML =
+    `<div class="bal-row bal-head"><span></span><span class="l">France → neighbour</span><span class="r">neighbour → France</span><span class="idx">Index</span></div>` +
+    rows.map(r=>`<div class="bal-row" title="${NAMES[r.neighbour]}: French residents spend €${fmtM(r.fr_to_nb_eur)} M there; its residents spend €${fmtM(r.nb_to_fr_eur)} M in France">
+      <span class="lab">${NAMES[r.neighbour]}</span>
+      <span class="l" style="--w:${w(r.fr_to_nb_eur)}"><span style="width:${w(r.fr_to_nb_eur)}"></span><span class="v">${fmtM(r.fr_to_nb_eur)}</span></span>
+      <span class="r" style="--w:${w(r.nb_to_fr_eur)}"><span style="width:${w(r.nb_to_fr_eur)}"></span><span class="v">${fmtM(r.nb_to_fr_eur)}</span></span>
+      <span class="idx"><span class="pill ${r.balance_index>=0?'in':'out'}">${r.balance_index>=0?'+':'−'}${Math.abs(r.balance_index).toFixed(2)}</span></span></div>`).join("") +
+    `<p class="note" style="margin-top:8px">EUR million per year. Orange: spending by residents of France in the neighbour. Blue: spending by the neighbour's residents in France.</p>`;
+  // split centre vs zone
+  const P = D.pairs.filter(p=> bseg==="all" || p.segment===bseg);
+  const sum = (o,dc,t)=> d3.sum(P.filter(p=>p.origin===o&&p.dest_country===dc&&(!t||p.dest_type===t)), p=>p.eur);
+  document.getElementById('splitChart').innerHTML = NB.filter(n=>n!=="MC").map(n=>{
+    const a = sum("FR",n), ac = sum("FR",n,"city_centre"), b = sum(n,"FR"), bc = sum(n,"FR","city_centre");
+    const bar = (t,c,lab)=> t>0? `<div class="split-row"><span>${lab}</span><div class="stack" title="${pct(c/t)} city centres, ${pct(1-c/t)} commercial zones">
+      <span style="flex:${c/t};background:var(--s1)"></span><span style="flex:${1-c/t};background:var(--s2)"></span></div></div>` : "";
+    return `<div><div class="note" style="font-weight:500;color:var(--ink)">${NAMES[n]}</div>${bar(a,ac,"FR → "+n)}${bar(b,bc,n+" → FR")}</div>`;
+  }).join("");
+}
+document.querySelectorAll('[data-bseg]').forEach(b=>b.addEventListener('click',()=>{ bseg=b.dataset.bseg;
+  document.querySelectorAll('[data-bseg]').forEach(x=>x.setAttribute('aria-pressed', x===b)); drawBalance(); }));
+
+/* ---------- sensitivity ---------- */
+const gammas = [...new Set(D.sensitivity.map(s=>s.gamma))].sort((a,b)=>a-b);
+const scales = [...new Set(D.sensitivity.map(s=>s.theta_scale))].sort((a,b)=>a-b);
+const gs = document.getElementById('sensGamma');
+gs.innerHTML = gammas.map(g=>`<option value="${g}" ${g===D.meta.gamma?'selected':''}>${g} ${g===0?'(prices ignored)':g===D.meta.gamma?'(baseline)':''}</option>`).join("");
+function drawSens(){
+  const g = +gs.value;
+  const S = D.sensitivity.filter(s=>s.gamma===g);
+  const head = `<tr><th>Neighbour</th>${scales.map(s=>`<th class="n">θ × ${s}${s===1?' (base)':''}</th>`).join("")}</tr>`;
+  const body = NB.map(n=>`<tr><td>${NAMES[n]}</td>${scales.map(s=>{ const r=S.find(x=>x.neighbour===n&&x.theta_scale===s); const v=r?r.net_for_france_eur:0;
+      return `<td class="n" style="color:${v>=0?'var(--pos)':'var(--neg)'}">${v>=0?'+':'−'}${fmtM(Math.abs(v))}</td>`;}).join("")}</tr>`).join("");
+  document.getElementById('sensTbl').innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+}
+gs.addEventListener('change', drawSens);
+
+/* ---------- ranking ---------- */
+const cSel = document.getElementById('rkCountry');
+cSel.innerHTML = `<option value="">all</option>` + ["FR",...NB].map(c=>`<option value="${c}">${NAMES[c]}</option>`).join("");
+const rkCols = [
+  ["rank","#",1], ["name","Name",0], ["type","Type",0], ["country","Country",0], ["score","Score",1],
+  ["n_retail","Shops",1], ["comparison_share","Comparison",1], ["diversity","Diversity",1], ["anchor","Anchors",1],
+  ["dist_border_km","To border, km",1], ["turnover","Turnover €M",1], ["foreign_share","Foreign",1]];
+let rkSort = ["rank",1];
+function drawRank(){
+  const c = cSel.value, t = document.getElementById('rkType').value, q = document.getElementById('rkSearch').value.trim().toLowerCase();
+  let rows = D.dest.filter(d=>(!c||d.country===c)&&(!t||d.type===t)&&(!q||(d.name||"").toLowerCase().includes(q)));
+  const [k,dir] = rkSort; rows = rows.slice().sort((a,b)=> (a[k]>b[k]?1:a[k]<b[k]?-1:0)*dir);
+  document.getElementById('rkCount').textContent = `${rows.length} destinations`;
+  const head = `<tr>${rkCols.map(([k2,l,n])=>`<th class="${n?'n':''}"><button type="button" data-k="${k2}" ${k2===k?`data-dir="${dir>0?'↑':'↓'}"`:''}>${l}</button></th>`).join("")}</tr>`;
+  const body = rows.slice(0,400).map(d=>`<tr>
+    <td class="n">${d.rank}</td><td class="name">${esc(d.name)}</td><td>${d.type==="city_centre"?"Centre":"Zone"}</td><td>${d.country}</td>
+    <td class="n"><span class="scorebar" style="width:${(d.score*0.4).toFixed(1)}px"></span>${d.score.toFixed(0)}</td>
+    <td class="n">${d.n_retail}</td><td class="n">${pct(d.comparison_share)}</td><td class="n">${d.diversity.toFixed(0)}</td><td class="n">${d.anchor+d.supermarkets}</td>
+    <td class="n">${d.dist_border_km.toFixed(0)}</td><td class="n">${fmtM(d.turnover)}</td><td class="n">${pct(d.foreign_share)}</td></tr>`).join("");
+  document.getElementById('rkTbl').innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>` + (rows.length>400?`<p class="note" style="padding:8px 10px">First 400 shown. Filter to see more.</p>`:"");
+  document.querySelectorAll('#rkTbl th button').forEach(b=>b.addEventListener('click',()=>{ const k2=b.dataset.k; rkSort = [k2, rkSort[0]===k2? -rkSort[1] : (["rank","name","type","country"].includes(k2)?1:-1)]; drawRank(); }));
+}
+["rkCountry","rkType","rkSearch"].forEach(id=>document.getElementById(id).addEventListener('input', drawRank));
+
+/* ---------- NUTS ---------- */
+const nSel = document.getElementById('nuCountry');
+nSel.innerHTML = ["FR",...NB.filter(n=>D.nuts.some(r=>r.country===n))].map(c=>`<option value="${c}">${NAMES[c]}</option>`).join("") + `<option value="">all</option>`;
+function drawNuts(){
+  const c = nSel.value;
+  const rows = D.nuts.filter(r=>(!c||r.country===c) && r.residents_in_zone>=1000).sort((a,b)=>b.abroad_comparison_share-a.abroad_comparison_share);
+  const head = `<tr><th>Area</th><th>Code</th><th class="n">Residents in strip</th><th class="n">Comparison abroad</th><th class="n">Everyday abroad</th><th class="n">Spent abroad €M</th><th class="n">Foreign spend received €M</th><th class="n">Net €M</th></tr>`;
+  const body = rows.map(r=>`<tr><td class="name">${esc(r.name)}</td><td class="mono">${r.nuts3}</td><td class="n">${d3.format(",.0f")(r.residents_in_zone)}</td>
+    <td class="n">${pct1(r.abroad_comparison_share)}</td><td class="n">${pct1(r.abroad_everyday_share)}</td>
+    <td class="n">${fmtM(r.outflow_abroad_eur)}</td><td class="n">${fmtM(r.inflow_from_abroad_eur)}</td>
+    <td class="n" style="color:${r.net_eur>=0?'var(--pos)':'var(--neg)'}">${r.net_eur>=0?'+':'−'}${fmtM(Math.abs(r.net_eur))}</td></tr>`).join("");
+  document.getElementById('nuTbl').innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+}
+nSel.addEventListener('change', drawNuts);
+
+/* ---------- method ---------- */
+const m = D.meta, pli = D.prices.pli;
+document.getElementById('methodBody').innerHTML = `
+<p>Each border-strip resident splits spending between all destinations reachable within ${m.max_min} minutes by road, in proportion to a utility (Huff model). This is run separately for everyday goods (food, drink, tobacco) and comparison goods (clothing, furnishing, equipment):</p>
+<code>U_ij = A_j^α · exp(−β · t_ij) · θ^[border crossed] · (PLI_j / PLI_i)^−γ
+F_ij = residents_i · spending_per_inhabitant(country_i) · U_ij / Σ_k U_ik</code>
+<ul>
+<li><b>A_j</b>: retail mass of the destination (shops weighted by type, department stores and malls count as 20 shops) × (0.5 + quality). Quality is the non-size part of the score.</li>
+<li><b>t_ij</b>: road travel time on the OpenStreetMap motorway-to-secondary network. <b>β</b> = ${m.segments.everyday.beta}/min for everyday goods and ${m.segments.comparison.beta}/min for comparison goods.</li>
+<li><b>θ</b>: border friction, the penalty for crossing a border (${m.friction.default} by default, ${m.friction.CH} for Switzerland and Andorra, ${m.friction.MC} for Monaco).</li>
+<li><b>PLI</b>: Eurostat price level index (EU27 = 100, ${m.price_years.A0101}), weighted by spending within the segment. Everyday goods: France ${pli.everyday.FR.toFixed(0)}, Spain ${pli.everyday.ES.toFixed(0)}, Germany ${pli.everyday.DE.toFixed(0)}, Switzerland ${pli.everyday.CH.toFixed(0)}, Luxembourg ${pli.everyday.LU.toFixed(0)}. <b>γ</b> = ${m.gamma}.</li>
+<li>Residents: 2021 census 1 km grid, aggregated to ${m.cell_km} km, within ${m.demand_km} km of the border. Destinations are taken up to ${m.supply_km} km from the border so that people near the edge of the strip can still shop inland.</li>
+</ul>
+<p><b>Limits.</b> The parameters are typical literature values, not calibrated on observed flows, so treat euro amounts as orders of magnitude and look at the sensitivity table. OpenStreetMap completeness varies between countries. Tourists, cross-border commuters, fuel purchases and online sales are not modelled. Calibrating with mobile-phone footfall data (such as the mytraffic × FACT observatory) or card-payment data is the natural next step.</p>`;
+
+drawMap(); drawBalance(); drawSens(); drawRank(); drawNuts();
+})();
+</script>
