@@ -41,7 +41,8 @@ def main():
                                                        crs=C.CRS), cn).values
     dest = dest.dropna(subset=["country"]).reset_index(drop=True)
     dest = supply.score(dest)
-    dest["nuts3"] = population.nuts3_at(dest[["x", "y"]].values)
+    dest["nuts3"] = [population.pick_nuts(c, k) for c, k in
+                     zip(population.nuts3_at(dest[["x", "y"]].values), dest.country)]
     dest["dist_border_km"] = gpd.GeoSeries(gpd.points_from_xy(dest.x, dest.y), crs=C.CRS) \
         .distance(areas["border_line"]).values / 1000
     print(f"  {len(shops):,} shops -> {(dest.type == 'city_centre').sum()} city centres, "

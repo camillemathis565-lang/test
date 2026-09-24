@@ -49,12 +49,13 @@ def run(dest, cells, T, pli, spend, theta_scale=1.0, gamma=C.PRICE_GAMMA):
 def summarise(dest, cells, flows):
     """Tables: destination turnover, country-pair flows, cell leakage."""
     d = dest[["dest", "name", "type", "country"]].copy()
-    cell_c = cells.country.values
+    cell_c = np.asarray(cells.country, dtype=object)
+    dest_c = np.asarray(d.country, dtype=object)
     pair_rows = []
     leak = {}
     for seg, F in flows.items():
         d[f"turnover_{seg}"] = F.sum(axis=1)
-        foreign = cell_c[None, :] != d.country.values[:, None]
+        foreign = cell_c[None, :] != dest_c[:, None]
         d[f"foreign_{seg}"] = (F * foreign).sum(axis=1)
         for oc in np.unique(cell_c):
             colmask = cell_c == oc
@@ -63,7 +64,7 @@ def summarise(dest, cells, flows):
             for (dc, dt), v in tmp.groupby(["dest_country", "dest_type"]).v.sum().items():
                 pair_rows.append({"segment": seg, "origin": oc, "dest_country": dc,
                                   "dest_type": dt, "eur": v})
-        out = (F * (cell_c[None, :] != d.country.values[:, None])).sum(axis=0)
+        out = (F * foreign).sum(axis=0)
         leak[seg] = np.divide(out, F.sum(axis=0), out=np.zeros(F.shape[1]),
                               where=F.sum(axis=0) > 0)
     d["turnover"] = sum(d[f"turnover_{s}"] for s in flows)

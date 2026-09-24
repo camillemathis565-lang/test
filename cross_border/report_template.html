@@ -392,7 +392,7 @@ let bseg = "all";
 function drawBalance(){
   const rows = D.balance.filter(b=>b.segment===bseg);
   const mx = d3.max(rows, r=>Math.max(r.fr_to_nb_eur, r.nb_to_fr_eur));
-  const w = v => (v/mx*100).toFixed(2)+"%";
+  const w = v => (v/mx*78).toFixed(2)+"%";
   document.getElementById('balChart').innerHTML =
     `<div class="bal-row bal-head"><span></span><span class="l">France → neighbour</span><span class="r">neighbour → France</span><span class="idx">Index</span></div>` +
     rows.map(r=>`<div class="bal-row" title="${NAMES[r.neighbour]}: French residents spend €${fmtM(r.fr_to_nb_eur)} M there; its residents spend €${fmtM(r.nb_to_fr_eur)} M in France">

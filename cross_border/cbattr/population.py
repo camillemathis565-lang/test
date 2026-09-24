@@ -42,12 +42,12 @@ def demand_cells(cn, areas, places):
     df["country"] = assign_country(gpd.GeoSeries(gpd.points_from_xy(df.x, df.y), crs=C.CRS), cn).values
     df = df.dropna(subset=["country"])
 
-    # Andorra / Monaco are absent from the grid: spread the national total over
+    # Andorra / Monaco are (largely) absent from the grid: spread the national total over
     # OSM settlements, proportional to their tagged population (or equally).
     extra = []
     for c, total in C.GRID_MISSING_POP.items():
         p = places[places.country == c]
-        if p.empty:
+        if p.empty or df.loc[df.country == c, "pop"].sum() > 0.2 * total:
             continue
         w = p["population"].fillna(0).clip(lower=0).values.astype(float)
         w = w / w.sum() if w.sum() > 0 else np.full(len(p), 1 / len(p))
@@ -69,10 +69,23 @@ def demand_cells(cn, areas, places):
     g["nuts3"] = main_nuts.reindex(pd.MultiIndex.from_frame(g[key])).values
     g["x"] = g.wx / g["pop"]   # population-weighted centroid
     g["y"] = g.wy / g["pop"]
+    g["nuts3"] = [pick_nuts(c, k) for c, k in zip(g.nuts3, g.country)]
     g = g[g["pop"] >= 5].drop(columns=["wx", "wy"]).reset_index(drop=True)
     d = gpd.GeoSeries(gpd.points_from_xy(g.x, g.y), crs=C.CRS)
     g["dist_border_km"] = d.distance(areas["border_line"]).values / 1000
     return g
+
+
+def pick_nuts(code, country):
+    """Grid cells on a border carry codes like 'FRL03-ITC16': keep the part
+    that belongs to the cell's own country (Monaco/Andorra have no NUTS)."""
+    if country in ("MC", "AD"):
+        return country
+    if not isinstance(code, str) or not code:
+        return None
+    parts = code.split("-")
+    own = [p for p in parts if p.startswith(country)]
+    return own[0] if own else parts[0]
 
 
 def nuts3_at(xy):
@@ -93,4 +106,5 @@ def nuts_names():
         r = requests.get(C.GISCO_NUTS_NAMES, timeout=120)
         r.raise_for_status()
         p.write_bytes(r.content)
-    return pd.read_csv(p).set_index("NUTS_ID").NAME_LATN
+    names = pd.read_csv(p).set_index("NUTS_ID").NAME_LATN
+    return pd.concat([names, pd.Series({"MC": "Monaco", "AD": "Andorra"})])

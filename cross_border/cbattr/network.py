@@ -12,8 +12,9 @@ from . import config as C
 def build_graph(elements):
     """Contract OSM ways into an undirected graph weighted in minutes.
 
-    Returns (csr_matrix, vertex_xy) restricted to the largest connected
-    component. One-way restrictions are ignored (fine at this scale).
+    Returns (csr_matrix, vertex_xy) restricted to large connected components
+    (the Pyrenees band is disjoint from the northern/eastern band, so there
+    are two). One-way restrictions are ignored (fine at this scale).
     """
     nodes = {e["id"]: (e["lon"], e["lat"]) for e in elements if e["type"] == "node"}
     ways = [e for e in elements if e["type"] == "way" and "nodes" in e
@@ -55,12 +56,12 @@ def build_graph(elements):
     n = len(verts)
     g = coo_matrix((np.maximum(e.c.values, 1e-3), (e.i.values, e.j.values)), shape=(n, n)).tocsr()
     ncomp, lab = connected_components(g, directed=False)
-    main = lab == np.bincount(lab).argmax()
-    keep = np.where(main)[0]
+    sizes = np.bincount(lab)
+    keep = np.where(sizes[lab] >= 0.01 * n)[0]
     g = g[keep][:, keep]
     xy = np.c_[x[verts[keep]], y[verts[keep]]]
     print(f"  road graph: {len(ways):,} ways -> {g.shape[0]:,} vertices, "
-          f"{g.nnz:,} edges ({ncomp} components, largest kept)")
+          f"{g.nnz:,} edges ({ncomp} components, {(sizes >= 0.01 * n).sum()} large ones kept)")
     return g, xy
 
 

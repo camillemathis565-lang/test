@@ -1,0 +1,30 @@
+1/7 borders & study area
+2/7 shops, centres, commercial zones
+  supply: 20/172 tiles, 44,031 elements
+  supply: 40/172 tiles, 70,997 elements
+  supply: 60/172 tiles, 131,757 elements
+  supply: 80/172 tiles, 211,817 elements
+  supply: 100/172 tiles, 258,231 elements
+  supply: 120/172 tiles, 319,495 elements
+  supply: 140/172 tiles, 381,801 elements
+  supply: 160/172 tiles, 465,971 elements
+  supply: 172/172 tiles, 571,514 elements
+  317,362 shops -> 707 city centres, 595 commercial zones
+3/7 residents
+  26,050 cells, 25,100,740 residents within 40 km of a French land border
+4/7 road network & travel times
+  99.9% of cells reach at least one destination within 75 min
+5/7 prices & Huff model
+6/7 sensitivity analysis
+7/7 writing outputs
+
+France <-> neighbours, all segments (EUR million / year):
+neighbour  fr_to_nb_eur  nb_to_fr_eur  net_for_france_eur  balance_index
+       BE        1801.0        2181.0               380.0       0.095466
+       LU         476.0         579.0               103.0       0.097290
+       DE        2104.0        1262.0              -842.0      -0.250194
+       CH         973.0        1593.0               619.0       0.241311
+       IT         141.0         200.0                59.0       0.173302
+       MC          44.0          32.0               -12.0      -0.157067
+       ES         567.0         120.0              -447.0      -0.650035
+       AD           7.0           0.0                -7.0      -0.944240
