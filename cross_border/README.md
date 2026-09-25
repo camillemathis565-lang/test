@@ -52,6 +52,25 @@ F_ij = population_i · spending_s(country_i) · P_ij          [EUR / year]
 | `sensitivity.csv` | Border balances for 5 border-friction levels × 3 price elasticities |
 | `report.html` | Interactive report: map of spending that goes abroad, border balances, rankings |
 
+## Independent shops (SMEs) vs chains
+
+`python run_business_impact.py` (after `run_pipeline.py`) compares the actual
+flows with a counterfactual where borders are closed (θ = 0). For each
+destination, the difference is split between **chain** shops (OSM `brand` /
+`brand:wikidata` tag, franchises included) and **independent** shops (untagged,
+mostly SMEs; markets included) according to their share of the segment's
+retail mass.
+
+| File | Content |
+|---|---|
+| `business_impact_destinations.csv` | Per destination × ownership: turnover with closed borders, gain from foreign residents, loss of domestic residents going abroad, net, net % |
+| `business_impact_by_country_type.csv` | Same, by country × centre/zone × ownership |
+| `business_impact_france_nuts3.csv` | Same, by French département |
+| `business_impact_sensitivity.csv` | France net by ownership for 5 border-friction levels |
+
+Brand tagging is more complete in France (37 % of shops tagged) than in Spain
+or Italy (14–16 %), so the independent share is overstated there.
+
 ## Caveats
 
 * **Not calibrated.** α, β, θ and γ come from typical values in the literature, not from observed flows. Treat absolute euros as orders of magnitude. The *direction* and *ranking* of flows are more robust; `sensitivity.csv` shows how they move. To calibrate, fit the parameters with a Poisson gravity regression on observed flows (for example the mobile-phone footfall data from mytraffic × FACT used in the case study, card-payment data, or shopper surveys).

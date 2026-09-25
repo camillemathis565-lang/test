@@ -25,7 +25,8 @@ def cached(name, fn):
     return v
 
 
-def main():
+def build_inputs():
+    """Steps 1-4: study area, destinations, residents, travel times."""
     C.OUT.mkdir(exist_ok=True)
     print("1/7 borders & study area")
     cn = geo.countries()
@@ -62,6 +63,15 @@ def main():
     reach = np.isfinite(T).any(axis=0)
     print(f"  {reach.mean():.1%} of cells reach at least one destination "
           f"within {C.MAX_TRAVEL_MIN} min")
+
+    return {"cn": cn, "borders": borders, "areas": areas, "dest": dest, "shops": shops,
+            "cells": cells, "T": T, "reach": reach}
+
+
+def main():
+    I = build_inputs()
+    cn, borders, dest, shops, cells, T, reach = (I[k] for k in
+                                                 ("cn", "borders", "dest", "shops", "cells", "T", "reach"))
 
     print("5/7 prices & Huff model")
     pli, spend, years = prices.price_and_spend()
