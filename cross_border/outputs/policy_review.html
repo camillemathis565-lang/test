@@ -8,7 +8,7 @@
   --bg:#f6f7f5; --panel:#ffffff; --ink:#18212b; --ink-2:#46505c; --ink-3:#77818c;
   --rule:#dde1e4; --soft:#eef1f3; --accent:#1f5f8b; --accent-soft:#e3eef6;
   --yes:#1e7a4f; --yes-bg:#e5f3ec; --part:#9a6a00; --part-bg:#fbf1dc; --no:#b3392f; --no-bg:#fae6e3;
-  --bar:#2a78d6;
+  --bar:#2a78d6; --s1:#2a78d6; --s2:#eb6834;
   --serif:"Literata", Georgia, serif; --sans:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
@@ -18,7 +18,7 @@
     --bg:#11161b; --panel:#182028; --ink:#eaeef2; --ink-2:#b6c0ca; --ink-3:#8793a0;
     --rule:#2b3540; --soft:#1e2731; --accent:#7fb3dc; --accent-soft:#1b2d3d;
     --yes:#6cc79a; --yes-bg:#15302a; --part:#e0b458; --part-bg:#33291a; --no:#ef8a7f; --no-bg:#3a1f1d;
-    --bar:#3987e5;
+    --bar:#3987e5; --s1:#3987e5; --s2:#d95926;
   }
 }
 :root[data-theme="dark"]{
@@ -26,7 +26,7 @@
   --bg:#11161b; --panel:#182028; --ink:#eaeef2; --ink-2:#b6c0ca; --ink-3:#8793a0;
   --rule:#2b3540; --soft:#1e2731; --accent:#7fb3dc; --accent-soft:#1b2d3d;
   --yes:#6cc79a; --yes-bg:#15302a; --part:#e0b458; --part-bg:#33291a; --no:#ef8a7f; --no-bg:#3a1f1d;
-  --bar:#3987e5;
+  --bar:#3987e5; --s1:#3987e5; --s2:#d95926;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--sans)}
@@ -87,6 +87,18 @@ td a{color:var(--accent)}
 .tags{display:flex;gap:6px;flex-wrap:wrap}
 .tag{font:500 11px var(--mono);padding:2px 7px;border:1px solid var(--rule);border-radius:4px;color:var(--ink-2)}
 .tag.p1{border-color:var(--accent);color:var(--accent)}
+.fly{display:grid;gap:3px}
+.fly-row{display:grid;grid-template-columns:1fr 118px 1fr;align-items:center;font-size:12.5px;gap:0 8px}
+.fly-row .c{text-align:center;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fly-row.fr .c{color:var(--ink);font-weight:600}
+.fly-row.fr{background:var(--accent-soft);border-radius:4px}
+.fly-l,.fly-r{position:relative;height:13px}
+.fly-l span.b{position:absolute;right:0;top:0;bottom:0;background:var(--s2);border-radius:4px 0 0 4px}
+.fly-r span.b{position:absolute;left:0;top:0;bottom:0;background:var(--s1);border-radius:0 4px 4px 0}
+.fly-l .v,.fly-r .v{position:absolute;top:-1px;font:11px var(--mono);color:var(--ink-2);white-space:nowrap}
+.fly-head{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.fly-head .l{text-align:right}
+@media (max-width:560px){.fly-row{grid-template-columns:1fr 84px 1fr}}
 ol.src{margin:0;padding-left:22px;display:grid;gap:4px;font-size:13px;color:var(--ink-2)}
 ol.src a{color:var(--accent);word-break:break-word}
 footer{font-size:12.5px;color:var(--ink-3)}
@@ -107,6 +119,7 @@ footer{font-size:12.5px;color:var(--ink-3)}
     <li><b>France's policy stack does not see its borders.</b> None of the big retail and town-centre programmes uses exposure to neighbouring countries as a criterion. That includes Action Cœur de Ville, Petites Villes de Demain, the 2025 "Lever le rideau" plan, France Ruralités Revitalisation zones and the commercial-zone transformation plan. Border instruments exist, but they deal with governance (the Aachen Treaty committee, the 3DS law, BRIDGEforEU), with enforcement (tobacco import rules) or with tobacconists only.</li>
     <li><b>The model shows the flows are large and uneven.</b> Border-strip residents spend about €6.1bn a year abroad and receive about €6.0bn. France loses on everyday goods, where prices drive trips (Germany −€0.84bn net, Spain −€0.45bn). It gains on comparison goods (Switzerland +€0.62bn, Belgium +€0.38bn). Peripheral food retail and tobacconists absorb most of the losses.</li>
     <li><b>Tobacco is the sharpest case.</b> Calibrated on the 2020 closure, the model puts about 9% of French cigarette consumption, roughly €1.7bn a year, in neighbouring countries. Closing borders would lift tobacconists' sales by 50–60% in the Pyrénées-Orientales, Ariège and Moselle. Current support pays a flat €2,500 diversification bonus in border départements.</li>
+    <li><b>Compared with Europe, France is two-way on everyday retail but a net importer of excise goods.</b> Unlike Norway, Denmark or Switzerland, whose residents only shop outwards, French border retail roughly balances (€6.1bn out, €6.0bn in), and France earns on tourism. On tobacco, 11.9% of cigarettes consumed were bought legally abroad against 1.3% of French sales going to foreigners, plus the largest illicit share in Europe (KPMG 2024).</li>
     <li><b>Other borders show what works.</b> Norway, Denmark, Ireland and Germany measure their leakage officially. Denmark, Norway and Finland cut taxes to stem it, at a public-health cost (Finnish alcohol deaths rose sharply). German leakage to Czechia halved when Czech prices rose. US studies find the same price response (elasticity 3.1) as the French tobacco calibration.</li>
     <li><b>Main recommendations.</b> Build a border-exposure index and use it to target existing programmes. Create an official measure of cross-border retail flows. Make tobacconist support proportional to exposure. Require cross-border impact assessment in commercial planning. Capture inflows better (tax-free shopping, cross-border marketing). Put proximity retail into the next Interreg generation. Add a trigger for sudden price or currency shocks.</li>
   </ul>
@@ -186,8 +199,60 @@ footer{font-size:12.5px;color:var(--ink-3)}
 
 <div class="frontier" role="presentation"></div>
 
+<section id="position">
+  <span class="eyebrow">4 · Where France stands</span>
+  <h2>Inflows and outflows: France against the rest of Europe</h2>
+  <p class="note">Three comparable measures. Each gives a different picture, and together they show where France is exposed.</p>
+
+  <div class="figs">
+    <div class="fig"><b>Two-way on everyday retail</b><span>€6.1bn out, €6.0bn in (model). Norway, Denmark and Switzerland only send spending out.</span></div>
+    <div class="fig"><b>Net importer of tobacco</b><span>11.9% of cigarettes consumed were bought legally abroad, and only 1.3% of French sales go abroad. Plus 37.6% illicit, the highest in Europe.</span></div>
+    <div class="fig"><b>Net earner overall</b><span>Counting tourism, non-residents spend more in France (4.4% of domestic household consumption) than French residents spend abroad (3.5%).</span></div>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Tobacco: cigarettes bought abroad vs sold to foreigners, 2024</h3>
+    <div class="note" style="display:flex;gap:18px;flex-wrap:wrap">
+      <span><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s2)"/></svg> Residents' consumption bought legally abroad (% of consumption)</span>
+      <span><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s1)"/></svg> Legal sales consumed abroad (% of sales)</span>
+    </div>
+    <div class="fly" id="flyTob"></div>
+    <p class="note">Source: <a href="#src-kpmg" style="color:var(--accent)">KPMG</a>, Illicit cigarette consumption in Europe, 2024 results (38 markets, commissioned by Philip Morris International; empty-pack surveys and flow model). Legal inflows include duty-free and cross-border purchases, not contraband. Sorted by net position. Luxembourg's bar is cut at 25%: 88% of its legal sales are consumed abroad. For France, the calibrated model gives 9.1% and INSEE at least 9.5%, consistent with KPMG's 11.9%.</p>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>All household spending across borders, 2023 (tourism included)</h3>
+    <div class="note" style="display:flex;gap:18px;flex-wrap:wrap">
+      <span><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s2)"/></svg> Residents' spending abroad (% of their consumption)</span>
+      <span><svg width="12" height="12" aria-hidden="true"><rect width="12" height="12" rx="2" fill="var(--s1)"/></svg> Non-residents' spending in the country (% of domestic consumption)</span>
+    </div>
+    <div class="fly" id="flyHH"></div>
+    <p class="note">Source: <a href="#src-esfcs" style="color:var(--accent)">Eurostat national accounts, nama_10_fcs</a>, items P33 and P34, current prices. This counts all spending by travellers, not only border shopping, so tourist countries (Spain, Italy, France) look like net earners. Belgium, Germany and Norway are net spenders abroad.</p>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Dedicated border-shopping measures, per inhabitant</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Country</th><th>Measure</th><th class="n">Total</th><th class="n">Per inhabitant</th><th>Direction</th></tr></thead>
+      <tbody>
+        <tr><td>Switzerland</td><td>Shopping in physical stores abroad, 2025 (HSG)</td><td class="n">CHF 7–8bn</td><td class="n">≈ €880</td><td>Out only</td></tr>
+        <tr><td>Denmark</td><td>Grocery border trade, 2024 (grocers' association)</td><td class="n">DKK 9bn+</td><td class="n">≈ €200</td><td>Out only</td></tr>
+        <tr><td>Norway</td><td>Day-trip border shopping, 2024 (Statistics Norway)</td><td class="n">NOK 11bn</td><td class="n">≈ €170</td><td>Out only</td></tr>
+        <tr style="background:var(--accent-soft)"><td><b>France</b></td><td>Retail excluding fuel, border strip (model) plus cigarettes (calibrated)</td><td class="n">€6.1bn + €1.7bn out<br>€6.0bn in</td><td class="n">≈ €115 nationally<br>≈ €565 per border-strip resident</td><td>Two-way</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">The per-inhabitant figures use national population and are converted at approximate 2024–25 exchange rates. The sources differ in method (official survey, industry estimate, academic study, model), so compare orders of magnitude only.</p>
+  </div>
+
+  <div class="gaps">
+    <div class="gap"><span class="id" style="color:var(--accent)">→</span><div><p><b>What this means for France.</b></p><p class="ev">France is not a Norway or a Switzerland. Its high prices don't push spending out across the board: on everyday retail the border works in both directions, and the country gains on tourism. The weakness is concentrated in excise goods. France is among Europe's largest net importers of legally bought cigarettes (behind Norway, the Netherlands, Ireland and Germany in relative terms), has the largest illicit market, and faces the biggest exporting neighbours: Spain sends 10% of its legal sales abroad, and Luxembourg 88%. Policy should therefore target excise-exposed towns and products (R1, R3, R8) rather than general retail competitiveness, while the tourism and comparison-goods surplus is protected and cultivated (R5).</p></div></div>
+  </div>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
 <section id="gaps">
-  <span class="eyebrow">4 · Gaps</span>
+  <span class="eyebrow">5 · Gaps</span>
   <h2>Eight gaps between the policy stack and the flows</h2>
   <div class="gaps" id="gapList"></div>
 </section>
@@ -195,7 +260,7 @@ footer{font-size:12.5px;color:var(--ink-3)}
 <div class="frontier" role="presentation"></div>
 
 <section id="recs">
-  <span class="eyebrow">5 · Recommendations to the French government</span>
+  <span class="eyebrow">6 · Recommendations to the French government</span>
   <h2>Nine measures, most of them adjustments to existing tools</h2>
   <p class="note">Priority 1 measures can be done within existing budgets and legal bases in 2026–2027. Priority 2 measures need negotiation (EU, neighbours) or new legislation. Each measure lists the gaps it closes and the international lessons it draws on.</p>
   <div class="recs" id="recList"></div>
@@ -204,7 +269,7 @@ footer{font-size:12.5px;color:var(--ink-3)}
 <div class="frontier" role="presentation"></div>
 
 <section id="limits">
-  <span class="eyebrow">6 · Limits</span>
+  <span class="eyebrow">7 · Limits</span>
   <h2>How far to trust this</h2>
   <ul class="note" style="margin:0;padding-left:18px;display:grid;gap:6px;max-width:75ch">
     <li>General retail flows come from an uncalibrated model. The directions and rankings are more reliable than the euro amounts. Tobacco is calibrated on 12 observed 2020 figures but misses Moselle (+53% modelled vs +26% observed, likely because cross-border commuters kept buying in Luxembourg during the closure). Fuel could not be identified from annual data.</li>
@@ -286,7 +351,9 @@ const S = {
  iealc:["Irish Times – 25% jump in cross-border shopping (CSO survey)","https://www.irishtimes.com/news/25-jump-in-cross-border-shopping-survey-1.761877"],
  lov:["Lovenheim (2008), How far to the border? National Tax Journal","https://www.journals.uchicago.edu/doi/10.17310/ntj.2008.1.01"],
  hll:["Harding, Leibtag & Lovenheim – Excise tax avoidance: the case of state cigarette taxes (NBER w15941)","https://www.nber.org/system/files/working_papers/w15941/w15941.pdf"],
- pact:["ATF – Prevent All Cigarette Trafficking (PACT) Act","https://www.atf.gov/alcohol-tobacco/prevent-all-cigarette-trafficking-pact-act"]
+ pact:["ATF – Prevent All Cigarette Trafficking (PACT) Act","https://www.atf.gov/alcohol-tobacco/prevent-all-cigarette-trafficking-pact-act"],
+ kpmg:["KPMG – Illicit cigarette consumption in Europe, results for 2024 (commissioned by PMI)","https://www.pmi.com/resources/docs/default-source/itp/illicit-cigarette-consumption-in-europe-2024-results.pdf?sfvrsn=4ad3ac8_6"],
+ esfcs:["Eurostat – Final consumption aggregates (nama_10_fcs), P33 and P34","https://ec.europa.eu/eurostat/databrowser/view/nama_10_fcs/default/table"]
 };
 const order = Object.keys(S); const num = k => order.indexOf(k)+1;
 const cite = (...ks) => ks.map(k=>`<a href="#src-${k}">[${num(k)}]</a>`).join(" ");
@@ -343,6 +410,18 @@ const LESSONS = [
  ["L6","Gaps can open suddenly.","Sterling's fall in 2008–09 raised Irish cross-border shopping by 25%, and franc movements drive Swiss shopping. A monitoring trigger beats ad-hoc responses.",["iealc","hsg"]]
 ];
 document.getElementById('lessonList').innerHTML = LESSONS.map(g=>`<div class="gap"><span class="id" style="color:var(--accent)">${g[0]}</span><div><p><b>${g[1]}</b></p><p class="ev">${g[2]} ${cite(...g[3])}</p></div></div>`).join("");
+
+const TOBX = [["Albania", 2.7, 8.4, 3.3], ["Austria", 7.5, 5.1, 4.3], ["Belgium", 12.4, 9.0, 15.3], ["Bosnia and Herzegovina", 0.8, 5.5, 2.3], ["Bulgaria", 0.7, 12.3, 1.4], ["Croatia", 1.0, 9.0, 5.0], ["Cyprus", 9.7, 20.2, 14.0], ["Czech Republic", 9.2, 15.8, 8.0], ["Denmark", 6.5, 4.7, 7.0], ["Estonia", 5.5, 21.1, 6.4], ["Finland", 6.8, 0.9, 19.5], ["France", 11.9, 1.3, 37.6], ["Germany", 14.5, 2.2, 2.2], ["Greece", 2.1, 4.7, 17.6], ["Hungary", 2.6, 2.5, 13.4], ["Ireland", 16.8, 1.1, 31.5], ["Italy", 1.8, 1.8, 1.8], ["Kosovo", 1.2, 14.1, 2.1], ["Latvia", 1.1, 8.5, 18.2], ["Lithuania", 6.9, 5.9, 19.6], ["Luxembourg", 4.6, 88.0, 1.5], ["Malta", 6.2, 7.9, 4.6], ["Moldova", 0.8, 9.3, 0.4], ["Montenegro", 0.8, 2.5, 8.4], ["Netherlands", 21.1, 3.1, 17.9], ["North Macedonia", 0.3, 9.4, 6.0], ["Norway", 22.3, 2.2, 16.3], ["Poland", 1.1, 17.4, 4.2], ["Portugal", 0.9, 5.6, 2.3], ["Romania", 2.3, 8.6, 6.0], ["Serbia", 1.6, 5.0, 1.4], ["Slovakia", 2.3, 5.2, 5.2], ["Slovenia", 5.4, 20.8, 6.2], ["Spain", 2.6, 10.2, 3.3], ["Sweden", 5.6, 9.6, 8.4], ["Switzerland", 9.0, 3.0, 3.5], ["UK", 12.2, 1.8, 25.6]], HHX = [["Austria", 5.1, 8.2, 3.4], ["Belgium", 6.5, 2.7, -3.9], ["Bulgaria", 4.2, 7.8, 3.9], ["Switzerland", 4.8, 4.9, 0.2], ["Cyprus", 8.1, 16.0, 9.4], ["Czechia", 2.7, 4.7, 2.1], ["Germany", 4.0, 1.5, -2.5], ["Denmark", 4.5, 6.1, 1.7], ["Estonia", 5.7, 6.7, 1.0], ["Greece", 1.6, 12.1, 11.9], ["Spain", 2.5, 8.3, 6.4], ["Finland", 3.1, 2.8, -0.3], ["France", 3.5, 4.4, 1.0], ["Croatia", 3.7, 25.5, 29.1], ["Hungary", 3.4, 7.3, 4.2], ["Ireland", 6.9, 4.3, -2.6], ["Iceland", 9.7, 17.4, 9.3], ["Italy", 2.1, 4.1, 2.2], ["Lithuania", 2.8, 2.8, -0.0], ["Luxembourg", 15.6, 22.1, 8.4], ["Latvia", 5.0, 5.2, 0.2], ["Malta", 5.6, 18.4, 15.6], ["Netherlands", 4.4, 4.2, -0.3], ["Norway", 9.0, 3.8, -5.4], ["Poland", 1.7, 1.8, 0.2], ["Portugal", 3.1, 13.4, 11.9], ["Romania", 3.2, 1.5, -1.7], ["Sweden", 4.5, 4.0, -0.5], ["Slovenia", 6.3, 9.8, 3.9], ["Slovakia", 5.5, 2.3, -3.2]];
+function fly(el, rows, capL, capR){
+  const html = [`<div class="fly-row fly-head"><span class="l">buy abroad</span><span></span><span>sold to non-residents</span></div>`].concat(rows.map(r=>{
+    const [c,l,rr]=r, wl=Math.min(l,capL)/capL*80, wr=Math.min(rr,capR)/capR*80;
+    const vr = rr>capR? `${rr}% ›` : `${rr}%`;
+    return `<div class="fly-row ${c==='France'?'fr':''}" title="${c}: ${l}% / ${rr}%"><span class="fly-l"><span class="b" style="width:${wl}%"></span><span class="v" style="right:calc(${wl}% + 4px)">${l}%</span></span><span class="c">${c}</span><span class="fly-r"><span class="b" style="width:${wr}%"></span><span class="v" style="left:calc(${wr}% + 4px)">${vr}</span></span></div>`;
+  }));
+  document.getElementById(el).innerHTML = html.join("");
+}
+fly("flyTob", TOBX.slice().sort((a,b)=>(a[2]-a[1])-(b[2]-b[1])), 25, 25);
+fly("flyHH", HHX.slice().sort((a,b)=>(a[2]-a[1])-(b[2]-b[1])), 26, 26);
 
 const LABEL = {yes:"Border-specific",part:"Partial",no:"Border-blind"};
 function drawInv(f){
