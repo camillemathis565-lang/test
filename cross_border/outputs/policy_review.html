@@ -97,7 +97,7 @@ footer{font-size:12.5px;color:var(--ink-3)}
 <header style="display:grid;gap:14px">
   <span class="eyebrow">Policy review · France's land borders · September 2026</span>
   <h1>Small shops on France's borders: what exists, what is missing, what to do</h1>
-  <p class="lede">An inventory of EU, national and local measures that reach retail SMEs in French border zones, read against a spatial model of cross-border spending along all eight land borders. It ends with eight recommendations for the French government.</p>
+  <p class="lede">An inventory of EU, national and local measures that reach retail SMEs in French border zones, read against a spatial model of cross-border spending along all eight land borders. It compares France with eight other borders with large excise gaps, and ends with nine recommendations for the French government.</p>
   <p class="meta">Evidence: 40+ official sources (European Commission, Légifrance, Ministry of the Economy / DGE, ANCT, DGDDI, INSEE, OFDT, SDES, Parliament, CCIs, cross-border observatories). Model: Huff gravity model on 317,000 OpenStreetMap shops and 25 million border residents, with tobacco calibrated on the 2020 border closure.</p>
 </header>
 
@@ -107,7 +107,8 @@ footer{font-size:12.5px;color:var(--ink-3)}
     <li><b>France's policy stack does not see its borders.</b> None of the big retail and town-centre programmes uses exposure to neighbouring countries as a criterion. That includes Action Cœur de Ville, Petites Villes de Demain, the 2025 "Lever le rideau" plan, France Ruralités Revitalisation zones and the commercial-zone transformation plan. Border instruments exist, but they deal with governance (the Aachen Treaty committee, the 3DS law, BRIDGEforEU), with enforcement (tobacco import rules) or with tobacconists only.</li>
     <li><b>The model shows the flows are large and uneven.</b> Border-strip residents spend about €6.1bn a year abroad and receive about €6.0bn. France loses on everyday goods, where prices drive trips (Germany −€0.84bn net, Spain −€0.45bn). It gains on comparison goods (Switzerland +€0.62bn, Belgium +€0.38bn). Peripheral food retail and tobacconists absorb most of the losses.</li>
     <li><b>Tobacco is the sharpest case.</b> Calibrated on the 2020 closure, the model puts about 9% of French cigarette consumption, roughly €1.7bn a year, in neighbouring countries. Closing borders would lift tobacconists' sales by 50–60% in the Pyrénées-Orientales, Ariège and Moselle. Current support pays a flat €2,500 diversification bonus in border départements.</li>
-    <li><b>Main recommendations.</b> Build a border-exposure index and use it to target existing programmes. Create an official measure of cross-border retail flows. Make tobacconist support proportional to exposure. Require cross-border impact assessment in commercial planning. Capture inflows better (tax-free shopping, cross-border marketing). Put proximity retail into the next Interreg generation.</li>
+    <li><b>Other borders show what works.</b> Norway, Denmark, Ireland and Germany measure their leakage officially. Denmark, Norway and Finland cut taxes to stem it, at a public-health cost (Finnish alcohol deaths rose sharply). German leakage to Czechia halved when Czech prices rose. US studies find the same price response (elasticity 3.1) as the French tobacco calibration.</li>
+    <li><b>Main recommendations.</b> Build a border-exposure index and use it to target existing programmes. Create an official measure of cross-border retail flows. Make tobacconist support proportional to exposure. Require cross-border impact assessment in commercial planning. Capture inflows better (tax-free shopping, cross-border marketing). Put proximity retail into the next Interreg generation. Add a trigger for sudden price or currency shocks.</li>
   </ul>
 </div>
 
@@ -171,8 +172,22 @@ footer{font-size:12.5px;color:var(--ink-3)}
 
 <div class="frontier" role="presentation"></div>
 
+<section id="international">
+  <span class="eyebrow">3 · International comparison</span>
+  <h2>Other borders with large excise gaps</h2>
+  <p class="note">Eight borders where tax differences on alcohol, tobacco, sugar or fuel drive cross-border shopping. For each: how big it is, whether the state measures it, what it did, and what France can take from it.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Border</th><th>Products and size</th><th>Measured by</th><th>Policy response</th><th>Lesson for France</th></tr></thead>
+    <tbody id="intlBody"></tbody>
+  </table></div>
+  <h3 style="margin-top:6px">Six lessons</h3>
+  <div class="gaps" id="lessonList"></div>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
 <section id="gaps">
-  <span class="eyebrow">3 · Gaps</span>
+  <span class="eyebrow">4 · Gaps</span>
   <h2>Eight gaps between the policy stack and the flows</h2>
   <div class="gaps" id="gapList"></div>
 </section>
@@ -180,16 +195,16 @@ footer{font-size:12.5px;color:var(--ink-3)}
 <div class="frontier" role="presentation"></div>
 
 <section id="recs">
-  <span class="eyebrow">4 · Recommendations to the French government</span>
-  <h2>Eight measures, most of them adjustments to existing tools</h2>
-  <p class="note">Priority 1 measures can be done within existing budgets and legal bases in 2026–2027. Priority 2 measures need negotiation (EU, neighbours) or new legislation. Each measure lists the gaps it closes.</p>
+  <span class="eyebrow">5 · Recommendations to the French government</span>
+  <h2>Nine measures, most of them adjustments to existing tools</h2>
+  <p class="note">Priority 1 measures can be done within existing budgets and legal bases in 2026–2027. Priority 2 measures need negotiation (EU, neighbours) or new legislation. Each measure lists the gaps it closes and the international lessons it draws on.</p>
   <div class="recs" id="recList"></div>
 </section>
 
 <div class="frontier" role="presentation"></div>
 
 <section id="limits">
-  <span class="eyebrow">5 · Limits</span>
+  <span class="eyebrow">6 · Limits</span>
   <h2>How far to trust this</h2>
   <ul class="note" style="margin:0;padding-left:18px;display:grid;gap:6px;max-width:75ch">
     <li>General retail flows come from an uncalibrated model. The directions and rankings are more reliable than the euro amounts. Tobacco is calibrated on 12 observed 2020 figures but misses Moselle (+53% modelled vs +26% observed, likely because cross-border commuters kept buying in Luxembourg during the closure). Fuel could not be identified from annual data.</li>
@@ -254,7 +269,24 @@ const S = {
  ofdt:["OFDT – Tabagisme et arrêt du tabac en 2020","https://documentation-administrative.gouv.fr/adm-01859246v1/document"],
  an:["Assemblée nationale – Mission d'information sur les ventes de tabac pendant le confinement (rapport n°4498)","https://www.assemblee-nationale.fr/dyn/docs/RINFANR5L15B4498.raw"],
  dgddi:["DGDDI – Open data : tabacs manufacturés (ventes nationales mensuelles)","https://www.douane.gouv.fr/la-douane/opendata/categories/tabacs-manufactures"],
- sdes:["SDES – Consommation annuelle de produits pétroliers par département","https://www.statistiques.developpement-durable.gouv.fr/donnees-annuelles-de-consommation-de-produits-petroliers-par-departement-france-metropolitaine-0"]
+ sdes:["SDES – Consommation annuelle de produits pétroliers par département","https://www.statistiques.developpement-durable.gouv.fr/donnees-annuelles-de-consommation-de-produits-petroliers-par-departement-france-metropolitaine-0"],
+ dsk:["DSK – Danskerne grænsehandlede dagligvarer for over 9 mia. kroner i 2024","https://dsk.dk/wp-content/uploads/2025/06/Analysenotat-Danskerne-graensehandlede-dagligvarer-for-over-9-mia.-kroner-i-2024.pdf"],
+ skm:["Danish Tax Ministry – border-trade calculation method (Skatteøkonomisk Redegørelse, ch. 7)","https://svmn.dk/media/Skatteministeriet/Dokumenter/PDF'er/Regnemetoder_-_kapitler_af_Skatte%C3%B8konomisk_Redeg%C3%B8relse/sr21-kap-7.pdf"],
+ dksoda:["Lexology – Denmark repeals beverage tax","https://www.lexology.com/library/detail.aspx?g=b0751944-4b34-4407-9cf2-5ad331066774"],
+ ssb:["Statistics Norway – Grensehandelen økte med 18 prosent i 2024","https://www.ssb.no/varehandel-og-tjenesteyting/varehandel/statistikk/grensehandel/artikler/grensehandelen-okte-med-18-prosent-i-2024"],
+ nosugar:["News in English – Bittersweet comeback for sugar taxes (2022)","https://www.newsinenglish.no/2022/04/25/bittersweet-comeback-for-sugar-taxes/"],
+ fi:["Mäkelä & Österberg (2009), Effects of the alcohol tax cuts in Finland in 2004, Addiction","https://pubmed.ncbi.nlm.nih.gov/19335654/"],
+ fivn:["Finnish Government – Alcohol issues in Finland after accession to the EU","https://julkaisut.valtioneuvosto.fi/bitstream/handle/10024/74761/Selv200621.pdf?sequence=1&isAllowed=y"],
+ hsg:["University of St. Gallen (IRM-HSG) – Einkaufstourismus Schweiz 2025","https://irm.unisg.ch/de/newsuebersicht/detail/news/einkaufstourismus-uebersteigt-das-niveau-vor-corona-krise/"],
+ dzv:["Statista / Ipsos empty-pack survey – share of non-German-taxed cigarettes, 2024","https://de.statista.com/statistik/daten/studie/218514/umfrage/anteil-der-nichtversteuerten-zigaretten-in-deutschland"],
+ dzv2:["Lebensmittelpraxis – Tabakmarkt in Deutschland (empty-pack survey 2024)","https://lebensmittelpraxis.de/industrie-aktuell/42894-tabakmarkt-zigarettenabsatz-steigt-erstmals-seit-fuenf-jahren.html"],
+ luiea:["IEA – Luxembourg 2020 energy policy review","https://www.iea.org/reports/luxembourg-2020"],
+ luoecd:["OECD Economic Surveys: Luxembourg 2025 – Managing the green transition","https://www.oecd.org/en/publications/oecd-economic-surveys-luxembourg-2025_803b3ea1-en/full-report/managing-the-green-transition_8dafc271.html"],
+ iefuel:["Kennedy, Lyons, Morgenroth & Walsh (2017), Assessing the level of cross-border fuel tourism – Revenue Commissioners / ESRI","https://www.revenue.ie/en/corporate/documents/research/cross-border-fuel-tourism.pdf"],
+ iealc:["Irish Times – 25% jump in cross-border shopping (CSO survey)","https://www.irishtimes.com/news/25-jump-in-cross-border-shopping-survey-1.761877"],
+ lov:["Lovenheim (2008), How far to the border? National Tax Journal","https://www.journals.uchicago.edu/doi/10.17310/ntj.2008.1.01"],
+ hll:["Harding, Leibtag & Lovenheim – Excise tax avoidance: the case of state cigarette taxes (NBER w15941)","https://www.nber.org/system/files/working_papers/w15941/w15941.pdf"],
+ pact:["ATF – Prevent All Cigarette Trafficking (PACT) Act","https://www.atf.gov/alcohol-tobacco/prevent-all-cigarette-trafficking-pact-act"]
 };
 const order = Object.keys(S); const num = k => order.indexOf(k)+1;
 const cite = (...ks) => ks.map(k=>`<a href="#src-${k}">[${num(k)}]</a>`).join(" ");
@@ -290,6 +322,28 @@ const INV = [
  ["Local","CCI Pyrénées-Orientales","Cross-border programmes (POCTEFA partnerships) with a tourism and heritage focus.","part",["ccip"]],
  ["Local","Eurométropole Lille-Kortrijk-Tournai (EGTC) and EURO 3 CCI grouping","A cross-border metropolis of 2 million people, with a grouping of the Lille, West Flanders and Walloon Picardy CCIs. Networking, but no joint retail strategy found.","part",["elkt"]]
 ];
+
+const INTL = [
+ ["Denmark → Germany (and Sweden)","Beer, soft drinks, sweets, tobacco, diesel. Danish grocery border trade estimated at over DKK 9bn (≈ €1.2bn) in 2024 by the grocers' association.","Tax Ministry: regular official border-trade estimates with a published method. Retail associations publish higher figures.","Soft-drink tax halved in July 2013 and abolished in 2014, explicitly to protect retail jobs in the border region and recover lost revenue (expected cost DKK 450m a year, of which DKK 290m recovered).","The state publishes its own figure, with its method. Tax cuts were used, at a fiscal and public-health cost.",["dsk","skm","dksoda"]],
+ ["Norway → Sweden","NOK 11bn on 5.1 million day trips in 2024 (+18%). Groceries 43%, alcohol NOK 1.4bn, snus/tobacco NOK 1.2bn. 57% of spending in Sweden goes to the Strömstad area alone.","Statistics Norway: a quarterly official sample survey of residents' day trips abroad.","Sugar taxes on chocolate and sweets (Jan. 2021) and soft drinks (July 2021) repealed partly to cut leakage to Sweden. Health bodies then campaigned to reinstate them.","A quarterly official statistic is feasible and cheap. Flows concentrate in a few gateway towns.",["ssb","nosugar"]],
+ ["Finland → Estonia","Alcohol. Import quotas ended in Jan. 2004 and Estonia joined the EU in May 2004.","Government and research institute monitoring of travellers' imports.","Alcohol excise cut by 33% on average in March 2004 to pre-empt leakage. Consumption rose 10% in 2004, and alcohol-related liver deaths rose 46% (2004–06 vs 2001–03).","Matching the neighbour's price has a large health cost. France should not cut tobacco taxes to fight leakage.",["fi","fivn"]],
+ ["Switzerland → DE, FR, IT, AT","CHF 9.2bn of shopping abroad in 2025 (+10% vs 2022), of which about CHF 7–8bn in physical shops near the border.","University of St. Gallen studies (non-official, regular).","Duty-free VAT allowance cut from CHF 300 to CHF 150 in January 2025. Shopping abroad still rose.","Tightening allowances has limited effect when the price gap is large. The same applies to France's 2024 tobacco decree.",["hsg","chfr"]],
+ ["Germany → Poland, Czechia","Cigarettes: 19.8% of packs smoked in Germany in 2024 had no German tax stamp, 44% of them from Poland. Czechia's share fell from 29% (2020) to 14% after Czech price rises.","Annual empty-pack survey (Ipsos), commissioned by the industry.","No German tax cut. Leakage fell when neighbours raised prices (Czechia; a Polish tax rise followed).","Price convergence on the other side of the border is the lever that works. That supports ambitious EU minimum rates.",["dzv","dzv2"]],
+ ["Luxembourg ← FR, BE, DE (fuel)","Non-residents buy about two-thirds of Luxembourg's road fuel. Fuel taxes were about €1bn in 2017, roughly 5% of state revenue.","Government, IEA and OECD reviews.","Diesel excise raised progressively under climate policy and EU pressure (from about 33 to 45 cents per litre between 2020 and 2026).","Climate policy in the neighbour narrows fuel gaps. France can use climate and EU energy-tax talks rather than retail aid.",["luiea","luoecd"]],
+ ["Ireland ↔ Northern Ireland","Alcohol and groceries (2008–09, sterling depreciation): cross-border shopping up 25% (CSO survey). Diesel: about 13% of Irish sales in 2013–15 went to cross-border consumers.","CSO household survey, plus a Revenue Commissioners and ESRI study using station-level sales.","Pressure for excise cuts in 2009. Revenue has since monitored fuel tourism with administrative data.","Exchange-rate shocks can open gaps suddenly. The tax administration's own station-level data can measure fuel tourism.",["iealc","iefuel"]],
+ ["US state borders (cigarettes)","13–25% of consumers buy cigarettes in border localities. The elasticity of border-crossing to the home-state price is 3.1.","Academic studies from consumer surveys and scanner data. Tax stamps make sales traceable.","PACT Act (2010): registration, monthly reporting and tax stamps before delivery for remote and online sales.","Same price response as the French calibration (γ = 3.1). Traceability (stamps, reporting) targets remote sales without penalising local shops.",["lov","hll","pact"]]
+];
+document.getElementById('intlBody').innerHTML = INTL.map(r=>`<tr><td style="min-width:130px;font-weight:500">${r[0]}</td><td style="min-width:200px">${r[1]}</td><td style="min-width:160px">${r[2]}</td><td style="min-width:200px">${r[3]}</td><td style="min-width:200px">${r[4]} ${cite(...r[5])}</td></tr>`).join("");
+const LESSONS = [
+ ["L1","Measure officially, regularly and with a published method.","Norway (quarterly survey), Denmark (Tax Ministry method), Ireland (station-level tax data) and Germany (empty-pack survey) all measure their leakage. France relies on one-off studies and parliamentary answers.",["ssb","skm","iefuel","dzv"]],
+ ["L2","Cutting taxes to match the neighbour works partly, but costs revenue and health.","Denmark (soft drinks), Norway (sugar) and Finland (alcohol, −33%) cut taxes to stem leakage. In Finland consumption and harm rose sharply. For tobacco, France should support shops rather than lower prices.",["dksoda","nosugar","fi"]],
+ ["L3","Convergence on the other side is what shrinks flows durably.","German leakage to Czechia halved when Czech prices rose, and Luxembourg's diesel excise has risen under climate policy. EU minimum rates and bilateral climate talks are France's lever.",["dzv2","luoecd","ttd"]],
+ ["L4","Tightening allowances and controls has limited effect on large gaps.","Swiss shopping abroad kept rising after the CHF 150 allowance. France's 2024 tobacco decree should be judged on realistic expectations.",["hsg","douane24"]],
+ ["L5","Flows concentrate in a few gateway towns.","57% of Norwegian spending in Sweden goes to Strömstad. On France's borders the model finds the same pattern (Kehl, Lörrach, Weil-am-Rhein on one side; Annemasse, Saint-Julien, Roppenheim on the other). Targeting by town, not just by département, is justified.",["ssb"]],
+ ["L6","Gaps can open suddenly.","Sterling's fall in 2008–09 raised Irish cross-border shopping by 25%, and franc movements drive Swiss shopping. A monitoring trigger beats ad-hoc responses.",["iealc","hsg"]]
+];
+document.getElementById('lessonList').innerHTML = LESSONS.map(g=>`<div class="gap"><span class="id" style="color:var(--accent)">${g[0]}</span><div><p><b>${g[1]}</b></p><p class="ev">${g[2]} ${cite(...g[3])}</p></div></div>`).join("");
+
 const LABEL = {yes:"Border-specific",part:"Partial",no:"Border-blind"};
 function drawInv(f){
   const rows = INV.filter(r=>f==="all"||r[0]===f);
@@ -323,12 +377,12 @@ const RECS = [
   "DGE, ANCT, INSEE, Banque des Territoires","Share of envelopes reaching the top 20% most exposed EPCIs; vacancy rate in their town centres.",["G1"]],
  ["R2","Build an official measure of cross-border retail flows","P1",
   "Policy can't target what isn't measured. Current data is local, fragmented and partly unpublished (G2, G8).",
-  "Set up a cross-border retail observatory within INSEE/DGE, federating the CCI Moselle panel, the Geneva cross-border observatory and CCI Bayonne, with a common method. Commission card-payment data (GIE CB / Banque de France) and mobile footfall data (the mytraffic × FACT observatory). Ask DGDDI to open monthly tobacco deliveries by département, and SDES/CPDP to open monthly fuel sales by département. Recalibrate the model every year.",
-  "INSEE, DGE, DGDDI, SDES, CCI France","Open datasets published; annual report on flows by border.",["G2","G8"]],
+  "Set up a cross-border retail observatory within INSEE/DGE, federating the CCI Moselle panel, the Geneva cross-border observatory and CCI Bayonne, with a common method. Model it on Statistics Norway's quarterly border-trade survey (a module in an existing INSEE household survey) and the Danish Tax Ministry's published estimates. Add an official empty-pack survey for tobacco, as Germany has, and station-level fuel volumes as the Irish Revenue does. Commission card-payment data (GIE CB / Banque de France) and mobile footfall data (the mytraffic × FACT observatory). Ask DGDDI to open monthly tobacco deliveries by département, and SDES/CPDP to open monthly fuel sales by département. Recalibrate the model every year.",
+  "INSEE, DGE, DGDDI, SDES, CCI France","Open datasets published; quarterly indicator and annual report on flows by border.",["G2","G8","L1"]],
  ["R3","Make tobacconist support proportional to exposure","P1",
   "Tobacconists are independents facing a calibrated 25–60% sales gap in the most exposed départements. The current border bonus is flat (G3).",
-  "In the 2026–2027 funds of the 2023–2027 protocol, scale the transformation-aid rate and the diversification bonus by the département exposure measured in R2 (e.g. three bands above 20%, 35% and 50% of sales at stake). Prioritise conversion into local service points (parcels, payments, public-service relay) in exposed rural communes. Keep enforcement under Decree 2024-276, and publish its results by border. Don't lower French tobacco prices: public-health policy sets them.",
-  "Ministry of the Economy (DGDDI), Confédération des buralistes, CCIs","Closures of tobacconists in border départements vs national; share of non-tobacco turnover.",["G3"]],
+  "In the 2026–2027 funds of the 2023–2027 protocol, scale the transformation-aid rate and the diversification bonus by the département exposure measured in R2 (e.g. three bands above 20%, 35% and 50% of sales at stake). Prioritise conversion into local service points (parcels, payments, public-service relay) in exposed rural communes. Keep enforcement under Decree 2024-276, and publish its results by border. Don't lower French tobacco prices: public-health policy sets them, and Finland's 2004 alcohol tax cut shows the health cost of chasing a neighbour's price.",
+  "Ministry of the Economy (DGDDI), Confédération des buralistes, CCIs","Closures of tobacconists in border départements vs national; share of non-tobacco turnover.",["G3","L2"]],
  ["R4","Require cross-border impact assessment in commercial planning","P1",
   "Peripheral zones lose everyday spending to foreign supermarkets while town centres gain comparison spending. Planning doesn't see either (G4).",
   "By decree, require CDAC files and the commercial-planning documents (DAACL) of SCoTs within 30 km of a land border to assess catchment overlap with foreign supply, and make consultation of the foreign authorities (already allowed by the 3DS law) the default. Share project pipelines within Eurodistricts and the Aachen committee. Favour town-centre comparison retail over new peripheral food capacity in exposed areas.",
@@ -347,12 +401,16 @@ const RECS = [
   "Foreign ministry (Europe), Ministry of Territorial Cohesion, border départements","Funds committed per exposed commune; town-centre vacancy trend.",["G6","G1"]],
  ["R8","Keep EU pressure on price gaps, and evaluate","P2",
   "Tobacco purchases follow the price gap. EU minimum rates are the durable lever, but only from 2028 (G3).",
-  "Support an ambitious Tobacco Taxation Directive, with the shortest possible transition for high-gap neighbours. Raise tobacco and fuel price gaps with Andorra in bilateral talks. Evaluate all border measures with the 2020 closure method (difference-in-differences, border vs non-border départements).",
-  "Ministry of the Economy (DLF), SGAE, DGDDI","Price gap per pack with each neighbour; share of consumption bought abroad (R2).",["G3","G8"]]
+  "Support an ambitious Tobacco Taxation Directive, with the shortest possible transition for high-gap neighbours. Raise tobacco and fuel price gaps with Andorra in bilateral talks, and use climate and energy-tax cooperation with Luxembourg, where diesel excise is already rising, to narrow the fuel gap. German experience with Czechia shows convergence on the other side is what shrinks flows. Beyond 2028, track remote and online tobacco sales with registration and reporting on the model of the US PACT Act. Evaluate all border measures with the 2020 closure method (difference-in-differences, border vs non-border départements).",
+  "Ministry of the Economy (DLF), SGAE, DGDDI","Price gap per pack with each neighbour; share of consumption bought abroad (R2).",["G3","G8","L3"]],
+ ["R9","Add a border-shock trigger","P2",
+  "Gaps can open suddenly (Irish shopping +25% after sterling fell in 2008–09; Swiss franc swings). Ad-hoc responses come late (L6).",
+  "Using the R2 indicators, define a trigger: when a neighbour's price gap on a monitored basket (tobacco, fuel, core groceries) or the exchange rate moves beyond a set threshold for two quarters, a pre-agreed temporary envelope opens for exposed intercommunalities (R1 index), for town-centre management, tobacconist diversification and cross-border marketing. Prefer this to reactive tax cuts.",
+  "DGE, DG Trésor, ANCT","Time between the shock and support reaching exposed towns.",["G1","L6"]]
 ];
 document.getElementById('recList').innerHTML = RECS.map(r=>`<article class="rec">
   <header><span class="id">${r[0]}</span><h3>${r[1]}</h3></header>
-  <div class="tags"><span class="tag ${r[2]==='P1'?'p1':''}">${r[2]==='P1'?'Priority 1 · 2026–2027':'Priority 2 · negotiation or legislation'}</span>${r[7].map(g=>`<span class="tag">closes ${g}</span>`).join("")}</div>
+  <div class="tags"><span class="tag ${r[2]==='P1'?'p1':''}">${r[2]==='P1'?'Priority 1 · 2026–2027':'Priority 2 · negotiation or legislation'}</span>${r[7].map(g=>`<span class="tag">${g.startsWith('L')?'uses '+g:'closes '+g}</span>`).join("")}</div>
   <dl><dt>Why</dt><dd>${r[3]}</dd><dt>Measure</dt><dd>${r[4]}</dd><dt>Who</dt><dd>${r[5]}</dd><dt>Indicator</dt><dd>${r[6]}</dd></dl>
 </article>`).join("");
 
