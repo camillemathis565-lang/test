@@ -1,0 +1,361 @@
+<title>Border Retail Policy Review</title>
+<meta name="description" content="Policies targeting French retail SMEs in border zones, gaps, and recommendations for the French government">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --ink:#18212b; --ink-2:#46505c; --ink-3:#77818c;
+  --rule:#dde1e4; --soft:#eef1f3; --accent:#1f5f8b; --accent-soft:#e3eef6;
+  --yes:#1e7a4f; --yes-bg:#e5f3ec; --part:#9a6a00; --part-bg:#fbf1dc; --no:#b3392f; --no-bg:#fae6e3;
+  --bar:#2a78d6;
+  --serif:"Literata", Georgia, serif; --sans:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11161b; --panel:#182028; --ink:#eaeef2; --ink-2:#b6c0ca; --ink-3:#8793a0;
+    --rule:#2b3540; --soft:#1e2731; --accent:#7fb3dc; --accent-soft:#1b2d3d;
+    --yes:#6cc79a; --yes-bg:#15302a; --part:#e0b458; --part-bg:#33291a; --no:#ef8a7f; --no-bg:#3a1f1d;
+    --bar:#3987e5;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11161b; --panel:#182028; --ink:#eaeef2; --ink-2:#b6c0ca; --ink-3:#8793a0;
+  --rule:#2b3540; --soft:#1e2731; --accent:#7fb3dc; --accent-soft:#1b2d3d;
+  --yes:#6cc79a; --yes-bg:#15302a; --part:#e0b458; --part-bg:#33291a; --no:#ef8a7f; --no-bg:#3a1f1d;
+  --bar:#3987e5;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--sans)}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px;padding-block:32px 72px;display:grid;gap:52px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.005em}
+h1{font-size:clamp(28px,4vw,42px);line-height:1.12}
+h2{font-size:25px;line-height:1.25}
+h3{font-size:17.5px;line-height:1.35}
+p{margin:0;max-width:70ch}
+.eyebrow{font:500 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+section{display:grid;gap:18px}
+.frontier{height:0;border-top:2px dashed var(--rule)}
+.lede{font-size:17.5px;color:var(--ink-2)}
+.meta{font:13px/1.5 var(--mono);color:var(--ink-3)}
+.summary{display:grid;gap:14px;background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:20px 22px}
+.summary ul{margin:0;padding-left:18px;display:grid;gap:8px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.fig{display:grid;gap:4px;padding:14px 16px;border-top:2px solid var(--ink)}
+.fig b{font:600 22px/1.2 var(--serif)}
+.fig span{font-size:13.5px;color:var(--ink-2)}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+.note{font-size:13.5px;color:var(--ink-2)}
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:8px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--soft)}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);background:var(--panel);position:sticky;top:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td a{color:var(--accent)}
+.lvl{font:500 11px var(--mono);letter-spacing:.05em;color:var(--ink-2);white-space:nowrap}
+.pill{display:inline-block;font:500 11.5px var(--sans);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill.yes{color:var(--yes);background:var(--yes-bg)} .pill.part{color:var(--part);background:var(--part-bg)} .pill.no{color:var(--no);background:var(--no-bg)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--panel)}
+.seg button{font:500 13px var(--sans);color:var(--ink-2);background:none;border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bars{display:grid;gap:5px}
+.bar-row{display:grid;grid-template-columns:170px 1fr 52px;gap:10px;align-items:center;font-size:13px}
+.bar-track{height:12px;background:var(--soft);border-radius:0 4px 4px 0}
+.bar-fill{height:100%;background:var(--bar);border-radius:0 4px 4px 0}
+.bar-row .v{font:12px var(--mono);text-align:right;color:var(--ink-2)}
+@media (max-width:520px){.bar-row{grid-template-columns:120px 1fr 44px}}
+.gaps{display:grid;gap:14px}
+.gap{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--rule)}
+.gap .id{font:600 15px var(--mono);color:var(--no)}
+.gap p+p{margin-top:6px}
+.gap .ev{font-size:13.5px;color:var(--ink-2)}
+.recs{display:grid;gap:18px}
+.rec{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;display:grid;gap:10px}
+.rec header{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.rec .id{font:600 14px var(--mono);color:var(--accent)}
+.rec dl{display:grid;grid-template-columns:130px 1fr;gap:6px 14px;margin:0;font-size:14px}
+.rec dt{font:500 11.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+.rec dd{margin:0}
+@media (max-width:560px){.rec dl{grid-template-columns:1fr}.rec dt{padding-top:6px}}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font:500 11px var(--mono);padding:2px 7px;border:1px solid var(--rule);border-radius:4px;color:var(--ink-2)}
+.tag.p1{border-color:var(--accent);color:var(--accent)}
+ol.src{margin:0;padding-left:22px;display:grid;gap:4px;font-size:13px;color:var(--ink-2)}
+ol.src a{color:var(--accent);word-break:break-word}
+footer{font-size:12.5px;color:var(--ink-3)}
+</style>
+
+<div class="wrap">
+
+<header style="display:grid;gap:14px">
+  <span class="eyebrow">Policy review · France's land borders · September 2026</span>
+  <h1>Small shops on France's borders: what exists, what is missing, what to do</h1>
+  <p class="lede">An inventory of EU, national and local measures that reach retail SMEs in French border zones, read against a spatial model of cross-border spending along all eight land borders. It ends with eight recommendations for the French government.</p>
+  <p class="meta">Evidence: 40+ official sources (European Commission, Légifrance, Ministry of the Economy / DGE, ANCT, DGDDI, INSEE, OFDT, SDES, Parliament, CCIs, cross-border observatories). Model: Huff gravity model on 317,000 OpenStreetMap shops and 25 million border residents, with tobacco calibrated on the 2020 border closure.</p>
+</header>
+
+<div class="summary">
+  <h2 style="font-size:20px">In short</h2>
+  <ul>
+    <li><b>France's policy stack does not see its borders.</b> None of the big retail and town-centre programmes uses exposure to neighbouring countries as a criterion. That includes Action Cœur de Ville, Petites Villes de Demain, the 2025 "Lever le rideau" plan, France Ruralités Revitalisation zones and the commercial-zone transformation plan. Border instruments exist, but they deal with governance (the Aachen Treaty committee, the 3DS law, BRIDGEforEU), with enforcement (tobacco import rules) or with tobacconists only.</li>
+    <li><b>The model shows the flows are large and uneven.</b> Border-strip residents spend about €6.1bn a year abroad and receive about €6.0bn. France loses on everyday goods, where prices drive trips (Germany −€0.84bn net, Spain −€0.45bn). It gains on comparison goods (Switzerland +€0.62bn, Belgium +€0.38bn). Peripheral food retail and tobacconists absorb most of the losses.</li>
+    <li><b>Tobacco is the sharpest case.</b> Calibrated on the 2020 closure, the model puts about 9% of French cigarette consumption, roughly €1.7bn a year, in neighbouring countries. Closing borders would lift tobacconists' sales by 50–60% in the Pyrénées-Orientales, Ariège and Moselle. Current support pays a flat €2,500 diversification bonus in border départements.</li>
+    <li><b>Main recommendations.</b> Build a border-exposure index and use it to target existing programmes. Create an official measure of cross-border retail flows. Make tobacconist support proportional to exposure. Require cross-border impact assessment in commercial planning. Capture inflows better (tax-free shopping, cross-border marketing). Put proximity retail into the next Interreg generation.</li>
+  </ul>
+</div>
+
+<div class="frontier" role="presentation"></div>
+
+<section id="findings">
+  <span class="eyebrow">1 · What the model says</span>
+  <h2>Where the money crosses, and who feels it</h2>
+  <div class="figs">
+    <div class="fig"><b>€6.1bn / €6.0bn</b><span>spent abroad by French border-strip residents / spent in France by neighbours' residents, per year</span></div>
+    <div class="fig"><b>−€0.50bn</b><span>net loss of French peripheral commercial zones on everyday goods (supermarkets, hypermarkets)</span></div>
+    <div class="fig"><b>+€0.36bn</b><span>net gain of French town-centre shops on comparison goods (clothing, equipment)</span></div>
+    <div class="fig"><b>9.1% · €1.7bn</b><span>share and value of French cigarette consumption bought in neighbouring countries (2020 prices)</span></div>
+  </div>
+  <div class="grid2">
+    <div style="display:grid;gap:10px">
+      <h3>Net balance for France by border (€m / year)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Border</th><th class="n">Out</th><th class="n">In</th><th class="n">Net</th><th>Robust?</th></tr></thead>
+        <tbody>
+          <tr><td>Germany</td><td class="n">2,104</td><td class="n">1,262</td><td class="n">−842</td><td><span class="pill yes">yes</span></td></tr>
+          <tr><td>Spain</td><td class="n">567</td><td class="n">120</td><td class="n">−447</td><td><span class="pill yes">yes</span></td></tr>
+          <tr><td>Switzerland</td><td class="n">973</td><td class="n">1,593</td><td class="n">+619</td><td><span class="pill part">price-driven</span></td></tr>
+          <tr><td>Belgium</td><td class="n">1,801</td><td class="n">2,181</td><td class="n">+380</td><td><span class="pill yes">yes</span></td></tr>
+          <tr><td>Luxembourg</td><td class="n">476</td><td class="n">579</td><td class="n">+103</td><td><span class="pill no">no (fuel missing)</span></td></tr>
+          <tr><td>Italy</td><td class="n">141</td><td class="n">200</td><td class="n">+59</td><td><span class="pill yes">yes</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Residents within 40 km of the border, retail excluding fuel. Not calibrated on observed flows except tobacco, so read the figures as orders of magnitude. For comparison, the 2024 Grand Genève survey measured €482m of Swiss spending in France and €158m of French spending in Switzerland, for the Geneva area only.</p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <h3>Tobacconists' sales gain if cross-border purchases came home</h3>
+      <div class="bars" id="tobBars"></div>
+      <p class="note">Calibrated model: κ = 0.072, β = 0.0116/min, γ = 3.1, Switzerland ≈ no purchases. Fitted to OFDT/INSEE 2020 closure data: national +10.0% modelled vs +9.5% observed; Nord-Est façade +40% vs +41%.</p>
+    </div>
+  </div>
+  <p class="note"><b>Who carries the loss.</b> Once losses are netted against gains, French independents are roughly at break-even overall and chains lose about 0.6%. The split that matters is by product. Everyday goods lose everywhere, worst for peripheral zones (−3.9% for chains, −4.6% for independents). Comparison goods gain everywhere (+2.9% to +4.6%). Tobacconists, who are almost all independents, are the clear exception. Fuel could not be calibrated with public data.</p>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
+<section id="inventory">
+  <span class="eyebrow">2 · Inventory</span>
+  <h2>Policies and initiatives that reach border retail SMEs</h2>
+  <p class="note">The last column shows whether the instrument uses the border as a criterion or target. <span class="pill yes">Border-specific</span> means designed for border zones. <span class="pill part">Partial</span> means it has a border clause or border option. <span class="pill no">Border-blind</span> means it applies nationally with no border dimension.</p>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Filter by level">
+      <button type="button" id="fAll" data-f="all" aria-pressed="true">All</button>
+      <button type="button" id="fEU" data-f="EU" aria-pressed="false">EU</button>
+      <button type="button" id="fNat" data-f="National" aria-pressed="false">National</button>
+      <button type="button" id="fBi" data-f="Bilateral" aria-pressed="false">Bilateral</button>
+      <button type="button" id="fLoc" data-f="Local" aria-pressed="false">Local</button>
+    </div>
+    <span class="note" id="invCount"></span>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Level</th><th>Instrument</th><th>What it does for border retail SMEs</th><th>Border</th></tr></thead>
+    <tbody id="invBody"></tbody>
+  </table></div>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
+<section id="gaps">
+  <span class="eyebrow">3 · Gaps</span>
+  <h2>Eight gaps between the policy stack and the flows</h2>
+  <div class="gaps" id="gapList"></div>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
+<section id="recs">
+  <span class="eyebrow">4 · Recommendations to the French government</span>
+  <h2>Eight measures, most of them adjustments to existing tools</h2>
+  <p class="note">Priority 1 measures can be done within existing budgets and legal bases in 2026–2027. Priority 2 measures need negotiation (EU, neighbours) or new legislation. Each measure lists the gaps it closes.</p>
+  <div class="recs" id="recList"></div>
+</section>
+
+<div class="frontier" role="presentation"></div>
+
+<section id="limits">
+  <span class="eyebrow">5 · Limits</span>
+  <h2>How far to trust this</h2>
+  <ul class="note" style="margin:0;padding-left:18px;display:grid;gap:6px;max-width:75ch">
+    <li>General retail flows come from an uncalibrated model. The directions and rankings are more reliable than the euro amounts. Tobacco is calibrated on 12 observed 2020 figures but misses Moselle (+53% modelled vs +26% observed, likely because cross-border commuters kept buying in Luxembourg during the closure). Fuel could not be identified from annual data.</li>
+    <li>OpenStreetMap coverage and brand tagging vary by country, which biases the chain versus independent split in Spain and Italy.</li>
+    <li>The inventory covers official sources available in September 2026. Local initiatives are sampled (CCIs, Eurodistricts, observatories), not exhaustive. Some programme details (Interreg ALCOTRA, POCTEFA) were not fully verified from programme documents.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <span class="eyebrow">Sources</span>
+  <ol class="src" id="srcList"></ol>
+</section>
+
+<footer>Prepared with the cross-border attractiveness model (repository <span style="font-family:var(--mono)">cross_border/</span>). Data © OpenStreetMap contributors, Eurostat, INSEE, OFDT, DGDDI, SDES.</footer>
+</div>
+
+<script>
+(function(){
+const S = {
+ bridge:["Regulation (EU) 2025/925 BRIDGEforEU – EUR-Lex summary","https://eur-lex.europa.eu/EN/legal-content/summary/improving-cooperation-in-eu-border-regions-bridgeforeu.html"],
+ bfp:["European Commission – Border Focal Point","https://ec.europa.eu/regional_policy/policy/cooperation/european-territorial/border-focal-point_en"],
+ ttd:["European Commission – Revision of the Tobacco Taxation Directive (proposal, 16 July 2025)","https://taxation-customs.ec.europa.eu/taxation/excise-duties/excise-duties-tobacco/revision-tobacco-taxation-directive-proposal_en"],
+ eprs:["European Parliament EPRS – Revision of the Tobacco Taxation Directive","https://www.europarl.europa.eu/thinktank/en/document/EPRS_BRI(2025)775907"],
+ retailtp:["European Commission – Transition pathway for retail (2024)","https://single-market-economy.ec.europa.eu/document/download/a7ebd214-2262-4d7e-856c-563382a61ff8_en?filename=2024+03+11+Retail+Transition+Pathway+final_amended_en.pdf"],
+ gr:["keep.eu – Interreg VI-A Grande Région 2021-2027","https://keep.eu/programmes/370/2021-2027-France-Belgium-Germany-Lux/"],
+ rs:["keep.eu – Interreg VI-A Upper Rhine 2021-2027","https://keep.eu/programmes/360/2021-2027-France-Germany-Switzerland/"],
+ fwvl:["keep.eu – Interreg VI-A France-Wallonie-Vlaanderen 2021-2027","https://keep.eu/programmes/368/2021-2027-Belgium-France/"],
+ fch:["keep.eu – Interreg VI-A France-Switzerland 2021-2027","https://keep.eu/programmes/361/2021-2027-France-Switzerland/"],
+ poctefa:["keep.eu – Interreg VI-A POCTEFA 2021-2027","https://keep.eu/programmes/320/2021-2027-Spain-France-Andorra-POCTE/"],
+ eef:["Europe en France – Programmes Interreg 2021-2027","https://www.europe-en-france.gouv.fr/fr/programmes-europeens-2021-2027/programmes-interreg-2021-2027-cooperation-territoriale-europeenne-en-france"],
+ acv:["Banque des Territoires – Action Cœur de Ville jusqu'en 2026","https://www.banquedesterritoires.fr/programme-action-coeur-de-ville-2026"],
+ cciacv:["CCI France – Action Cœur de Ville 2023-2026","https://www.cci.fr/ressources/commerce-et-tourisme/developpement-des-territoires/action-coeur-de-ville-periode-2023-2026"],
+ rideau:["DGE – Lever le rideau : 9 mesures pour le commerce de proximité (Nov. 2025)","https://www.entreprises.gouv.fr/la-dge/actualites/mission-sur-lavenir-du-commerce-de-proximite-neuf-mesures-retenues-pour"],
+ zones:["Ministère de l'Économie – Plan de transformation des zones commerciales","https://presse.economie.gouv.fr/plan-de-transformation-des-zones-commerciales/"],
+ climat:["DGE – Aménagement commercial : textes législatifs et réglementaires","https://www.entreprises.gouv.fr/espace-entreprises/s-informer-sur-la-reglementation/amenagement-commercial-textes-legislatifs-et"],
+ decret2022:["Décret n° 2022-1312 du 13 octobre 2022 (AEC et artificialisation)","https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046421780"],
+ loi3ds:["MOT – Le transfrontalier dans la loi 3DS","https://www.espaces-transfrontaliers.org/niveaux/france-loi-3ds/"],
+ frr:["AMF – France Ruralités Revitalisation","https://www.amf.asso.fr/documents-france-ruralites-revitalisation-nouveau-dispositif-qui-remplacera-les-zrr-au-1er-juillet-2024/42098"],
+ frrb:["Bpifrance Création – Allègements fiscaux dans les ZFRR","https://bpifrance-creation.fr/encyclopedie/aides-a-creation-a-reprise-dentreprise/aides-fiscales/allegements-fiscaux-zfrr"],
+ bur:["Ministère de l'Économie – Protocole d'accord sur la transformation du réseau des buralistes","https://www.economie.gouv.fr/signature-protocole-accord-transformation-reseau-buralistes"],
+ burg:["Confédération des buralistes – Fonds de transformation, guide pratique 2023-2027","https://www.buralistes.fr/system/files/2023-10/Brochure-Transformation-2023-WEB4.pdf"],
+ douane24:["DGDDI – Achat et transport de tabac en Europe vers la France : nouvelles règles 2024","https://www.douane.gouv.fr/actualites/achat-et-transport-de-tabac-en-europe-vers-la-france-les-nouvelles-regles-en-2024"],
+ detaxe:["Ambassade de France en Suisse – Détaxe pour les résidents suisses","https://ch.diplomatie.gouv.fr/fr/detaxe-de-marchandises-pour-les-personnes-residant-en-suisse"],
+ pablo:["DGDDI – La détaxe avec PABLO","https://www.douane.gouv.fr/sites/default/files/uploads/files/Documentations-Brochures/Particuliers/detaxe-pablo-la-procedure-de-remboursement-de-la-tva-en-france.pdf"],
+ aachen:["MOT – Traité d'Aix-la-Chapelle, Comité de coopération transfrontalière","https://www.espaces-transfrontaliers.org/territoires/france-allemagne-territoire-traite-aix-la-chapelle/"],
+ cea:["Loi n° 2019-816 relative aux compétences de la Collectivité européenne d'Alsace","https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038872957"],
+ motgov:["MOT – Gouvernance nationale de la coopération transfrontalière, feuille de route État/MOT","https://www.espaces-transfrontaliers.org/niveaux/france-bilateral-gouvernance-nationale-feuille-de-route/"],
+ cbcp:["pass.gouv – Appui à la mise en œuvre du point de coordination transfrontalier français (BridgeforEU)","https://www.pass.fonction-publique.gouv.fr/offre/appui-la-mise-en-oeuvre-du-point-de-coordination-transfrontalier-francais-bridgeforeu-fh"],
+ lux:["L'essentiel – Commission France-Luxembourg : rétrocession fiscale écartée","https://www.lessentiel.lu/fr/story/reunion-au-sommet-la-france-pas-encore-prete-a-froisser-le-luxembourg-103466963"],
+ mm:["Département de Meurthe-et-Moselle – Coopération et développement transfrontaliers (Nov. 2025)","https://www.meurthe-et-moselle.fr/sites/default/files/media/downloads/2025-238-int-transfrontalier.pdf"],
+ dcf:["Sénat – Proposition : création d'une dotation de compensation frontalière","https://www.senat.fr/leg/exposes-des-motifs/ppr22-711-expose.html"],
+ chfr:["Office fédéral de la douane (BAZG) – Franchise-valeur abaissée à 150 francs","https://www.bazg.admin.ch/fr/taxe-sur-la-valeur-ajoutee-franchise-valeur-a-150-francs"],
+ ccim:["CCI Moselle – Observatoire du commerce et de la consommation","https://www.moselle.cci.fr/2019/10/observatoire-du-commerce-et-de-la-consommation-des-informations-strategiques-pour-les-entreprises-et-les-territoires/"],
+ ccia:["CCI Alsace Eurométropole","https://www.alsace-eurometropole.cci.fr/"],
+ gg:["Grand Genève – Résultats de l'enquête consommation 2024","https://www.grand-geneve.org/les-resultats-de-lenquete-consommation-du-grand-geneve-devoiles/"],
+ ost:["Observatoire statistique transfrontalier – Synthèse 2023","https://statistique.ge.ch/tel/publications/2023/hors_collection/ost/Synthese_2023.pdf"],
+ ccib:["CCI Bayonne Pays Basque – Tout savoir sur le commerce au Pays Basque","https://www.bayonne.cci.fr/DENDA/Tout-savoir-sur-le-commerce-au-Pays-Basque.html"],
+ ccibt:["CCI Bayonne Pays Basque – Projets et clusters transfrontaliers","https://www.bayonne.cci.fr/projets-et-clusters-transfrontaliers"],
+ ccip:["CCI Pyrénées-Orientales – Programmes transfrontaliers","https://www.pyrenees-orientales.cci.fr/programmes-transfrontaliers-0"],
+ elkt:["MOT – Eurométropole Lille-Kortrijk-Tournai","https://www.espaces-transfrontaliers.org/territoires/france-belgique-territoire-eurometropole-lille-kortrijk-tournai/"],
+ insee:["INSEE Analyses n°94 – Les approvisionnements à l'étranger représentent au moins 9,5 % des ventes de tabac","https://www.insee.fr/fr/statistiques/7764897"],
+ ofdt:["OFDT – Tabagisme et arrêt du tabac en 2020","https://documentation-administrative.gouv.fr/adm-01859246v1/document"],
+ an:["Assemblée nationale – Mission d'information sur les ventes de tabac pendant le confinement (rapport n°4498)","https://www.assemblee-nationale.fr/dyn/docs/RINFANR5L15B4498.raw"],
+ dgddi:["DGDDI – Open data : tabacs manufacturés (ventes nationales mensuelles)","https://www.douane.gouv.fr/la-douane/opendata/categories/tabacs-manufactures"],
+ sdes:["SDES – Consommation annuelle de produits pétroliers par département","https://www.statistiques.developpement-durable.gouv.fr/donnees-annuelles-de-consommation-de-produits-petroliers-par-departement-france-metropolitaine-0"]
+};
+const order = Object.keys(S); const num = k => order.indexOf(k)+1;
+const cite = (...ks) => ks.map(k=>`<a href="#src-${k}">[${num(k)}]</a>`).join(" ");
+
+const INV = [
+ ["EU","BRIDGEforEU, Regulation (EU) 2025/925","In force since 8 June 2025. Each member state sets up a cross-border coordination point to identify and resolve legal and administrative obstacles. ANCT is setting up the French point. Nothing on retail yet, but it is the channel for obstacles that affect small cross-border traders.","part",["bridge","bfp","cbcp"]],
+ ["EU","Tobacco Taxation Directive revision (proposal, July 2025)","Higher EU minimum excise, partly adjusted to national price levels. Would apply from 2028 with a transition period. This is the only EU lever on the price gaps that drive tobacco purchases abroad. Andorra and Switzerland are outside its scope.","part",["ttd","eprs"]],
+ ["EU","Interreg VI-A France–Wallonie–Vlaanderen","Priority 1 (RSO1.3) covers SME competitiveness, including digitalisation and e-commerce, and marketing and management support. It is open to retailers, but they aren't a named target.","part",["fwvl","eef"]],
+ ["EU","Interreg VI-A Upper Rhine","SME digitalisation (including e-commerce), advisory services and business development under the competitiveness priority.","part",["rs"]],
+ ["EU","Interreg VI-A France–Switzerland","SME digitalisation and e-commerce interventions.","part",["fch"]],
+ ["EU","Interreg VI-A Grande Région (FR–BE–DE–LU)","About €182m of EU funds. No priority targets SMEs, retail or local businesses (environment, social, rural development, governance only). This is the border where France's largest everyday-goods losses occur.","no",["gr"]],
+ ["EU","Interreg VI-A POCTEFA (ES–FR–AD)","Knowledge and innovation priority with SME business development. No retail-specific action identified.","part",["poctefa","eef"]],
+ ["EU","Retail transition pathway (2024)","Voluntary EU agenda for the green and digital transition and skills of retail SMEs. No territorial or border dimension.","no",["retailtp"]],
+ ["National","Action Cœur de Ville 2023–2026","234 medium-sized towns, €5bn over 2023–2026 from partners, commerce and vacancy work in town centres. Selection and funding don't use border exposure. Extension beyond 2026 announced in the 2025 plan.","no",["acv","cciacv","rideau"]],
+ ["National","Petites Villes de Demain / Villages d'avenir","Engineering and funding for small towns and villages. No border criterion.","no",["rideau"]],
+ ["National","\"Lever le rideau\": 9 measures for local shops (Nov. 2025)","+€100m in 2026 for revitalisation property companies (Banque des Territoires), €20m for town-centre commerce managers, vacancy-tax targeting, a vacancy diagnostic tool, the Charte Ville Commerçante and the Made in Local pilot. No mention of border territories.","no",["rideau"]],
+ ["National","France Ruralités Revitalisation (FRR, FRR+) zones","Since July 2024 they replace ZRR and ZoRCoMiR. Businesses with fewer than 11 employees created or taken over by 2029 get 5 years of full profit-tax exemption, then a taper. Zoning uses density and income only, so urban border towns exposed to leakage (Moselle, Nord) mostly don't qualify.","no",["frr","frrb"]],
+ ["National","Commercial-zone transformation plan (2023)","74 winning projects sharing €26m to convert peripheral zones and town entrances, with a DGE–ANCT task force. The model finds peripheral zones are the biggest everyday-goods losers on borders, but border status plays no role in selection.","no",["zones"]],
+ ["National","Climate & Resilience Act art. 215, Decree 2022-1312","Ban on new retail that takes up undeveloped land, with exemptions under 10,000 m². It limits new peripheral capacity but ignores supply just across the border.","no",["climat","decret2022"]],
+ ["National","3DS law, arts. 182–189 (2022)","Foreign neighbouring municipalities may take part in CDAC consultations on commercial planning. Cross-border cooperation schemes are extended to all border départements. The only planning tool that recognises foreign retail supply, and it is optional.","yes",["loi3ds"]],
+ ["National","Tobacconist protocol 2023–2027 and transformation fund","Up to €33,000 per tobacconist for store transformation (50% rate if tobacco turnover is under €500k). In border départements, the end-of-activity indemnity is extended and the diversification bonus rises to €2,500. A flat amount, not proportional to exposure.","yes",["bur","burg"]],
+ ["National","Decree 2024-276 on cross-border tobacco purchases","Removes the indicative quantity thresholds. Customs now judges whether a purchase is commercial from 12 criteria, with sanctions possible from one carton. Enforcement-led: it doesn't change the price gap or support shops.","yes",["douane24"]],
+ ["National","VAT refund for non-EU residents (PABLO)","VAT refund from €100.01 per shop for Swiss and Andorran residents, processed electronically through PABLO. Helps capture Swiss inflows, but the minimum ticket and paperwork are heavy for small food purchases.","part",["detaxe","pablo"]],
+ ["National","State–MOT roadmap and cross-border governance","MOT, funded by ANCT, DGCL, the foreign ministry and Banque des Territoires, supports cross-border projects and obstacle-solving. No retail workstream.","part",["motgov"]],
+ ["Bilateral","Aachen Treaty: Franco-German Cross-Border Cooperation Committee (2019–2020)","Analyses how legislation affects border regions and looks for solutions to everyday obstacles. A potential venue for Franco-German retail issues (opening hours, VAT refunds, apprenticeships).","yes",["aachen"]],
+ ["Bilateral","Collectivité européenne d'Alsace (Law 2019-816)","Lead authority for cross-border cooperation in Alsace, with an Alsatian cross-border cooperation scheme.","yes",["cea"]],
+ ["Bilateral","France–Luxembourg intergovernmental commission","December 2025 session: fiscal compensation for French border territories was not on the agenda, and Luxembourg prefers co-development. Meurthe-et-Moselle is calling for a fairer framework. A Senate proposal for a \"border compensation grant\" has not been adopted.","part",["lux","mm","dcf"]],
+ ["Bilateral","Swiss VAT allowance cut to CHF 150 (Jan. 2025)","A Swiss measure against shopping tourism. It reduces duty-free Swiss purchases in France, so French shops in the Genevois and Jura lose part of their inflow advantage.","yes",["chfr"]],
+ ["Local","CCI Moselle: Observatoire du commerce et de la consommation","Household purchasing database covering Moselle, Grand Est and neighbouring areas of Germany, Belgium and Luxembourg. The only CCI panel found that systematically covers cross-border purchases.","yes",["ccim"]],
+ ["Local","CCI Alsace Eurométropole","Retail observatory plus audits for tobacconist transformation. The Alsatian network fell from 800 to 442 tobacconists under cross-border competition.","part",["ccia"]],
+ ["Local","Grand Genève consumption survey and Observatoire statistique transfrontalier","Cross-border survey (2024): Swiss spend €482m a year in France (€361m on food), French spend €158m in Switzerland. Joint retail inventory with the Lake Geneva CCI union. Co-funded by the canton, the Pôle métropolitain and EU funds.","yes",["gg","ost"]],
+ ["Local","CCI Bayonne Pays Basque and Bihartean","Retail fact sheets (spending retention, leakage, attraction) and cross-border business matchmaking with Gipuzkoa and Navarre.","yes",["ccib","ccibt"]],
+ ["Local","CCI Pyrénées-Orientales","Cross-border programmes (POCTEFA partnerships) with a tourism and heritage focus.","part",["ccip"]],
+ ["Local","Eurométropole Lille-Kortrijk-Tournai (EGTC) and EURO 3 CCI grouping","A cross-border metropolis of 2 million people, with a grouping of the Lille, West Flanders and Walloon Picardy CCIs. Networking, but no joint retail strategy found.","part",["elkt"]]
+];
+const LABEL = {yes:"Border-specific",part:"Partial",no:"Border-blind"};
+function drawInv(f){
+  const rows = INV.filter(r=>f==="all"||r[0]===f);
+  document.getElementById('invBody').innerHTML = rows.map(r=>`<tr><td class="lvl">${r[0]}</td><td style="min-width:180px;font-weight:500">${r[1]}</td><td style="min-width:280px">${r[2]} ${cite(...r[4])}</td><td><span class="pill ${r[3]}">${LABEL[r[3]]}</span></td></tr>`).join("");
+  const c = {yes:0,part:0,no:0}; rows.forEach(r=>c[r[3]]++);
+  document.getElementById('invCount').textContent = `${rows.length} instruments · ${c.yes} border-specific · ${c.part} partial · ${c.no} border-blind`;
+}
+document.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-f]').forEach(x=>x.setAttribute('aria-pressed', x===b)); drawInv(b.dataset.f); }));
+drawInv("all");
+
+const TOB = [["Pyrénées-Orientales",.625],["Ariège",.564],["Moselle",.534],["Meurthe-et-Moselle",.423],["Alpes-Maritimes",.349],["Bas-Rhin",.345],["Haute-Garonne",.343],["Pyrénées-Atlantiques",.333],["Ardennes",.329],["Meuse",.310],["Haut-Rhin",.291],["Hautes-Pyrénées",.285],["Nord",.252],["Territoire de Belfort",.237],["Haute-Savoie",.219]];
+document.getElementById('tobBars').innerHTML = TOB.map(([d,v])=>`<div class="bar-row" title="${d}: +${Math.round(v*100)}%"><span>${d}</span><div class="bar-track"><div class="bar-fill" style="width:${(v/0.7*100).toFixed(1)}%"></div></div><span class="v">+${Math.round(v*100)}%</span></div>`).join("");
+
+const GAPS = [
+ ["G1","Programmes don't see borders.","ACV, PVD, Lever le rideau, FRR and the zone-transformation plan allocate money without any border-exposure criterion. FRR zoning (density, income) excludes most urban border towns, even though the model puts the heaviest losses there: Moselle, Meurthe-et-Moselle, Alsace and Nord residents send 16–35% of their comparison spending abroad.",["rideau","acv","frr","zones"]],
+ ["G2","Nobody measures the flows officially.","Cross-border retail spending is measured only locally and with different methods (CCI Moselle panel, Grand Genève survey, CCI Bayonne). Tobacco sales by département are not open data (DGDDI publishes national totals only), and monthly fuel sales by département are not public (SDES annual only). Calibrating this study required parliamentary answers.",["ccim","gg","ccib","dgddi","sdes"]],
+ ["G3","Tobacconist support isn't proportional to exposure.","The border bonus is a flat €2,500, while the calibrated model puts the sales at stake at 25–60% in the most exposed départements. Decree 2024-276 tightens enforcement but leaves the price gap untouched. The EU minimum-rate revision applies only from 2028 and doesn't cover Andorra or Switzerland.",["burg","douane24","ttd"]],
+ ["G4","Commercial planning ignores supply across the border.","The 3DS law allows foreign municipalities into CDAC consultations but doesn't require a cross-border impact assessment. The model shows peripheral zones lose everyday spending to foreign supermarkets while town centres gain comparison spending, a split that no planning document currently takes into account.",["loi3ds","climat"]],
+ ["G5","Interreg barely reaches retail.","The Grande Région programme, covering the Germany and Luxembourg borders with the largest net deficit, has no SME priority. Elsewhere, support is limited to generic SME digitalisation. No cross-border town-centre or retail project line was found.",["gr","rs","fwvl","fch"]],
+ ["G6","Border communes carry costs without compensation.","Residents who work in Luxembourg or Switzerland spend part of their income there. Fiscal compensation was kept off the December 2025 France–Luxembourg agenda, and the Senate's border-compensation-grant proposal hasn't been adopted.",["lux","mm","dcf"]],
+ ["G7","Inflows are not cultivated.","France gains about €0.6bn net from Swiss and €0.4bn from Belgian shoppers in the model (€482m of Swiss spending measured in the Geneva area alone). Yet there is no programme to help small retailers serve these customers. VAT refunds start at €100.01 per shop with paperwork, and Switzerland cut its duty-free allowance to CHF 150 in 2025.",["gg","detaxe","chfr"]],
+ ["G8","Fuel is a blind spot.","Fuel prices differ sharply (Luxembourg €0.97/l vs France €1.28/l in spring 2020). Station forecourts are often the anchor of rural retail, yet no public data allows the effect to be measured, and no policy addresses it.",["sdes"]]
+];
+document.getElementById('gapList').innerHTML = GAPS.map(g=>`<div class="gap"><span class="id">${g[0]}</span><div><p><b>${g[1]}</b></p><p class="ev">${g[2]} ${cite(...g[3])}</p></div></div>`).join("");
+
+const RECS = [
+ ["R1","Create a border exposure index and use it to target existing programmes","P1",
+  "The largest losses are concentrated in identifiable areas (Moselle, Meurthe-et-Moselle, Pyrénées-Orientales, Ariège, Alsace, Pays Basque), yet no programme targets them (G1).",
+  "DGE, ANCT and INSEE publish an annual index by intercommunality (EPCI): share of residents' retail spending that goes abroad, by segment. Use it to (a) reserve a share of the 2026 €100m property-company envelope and €20m commerce-manager envelope for the top-exposed EPCIs, (b) add it as a selection criterion in the post-2026 ACV and PVD programmes, (c) open FRR+ small-business tax treatment to town-centre shops in highly exposed border communes.",
+  "DGE, ANCT, INSEE, Banque des Territoires","Share of envelopes reaching the top 20% most exposed EPCIs; vacancy rate in their town centres.",["G1"]],
+ ["R2","Build an official measure of cross-border retail flows","P1",
+  "Policy can't target what isn't measured. Current data is local, fragmented and partly unpublished (G2, G8).",
+  "Set up a cross-border retail observatory within INSEE/DGE, federating the CCI Moselle panel, the Geneva cross-border observatory and CCI Bayonne, with a common method. Commission card-payment data (GIE CB / Banque de France) and mobile footfall data (the mytraffic × FACT observatory). Ask DGDDI to open monthly tobacco deliveries by département, and SDES/CPDP to open monthly fuel sales by département. Recalibrate the model every year.",
+  "INSEE, DGE, DGDDI, SDES, CCI France","Open datasets published; annual report on flows by border.",["G2","G8"]],
+ ["R3","Make tobacconist support proportional to exposure","P1",
+  "Tobacconists are independents facing a calibrated 25–60% sales gap in the most exposed départements. The current border bonus is flat (G3).",
+  "In the 2026–2027 funds of the 2023–2027 protocol, scale the transformation-aid rate and the diversification bonus by the département exposure measured in R2 (e.g. three bands above 20%, 35% and 50% of sales at stake). Prioritise conversion into local service points (parcels, payments, public-service relay) in exposed rural communes. Keep enforcement under Decree 2024-276, and publish its results by border. Don't lower French tobacco prices: public-health policy sets them.",
+  "Ministry of the Economy (DGDDI), Confédération des buralistes, CCIs","Closures of tobacconists in border départements vs national; share of non-tobacco turnover.",["G3"]],
+ ["R4","Require cross-border impact assessment in commercial planning","P1",
+  "Peripheral zones lose everyday spending to foreign supermarkets while town centres gain comparison spending. Planning doesn't see either (G4).",
+  "By decree, require CDAC files and the commercial-planning documents (DAACL) of SCoTs within 30 km of a land border to assess catchment overlap with foreign supply, and make consultation of the foreign authorities (already allowed by the 3DS law) the default. Share project pipelines within Eurodistricts and the Aachen committee. Favour town-centre comparison retail over new peripheral food capacity in exposed areas.",
+  "DGE, DGALN, prefectures, Eurodistricts","Share of border CDAC files with a cross-border assessment; foreign authorities consulted.",["G4"]],
+ ["R5","Capture inflows from neighbours","P2",
+  "French shops gain from Swiss, Belgian and Italian shoppers on comparison goods, but nothing helps small retailers keep that customer base, which the Swiss CHF 150 allowance now narrows (G7).",
+  "Simplify VAT refunds for Swiss and Andorran residents (fully digital refunds at the point of sale, PABLO validation at the main road crossings, a lighter process for small merchants). Fund bilingual, cross-border marketing for town centres (Interreg and CCIs) in the Genevois, Jura, Lille and Nice–Menton areas.",
+  "DGDDI, Business France / Atout France, CCIs, border communities","VAT-refund forms issued by small shops in border départements; Swiss and Belgian spend in French town centres (R2).",["G7"]],
+ ["R6","Put proximity retail into Interreg 2028–2034 and use BRIDGEforEU","P2",
+  "Cross-border funds barely reach retail, least of all on the Germany and Luxembourg borders (G5).",
+  "In France's negotiating position for the next cohesion period, ask for a cross-border proximity-retail and town-centre action line in the Grande Région, Upper Rhine and POCTEFA programmes (joint town-centre management, shared observatories, merchant exchanges). Have the French cross-border coordination point collect obstacles that affect small cross-border traders (VAT refunds, apprenticeships, payment and opening-hours rules) and bring them to the Aachen committee and the Franco-Spanish and Franco-Luxembourg bodies.",
+  "SGAE, ANCT (coordination point), regions as managing authorities, MOT","Retail projects funded; obstacles logged and resolved.",["G5"]],
+ ["R7","Co-development money for leakage-exposed border towns","P2",
+  "Communes whose residents work and shop in Luxembourg or Switzerland carry costs without revenue (G6).",
+  "Negotiate a France–Luxembourg co-development fund (using the Franco-Genevan financial compensation for cross-border workers as a reference) with a ring-fenced line for town-centre retail revitalisation in the most exposed communes (R1 index). Failing agreement, study the Senate's border-compensation-grant proposal, targeted by the same index.",
+  "Foreign ministry (Europe), Ministry of Territorial Cohesion, border départements","Funds committed per exposed commune; town-centre vacancy trend.",["G6","G1"]],
+ ["R8","Keep EU pressure on price gaps, and evaluate","P2",
+  "Tobacco purchases follow the price gap. EU minimum rates are the durable lever, but only from 2028 (G3).",
+  "Support an ambitious Tobacco Taxation Directive, with the shortest possible transition for high-gap neighbours. Raise tobacco and fuel price gaps with Andorra in bilateral talks. Evaluate all border measures with the 2020 closure method (difference-in-differences, border vs non-border départements).",
+  "Ministry of the Economy (DLF), SGAE, DGDDI","Price gap per pack with each neighbour; share of consumption bought abroad (R2).",["G3","G8"]]
+];
+document.getElementById('recList').innerHTML = RECS.map(r=>`<article class="rec">
+  <header><span class="id">${r[0]}</span><h3>${r[1]}</h3></header>
+  <div class="tags"><span class="tag ${r[2]==='P1'?'p1':''}">${r[2]==='P1'?'Priority 1 · 2026–2027':'Priority 2 · negotiation or legislation'}</span>${r[7].map(g=>`<span class="tag">closes ${g}</span>`).join("")}</div>
+  <dl><dt>Why</dt><dd>${r[3]}</dd><dt>Measure</dt><dd>${r[4]}</dd><dt>Who</dt><dd>${r[5]}</dd><dt>Indicator</dt><dd>${r[6]}</dd></dl>
+</article>`).join("");
+
+document.getElementById('srcList').innerHTML = order.map(k=>`<li id="src-${k}"><a href="${S[k][1]}" target="_blank" rel="noopener">${S[k][0]}</a></li>`).join("");
+})();
+</script>
