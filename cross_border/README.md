@@ -71,6 +71,32 @@ retail mass.
 Brand tagging is more complete in France (37 % of shops tagged) than in Spain
 or Italy (14–16 %), so the independent share is overstated there.
 
+## Tobacco and fuel, calibrated on the 2020 border closure
+
+`python run_excise_calibration.py` (after `run_pipeline.py`). Tobacco and fuel
+outlets are everywhere, so the choice is modelled as "buy locally" vs "make a
+trip to the nearest outlet in a cheaper country":
+`U_k = κ · θ_k · exp(−β·t_ik) · (p_k/p_home)^−γ`, `U_home = 1`, trips only
+towards cheaper countries. Residents within 200 km of the border are included.
+
+**Tobacco**: κ, β, γ and a Swiss friction θ_CH are fitted to the observed sales
+increases during the closure of 16 March – 15 June 2020:
+- by border façade (OFDT 2021, Assemblée nationale mission report n°4498), net
+  of the non-border change (+2.4 %);
+- national surplus of +9.5 % (INSEE Analyses n°94);
+- access-time bands (INSEE) and five départements (parliamentary written
+  questions).
+2020 pack prices come from INSEE. Legal cigarette sales come from DGDDI.
+
+**Fuel**: gasoline sales by département (SDES, annual) cannot identify a
+closure effect. The 3-month closure is ~17 % of 2020 volume, and lockdown and
+local shocks dominate: the best fit is "no border effect". Monthly
+département data (CPDP, restricted access) or Luxembourg's monthly sales
+(STATEC) would be needed.
+
+Outputs: `excise_parameters.csv`, `excise_fit_tobacco.csv`, `excise_fit_fuel.csv`,
+`excise_fuel_test.json`, `excise_flows.csv`, `excise_departements.csv`.
+
 ## Caveats
 
 * **Not calibrated.** α, β, θ and γ come from typical values in the literature, not from observed flows. Treat absolute euros as orders of magnitude. The *direction* and *ranking* of flows are more robust; `sensitivity.csv` shows how they move. To calibrate, fit the parameters with a Poisson gravity regression on observed flows (for example the mobile-phone footfall data from mytraffic × FACT used in the case study, card-payment data, or shopper surveys).

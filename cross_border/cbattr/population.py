@@ -21,12 +21,13 @@ def grid_path():
     return p
 
 
-def demand_cells(cn, areas, places):
+def demand_cells(cn, areas, places, area=None):
     """2 km population cells within the demand buffer, tagged with a country.
 
     places: OSM settlements (used only for countries missing from the grid).
     """
-    minx, miny, maxx, maxy = areas["demand"].bounds
+    area = areas["demand"] if area is None else area
+    minx, miny, maxx, maxy = area.bounds
     q = f"""
         select X_LLC + 500 as x, Y_LLC + 500 as y, TOT_P_2021 as pop,
                NUTS2024_3 as nuts3
@@ -37,7 +38,7 @@ def demand_cells(cn, areas, places):
     """
     df = duckdb.sql(q).df()
     pts = gpd.GeoSeries(gpd.points_from_xy(df.x, df.y), crs=C.CRS)
-    inside = pts.within(areas["demand"]).values
+    inside = pts.within(area).values
     df = df[inside].reset_index(drop=True)
     df["country"] = assign_country(gpd.GeoSeries(gpd.points_from_xy(df.x, df.y), crs=C.CRS), cn).values
     df = df.dropna(subset=["country"])
@@ -106,5 +107,5 @@ def nuts_names():
         r = requests.get(C.GISCO_NUTS_NAMES, timeout=120)
         r.raise_for_status()
         p.write_bytes(r.content)
-    names = pd.read_csv(p).set_index("NUTS_ID").NAME_LATN
+    names = pd.read_csv(p).set_index("NUTS_ID").NAME_LATN.str.strip()
     return pd.concat([names, pd.Series({"MC": "Monaco", "AD": "Andorra"})])

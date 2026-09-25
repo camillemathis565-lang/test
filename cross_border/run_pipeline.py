@@ -65,6 +65,7 @@ def build_inputs():
           f"within {C.MAX_TRAVEL_MIN} min")
 
     return {"cn": cn, "borders": borders, "areas": areas, "dest": dest, "shops": shops,
+            "places": places,
             "cells": cells, "T": T, "reach": reach}
 
 
