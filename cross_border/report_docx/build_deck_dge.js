@@ -84,14 +84,15 @@ card(s, 10.75, 1.2, 2.2, 1.55, "1er", "rang de la France dans l'UE-27 pour la r�
 bullets(s, [
   [["Décret tertiaire : ", "les bâtiments tertiaires de plus de 1 000 m², dont les grandes surfaces, doivent réduire leur consommation d'énergie de 40 % en 2030, 50 % en 2040 et 60 % en 2050."]],
   [["Prêt Vert (Bpifrance, Banque des Territoires) : ", "5 000 à 50 000 € sur 2 à 10 ans, adossé à un prêt bancaire équivalent."]],
+  [["Foncier : ", "le commerce a été le premier contributeur à l'artificialisation par le bâti économique entre 2008 et 2021, même si sa part diminue."]],
   [["Un écosystème orienté vert : ", "22 mesures uniquement « vertes » recensées, contre 5 uniquement numériques et 4 mixtes ; la plupart prennent la forme d'expertise plutôt que de financement."]],
-], 8.4, 2.95, 4.55, 3.6, 12.5);
-source(s, "Sources : OCDE (2026), Air Emissions Accounts (GES hors CO₂ de la biomasse, principe de résidence ; UE-27 estimée) ; décret n° 2019-771 du 23 juillet 2019 ; Bpifrance, Prêt Vert ; OCDE, inventaire des politiques (réunion DGE, 2026).");
+], 8.4, 2.95, 4.55, 3.6, 11.5);
+source(s, "Sources : OCDE (2026), Air Emissions Accounts (GES hors CO₂ de la biomasse, principe de résidence ; UE-27 estimée) ; décret n° 2019-771 du 23 juillet 2019 ; Bpifrance, Prêt Vert ; de l'Estoile et Salin (2024), Banque de France, document de travail n° 941 ; OCDE, inventaire des politiques (réunion DGE, 2026).");
 s.addNotes(`La baisse des émissions du commerce de détail français (−56 %) est la plus forte de l'UE-27. Elle reflète en partie la décarbonation de l'électricité : en 2024, 95 % de l'électricité française provenait de sources renouvelables et nucléaires (ministères de l'Aménagement du territoire et de la Transition écologique, 2026), le remplacement des fluides frigorigènes imposé par la réglementation européenne et le durcissement des cadres depuis le Plan Climat de 2017.
 
 L'enjeu suivant est le bâti : le décret tertiaire (décret n° 2019-771) impose des réductions de consommation aux bâtiments de plus de 1 000 m², ce qui concerne directement les grandes surfaces de périphérie (voir slide 7).
 
-Sources : OCDE, Air Emissions Accounts, https://www.oecd.org/en/data/datasets/air-emissions-accounts.html ; Légifrance, décret n° 2019-771 ; Bpifrance, Prêt Vert.`);
+Sources : OCDE, Air Emissions Accounts, https://www.oecd.org/en/data/datasets/air-emissions-accounts.html ; Légifrance, décret n° 2019-771 ; Bpifrance, Prêt Vert ; de l'Estoile, E. et Salin, M. (2024), « Quantifier l'utilisation du foncier bâti par les secteurs économiques français pour évaluer leur vulnérabilité au Zéro Artificialisation Nette », Banque de France, document de travail n° 941, https://www.banque-france.fr/fr/publications-et-statistiques/publications/quantifier-lutilisation-du-foncier-bati-par-les-secteurs-economiques-francais-pour-evaluer-leur`);
 
 // ---------- 3. Digitalisation ----------
 s = base("Numérique : les détaillants de 10 salariés et plus ont rejoint la moyenne européenne ; les micro-entreprises échappent à la mesure");
@@ -116,64 +117,85 @@ Point d'attention : les enquêtes TIC excluent les entreprises de moins de 10 sa
 Sources : OCDE, ICT Access and Usage by Businesses ; OECD Going Digital Toolkit, https://goingdigital.oecd.org ; DGE, France Num, https://www.francenum.gouv.fr`);
 
 // ---------- 4. Border areas (1) ----------
-s = base("Zones frontalières : la fermeture des frontières de 2020 a révélé l'ampleur des achats de tabac à l'étranger");
-chartTitle(s, "Hausse des ventes de tabac pendant la fermeture des frontières, printemps 2020 (% sur un an)", 0.4, 1.15, 7.8);
-s.addChart(pres.charts.BAR, [{ name: "%", labels: ["Frontière Allemagne–Luxembourg", "Frontière Espagne–Andorre", "Frontière belge", "Frontière suisse", "Ensemble des départements frontaliers", "Reste de la France"], values: [44.6, 44.5, 28.8, 2.6, 21.9, 2.4] }], {
-  x: 0.3, y: 1.6, w: 7.8, h: 4.85, barDir: "bar", catAxisOrientation: "maxMin", valAxisHidden: true, valAxisMinVal: 0, valAxisMaxVal: 52,
-  chartColors: [NAVY, NAVY, NAVY, LIGHT, BLUE, GREY], varyColors: true, showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "0.0",
-  dataLabelFontSize: 11, dataLabelFontBold: true, dataLabelColor: INK, catAxisLabelFontSize: 11, catAxisLabelColor: INK, catAxisLabelFontFace: F,
-  valGridLine: { style: "none" }, catGridLine: { style: "none" }, showLegend: false, barGapWidthPct: 45,
+s = base("Zones frontalières : les achats à l'étranger pèsent jusqu'à 14 % des dépenses en magasin des ménages frontaliers");
+chartTitle(s, "Part des dépenses par carte en magasin réalisée dans un pays voisin, 2024 (%, 12 premiers départements)", 0.4, 1.15, 7.8);
+s.addChart(pres.charts.BAR, [{ name: "%", labels: ["Moselle (LU, DE)", "Pyrénées-Orientales (ES, AD)", "Meurthe-et-Moselle (BE, LU)", "Haut-Rhin (DE, CH)", "Haute-Savoie (CH, IT)", "Pyrénées-Atlantiques (ES)", "Bas-Rhin (DE)", "Ardennes (BE)", "Nord (BE)", "Ain (CH)", "Alpes-Maritimes (IT, MC)", "Ariège (ES, AD)"], values: [13.9, 12.0, 9.5, 8.8, 8.7, 8.4, 7.8, 7.7, 7.0, 7.0, 6.4, 5.9] }], {
+  x: 0.3, y: 1.6, w: 7.8, h: 4.85, barDir: "bar", catAxisOrientation: "maxMin", valAxisHidden: true, valAxisMinVal: 0, valAxisMaxVal: 16,
+  chartColors: [NAVY], showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "0.0",
+  dataLabelFontSize: 10, dataLabelFontBold: true, dataLabelColor: INK, catAxisLabelFontSize: 10, catAxisLabelColor: INK, catAxisLabelFontFace: F,
+  valGridLine: { style: "none" }, catGridLine: { style: "none" }, showLegend: false, barGapWidthPct: 35,
 });
-card(s, 8.4, 1.2, 2.2, 1.7, "≥ 9,5 %", "des ventes de tabac en France correspondent à des achats à l'étranger (Insee)");
-card(s, 10.75, 1.2, 2.2, 1.7, "11,9 %", "des cigarettes consommées en France achetées légalement à l'étranger en 2024 (KPMG)");
+card(s, 8.4, 1.2, 2.2, 1.7, "> 1 sur 2", "des ménages des départements frontaliers ont acheté en magasin à l'étranger en 2024", { bigSize: 24 });
+card(s, 10.75, 1.2, 2.2, 1.7, "31 %", "de leurs dépenses à l'étranger vont au carburant et au tabac, contre 10 % en France (59 % au Luxembourg)");
 bullets(s, [
-  [["Carburant : ", "pendant la fermeture, le sans-plomb coûtait 1,28 €/l en France contre 0,97 € au Luxembourg ; les non-résidents y achètent environ deux tiers du carburant routier."]],
-  [["Sans données mensuelles : ", "les ventes de carburant ne sont publiées qu'à l'échelle annuelle par département, ce qui empêche de mesurer les flux."]],
-  [["Vue d'ensemble : ", "tourisme compris, la France reste bénéficiaire : les non-résidents y dépensent l'équivalent de 4,4 % de la consommation des ménages, les résidents 3,5 % à l'étranger (2023)."]],
-], 8.4, 3.1, 4.55, 3.45, 12);
-source(s, "Note : façades, 16 mars–14 juin 2020 ; ensemble des départements frontaliers et reste de la France, 2e trimestre 2020.\nSources : Assemblée nationale (2021), rapport d'information n° 4498 ; Douchet (2021), OFDT ; Hillion et Monchâtre (2024), Insee Analyses n° 94 ; KPMG (2025), étude commandée par PMI ; Commission européenne, Bulletin pétrolier ; AIE (2020) ; SDES ; Eurostat (2025), nama_10_fcs (P33, P34).");
-s.addNotes(`La fermeture des frontières au printemps 2020 est une expérience naturelle : les ventes de tabac ont augmenté de 21,9 % dans les départements frontaliers contre 2,4 % dans le reste de la France (Douchet, OFDT, 2021). La hausse atteint 44,6 % le long des frontières allemande et luxembourgeoise et 44,5 % le long des frontières espagnole et andorrane, mais seulement 2,6 % à la frontière suisse, où les prix sont proches des prix français (Assemblée nationale, 2021). L'Insee en déduit que les approvisionnements à l'étranger représentent au moins 9,5 % des ventes de tabac en France. KPMG estime à 11,9 % la part des cigarettes consommées en France achetées légalement à l'étranger ; l'étude est financée par un fabricant, mais ce chiffre est cohérent avec celui de l'Insee.
+  [["Frontaliers : ", "505 700 résidents travaillent à l'étranger en 2023 (+41 % depuis 2012), dont 71,5 % en Suisse et au Luxembourg ; près de ces deux pays, moins de 15 % des ménages, très réguliers, font environ la moitié des dépenses."]],
+  [["Sensibilité aux taxes : ", "après la taxe carbone allemande de janvier 2021, la part du carburant acheté en Allemagne par les ménages de Moselle et d'Alsace passe de plus de 15 % à environ 8 %."]],
+  [["Tabac : ", "ventes des buralistes −33 % entre 2017 et 2022 dans les départements frontaliers, contre −25 % ailleurs (−46 % en Moselle) ; au moins 9,5 % des ventes nationales sont des achats à l'étranger (fermeture de 2020)."]],
+], 8.4, 3.1, 4.55, 3.45, 11);
+source(s, "Note : paiements par carte en magasin des clients du Crédit Mutuel Alliance Fédérale (hors espèces et internet) ; moyenne des 21 départements frontaliers ≈ 7 %, moins de 3 % dans la plupart des autres.\nSources : Ast et Bichler (2025), Insee Première n° 2075 ; Insee, recensements de la population ; Insee Analyses n° 97 (2024) ; OFDT (2024) ; Hillion et Monchâtre (2024), Insee Analyses n° 94.");
+s.addNotes(`Source principale : Insee Première n° 2075 (octobre 2025), fondé sur les paiements par carte anonymisés de 370 000 à 380 000 ménages clients du Crédit Mutuel Alliance Fédérale. Ce sont des données observées, pas des estimations de modèle.
 
-Pour le carburant, les écarts de prix sont connus mais les flux ne sont pas mesurables avec les données publiques (ventes annuelles par département).
+En 2024, plus d'un ménage sur deux des départements frontaliers a fait au moins un achat en magasin dans un pays voisin (huit sur dix dans les Pyrénées-Orientales). Les achats à l'étranger représentent 13,9 % des dépenses par carte en magasin en Moselle et 12 % dans les Pyrénées-Orientales ; la moyenne des 21 départements frontaliers est d'environ 7 %, contre moins de 3 % dans la plupart des autres départements. L'Allemagne, la Belgique et l'Espagne reçoivent chacune environ un cinquième des dépenses, la Suisse 16 % et le Luxembourg 15 %.
+
+Le panier acheté à l'étranger est très différent : carburant et tabac pèsent 31 % des dépenses à l'étranger contre 10 % en France, et 59 % au Luxembourg. Les flux réagissent vite aux taxes : la taxe carbone allemande de 2021 a divisé par deux la part du carburant acheté en Allemagne (Insee Analyses n° 97), et en 2024 les dépenses dans les bureaux de tabac italiens ont augmenté de 26 % (Insee Première n° 2075).
+
+Limites : une seule banque, clientèle un peu plus aisée que la moyenne, pas de montants en euros, pas de mesure des achats des étrangers en France. Tourisme compris, la France reste bénéficiaire nette au niveau national : les non-résidents y dépensent l'équivalent de 4,4 % de la consommation des ménages, les résidents 3,5 % à l'étranger (Eurostat, 2023).
 
 Références :
-- Assemblée nationale (2021), Rapport d'information n° 4498 sur la consommation de tabac pendant le confinement.
-- Douchet, M.-A. (2021), Tabagisme et arrêt du tabac en 2020, OFDT.
-- Hillion, M. et Monchâtre, V. (2024), « Les approvisionnements à l'étranger représentent au moins 9,5 % des ventes de tabac en France », Insee Analyses n° 94, https://www.insee.fr/fr/statistiques/7764897
-- KPMG (2025), Illicit cigarette consumption in Europe, results for 2024.
-- Commission européenne, Weekly Oil Bulletin ; AIE (2020), Luxembourg 2020 Energy Policy Review.
+- Ast, D. et Bichler, G. (2025), « En 2024, les achats de l'autre côté de la frontière représentent jusqu'à 14 % des dépenses physiques des résidents frontaliers », Insee Première n° 2075, https://www.insee.fr/fr/statistiques/8647092
+- Insee (2024), « Les résidents frontaliers ajustent fortement leurs achats de carburant en Allemagne à l'écart de prix avec la France », Insee Analyses n° 97, https://www.insee.fr/fr/statistiques/8236361
+- OFDT (2024), Approvisionnement en tabac 2022, https://www.ofdt.fr/sites/ofdt/files/2024-05/approvisionnement_tabac_2022.pdf
+- Hillion, M. et Monchâtre, V. (2024), Insee Analyses n° 94, https://www.insee.fr/fr/statistiques/7764897
+- Insee, recensements de la population 2012 et 2023 (actifs travaillant à l'étranger).
 - Eurostat (2025), nama_10_fcs.`);
 
 // ---------- 5. Border areas (2) ----------
-s = base("Zones frontalières : un tissu commercial solide mais aminci là où les écarts de prix sont forts ; des politiques peu territorialisées");
-chartTitle(s, "Densité d'équipements, zone frontalière (0–20 km) par rapport à la France métropolitaine (écart en %)", 0.4, 1.15, 5.9);
-s.addChart(pres.charts.BAR, [{ name: "%", labels: ["Super et hypermarchés", "Commerces de détail", "Stations-service", "Buralistes", "Stations-service, frontière luxembourgeoise", "Buralistes, frontière luxembourgeoise"], values: [6, -2, -17, -25, -57, -64] }], {
-  x: 0.3, y: 1.6, w: 5.9, h: 4.35, barDir: "bar", catAxisOrientation: "maxMin", catAxisLabelPos: "low", valAxisHidden: true, valAxisMinVal: -75, valAxisMaxVal: 15,
-  chartColors: [BLUE, BLUE, ORANGE, ORANGE, ORANGE, ORANGE], varyColors: true, showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "+0;-0",
-  dataLabelFontSize: 11, dataLabelFontBold: true, dataLabelColor: INK, catAxisLabelFontSize: 10, catAxisLabelColor: INK, catAxisLabelFontFace: F,
-  valGridLine: { style: "none" }, catGridLine: { style: "none" }, showLegend: false, barGapWidthPct: 40,
-});
-s.addText("Emploi salarié du commerce de détail, 2012–2024 : +9,5 % en zone frontalière, +9,6 % en France métropolitaine.", { x: 0.4, y: 5.95, w: 5.8, h: 0.5, fontFace: F, fontSize: 11, bold: true, color: NAVY, margin: 0, valign: "top", isTextBox: true });
-// policy table
+s = base("Zones frontalières : trois profils de frontière, un tissu aminci sur les produits taxés, des politiques qui ne visent pas le commerce");
 const H = (t) => ({ text: t, options: { bold: true, color: WHITE, fill: { color: BLUE } } });
 const lvl = (t) => ({ text: t, options: { bold: true, color: NAVY } });
+const tbl = { fontFace: F, fontSize: 9.5, color: INK, valign: "middle", border: { type: "solid", pt: 0.5, color: "D5DCE4" }, margin: [3, 5, 3, 5] };
+chartTitle(s, "Trois profils de frontière (achats des ménages frontaliers, 2024)", 0.4, 1.1, 5.9);
 s.addTable([
-  [H("Niveau"), H("Instrument"), H("Ce qu'il fait pour le commerce frontalier")],
-  [lvl("UE"), "Révision de la directive sur la taxation du tabac (proposition 2025)", "Relève les minima d'accises à partir de 2028 ; ne couvre ni Andorre ni la Suisse"],
-  [lvl("UE"), "Interreg VI-A", "Numérisation des PME sur plusieurs frontières ; aucune priorité PME dans le programme Grande Région"],
-  [lvl("National"), "Protocole buralistes 2023–2027", "Transformation jusqu'à 33 000 € ; prime de diversification portée à 2 500 € dans les départements frontaliers"],
-  [lvl("National"), "Douane, règles 2024", "12 critères pour qualifier un achat de tabac à l'étranger de commercial, dès une cartouche"],
-  [lvl("National"), "Loi 3DS (2022)", "Permet d'associer les communes étrangères voisines aux CDAC"],
-  [lvl("Constat"), { text: "Action Cœur de Ville, Petites villes de demain, FRR", options: { color: INK } }, { text: "Aucun critère d'exposition frontalière ; pas de mesure officielle des achats transfrontaliers", options: { bold: true, color: ORANGE } }],
-], { x: 6.5, y: 1.2, w: 6.45, colW: [0.95, 2.1, 3.4], fontFace: F, fontSize: 10, color: INK, valign: "middle", border: { type: "solid", pt: 0.5, color: "D5DCE4" }, margin: [3, 5, 3, 5], rowH: 0.62 });
-source(s, "Note : densités pour 10 000 habitants, communes à moins de 20 km d'une frontière terrestre ; buralistes : annuaire 2018 ; emploi : secteur privé, NAF 47.\nSources : calculs des auteurs d'après Insee, BPE 2025 et populations de référence 2023 ; DGDDI (2018, 2024) ; Urssaf ; Commission européenne, COM(2025) 580 ; Interact (2026) ; ministère de l'Économie (2023), protocole buralistes ; loi n° 2022-217 (3DS).");
-s.addNotes(`Le tissu commercial frontalier n'est pas en déficit général : la densité de commerces est proche de la moyenne nationale, les super et hypermarchés y sont même un peu plus fréquents, et l'emploi salarié du commerce y a progressé comme au niveau national entre 2012 et 2024 (+9,5 % contre +9,6 %). La pression est sélective : les buralistes sont 25 % moins nombreux par habitant (64 % de moins le long de la frontière luxembourgeoise) et les stations-service 17 % moins nombreuses (57 % de moins face au Luxembourg). Ce sont des traces structurelles des achats à l'étranger.
+  [H("Profil"), H("Ce que montrent les données")],
+  [{ text: [{ text: "Bassins de travail frontalier", options: { bold: true, color: NAVY, breakLine: true } }, { text: "Suisse, Luxembourg, Monaco" }] }, "380 000 frontaliers ; achats intégrés aux trajets quotidiens ; carburant et tabac : 59 % des dépenses au Luxembourg"],
+  [{ text: [{ text: "Achats de proximité réguliers", options: { bold: true, color: NAVY, breakLine: true } }, { text: "Allemagne, Belgique" }] }, "Agglomérations à cheval sur la frontière ; prix et assortiment (droguerie, équipement) ; carburant et tabac : 27 à 36 %"],
+  [{ text: [{ text: "Achats saisonniers et fiscaux", options: { bold: true, color: NAVY, breakLine: true } }, { text: "Espagne, Italie, Andorre" }] }, "Jusqu'à 23 % des dépenses en juillet-août ; gros paniers de tabac (91 € par achat en Espagne) ; tabac en Italie +26 % en 2024"],
+], { ...tbl, x: 0.4, y: 1.55, w: 5.9, colW: [2.1, 3.8], rowH: [0.35, 0.78, 0.78, 0.78] });
+s.addShape(pres.shapes.RECTANGLE, { x: 0.4, y: 4.45, w: 5.9, h: 2.05, fill: { color: LBG }, line: { color: LBG } });
+s.addText("Traces dans le tissu commercial local", { x: 0.55, y: 4.52, w: 5.6, h: 0.3, fontFace: F, fontSize: 11.5, bold: true, color: NAVY, margin: 0, isTextBox: true });
+bullets(s, [
+  "À moins de 20 km de la frontière : 25 % de buralistes et 17 % de stations-service en moins par habitant (64 % et 57 % en moins face au Luxembourg).",
+  "6,7 créations d'entreprises du commerce, des transports et de l'hébergement par commune frontalière en 2024, contre 9,2 ailleurs.",
+  "La politique locale compte : à Thionville (Action Cœur de Ville), vacance commerciale −60 % en quatre ans.",
+], 0.55, 4.85, 5.6, 1.6, 10.5);
+chartTitle(s, "Politiques en place : une coopération dense, rarement tournée vers le commerce", 6.55, 1.1, 6.4);
+s.addTable([
+  [H("Niveau"), H("Instrument"), H("Place du commerce")],
+  [lvl("UE"), "Interreg 2014–2020 (23 programmes, 3,02 Md€ de FEDER)", "Indirecte : environ 7 % pour la compétitivité des PME ; le commerce n'est pas une priorité nommée"],
+  [lvl("UE"), "ESPON CROSSSHOP (déc. 2025–janv. 2027)", "Première étude européenne dédiée aux achats transfrontaliers, sur la frontière franco-allemande"],
+  [lvl("UE"), "Règlement BRIDGEforEU (2025)", "Points de coordination pour lever les obstacles juridiques ; l'ANCT est le point national"],
+  [lvl("UE"), "Révision de la directive tabac (proposition 2025)", "Minima d'accises relevés à partir de 2028 ; ni Andorre ni la Suisse"],
+  [lvl("National"), "Protocole buralistes 2023–2027", "Prime de diversification portée à 2 500 € dans les départements frontaliers"],
+  [lvl("National"), "Action Cœur de Ville, Petites villes de demain", { text: "Aucun critère frontalier ; volet commerce renforcé prévu après 2026", options: { bold: true, color: ORANGE } }],
+  [lvl("Local"), "COMMERCE! (Interreg France-Wallonie-Vlaanderen), Business Twin (Rhin supérieur)", "Projets ciblés sur les commerçants ; l'Eurodistrict SaarMoselle s'oppose en 2025 à l'extension du FOC de Zweibrücken"],
+], { ...tbl, x: 6.55, y: 1.55, w: 6.4, colW: [0.85, 2.35, 3.2], rowH: [0.33, 0.62, 0.62, 0.62, 0.58, 0.58, 0.58, 0.72] });
+source(s, "Sources : Ast et Bichler (2025), Insee Première n° 2075 ; Insee, recensement 2022 ; calculs des auteurs d'après Insee, BPE 2025, et DGDDI (2018) ; Insee, SIDE 2024 ; ANCT (2025), bilan Interreg 2014–2020 ; Euro-Institut (2025) ; règlement (UE) 2025/925 ; COM(2025) 580 ; ministère de l'Économie (2023) ; CCI Alsace Eurométropole ; Eurodistrict SaarMoselle (2025).");
+s.addNotes(`Les frontières françaises ne se ressemblent pas. Trois profils ressortent des données Insee : des bassins de travail frontalier (Suisse, Luxembourg, Monaco), où les achats font partie des trajets quotidiens ; des achats de proximité réguliers (Allemagne, Belgique), guidés par les prix et l'assortiment ; des achats saisonniers et fiscaux (Espagne, Italie, Andorre), concentrés sur le tabac. Cette typologie est une lecture DGE des données de l'Insee Première n° 2075 et du recensement.
 
-Côté politiques, les instruments spécifiques aux frontières concernent surtout le tabac (protocole buralistes, règles douanières). Les grands programmes nationaux de revitalisation ne prennent pas en compte l'exposition frontalière, et il n'existe pas de mesure officielle des achats transfrontaliers.
+Le tissu commercial frontalier n'est pas en déficit général (densité de commerces proche de la moyenne, emploi du commerce +9,5 % entre 2012 et 2024 comme au niveau national), mais il est aminci sur les produits taxés : buralistes et stations-service. Les créations d'entreprises du commerce, des transports et de l'hébergement sont 25 à 30 % moins nombreuses par commune frontalière. Thionville montre qu'une politique locale active peut inverser la tendance ; à l'inverse, la vacance reste élevée à Maubeuge (15,9 %), Cambrai (14,9 %) et Valenciennes (12,7 %).
 
-Ces chiffres sont des calculs descriptifs sur des données officielles (Insee BPE 2025, Urssaf, annuaire DGDDI des buralistes 2018), pas des estimations de modèle.
+La coopération transfrontalière est dense (plus de 40 structures, ANCT, MOT), mais le commerce n'y est presque jamais une compétence explicite. Deux nouveautés : l'étude ESPON CROSSSHOP, première étude européenne sur les achats transfrontaliers (résultats en 2027), et le règlement BRIDGEforEU, dont l'ANCT est le point de coordination national. Un volet commerce renforcé est prévu dans le renouvellement d'Action Cœur de Ville et de Petites villes de demain après 2026 (mission Papin sur le commerce de proximité).
 
-Références : Insee, Base permanente des équipements 2025 ; Urssaf, établissements et effectifs salariés par commune x APE ; DGDDI (2018), annuaire des buralistes ; DGDDI (2024), Achat et transport de tabac en Europe vers la France : les nouvelles règles en 2024 ; Commission européenne (2025), COM(2025) 580 ; ministère de l'Économie (2023), protocole d'accord avec la Confédération des buralistes 2023–2027 ; loi n° 2022-217 du 21 février 2022 (3DS).`);
+Références :
+- Ast, D. et Bichler, G. (2025), Insee Première n° 2075, https://www.insee.fr/fr/statistiques/8647092
+- Insee, Base permanente des équipements 2025 ; DGDDI (2018), annuaire des buralistes (calculs des auteurs).
+- Insee, SIDE / Sirene 2024 (créations d'entreprises), note interne DGE.
+- ANCT (2025), Bilan Interreg 2014–2020 en France, https://media.anct.gouv.fr/ressources/2025-12/bilan-interreg-2024-2020-en-france.pdf
+- Euro-Institut (2025), étude CROSSSHOP, https://www.euroinstitut.org/fr/actualites-1-1/artikel/etude-crossshop-sur-les-flux-de-commerce-transfrontalier
+- Règlement (UE) 2025/925 (BRIDGEforEU) ; MOT, https://www.espaces-transfrontaliers.org/niveaux/europe-bridgeforeu/
+- Commission européenne (2025), COM(2025) 580 ; ministère de l'Économie (2023), protocole buralistes 2023–2027.
+- Interreg France-Wallonie-Vlaanderen, projet COMMERCE!, https://www.bge-hautsdefrance.fr/interreg-commerce/ ; CCI Alsace Eurométropole, Business Twin, https://www.alsace-eurometropole.cci.fr/business-twin-jumelages-dentreprises
+- Eurodistrict SaarMoselle (2025), résolution contre l'extension du FOC de Zweibrücken, https://www.saarmoselle.org/fr/actualites/resolution-de-l-eurodistrict-saarmoselle-contre-l-extension-du-foc-zweibrucken_-n.html`);
 
 // ---------- 6. Peripheral zones (1) ----------
 s = base("Zones commerciales périphériques : deux tiers des ventes et une dynamique d'emploi supérieure à celle des centres-villes");
@@ -189,8 +211,9 @@ bullets(s, [
   [["Emploi : ", "entre 2016 et 2022, l'emploi salarié des points de vente progresse de 1,6 % par an dans les pôles périphériques, contre 1,1 % dans les pôles de centre-ville ; la périphérie porte 40 % des créations d'emplois, les centres-villes 28 %."]],
   [["Formats : ", "un point de vente compte en moyenne 12 salariés et 586 m² en périphérie, contre 3 salariés et 92 m² en centre-ville."]],
   [["Vacance : ", "la périphérie reste la mieux placée (8,4 %) face aux centres-villes (11,7 %) et aux centres commerciaux (16,8 %), mais l'écart se réduit."]],
-], 6.55, 3.15, 6.4, 3.3, 13);
-source(s, "Note : 67 % de l'ensemble des ventes, internet compris ; 72 % des seules dépenses en magasin (autre source, autre périmètre).\nSources : Rexecode, d'après Insee, Procos et Fevad (2024) ; Cerema (2023), géolocalisation des zones commerciales ; Gouvernement (2023), dossier de presse « Un nouvel horizon pour les zones commerciales » ; Bloch et Pichavant (2026), Insee Première n° 2091 ; Codata (2026).");
+  [["Préférence déclarée : ", "62 % des Français disent privilégier les zones commerciales pour leurs achats, loisirs et services ; les centres-villes progressent entre 2023 et 2025."]],
+], 6.55, 3.15, 6.4, 3.3, 12);
+source(s, "Note : 67 % de l'ensemble des ventes, internet compris ; 72 % des seules dépenses en magasin (autre source, autre périmètre).\nSources : Rexecode, d'après Insee, Procos et Fevad (2024) ; Cerema (2023), géolocalisation des zones commerciales ; Gouvernement (2023), dossier de presse « Un nouvel horizon pour les zones commerciales » ; Bloch et Pichavant (2026), Insee Première n° 2091 ; Codata (2026) ; CNC (2026), d'après Ifop pour l'ANCT et la Banque des Territoires.");
 s.addNotes(`La France est l'un des marchés européens les plus polarisés sur la périphérie. Deux chiffres coexistent et ne se contredisent pas : 67 % de l'ensemble des ventes du commerce de détail, internet compris (Rexecode, 2024), et 72 % des dépenses réalisées en magasin (dossier de presse du Gouvernement, septembre 2023). Hors internet, les 67 % de Rexecode correspondent à environ trois quarts des ventes en magasin.
 
 L'Insee (Insee Première n° 2091, janvier 2026) confirme la dynamique : entre 2016 et 2022, l'emploi salarié des points de vente croît de 1,6 % par an en périphérie contre 1,1 % en centre-ville. Les formats sont sans commune mesure (586 m² contre 92 m² en moyenne).
@@ -202,7 +225,8 @@ Références :
 - Cerema (2023), Les données de géolocalisation des 1 500 zones commerciales de périphérie en open data, https://www.cerema.fr/fr/actualites/donnees-geolocalisation-1500-zones-commerciales-peripherie
 - Gouvernement (2023), Un nouvel horizon pour les zones commerciales, dossier de presse, septembre 2023, https://www.info.gouv.fr/upload/media/content/0001/07/2dc90efc2c1a0e97572bf027240fac63e4dc9d75.pdf
 - Bloch, K. et Pichavant, A.-S. (2026), « Entre 2016 et 2022, l'emploi salarié des points de vente progresse davantage en dehors des centres-villes », Insee Première n° 2091, https://www.insee.fr/fr/statistiques/8730497
-- Codata (2026), Digest 2026 ; relayé par L'Échommerces, https://lechommerces.fr/la-vacance-commerciale-progresse-de-nouveau-en-france/`);
+- Codata (2026), Digest 2026 ; relayé par L'Échommerces, https://lechommerces.fr/la-vacance-commerciale-progresse-de-nouveau-en-france/
+- Conseil national du commerce (2026), La vacance commerciale en centre-ville, juin 2026, p. 71 (sondage Ifop pour l'ANCT et la Banque des Territoires), https://www.entreprises.gouv.fr/files/files/Entites/CNC/cnc_rapport_gt_vacance_commerciale.pdf`);
 
 // ---------- 7. Peripheral zones (2) ----------
 s = base("Zones périphériques : la régulation est passée de la protection du petit commerce à la sobriété foncière ; la transformation démarre");
@@ -243,7 +267,7 @@ s.addNotes(`Cinquante ans de droit de l'urbanisme commercial sont passés d'une 
 
 Le plan de transformation des zones commerciales, lancé le 11 septembre 2023, soutient 90 projets pour 31,4 M€. C'est significatif pour chaque projet, mais modeste au regard des 1 500 zones. Montigny-lès-Cormeilles illustre ce qu'une transformation complète demande : du temps (démarche engagée en 2010), du portage foncier et un projet urbain.
 
-Point de comparaison européenne (à mentionner à l'oral) : parmi les pays ayant fixé des objectifs de réduction de l'artificialisation (Allemagne, Flandre, Wallonie, Luxembourg, Autriche), la France est la seule à l'avoir rendu juridiquement contraignant (Sarles-Frachon, mémoire EMSFI, 2022).
+Point de comparaison européenne (à mentionner à l'oral) : l'Allemagne, la Flandre, la Wallonie, le Luxembourg et l'Autriche ont fixé des objectifs quantitatifs de réduction de l'artificialisation, mais non contraignants ; la France est la seule à avoir inscrit le sien dans une loi contraignante (loi Climat et résilience) (Town Planning Review, 2024, https://doi.org/10.3828/tpr.2024.44). La loi du 20 juillet 2023 a ensuite assoupli la gouvernance du ZAN (garantie rurale d'un hectare).
 
 Références :
 - LSA (2025), « La fédération Procos pointe un reflux historique des autorisations de surface commerciales », https://www.lsa-conso.fr/la-federation-procos-pointe-un-reflux-historique-des-autorisations-de-surface-commerciales,137327
