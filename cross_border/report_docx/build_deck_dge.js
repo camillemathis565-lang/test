@@ -7,6 +7,7 @@ const path = require("path");
 const BLUE = "0070C0", NAVY = "003087", GREEN = "1D774A", GREENBG = "E8F5E9", LBG = "EBF4FB", INK = "404040",
   MUTED = "727272", WHITE = "FFFFFF", LIGHT = "8DB9E2", GREY = "B4BCC6", ORANGE = "D9822B";
 const F = "Aptos";
+const MAP_AR = 1236 / 1075;
 
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
@@ -118,12 +119,12 @@ Sources : OCDE, ICT Access and Usage by Businesses ; OECD Going Digital Toolkit,
 
 // ---------- 4. Border areas (1) ----------
 s = base("Zones frontalières : les achats à l'étranger pèsent jusqu'à 14 % des dépenses en magasin des ménages frontaliers");
-chartTitle(s, "Part des dépenses par carte en magasin réalisée dans un pays voisin, 2024 (%, 12 premiers départements)", 0.4, 1.15, 7.8);
-s.addChart(pres.charts.BAR, [{ name: "%", labels: ["Moselle (LU, DE)", "Pyrénées-Orientales (ES, AD)", "Meurthe-et-Moselle (BE, LU)", "Haut-Rhin (DE, CH)", "Haute-Savoie (CH, IT)", "Pyrénées-Atlantiques (ES)", "Bas-Rhin (DE)", "Ardennes (BE)", "Nord (BE)", "Ain (CH)", "Alpes-Maritimes (IT, MC)", "Ariège (ES, AD)"], values: [13.9, 12.0, 9.5, 8.8, 8.7, 8.4, 7.8, 7.7, 7.0, 7.0, 6.4, 5.9] }], {
-  x: 0.3, y: 1.6, w: 7.8, h: 4.85, barDir: "bar", catAxisOrientation: "maxMin", valAxisHidden: true, valAxisMinVal: 0, valAxisMaxVal: 16,
-  chartColors: [NAVY], showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "0.0",
-  dataLabelFontSize: 10, dataLabelFontBold: true, dataLabelColor: INK, catAxisLabelFontSize: 10, catAxisLabelColor: INK, catAxisLabelFontFace: F,
-  valGridLine: { style: "none" }, catGridLine: { style: "none" }, showLegend: false, barGapWidthPct: 35,
+chartTitle(s, "Part des achats physiques par carte réalisés dans un pays voisin, par département, 2024 (%)", 0.4, 1.1, 7.8);
+{ const W = 4.6 * MAP_AR; s.addImage({ path: path.join(__dirname, "fig_map_spending_abroad.png"), x: 0.4 + (7.7 - W) / 2, y: 1.5, w: W, h: 4.6, altText: "Carte de France par département : part des achats par carte réalisés dans un pays voisin en 2024, de moins de 3 % à l'intérieur jusqu'à 13,9 % en Moselle et 12 % dans les Pyrénées-Orientales" }); }
+[["8B0F14", "9 % ou plus"], ["D7301F", "6 à moins de 9 %"], ["F39C8B", "3 à moins de 6 %"], ["FBE3DC", "Moins de 3 %"], ["C8C8C8", "Non disponible"]].forEach(([c, t], i) => {
+  const x = 0.45 + i * 1.55;
+  s.addShape(pres.shapes.RECTANGLE, { x, y: 6.22, w: 0.22, h: 0.18, fill: { color: c }, line: { color: "B4BCC6", width: 0.5 } });
+  s.addText(t, { x: x + 0.28, y: 6.18, w: 1.25, h: 0.26, fontFace: F, fontSize: 10, color: INK, margin: 0, valign: "middle", isTextBox: true });
 });
 card(s, 8.4, 1.2, 2.2, 1.7, "> 1 sur 2", "des ménages des départements frontaliers ont acheté en magasin à l'étranger en 2024", { bigSize: 24 });
 card(s, 10.75, 1.2, 2.2, 1.7, "31 %", "de leurs dépenses à l'étranger vont au carburant et au tabac, contre 10 % en France (59 % au Luxembourg)");
