@@ -1,0 +1,5 @@
+,,coef,ic95_bas,ic95_haut,p,n
+surface périphérique (log ha ≤ 5 km),log_surf,0.0648,-0.0201,0.1496,0.1347,510
+surface périphérique (log ha ≤ 5 km),dpop,1.4761,-0.7788,3.7311,0.1995,510
+zone contiguë ou < 1 km,proche,0.0184,-0.1151,0.1519,0.7872,510
+zone contiguë ou < 1 km,dpop,1.4658,-0.6623,3.5938,0.177,510

@@ -1,0 +1,8 @@
+,,coef,ic95_bas,ic95_haut,p,n
+surface périphérique (log ha ≤ 10 km),log_surf,-0.0008,-0.0103,0.0088,0.873,1076
+surface périphérique (log ha ≤ 10 km),dpop_14_20,0.5895,0.2542,0.9247,0.0006,1076
+développement périphérique 2012-2025,dev_peri_w,0.0119,0.002,0.0219,0.0187,1076
+développement périphérique 2012-2025,dpop_14_20,0.5716,0.2296,0.9136,0.0011,1076
+terciles de surface (réf. faible),"C(surf_t, Treatment('faible'))[T.moyenne]",0.0,-0.0243,0.0243,0.9983,1076
+terciles de surface (réf. faible),"C(surf_t, Treatment('faible'))[T.forte]",0.0265,-0.0065,0.0595,0.1151,1076
+terciles de surface (réf. faible),dpop_14_20,0.5733,0.2254,0.9211,0.0012,1076
