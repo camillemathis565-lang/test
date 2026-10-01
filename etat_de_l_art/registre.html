@@ -1,0 +1,804 @@
+<title>Registre du commerce périphérique</title>
+<style>
+/* Mise en page : outil institutionnel. Bandeau marine pleine largeur (titre + synthèse), barre d'onglets fixe, contenu sur fond blanc, fiche détaillée en panneau latéral. */
+:root{
+  --bg:#ffffff; --surface:#ffffff; --surface-2:#f2f5f9; --line:#dde3ea; --grid:#e8edf2; --band:#0e2846; --band-2:#163659; --band-ink:#ffffff; --band-muted:#a9bcd3;
+  --ink:#13233a; --ink-2:#44546a; --muted:#6d7b8f;
+  --accent:#0b4f9c; --accent-ink:#ffffff; --accent-soft:#e8f0fa;
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a;
+  --v-a:#1d7a4c; --v-a-bg:#e3f3ea; --v-b:#2463a6; --v-b-bg:#e4eefb; --v-c:#9a6200; --v-c-bg:#fbf0db;
+  --v-d:#b4261b; --v-d-bg:#fbe5e2; --v-e:#5f548f; --v-e-bg:#ece9f7;
+  --danger:#b4261b; --shadow:0 12px 40px rgba(19,35,58,.14);
+  --f-display:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1620; --surface:#151e2a; --surface-2:#1b2633; --line:#2a3748; --grid:#223041; --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
+    --ink:#e9eef5; --ink-2:#b4c0cf; --muted:#8392a6;
+    --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1b2c44;
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70;
+    --v-a:#6fd3a0; --v-a-bg:#16301f; --v-b:#8ab9f2; --v-b-bg:#172a42; --v-c:#efc06b; --v-c-bg:#33270f;
+    --v-d:#f2958a; --v-d-bg:#3a1a17; --v-e:#bdb2ee; --v-e-bg:#272340;
+    --danger:#f2958a; --shadow:0 12px 40px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1620; --surface:#151e2a; --surface-2:#1b2633; --line:#2a3748; --grid:#223041; --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
+  --ink:#e9eef5; --ink-2:#b4c0cf; --muted:#8392a6;
+  --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1b2c44;
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70;
+  --v-a:#6fd3a0; --v-a-bg:#16301f; --v-b:#8ab9f2; --v-b-bg:#172a42; --v-c:#efc06b; --v-c-bg:#33270f;
+  --v-d:#f2958a; --v-d-bg:#3a1a17; --v-e:#bdb2ee; --v-e-bg:#272340;
+  --danger:#f2958a; --shadow:0 12px 40px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.5; margin:0}
+.inner{max-width:1240px; margin:0 auto; padding-inline:16px}
+.wrap{max-width:1240px; margin:0 auto; padding-inline:16px; padding-block:20px 64px}
+.masthead{background:var(--band); color:var(--band-ink); padding-block:26px 24px}
+.masthead .eyebrow{color:var(--band-muted)}
+.masthead .lede{color:var(--band-muted); font-size:.92rem; margin:6px 0 0; max-width:70ch}
+.tabbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:10; background:var(--surface); border-bottom:1px solid var(--line); box-shadow:0 1px 0 rgba(14,40,70,.03)}
+.footer{border-top:1px solid var(--line); margin-top:40px; padding-top:14px; font-size:.78rem; color:var(--muted)}
+button,input,select,textarea{font:inherit; color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.mono{font-family:var(--f-mono); font-size:.82em; letter-spacing:.01em}
+.num{font-variant-numeric:tabular-nums}
+
+/* En-tête */
+.top{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:14px 24px}
+.eyebrow{font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:500}
+h1{font-family:var(--f-display); font-weight:600; font-size:clamp(1.55rem,3.4vw,2.1rem); line-height:1.15; margin:.3em 0 0; letter-spacing:-.005em; text-wrap:balance}
+.actions{display:flex; flex-wrap:wrap; gap:8px}
+.btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:8px 14px; cursor:pointer; font-weight:500; display:inline-flex; align-items:center; gap:6px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
+.masthead .btn{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.35)}
+.masthead .btn:hover{border-color:var(--band-ink); background:rgba(255,255,255,.06)}
+.masthead .btn.primary{background:var(--band-ink); color:var(--band); border-color:var(--band-ink)}
+.masthead .btn.primary:hover{filter:none; background:#e6eef8}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--danger); border-color:var(--danger); background:transparent}
+.btn[disabled]{opacity:.5; cursor:not-allowed}
+
+.stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.12); border-radius:8px; overflow:hidden; margin:22px 0 0}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--band-2); padding:12px 16px; min-width:0}
+.stat b{display:block; font-family:var(--f-display); font-size:1.6rem; font-weight:600; line-height:1.1; font-variant-numeric:tabular-nums; color:var(--band-ink)}
+.stat span{font-size:.8rem; color:var(--band-muted)}
+.meter{height:6px; background:rgba(255,255,255,.14); border-radius:3px; margin-top:8px; display:flex; overflow:hidden; gap:2px}
+.meter i{display:block; height:100%}
+.notice{font-size:.85rem; color:var(--ink-2); margin:0 0 16px; padding:8px 12px; background:var(--surface-2); border-radius:6px; border-left:3px solid var(--accent)}
+
+/* Onglets */
+.tabs{display:flex; gap:2px; overflow-x:auto; scrollbar-width:thin}
+.tab{border:0; background:none; padding:13px 14px; cursor:pointer; color:var(--ink-2); font-weight:500; border-bottom:3px solid transparent; white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent); font-weight:600}
+.tab .count{font-family:var(--f-mono); font-size:.72rem; color:var(--muted); margin-left:4px}
+
+/* Vue chiffres */
+.layout{display:grid; grid-template-columns:250px minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:860px){.layout{grid-template-columns:minmax(0,1fr)}}
+.filters{display:flex; flex-direction:column; gap:18px; position:sticky; top:calc(env(safe-area-inset-top,0px) + 64px); background:var(--surface-2); border-radius:10px; padding:16px}
+@media (max-width:860px){.filters{position:static}}
+.search{width:100%; border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:9px 12px}
+.fgroup h3{font-size:.74rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--muted); margin:0 0 6px; font-weight:500}
+.opt{display:flex; align-items:flex-start; gap:8px; padding:3px 0; font-size:.86rem; cursor:pointer; color:var(--ink-2)}
+.opt input{margin-top:3px; accent-color:var(--accent)}
+.opt .c{margin-left:auto; font-family:var(--f-mono); font-size:.75rem; color:var(--muted)}
+.opt:hover{color:var(--ink)}
+@media (max-width:860px){ details.fold > summary{cursor:pointer; font-weight:600} }
+.listhead{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px; font-size:.86rem; color:var(--ink-2)}
+.listhead select{border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:4px 8px}
+.chip-row{display:flex; flex-wrap:wrap; gap:6px}
+.chip{display:inline-flex; align-items:center; gap:6px; background:var(--accent-soft); color:var(--ink); border:0; border-radius:999px; padding:3px 10px; font-size:.78rem; cursor:pointer}
+
+.rows{display:flex; flex-direction:column; gap:8px}
+.row{display:grid; grid-template-columns:150px minmax(0,1fr) auto; gap:16px; align-items:start; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:12px 14px; cursor:pointer; text-align:left; width:100%}
+.row:hover{border-color:var(--accent); box-shadow:0 2px 10px rgba(14,40,70,.07)}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr) auto}.row .val{grid-column:1/-1}}
+.val b{font-family:var(--f-display); font-size:1.35rem; font-weight:600; color:var(--accent); line-height:1.1; font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.val small{display:block; color:var(--ink-2); font-size:.78rem; line-height:1.3; margin-top:2px}
+.what{min-width:0}
+.what .t{font-weight:600; line-height:1.35}
+.what .m{font-size:.8rem; color:var(--ink-2); margin-top:4px; display:flex; flex-wrap:wrap; gap:4px 12px}
+.what .m span{white-space:nowrap}
+.what .s{font-size:.78rem; color:var(--muted); margin-top:3px; overflow-wrap:anywhere}
+
+/* Cachet de vérification */
+.stamp{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:6px; font-family:var(--f-mono); font-weight:600; font-size:.9rem; border:1.5px solid currentColor}
+.stamp.A{color:var(--v-a); background:var(--v-a-bg)} .stamp.B{color:var(--v-b); background:var(--v-b-bg)}
+.stamp.C{color:var(--v-c); background:var(--v-c-bg)} .stamp.D{color:var(--v-d); background:var(--v-d-bg)}
+.stamp.E{color:var(--v-e); background:var(--v-e-bg)}
+.vlabel{font-size:.8rem}
+
+/* Panneau latéral */
+.scrim{position:fixed; inset:0; background:rgba(10,18,30,.38); z-index:20}
+.drawer{position:fixed; top:0; right:0; bottom:0; width:min(560px,100%); background:var(--surface); z-index:21; box-shadow:var(--shadow); display:flex; flex-direction:column; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+.dhead{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; padding:18px 20px 12px; border-bottom:1px solid var(--line)}
+.dhead h2{font-family:var(--f-display); font-size:1.25rem; margin:4px 0 0; line-height:1.2; text-wrap:balance}
+.dbody{padding:16px 20px; overflow-y:auto; flex:1}
+.dfoot{display:flex; flex-wrap:wrap; gap:8px; padding:12px 20px; border-top:1px solid var(--line)}
+.close{border:0; background:none; font-size:1.4rem; line-height:1; cursor:pointer; color:var(--ink-2); padding:4px 8px}
+.big{font-family:var(--f-display); font-size:2rem; font-weight:600; color:var(--accent); line-height:1.05; font-variant-numeric:tabular-nums}
+dl.kv{display:grid; grid-template-columns:150px minmax(0,1fr); gap:8px 14px; margin:16px 0; font-size:.9rem}
+@media (max-width:480px){dl.kv{grid-template-columns:minmax(0,1fr)} dl.kv dt{margin-top:6px}}
+dl.kv dt{color:var(--muted); font-size:.8rem}
+dl.kv dd{margin:0; overflow-wrap:anywhere}
+.confirm{background:var(--v-d-bg); border-radius:8px; padding:10px 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:.88rem}
+
+/* Formulaires */
+form.f{display:flex; flex-direction:column; gap:12px}
+.field{display:flex; flex-direction:column; gap:4px}
+.field label{font-size:.8rem; font-weight:600; color:var(--ink-2)}
+.field .hint{font-size:.76rem; color:var(--muted)}
+.field input,.field select,.field textarea{border:1px solid var(--line); background:var(--bg); border-radius:7px; padding:8px 10px; width:100%}
+.field textarea{min-height:76px; resize:vertical}
+.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media (max-width:480px){.two{grid-template-columns:1fr}}
+.err{color:var(--danger); font-size:.82rem}
+
+/* Sources, manques, journal */
+.table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:.86rem}
+th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.72rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:500; background:var(--surface-2); white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tbody tr.click{cursor:pointer} tbody tr.click:hover td{background:var(--accent-soft)}
+td.n{text-align:right; font-variant-numeric:tabular-nums}
+.pill{display:inline-block; font-size:.74rem; padding:2px 8px; border-radius:999px; background:var(--surface-2); color:var(--ink-2); white-space:nowrap}
+.prio-Haute{background:var(--v-d-bg); color:var(--v-d)} .prio-Moyenne{background:var(--v-c-bg); color:var(--v-c)} .prio-Basse{background:var(--surface-2); color:var(--ink-2)}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; min-width:0; text-align:left; cursor:pointer}
+.card:hover{border-color:var(--accent)}
+.card h4{margin:0; font-size:.95rem; line-height:1.35}
+.card p{margin:0; font-size:.84rem; color:var(--ink-2)}
+.section-title{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin:0 0 12px}
+.section-title h2{font-family:var(--f-display); font-size:1.2rem; margin:0}
+.lead{color:var(--ink-2); font-size:.9rem; max-width:72ch; margin:0 0 16px}
+.journal li{padding:10px 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:130px minmax(0,1fr); gap:12px; font-size:.86rem}
+.journal ul{list-style:none; margin:0; padding:0}
+.journal time{color:var(--muted); font-family:var(--f-mono); font-size:.76rem}
+
+/* Graphiques */
+.charts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+@media (max-width:860px){.charts{grid-template-columns:minmax(0,1fr)}}
+figure.ch{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:16px 16px 12px; min-width:0; display:flex; flex-direction:column; gap:6px}
+figure.ch figcaption{font-weight:600; line-height:1.3}
+figure.ch .sub{font-size:.8rem; color:var(--ink-2)}
+figure.ch .src{font-size:.74rem; color:var(--muted); margin-top:auto; padding-top:6px}
+.chart{position:relative}
+.chart{overflow-x:auto}
+.chart svg{display:block; width:100%; height:auto}
+@media (max-width:600px){.chart svg{min-width:440px}}
+.chart text{font-family:var(--f-body); font-size:11px; fill:var(--ink-2)}
+.chart .lab{fill:var(--ink); font-weight:600}
+.legend{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:.78rem; color:var(--ink-2)}
+.legend i{display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px}
+.s1{fill:var(--series-1)} .s2{fill:var(--series-2)} .s3{fill:var(--series-3)}
+.bg-s1{background:var(--series-1)} .bg-s2{background:var(--series-2)} .bg-s3{background:var(--series-3)}
+.gridl{stroke:var(--grid); stroke-width:1} .axisl{stroke:var(--line); stroke-width:1}
+.ch details{font-size:.8rem} .ch details summary{cursor:pointer; color:var(--accent)}
+.ch details table{font-size:.8rem; margin-top:6px}
+.group-label{font-size:.76rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); font-weight:600; margin:28px 0 10px; padding-bottom:6px; border-bottom:2px solid var(--accent); display:inline-block}
+.tip{position:fixed; z-index:30; pointer-events:none; background:var(--ink); color:var(--bg); font-size:.78rem; padding:6px 9px; border-radius:6px; max-width:260px; line-height:1.4; box-shadow:var(--shadow)}
+
+.empty{background:var(--surface); border:1px dashed var(--line); border-radius:10px; padding:28px; text-align:center; color:var(--ink-2)}
+.toast{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(env(safe-area-inset-bottom,0px) + 18px); background:var(--ink); color:var(--bg); padding:9px 16px; border-radius:8px; font-size:.88rem; z-index:40; box-shadow:var(--shadow)}
+.ro{font-size:.8rem; color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){ .drawer{animation:slide .18s ease-out} @keyframes slide{from{transform:translateX(24px); opacity:.6}} }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<header class="masthead">
+  <div class="inner">
+    <div class="top">
+      <div>
+        <div class="eyebrow">Étude de cas France · zones commerciales, centres-villes, QPV</div>
+        <h1>Registre du commerce périphérique</h1>
+        <p class="lede">Base de chiffres sourcés : chaque valeur est rattachée à son année, à son champ et à son niveau de vérification.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="btn-add" type="button">+ Ajouter un chiffre</button>
+        <button class="btn" id="btn-export" type="button" hidden>Exporter la sélection (CSV)</button>
+      </div>
+    </div>
+    <section class="stats" aria-label="Synthèse">
+      <div class="stat"><b id="st-n">–</b><span>chiffres recensés</span></div>
+      <div class="stat"><b id="st-a">–</b><span>relus dans la source citée</span><div class="meter" id="st-meter" aria-hidden="true"></div></div>
+      <div class="stat"><b id="st-d">–</b><span>à vérifier ou signalés</span></div>
+      <div class="stat"><b id="st-s">–</b><span>sources</span></div>
+    </section>
+  </div>
+</header>
+<nav class="tabbar" aria-label="Sections"><div class="inner tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="chiffres" aria-selected="true">Chiffres<span class="count" id="tc-chiffres"></span></button>
+    <button class="tab" role="tab" data-tab="graphiques" aria-selected="false">Graphiques<span class="count">11</span></button>
+    <button class="tab" role="tab" data-tab="sources" aria-selected="false">Sources<span class="count" id="tc-sources"></span></button>
+    <button class="tab" role="tab" data-tab="manques" aria-selected="false">Données manquantes<span class="count" id="tc-manques"></span></button>
+    <button class="tab" role="tab" data-tab="propres" aria-selected="false">Calculs Sirene<span class="count" id="tc-propres"></span></button>
+    <button class="tab" role="tab" data-tab="journal" aria-selected="false">Journal</button>
+    <button class="tab" role="tab" data-tab="aide" aria-selected="false">Mode d'emploi</button>
+</div></nav>
+<div class="wrap">
+  <p class="notice" id="notice">Chargement de la base partagée…</p>
+  <main id="view"></main>
+  <footer class="footer">Sources relues le 1er octobre 2026. Les chiffres ne sont pas comparés entre sources : lisez toujours leur champ avant de les rapprocher.</footer>
+</div>
+<div id="overlay"></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- Référentiels ---------- */
+const VERIF = {
+  A:{short:"Relu", long:"Relu dans la source citée"},
+  B:{short:"Consulté", long:"Source consultée pendant la recherche, non relue"},
+  C:{short:"Relais", long:"Lu dans un document qui cite la source d'origine (presse, synthèse)"},
+  D:{short:"À vérifier", long:"Non retrouvé ou origine non établie : à vérifier avant toute citation"},
+  E:{short:"Présentation", long:"Repris de la présentation OCDE, non revérifié"}
+};
+const THEMES_BASE = ["1. Poids des zones commerciales périphériques","2. Centres-villes : emploi et établissements","3. Centres-villes : vacance commerciale","4. Fréquentation, consommation, offre","5. QPV : commerce et contexte","6. Autorisations CDAC / CNAC","7. Cadre réglementaire (seuils)","8. Artificialisation et foncier","9. Périphérie : vacance et transformation","10. Politiques publiques : moyens et résultats","11. Littérature économique : effets mesurés"];
+const TYPES = ["Statistique publique","Rapport institutionnel (Cour des comptes, Parlement, inspections, mission)","Administration / opérateur public","Texte juridique","Recherche académique / CAE","Fédération ou cabinet privé","Presse / média spécialisé"];
+const PRIOS = ["Haute","Moyenne","Basse"];
+
+/* ---------- Graphiques (séries relues dans les sources le 01/10/2026) ---------- */
+const CHARTS = [
+ {group:"off", ref:"S10", title:"Surfaces de vente autorisées par les CDAC", sub:"Autorisations et avis favorables, milliers de m², France", kind:"bars", unit:"k m²", dec:0,
+  data:[["2020",583.466],["2021",688.22],["2022",765.384],["2023",625.386],["2024",605.844]], mark:{after:"2022", label:"Critère d'artificialisation (oct. 2022)"},
+  src:"CNAC, rapport d'activité 2024 (DGE, 2025), tableau 1"},
+ {group:"off", ref:"S05", title:"Croissance annuelle de l'emploi salarié, 2009-2015", sub:"Commerce de proximité, selon le type de pôle (% par an)", kind:"bars", unit:"%", dec:1, colorBy:true,
+  data:[["Pôles de périphérie",2.3,1],["Pôles de centre-ville",0.2,2],["Hors pôles",-1.2,3]],
+  src:"Insee Première n° 1858 (2021). Champ : France métropolitaine et La Réunion"},
+ {group:"off", ref:"S07", title:"Croissance annuelle de l'emploi salarié, 2016-2022", sub:"Points de vente aux ménages, selon le type de pôle (% par an)", kind:"bars", unit:"%", dec:1, colorBy:true,
+  data:[["Pôles de périphérie",1.6,1],["Pôles de centre-ville",1.1,2],["Hors pôles",1.9,3]],
+  src:"Insee Première n° 2091 (2026). Champ et définition des pôles différents de l'étude de 2021"},
+ {group:"off", ref:"S05", title:"Poids des pôles de périphérie dans l'ensemble des pôles, 2015", sub:"Part en % ; le complément correspond aux pôles de centre-ville", kind:"hbars", unit:"%", dec:0,
+  data:[["Établissements",23],["Emplois salariés",45],["Surface commerciale",65]],
+  src:"Insee Première n° 1858 (2021)"},
+ {group:"off", ref:"S23", title:"Part de marché du commerce de proximité dans l'alimentaire", sub:"En %, France", kind:"line", unit:"%", dec:0,
+  data:[["1993",22],["2017",17],["2021",20]],
+  src:"Cour des comptes, La politique de l'État en faveur du commerce de proximité (2023), p. 21"},
+ {group:"off", ref:"S23", title:"Taux de vacance commerciale en centre-ville", sub:"Moyenne, taux de locaux commerciaux inoccupés (%)", kind:"bars", unit:"%", dec:1,
+  data:[["2012",7],["2020",12.3]],
+  src:"Cour des comptes (2023), p. 22 ; panel de mesure non précisé"},
+ {group:"off", ref:"S23", title:"Communes sans aucun commerce de détail", sub:"Part des communes françaises (%)", kind:"bars", unit:"%", dec:0,
+  data:[["2010",53],["2021",62]],
+  src:"Cour des comptes (2023), p. 68, d'après l'Insee"},
+ {group:"pro", ref:"S09", title:"Surfaces autorisées en CDAC, série Kyris / Procos", sub:"Millions de m², hors retraits de dossiers et non-lieux", kind:"bars", unit:"M m²", dec:2,
+  data:[["2019",1.31],["2020",0.62],["2021",0.55],["2022",0.82],["2023",0.72],["2024",0.47]],
+  src:"Procos, dossier de presse (février 2025), d'après Kyris. Champ différent du rapport de la CNAC"},
+ {group:"pro", ref:"S09", title:"Vacance commerciale selon le type de site", sub:"En %, 2023 et 2024", kind:"grouped", unit:"%", dec:2, series:["2023","2024"],
+  data:[["Rues marchandes",[9.73,10.85]],["Centres commerciaux",[14.95,16.7]],["Zones commerciales",[6.79,7.24]]],
+  src:"Procos (février 2025), d'après Codata Digest France (janvier 2025)"},
+ {group:"pro", ref:"S11", title:"Vacance des zones commerciales", sub:"En %, France", kind:"line", unit:"%", dec:1,
+  data:[["2021",6.9],["2022",6.9],["2023",7.4],["2024",8.1],["2025",8.4],["2026",8.5]],
+  src:"Baromètre Icade × SCET (2026), p. 61 ; 2026 attribué à la FACT"},
+ {group:"pro", ref:"S09", title:"Évolution de la fréquentation des magasins en 2024", sub:"Par rapport à 2023, en %", kind:"bars", unit:"%", dec:1, colorBy:true,
+  data:[["Centres-villes",-1.8,2],["Périphérie",-1.2,1],["Centres commerciaux",-0.8,3]],
+  src:"Procos, observatoire de la fréquentation (avec Stackr), février 2025"}
+];
+
+/* ---------- État ---------- */
+const S = {db:null, user:null, uid:null, canWrite:true, ready:{chiffres:false,sources:false},
+  chiffres:[], sources:[], manques:[], propres:[], journal:[],
+  tab:"chiffres", q:"", themes:new Set(), verifs:new Set(), types:new Set(), ref:null, sort:"id", unsub:[]};
+const $ = (s, el=document) => el.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nf = (v, d) => (typeof v === "number") ? v.toLocaleString("fr-FR",{maximumFractionDigits: d ?? 3}) : String(v ?? "");
+const srcBy = (ref) => S.sources.find(s => s.ref === ref);
+function fmtVal(c){ return nf(c.valeur); }
+function unitShort(u){ return u || ""; }
+function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2600); }
+function now(){ return new Date().toISOString(); }
+function nfDate(iso){ try{ return new Date(iso).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short"}); }catch(e){ return iso; } }
+
+/* ---------- Tooltip ---------- */
+const tip = $("#tip");
+document.addEventListener("pointermove", e => {
+  const t = e.target.closest && e.target.closest("[data-tip]");
+  if(!t){ tip.hidden = true; return; }
+  tip.textContent = t.getAttribute("data-tip"); tip.hidden = false;
+  const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + "px"; tip.style.top = (e.clientY + 14) + "px";
+});
+
+/* ---------- Synthèse ---------- */
+function renderStats(){
+  const n = S.chiffres.length;
+  const cnt = {A:0,B:0,C:0,D:0,E:0}; S.chiffres.forEach(c => cnt[c.verification] = (cnt[c.verification]||0)+1);
+  $("#st-n").textContent = n ? nf(n) : "–";
+  $("#st-a").textContent = n ? Math.round(100*cnt.A/n) + " %" : "–";
+  $("#st-d").textContent = n ? nf(cnt.D) : "–";
+  $("#st-s").textContent = S.sources.length ? nf(S.sources.length) : "–";
+  const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
+  $("#st-meter").innerHTML = n ? Object.keys(cnt).filter(k=>cnt[k]).map(k => `<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(k+" · "+VERIF[k].short+" : "+cnt[k])}"></i>`).join("") : "";
+  $("#tc-chiffres").textContent = n || ""; $("#tc-sources").textContent = S.sources.length || "";
+  $("#tc-manques").textContent = S.manques.length || ""; $("#tc-propres").textContent = S.propres.length || "";
+}
+
+/* ---------- Filtres ---------- */
+function themesAll(){ const set = new Set(THEMES_BASE); S.chiffres.forEach(c => c.theme && set.add(c.theme)); return [...set].sort((a,b)=>(parseInt(a)||99)-(parseInt(b)||99) || a.localeCompare(b)); }
+function filtered(){
+  const q = S.q.trim().toLowerCase();
+  let r = S.chiffres.filter(c => {
+    if(S.themes.size && !S.themes.has(c.theme)) return false;
+    if(S.verifs.size && !S.verifs.has(c.verification)) return false;
+    const s = srcBy(c.ref);
+    if(S.types.size && !(s && S.types.has(s.type))) return false;
+    if(S.ref && c.ref !== S.ref) return false;
+    if(q){ const hay = [c.id,c.indicateur,c.champ,c.territoire,c.annees,c.remarques,c.ref,s&&s.organisme,s&&s.titre,String(c.valeur)].join(" ").toLowerCase(); if(!hay.includes(q)) return false; }
+    return true;
+  });
+  const key = S.sort;
+  r.sort((a,b) => key==="theme" ? (parseInt(a.theme)||99)-(parseInt(b.theme)||99) || a.id.localeCompare(b.id)
+    : key==="verif" ? a.verification.localeCompare(b.verification) || a.id.localeCompare(b.id)
+    : key==="recent" ? String(b.updatedAt||"").localeCompare(String(a.updatedAt||""))
+    : a.id.localeCompare(b.id, "fr", {numeric:true}));
+  return r;
+}
+function optList(name, items, set, countFn, labelFn){
+  return items.map((it,i) => { const id = `f-${name}-${i}`; const n = countFn(it);
+    return `<label class="opt" for="${id}"><input type="checkbox" id="${id}" data-f="${name}" value="${esc(it)}" ${set.has(it)?"checked":""}><span>${labelFn?labelFn(it):esc(it)}</span><span class="c">${n}</span></label>`; }).join("");
+}
+
+/* ---------- Vue Chiffres ---------- */
+function viewChiffres(){
+  const rows = filtered();
+  const cnt = (f) => S.chiffres.filter(f).length;
+  const activeChips = [
+    ...[...S.themes].map(t => ["themes",t,t]), ...[...S.verifs].map(v => ["verifs",v,"Vérification "+v]),
+    ...[...S.types].map(t => ["types",t,t]), ...(S.ref ? [["ref",S.ref,"Source "+S.ref]] : [])];
+  const body = !S.ready.chiffres ? `<div class="empty">Chargement des chiffres…</div>`
+    : !S.chiffres.length ? `<div class="empty"><p><b>La base est vide.</b></p><p>Ajoutez un premier chiffre avec le bouton « Ajouter un chiffre ».</p></div>`
+    : !rows.length ? `<div class="empty">Aucun chiffre ne correspond à ces filtres.</div>`
+    : `<div class="rows">${rows.map(rowHtml).join("")}</div>`;
+  return `<div class="layout">
+    <aside class="filters" aria-label="Filtres">
+      <input class="search" id="q" type="search" placeholder="Rechercher un chiffre, une source…" value="${esc(S.q)}" aria-label="Rechercher">
+      <details class="fold" open><summary hidden></summary>
+      <div class="fgroup"><h3>Vérification</h3>${optList("verifs", Object.keys(VERIF), S.verifs, v => cnt(c=>c.verification===v), v => `<span class="stamp ${v}" style="width:20px;height:20px;font-size:.72rem">${v}</span> ${VERIF[v].short}`)}</div>
+      <div class="fgroup" style="margin-top:16px"><h3>Thème</h3>${optList("themes", themesAll(), S.themes, t => cnt(c=>c.theme===t))}</div>
+      <div class="fgroup" style="margin-top:16px"><h3>Type de source</h3>${optList("types", TYPES, S.types, t => cnt(c=>{const s=srcBy(c.ref); return s&&s.type===t;}))}</div>
+      </details>
+    </aside>
+    <section>
+      <div class="listhead">
+        <span><b class="num">${rows.length}</b> chiffre${rows.length>1?"s":""} affiché${rows.length>1?"s":""}</span>
+        <label>Trier par <select id="sort">
+          ${[["id","Numéro"],["theme","Thème"],["verif","Vérification"],["recent","Dernière modification"]].map(([k,l])=>`<option value="${k}" ${S.sort===k?"selected":""}>${l}</option>`).join("")}
+        </select></label>
+      </div>
+      ${activeChips.length ? `<div class="chip-row" style="margin-bottom:10px">${activeChips.map(([f,v,l])=>`<button class="chip" data-unchip="${f}" data-v="${esc(v)}" type="button">${esc(l)} ×</button>`).join("")}<button class="chip" data-unchip="all" type="button" style="background:transparent;border:1px solid var(--line)">Tout effacer</button></div>` : ""}
+      ${body}
+    </section>
+  </div>`;
+}
+function rowHtml(c){
+  const s = srcBy(c.ref);
+  return `<button class="row" type="button" data-open="${esc(c.id)}">
+    <div class="val"><b>${esc(fmtVal(c))}</b><small>${esc(unitShort(c.unite))}</small></div>
+    <div class="what"><div class="t">${esc(c.indicateur)}</div>
+      <div class="m"><span>${esc(c.annees)}</span><span>${esc(c.territoire)}</span><span class="mono">${esc(c.id)}</span></div>
+      <div class="s"><span class="mono">${esc(c.ref)}</span> · ${esc(s ? s.organisme : "Source inconnue")}${c.signalement?` · <span style="color:var(--v-d)">signalé</span>`:""}</div></div>
+    <span class="stamp ${esc(c.verification)}" data-tip="${esc(VERIF[c.verification]?.long||"")}">${esc(c.verification)}</span>
+  </button>`;
+}
+
+/* ---------- Fiche détaillée ---------- */
+function openDrawer(html){ $("#overlay").innerHTML = `<div class="scrim" data-close></div><aside class="drawer" role="dialog" aria-modal="true">${html}</aside>`; const f = $("#overlay .drawer [autofocus]") || $("#overlay .drawer .close"); f && f.focus(); }
+function closeDrawer(){ $("#overlay").innerHTML = ""; }
+function drawerChiffre(id, mode){
+  const c = S.chiffres.find(x => x.id === id); if(!c) return;
+  const s = srcBy(c.ref);
+  if(mode === "edit") return openDrawer(formChiffre(c));
+  if(mode === "flag") return openDrawer(`<div class="dhead"><div><div class="eyebrow">Signaler · ${esc(c.id)}</div><h2>${esc(c.indicateur)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+    <form class="f dbody" id="form-flag"><p class="lead" style="margin:0">Le chiffre passera au niveau D (« à vérifier ») et votre remarque sera ajoutée à la fiche et au journal.</p>
+    <div class="field"><label for="flag-note">Ce qui semble erroné</label><textarea id="flag-note" required autofocus placeholder="Ex. : l'année est 2023 dans le document, pas 2024."></textarea></div>
+    <div class="actions"><button class="btn primary" type="submit">Signaler</button><button class="btn ghost" type="button" data-open="${esc(c.id)}">Annuler</button></div></form>`);
+  const ed = S.canWrite;
+  openDrawer(`<div class="dhead"><div><div class="eyebrow">${esc(c.id)} · ${esc(c.theme)}</div><h2>${esc(c.indicateur)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <div class="dbody">
+    <div class="big">${esc(fmtVal(c))} <span style="font-size:1rem;font-weight:500;color:var(--ink-2)">${esc(c.unite)}</span></div>
+    <p style="margin:10px 0 0;display:flex;align-items:center;gap:8px"><span class="stamp ${esc(c.verification)}">${esc(c.verification)}</span><span class="vlabel">${esc(VERIF[c.verification]?.long||"")}</span></p>
+    <dl class="kv">
+      <dt>Année(s)</dt><dd>${esc(c.annees)}</dd>
+      <dt>Territoire</dt><dd>${esc(c.territoire)}</dd>
+      <dt>Ce que le chiffre prend en compte</dt><dd>${esc(c.champ)||"<span class='ro'>Non renseigné</span>"}</dd>
+      <dt>Source</dt><dd><span class="mono">${esc(c.ref)}</span> · ${s ? `${esc(s.organisme)}, <i>${esc(s.titre)}</i>, ${esc(s.date)}` : "Source absente de la liste"}${s&&s.lien?`<br><a href="${esc(s.lien)}" target="_blank" rel="noopener">Ouvrir la source ↗</a>`:""}</dd>
+      <dt>Remarques</dt><dd>${esc(c.remarques)||"<span class='ro'>Aucune</span>"}</dd>
+      ${c.signalement?`<dt>Signalement</dt><dd style="color:var(--v-d)">${esc(c.signalement)}</dd>`:""}
+      <dt>Dernière modification</dt><dd>${c.updatedAt?esc(nfDate(c.updatedAt)):"Version initiale"} <span class="who" data-uid="${esc(c.updatedBy||"")}"></span></dd>
+    </dl>
+    <div id="del-zone"></div>
+  </div>
+  <div class="dfoot">${ed?`<button class="btn primary" type="button" data-edit="${esc(c.id)}">Modifier</button><button class="btn" type="button" data-flag="${esc(c.id)}">Signaler une erreur</button><button class="btn danger" type="button" data-askdel="${esc(c.id)}">Supprimer</button>`:`<span class="ro">Lecture seule : vous ne pouvez pas modifier cette base.</span>`}
+  <button class="btn ghost" type="button" data-filterref="${esc(c.ref)}">Autres chiffres de ${esc(c.ref)}</button></div>`);
+  resolveNames();
+}
+async function resolveNames(){
+  const els = [...document.querySelectorAll(".who[data-uid]")].filter(e => e.dataset.uid);
+  if(!els.length || !S.user) return;
+  try{ const ps = await S.user.profiles([...new Set(els.map(e=>e.dataset.uid))]);
+    els.forEach(e => { const p = ps[e.dataset.uid]; e.textContent = "· " + ((p && p.name) || "un membre"); }); }catch(e){}
+}
+
+/* ---------- Formulaires ---------- */
+function fld(id, label, inner, hint){ return `<div class="field"><label for="${id}">${label}</label>${inner}${hint?`<span class="hint">${hint}</span>`:""}</div>`; }
+function inp(id, v, attrs=""){ return `<input id="${id}" value="${esc(v)}" ${attrs}>`; }
+function ta(id, v, attrs=""){ return `<textarea id="${id}" ${attrs}>${esc(v)}</textarea>`; }
+function sel(id, opts, v, attrs=""){ return `<select id="${id}" ${attrs}>${opts.map(o => { const [val,lab] = Array.isArray(o)?o:[o,o]; return `<option value="${esc(val)}" ${val===v?"selected":""}>${esc(lab)}</option>`; }).join("")}</select>`; }
+function formChiffre(c){
+  const isNew = !c; c = c || {theme:THEMES_BASE[0], verification:"B", unite:"%", ref:""};
+  const srcOpts = [["","Choisir une source…"], ...S.sources.slice().sort((a,b)=>a.ref.localeCompare(b.ref,"fr",{numeric:true})).map(s => [s.ref, `${s.ref} · ${s.organisme} — ${s.titre}`.slice(0,110)]), ["__new","+ Nouvelle source…"]];
+  return `<div class="dhead"><div><div class="eyebrow">${isNew?"Nouveau chiffre":"Modifier · "+esc(c.id)}</div><h2>${isNew?"Ajouter un chiffre":esc(c.indicateur)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <form class="f dbody" id="form-chiffre" data-id="${esc(c.id||"")}" novalidate>
+    ${fld("c-ind","Indicateur (ce qui est mesuré)", inp("c-ind", c.indicateur, 'required autofocus placeholder="Ex. : Taux de vacance commerciale en centre-ville"'))}
+    <div class="two">${fld("c-val","Valeur", inp("c-val", typeof c.valeur==="number"?nf(c.valeur):c.valeur, 'required placeholder="Ex. : 12,3"'), "Nombre (virgule décimale) ou texte pour une fourchette.")}
+    ${fld("c-unit","Unité", inp("c-unit", c.unite, 'placeholder="%, m², €…"'))}</div>
+    <div class="two">${fld("c-yrs","Année(s) de référence", inp("c-yrs", c.annees, 'required placeholder="2024 ou 2012-2020"'), "L'année mesurée, pas l'année de publication.")}
+    ${fld("c-terr","Territoire", inp("c-terr", c.territoire, 'placeholder="France, QPV, villes ACV…"'))}</div>
+    ${fld("c-champ","Ce que le chiffre prend en compte", ta("c-champ", c.champ, 'required placeholder="Définition, panel, champ statistique…"'))}
+    ${fld("c-theme","Thème", sel("c-theme", [...themesAll(), ["__new","+ Nouveau thème…"]], c.theme))}
+    <div class="field" id="c-theme-new-w" hidden><label for="c-theme-new">Nom du nouveau thème</label><input id="c-theme-new" placeholder="12. …"></div>
+    ${fld("c-ref","Source", sel("c-ref", srcOpts, c.ref, "required"))}
+    <div id="newsrc" hidden style="border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px">
+      <div class="two">${fld("ns-org","Auteur / organisme", inp("ns-org",""))}${fld("ns-date","Date de publication", inp("ns-date","",'placeholder="2026 ou 12/03/2026"'))}</div>
+      ${fld("ns-titre","Titre", inp("ns-titre",""))}
+      <div class="two">${fld("ns-type","Type de source", sel("ns-type", TYPES, TYPES[0]))}${fld("ns-lien","Lien", inp("ns-lien","",'type="url" placeholder="https://…"'))}</div>
+    </div>
+    ${fld("c-ver","Vérification", sel("c-ver", Object.keys(VERIF).map(k=>[k, k+" · "+VERIF[k].long]), c.verification))}
+    ${fld("c-rem","Remarques", ta("c-rem", c.remarques, 'placeholder="Page, précautions, écarts avec d\'autres sources…"'))}
+    <p class="err" id="c-err" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">${isNew?"Ajouter":"Enregistrer"}</button><button class="btn ghost" type="button" ${isNew?"data-close":`data-open="${esc(c.id)}"`}>Annuler</button></div>
+  </form>`;
+}
+function formSource(s){
+  const isNew = !s; s = s || {type:TYPES[0]};
+  return `<div class="dhead"><div><div class="eyebrow">${isNew?"Nouvelle source":"Source · "+esc(s.ref)}</div><h2>${isNew?"Ajouter une source":esc(s.titre)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <form class="f dbody" id="form-source" data-ref="${esc(s.ref||"")}" novalidate>
+    ${fld("s-org","Auteur / organisme", inp("s-org", s.organisme, "required autofocus"))}
+    ${fld("s-titre","Titre", inp("s-titre", s.titre, "required"))}
+    <div class="two">${fld("s-date","Date de publication", inp("s-date", s.date))}${fld("s-type","Type de source", sel("s-type", TYPES, s.type))}</div>
+    ${fld("s-lien","Lien", inp("s-lien", s.lien, 'type="url" placeholder="https://…"'))}
+    <p class="err" id="s-err" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">${isNew?"Ajouter":"Enregistrer"}</button><button class="btn ghost" type="button" data-close>Annuler</button>
+    ${!isNew && S.canWrite ? `<button class="btn ghost" type="button" data-filterref="${esc(s.ref)}">Voir ses chiffres</button>`:""}</div>
+  </form>`;
+}
+function formManque(m){
+  const isNew = !m; m = m || {categorie:"Données statistiques", priorite:"Moyenne", statut:"Manquant"};
+  return `<div class="dhead"><div><div class="eyebrow">${isNew?"Nouveau besoin":"Donnée manquante · "+esc(m.id)}</div><h2>${isNew?"Ajouter une donnée manquante":esc(m.donnee)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <form class="f dbody" id="form-manque" data-id="${esc(m.id||"")}" novalidate>
+    ${fld("m-don","Donnée ou document manquant", ta("m-don", m.donnee, "required autofocus"))}
+    ${fld("m-bes","Besoin d'évaluation", inp("m-bes", m.besoin))}
+    ${fld("m-app","Ce que cela permettrait de mesurer", ta("m-app", m.apport))}
+    <div class="two">${fld("m-det","Producteur / détenteur", inp("m-det", m.detenteur))}${fld("m-acc","Conditions d'accès", inp("m-acc", m.acces))}</div>
+    <div class="two">${fld("m-cat","Catégorie", sel("m-cat", ["Données statistiques","Documents non consultés en intégralité"], m.categorie))}${fld("m-pri","Priorité", sel("m-pri", PRIOS, m.priorite))}</div>
+    ${fld("m-sta","Statut dans nos travaux", inp("m-sta", m.statut))}
+    ${fld("m-dem","Démarche suggérée", ta("m-dem", m.demarche))}
+    <p class="err" id="m-err" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">${isNew?"Ajouter":"Enregistrer"}</button><button class="btn ghost" type="button" data-close>Annuler</button>
+    ${!isNew?`<button class="btn danger" type="button" data-delmanque="${esc(m.id)}">Supprimer</button>`:""}</div>
+  </form>`;
+}
+function parseVal(raw){
+  const t = String(raw).trim(); const n = t.replace(/\s/g,"").replace(",",".");
+  return /^-?\d+(\.\d+)?$/.test(n) ? Number(n) : t;
+}
+function nextId(prefix, list, key="id"){
+  const max = list.reduce((m,x) => { const k = parseInt(String(x[key]||"").replace(/\D/g,""),10); return isNaN(k)?m:Math.max(m,k); }, 0);
+  const w = prefix==="C"?3:2; return prefix + String(max+1).padStart(w,"0");
+}
+
+/* ---------- Écritures ---------- */
+async function logChange(action, cible, resume){
+  if(!S.db) return;
+  try{ await S.db.collection("journal").add({at:now(), by:S.uid||"", action, cible, resume:String(resume).slice(0,600)}); }catch(e){}
+}
+function diffSummary(a, b){
+  const lab = {indicateur:"indicateur",valeur:"valeur",unite:"unité",annees:"années",territoire:"territoire",champ:"champ",theme:"thème",ref:"source",verification:"vérification",remarques:"remarques"};
+  return Object.keys(lab).filter(k => String(a[k]??"") !== String(b[k]??"")).map(k => (k==="champ"||k==="remarques") ? `${lab[k]} modifié` : `${lab[k]} : ${a[k]??"–"} → ${b[k]??"–"}`).join(" ; ") || "aucun changement";
+}
+async function guarded(fn){
+  try{ await fn(); return true; }
+  catch(e){
+    const code = e && e.code;
+    if(code==="invalid_argument"){ S.canWrite=false; toast("Modification refusée : vous avez un accès en lecture seule."); render(); }
+    else if(code==="quota_exceeded") toast("La base est pleine : supprimez des éléments avant d'en ajouter.");
+    else toast("Enregistrement impossible pour le moment. Réessayez dans un instant.");
+    return false;
+  }
+}
+
+/* ---------- Vue Graphiques ---------- */
+function chartSvg(ch, idx){
+  const W = 520, H = ch.kind==="hbars" ? 40 + ch.data.length*42 : 250;
+  const dec = ch.dec ?? 1, u = ch.unit === "%" ? " %" : " " + ch.unit;
+  const fmt = (v) => nf(Math.round(v*Math.pow(10,dec))/Math.pow(10,dec), dec) + u;
+  let out = "";
+  if(ch.kind==="bars" || ch.kind==="grouped"){
+    const vals = ch.kind==="grouped" ? ch.data.flatMap(d=>d[1]) : ch.data.map(d=>d[1]);
+    const lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+    const m = {l:46, r:12, t:ch.mark?40:22, b:34}, ih = H-m.t-m.b, iw = W-m.l-m.r;
+    const span = (hi-lo)||1; const step = niceStep(span/4);
+    const y0 = Math.floor(lo/step)*step, y1 = Math.ceil(hi/step)*step;
+    const y = v => m.t + (y1-v)/(y1-y0)*ih;
+    for(let v=y0; v<=y1+1e-9; v+=step){ out += `<line class="${Math.abs(v)<1e-9?"axisl":"gridl"}" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${nf(+v.toFixed(3))}</text>`; }
+    const band = iw/ch.data.length;
+    ch.data.forEach((d,i) => {
+      const cx = m.l + band*i + band/2;
+      const series = ch.kind==="grouped" ? d[1] : [d[1]];
+      const bw = Math.min(24, (band*0.7)/series.length);
+      series.forEach((v,j) => {
+        const x = cx - (bw*series.length + 2*(series.length-1))/2 + j*(bw+2);
+        const top = Math.min(y(v), y(0)), h = Math.max(1.5, Math.abs(y(v)-y(0)));
+        const cls = ch.kind==="grouped" ? "s"+(j+1) : ch.colorBy ? "s"+d[2] : "s1";
+        const lbl = ch.kind==="grouped" ? `${d[0]}, ${ch.series[j]} : ${fmt(v)}` : `${d[0]} : ${fmt(v)}`;
+        out += `<path class="${cls}" d="${barPath(x, top, bw, h, v>=0)}" data-tip="${esc(lbl)}"/>`;
+        out += `<rect x="${x-4}" y="${m.t}" width="${bw+8}" height="${ih}" fill="transparent" data-tip="${esc(lbl)}"/>`;
+        if(ch.kind!=="grouped") out += `<text class="lab" x="${x+bw/2}" y="${v>=0?top-5:top+h+12}" text-anchor="middle">${nf(+v.toFixed(dec), dec)}</text>`;
+      });
+      out += `<text x="${cx}" y="${H-12}" text-anchor="middle">${esc(d[0])}</text>`;
+      if(ch.mark && d[0]===ch.mark.after){ const xm = cx + band/2; out += `<line x1="${xm}" x2="${xm}" y1="16" y2="${H-m.b}" stroke="var(--ink-2)" stroke-width="1"/><text x="${xm-4}" y="12" font-size="10" text-anchor="end">${esc(ch.mark.label)}</text>`; }
+    });
+  } else if(ch.kind==="hbars"){
+    const m = {l:130, r:56, t:10, b:10}, iw = W-m.l-m.r;
+    ch.data.forEach((d,i) => { const yy = m.t + i*42 + 8, w = iw*d[1]/100;
+      out += `<rect x="${m.l}" y="${yy}" width="${iw}" height="20" rx="4" fill="var(--surface-2)"/>`;
+      out += `<path class="s1" d="M${m.l},${yy} h${Math.max(0,w-4)} a4,4 0 0 1 4,4 v12 a4,4 0 0 1 -4,4 h-${Math.max(0,w-4)} z" data-tip="${esc(d[0]+" : "+fmt(d[1]))}"/>`;
+      out += `<text x="${m.l-10}" y="${yy+14}" text-anchor="end">${esc(d[0])}</text><text class="lab" x="${m.l+w+8}" y="${yy+14}">${nf(d[1])} %</text>`; });
+  } else if(ch.kind==="line"){
+    const m = {l:46, r:24, t:22, b:34}, ih = H-m.t-m.b, iw = W-m.l-m.r;
+    const xs = ch.data.map(d=>+d[0]), x0 = Math.min(...xs), x1 = Math.max(...xs);
+    const vals = ch.data.map(d=>d[1]); const step = niceStep((Math.max(...vals)-0)/4);
+    const y1 = Math.ceil(Math.max(...vals)/step)*step, y0 = 0;
+    const x = v => m.l + (v-x0)/((x1-x0)||1)*iw, y = v => m.t + (y1-v)/(y1-y0)*ih;
+    for(let v=y0; v<=y1+1e-9; v+=step) out += `<line class="${v===0?"axisl":"gridl"}" x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${m.l-6}" y="${y(v)+4}" text-anchor="end">${nf(+v.toFixed(3))}</text>`;
+    const pts = ch.data.map(d => [x(+d[0]), y(d[1])]);
+    out += `<path d="M${pts.map(p=>p.join(",")).join("L")} L${pts[pts.length-1][0]},${y(0)} L${pts[0][0]},${y(0)} Z" fill="var(--series-1)" opacity=".1"/>`;
+    out += `<path d="M${pts.map(p=>p.join(",")).join("L")}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    ch.data.forEach((d,i) => { const [px,py] = pts[i];
+      out += `<circle cx="${px}" cy="${py}" r="5" fill="var(--series-1)" stroke="var(--surface)" stroke-width="2"/><circle cx="${px}" cy="${py}" r="14" fill="transparent" data-tip="${esc(d[0]+" : "+fmt(d[1]))}"/>`;
+      out += `<text x="${px}" y="${H-12}" text-anchor="middle">${esc(d[0])}</text>`;
+      if(i===0 || i===ch.data.length-1 || ch.data.length<=3) out += `<text class="lab" x="${px}" y="${py-10}" text-anchor="middle">${nf(d[1], dec)}</text>`; });
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ch.title)}">${out}</svg>`;
+}
+function barPath(x, top, w, h, up){
+  const r = Math.min(4, h, w/2);
+  return up ? `M${x},${top+h} V${top+r} a${r},${r} 0 0 1 ${r},-${r} H${x+w-r} a${r},${r} 0 0 1 ${r},${r} V${top+h} Z`
+            : `M${x},${top} V${top+h-r} a${r},${r} 0 0 0 ${r},${r} H${x+w-r} a${r},${r} 0 0 0 ${r},-${r} V${top} Z`;
+}
+function niceStep(raw){ const p = Math.pow(10, Math.floor(Math.log10(raw||1))); const n = raw/p; return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p; }
+function chartTable(ch){
+  if(ch.kind==="grouped") return `<table><thead><tr><th></th>${ch.series.map(s=>`<th>${esc(s)}</th>`).join("")}</tr></thead><tbody>${ch.data.map(d=>`<tr><td>${esc(d[0])}</td>${d[1].map(v=>`<td class="n">${nf(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  return `<table><tbody>${ch.data.map(d=>`<tr><td>${esc(d[0])}</td><td class="n">${nf(d[1])} ${esc(ch.unit)}</td></tr>`).join("")}</tbody></table>`;
+}
+function viewGraphiques(){
+  const fig = (ch,i) => {
+    const legend = ch.kind==="grouped" ? `<div class="legend">${ch.series.map((s,j)=>`<span><i class="bg-s${j+1}"></i>${esc(s)}</span>`).join("")}</div>`
+      : ch.colorBy ? `<div class="legend">${ch.data.map(d=>`<span><i class="bg-s${d[2]}"></i>${esc(d[0])}</span>`).join("")}</div>` : "";
+    return `<figure class="ch"><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div>${legend}
+      <div class="chart">${chartSvg(ch,i)}</div>
+      <details><summary>Voir les données</summary>${chartTable(ch)}</details>
+      <div class="src">Source : ${esc(ch.src)} · <button class="chip" type="button" data-filterref="${esc(ch.ref)}">Chiffres de ${esc(ch.ref)}</button></div></figure>`; };
+  return `<p class="lead">Graphiques redessinés à partir des séries publiées, relues dans chaque document le 1er octobre 2026. Chaque graphique présente une seule source : les champs diffèrent d'une source à l'autre et les séries ne sont pas comparées entre elles.</p>
+  <div class="group-label">Sources officielles</div><div class="charts">${CHARTS.filter(c=>c.group==="off").map(fig).join("")}</div>
+  <div class="group-label">Données professionnelles (fédérations, acteurs privés)</div><div class="charts">${CHARTS.filter(c=>c.group==="pro").map(fig).join("")}</div>`;
+}
+
+/* ---------- Vue Sources ---------- */
+function viewSources(){
+  const n = (ref) => S.chiffres.filter(c=>c.ref===ref).length;
+  const rows = S.sources.slice().sort((a,b)=>a.ref.localeCompare(b.ref,"fr",{numeric:true}));
+  return `<div class="section-title"><h2>${rows.length} sources</h2>${S.canWrite?`<button class="btn" type="button" id="btn-addsrc">+ Ajouter une source</button>`:""}</div>
+  <p class="lead">Cliquez sur une source pour la modifier. Le nombre de chiffres est calculé à partir de l'onglet « Chiffres ».</p>
+  ${!rows.length?`<div class="empty">Chargement des sources…</div>`:`<div class="table-wrap"><table><thead><tr><th>Réf.</th><th>Auteur / organisme</th><th>Titre</th><th>Date</th><th>Type</th><th>Chiffres</th><th>Lien</th></tr></thead><tbody>
+  ${rows.map(s=>`<tr class="click" data-editsrc="${esc(s.ref)}"><td class="mono">${esc(s.ref)}</td><td>${esc(s.organisme)}</td><td>${esc(s.titre)}</td><td style="white-space:nowrap">${esc(s.date)}</td><td><span class="pill">${esc(s.type)}</span></td><td class="n"><button class="chip" type="button" data-filterref="${esc(s.ref)}">${n(s.ref)}</button></td><td>${s.lien?`<a href="${esc(s.lien)}" target="_blank" rel="noopener" data-stop>Ouvrir ↗</a>`:"<span class='ro'>–</span>"}</td></tr>`).join("")}
+  </tbody></table></div>`}`;
+}
+
+/* ---------- Vue Données manquantes ---------- */
+function viewManques(){
+  const grp = PRIOS.map(p => [p, S.manques.filter(m=>m.priorite===p).sort((a,b)=>a.id.localeCompare(b.id,"fr",{numeric:true}))]);
+  return `<div class="section-title"><h2>Ce qu'il manque pour une évaluation complète</h2>${S.canWrite?`<button class="btn" type="button" id="btn-addmanque">+ Ajouter un besoin</button>`:""}</div>
+  <p class="lead">Données et documents qui permettraient de mesurer l'influence propre des zones périphériques sur les centres-villes et les QPV, au-delà d'une corrélation.</p>
+  ${!S.manques.length?`<div class="empty">Chargement…</div>`:grp.map(([p,items]) => items.length ? `<div class="group-label">Priorité ${p.toLowerCase()} · ${items.length}</div><div class="cards">${items.map(m=>`<button class="card" type="button" data-editmanque="${esc(m.id)}">
+    <div style="display:flex;justify-content:space-between;gap:8px"><span class="pill prio-${esc(m.priorite)}">${esc(m.priorite)}</span><span class="mono" style="color:var(--muted)">${esc(m.id)}</span></div>
+    <h4>${esc(m.donnee)}</h4><p>${esc(m.apport)}</p>
+    <p><b>Détenteur :</b> ${esc(m.detenteur)} · <b>Accès :</b> ${esc(m.acces)}</p>
+    <p style="color:var(--ink)"><b>Statut :</b> ${esc(m.statut)}</p></button>`).join("")}</div>` : "").join("")}`;
+}
+
+/* ---------- Vue Calculs propres ---------- */
+function viewPropres(){
+  const rows = S.propres.slice().sort((a,b)=>a.id.localeCompare(b.id,"fr",{numeric:true}));
+  return `<div class="section-title"><h2>Calculs propres sur le répertoire Sirene</h2></div>
+  <p class="lead">Ces chiffres ne sont pas publiés : ils viennent de notre analyse (Insee Sirene, Cerema EmpCom, ANCT QPV 2024). Ils sont présentés à part de l'état de l'art et ne doivent pas être mélangés avec les chiffres des sources.</p>
+  ${!rows.length?`<div class="empty">Chargement…</div>`:`<div class="table-wrap"><table><thead><tr><th>N°</th><th>Indicateur</th><th>Valeur</th><th>Unité</th><th>Période</th><th>Champ</th></tr></thead><tbody>
+  ${rows.map(p=>`<tr><td class="mono">${esc(p.id)}</td><td>${esc(p.indicateur)}</td><td class="n">${esc(nf(p.valeur))}</td><td>${esc(p.unite)}</td><td>${esc(p.annees)}</td><td>${esc(p.champ)}</td></tr>`).join("")}</tbody></table></div>`}`;
+}
+
+/* ---------- Vue Journal ---------- */
+function viewJournal(){
+  const lab = {ajout:"Ajout", modification:"Modification", suppression:"Suppression", signalement:"Signalement"};
+  return `<div class="section-title"><h2>Journal des modifications</h2></div>
+  <p class="lead">Chaque ajout, correction, signalement ou suppression est enregistré ici, avec son auteur.</p>
+  <div class="journal">${!S.journal.length?`<div class="empty">Aucune modification depuis la mise en ligne de la base.</div>`:`<ul>${S.journal.map(j=>`<li><time>${esc(nfDate(j.at))}</time><div><b>${esc(lab[j.action]||j.action)}</b> · <span class="mono">${esc(j.cible)}</span> <span class="who" data-uid="${esc(j.by||"")}"></span><div style="color:var(--ink-2)">${esc(j.resume)}</div></div></li>`).join("")}</ul>`}</div>`;
+}
+
+/* ---------- Mode d'emploi ---------- */
+function viewAide(){
+  return `<div style="max-width:72ch">
+  <div class="section-title"><h2>Mode d'emploi</h2></div>
+  <p class="lead">Cette base rassemble les chiffres publiés sur les zones commerciales périphériques, les centres-villes et les QPV. Chaque chiffre est rattaché à sa source, à son année et à ce qu'il mesure. Les chiffres ne sont pas combinés entre eux.</p>
+  <h3>Les niveaux de vérification</h3>
+  <dl class="kv">${Object.keys(VERIF).map(k=>`<dt><span class="stamp ${k}">${k}</span></dt><dd>${esc(VERIF[k].long)}</dd>`).join("")}</dl>
+  <h3>Ajouter ou corriger</h3>
+  <ul>
+    <li><b>Ajouter un chiffre</b> : bouton en haut de page. Choisissez une source existante ou créez-la dans le même formulaire.</li>
+    <li><b>Corriger</b> : ouvrez la fiche du chiffre, puis « Modifier ». Indiquez dans « Remarques » la page ou le passage qui justifie la correction.</li>
+    <li><b>Signaler une erreur</b> sans la corriger : le chiffre passe au niveau D et votre remarque est conservée.</li>
+    <li>Toutes les modifications sont visibles dans le <b>Journal</b>, avec leur auteur.</li>
+  </ul>
+  <h3>Seconde vérification du 1er octobre 2026</h3>
+  <p>Chaque source a été téléchargée de nouveau et chaque chiffre recherché dans son texte. Une vingtaine de chiffres ont été corrigés (année, valeur, intitulé) ou rétrogradés au niveau D lorsqu'ils étaient introuvables. Le détail figure dans la colonne « Remarques » de chaque fiche.</p>
+  <h3>Précautions</h3>
+  <p>Plusieurs indicateurs proches ont des champs différents : vacance « tous sites », en rues marchandes ou dans les villes Action Cœur de Ville ; surfaces CDAC selon la CNAC ou selon Kyris / Procos. Comparez uniquement des chiffres de même champ et de même source.</p></div>`;
+}
+
+/* ---------- Rendu ---------- */
+function render(){
+  renderStats();
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab===S.tab)));
+  const v = {chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
+  const active = document.activeElement && document.activeElement.id;
+  const pos = active==="q" ? document.activeElement.selectionStart : null;
+  $("#view").innerHTML = v();
+  if(active==="q"){ const q = $("#q"); q.focus(); try{ q.setSelectionRange(pos,pos); }catch(e){} }
+  $("#btn-add").hidden = !S.canWrite;
+  if(S.tab==="journal") resolveNames();
+  try{ localStorage.setItem("registre-tab", S.tab); }catch(e){}
+}
+
+/* ---------- Événements ---------- */
+document.addEventListener("click", async (e) => {
+  const t = e.target.closest("button, [data-close], tr.click, a");
+  if(!t) return;
+  if(t.matches("a[data-stop]")) return;
+  if(t.dataset.tab){ S.tab = t.dataset.tab; render(); return; }
+  if(t.hasAttribute("data-close")){ closeDrawer(); return; }
+  if(t.dataset.open){ drawerChiffre(t.dataset.open); return; }
+  if(t.dataset.edit){ drawerChiffre(t.dataset.edit, "edit"); wireForm(); return; }
+  if(t.dataset.flag){ drawerChiffre(t.dataset.flag, "flag"); return; }
+  if(t.dataset.askdel){ $("#del-zone").innerHTML = `<div class="confirm"><span>Supprimer définitivement ${esc(t.dataset.askdel)} ?</span><button class="btn danger" type="button" data-del="${esc(t.dataset.askdel)}">Confirmer la suppression</button><button class="btn ghost" type="button" data-open="${esc(t.dataset.askdel)}">Annuler</button></div>`; return; }
+  if(t.dataset.del){ const c = S.chiffres.find(x=>x.id===t.dataset.del);
+    if(await guarded(() => S.db.doc("chiffres/"+c.id).delete())){ await logChange("suppression", c.id, `${c.indicateur} (${fmtVal(c)} ${c.unite}, ${c.ref})`); closeDrawer(); toast(`${c.id} supprimé`); } return; }
+  if(t.dataset.filterref){ S.ref = t.dataset.filterref; S.tab="chiffres"; closeDrawer(); render(); window.scrollTo({top:0}); return; }
+  if(t.dataset.unchip){ const f = t.dataset.unchip, v = t.dataset.v;
+    if(f==="all"){ S.themes.clear(); S.verifs.clear(); S.types.clear(); S.ref=null; S.q=""; }
+    else if(f==="ref") S.ref=null; else S[f].delete(v); render(); return; }
+  if(t.id==="btn-add"){ openDrawer(formChiffre(null)); wireForm(); return; }
+  if(t.id==="btn-addsrc"){ openDrawer(formSource(null)); return; }
+  if(t.dataset.editsrc){ if(!S.canWrite) return; openDrawer(formSource(srcBy(t.dataset.editsrc))); return; }
+  if(t.id==="btn-addmanque"){ openDrawer(formManque(null)); return; }
+  if(t.dataset.editmanque){ if(!S.canWrite) return; openDrawer(formManque(S.manques.find(m=>m.id===t.dataset.editmanque))); return; }
+  if(t.dataset.delmanque){ if(await guarded(() => S.db.doc("manques/"+t.dataset.delmanque).delete())){ await logChange("suppression", t.dataset.delmanque, "Donnée manquante supprimée"); closeDrawer(); toast("Supprimé"); } return; }
+  if(t.id==="btn-export"){ exportCsv(); return; }
+});
+document.addEventListener("keydown", e => { if(e.key==="Escape" && $("#overlay").innerHTML) closeDrawer(); });
+document.addEventListener("input", e => { if(e.target.id==="q"){ S.q = e.target.value; render(); } });
+document.addEventListener("change", e => {
+  const t = e.target;
+  if(t.dataset.f){ const set = S[t.dataset.f]; t.checked ? set.add(t.value) : set.delete(t.value); render(); }
+  if(t.id==="sort"){ S.sort = t.value; render(); }
+  if(t.id==="c-ref"){ $("#newsrc").hidden = t.value !== "__new"; }
+  if(t.id==="c-theme"){ $("#c-theme-new-w").hidden = t.value !== "__new"; }
+});
+function wireForm(){ const r = $("#c-ref"); if(r && r.value==="__new") $("#newsrc").hidden=false; }
+document.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const f = e.target;
+  if(f.id==="form-chiffre") return submitChiffre(f);
+  if(f.id==="form-source") return submitSource(f);
+  if(f.id==="form-manque") return submitManque(f);
+  if(f.id==="form-flag") return submitFlag();
+});
+async function submitChiffre(f){
+  const g = id => ($("#"+id)?.value ?? "").trim();
+  const err = $("#c-err"); err.hidden = true;
+  let theme = g("c-theme"); if(theme==="__new") theme = g("c-theme-new");
+  let ref = g("c-ref");
+  const missing = [["c-ind","l'indicateur"],["c-val","la valeur"],["c-yrs","l'année"],["c-champ","ce que le chiffre prend en compte"]].filter(([id])=>!g(id)).map(x=>x[1]);
+  if(!ref) missing.push("la source"); if(!theme) missing.push("le thème");
+  if(ref==="__new" && (!g("ns-org") || !g("ns-titre"))) missing.push("l'organisme et le titre de la nouvelle source");
+  if(missing.length){ err.textContent = "Renseignez " + missing.join(", ") + "."; err.hidden=false; return; }
+  if(ref==="__new"){
+    ref = nextId("S", S.sources, "ref");
+    const ns = {ref, organisme:g("ns-org"), titre:g("ns-titre"), date:g("ns-date"), type:g("ns-type"), lien:g("ns-lien"), updatedAt:now(), updatedBy:S.uid||""};
+    if(!(await guarded(() => S.db.doc("sources/"+ref).set(ns)))) return;
+    await logChange("ajout", ref, `Source : ${ns.organisme}, ${ns.titre}`);
+  }
+  const id = f.dataset.id;
+  const body = {theme, indicateur:g("c-ind"), valeur:parseVal(g("c-val")), unite:g("c-unit"), annees:g("c-yrs"), territoire:g("c-terr"), champ:g("c-champ"), ref, verification:g("c-ver"), remarques:g("c-rem"), updatedAt:now(), updatedBy:S.uid||""};
+  if(id){
+    const old = S.chiffres.find(c=>c.id===id);
+    const full = {...old, ...body}; delete full._k;
+    if(await guarded(() => S.db.doc("chiffres/"+id).set(full))){ await logChange("modification", id, diffSummary(old, full)); toast(`${id} enregistré`); drawerChiffre(id); }
+  } else {
+    let nid = nextId("C", S.chiffres);
+    try{ const ex = await S.db.doc("chiffres/"+nid).get(); if(ex.exists) nid = "C" + Date.now().toString(36).toUpperCase(); }catch(e){}
+    const full = {id:nid, ...body, signalement:"", createdAt:now()};
+    if(await guarded(() => S.db.doc("chiffres/"+nid).set(full))){ await logChange("ajout", nid, `${full.indicateur} : ${fmtVal(full)} ${full.unite} (${full.annees}, ${ref})`); toast(`${nid} ajouté`); drawerChiffre(nid); }
+  }
+}
+async function submitFlag(){
+  const note = ($("#flag-note").value||"").trim(); if(!note) return;
+  const id = $("#overlay .eyebrow").textContent.split("·")[1].trim();
+  const c = S.chiffres.find(x=>x.id===id); if(!c) return;
+  const stamp = new Date().toLocaleDateString("fr-FR");
+  const full = {...c, verification:"D", signalement:`${stamp} : ${note}`, updatedAt:now(), updatedBy:S.uid||""};
+  if(await guarded(() => S.db.doc("chiffres/"+id).set(full))){ await logChange("signalement", id, note); toast(`${id} signalé`); drawerChiffre(id); }
+}
+async function submitSource(f){
+  const g = id => ($("#"+id)?.value ?? "").trim();
+  if(!g("s-org") || !g("s-titre")){ const e=$("#s-err"); e.textContent="Renseignez l'organisme et le titre."; e.hidden=false; return; }
+  const ref = f.dataset.ref || nextId("S", S.sources, "ref");
+  const old = srcBy(ref);
+  const body = {ref, organisme:g("s-org"), titre:g("s-titre"), date:g("s-date"), type:g("s-type"), lien:g("s-lien"), updatedAt:now(), updatedBy:S.uid||""};
+  if(await guarded(() => S.db.doc("sources/"+ref).set(body))){ await logChange(old?"modification":"ajout", ref, `Source : ${body.organisme}, ${body.titre}`); toast(`${ref} enregistrée`); closeDrawer(); }
+}
+async function submitManque(f){
+  const g = id => ($("#"+id)?.value ?? "").trim();
+  if(!g("m-don")){ const e=$("#m-err"); e.textContent="Décrivez la donnée ou le document manquant."; e.hidden=false; return; }
+  const id = f.dataset.id || nextId("M", S.manques);
+  const old = S.manques.find(m=>m.id===id);
+  const body = {id, donnee:g("m-don"), besoin:g("m-bes"), apport:g("m-app"), detenteur:g("m-det"), acces:g("m-acc"), categorie:g("m-cat"), priorite:g("m-pri"), statut:g("m-sta"), demarche:g("m-dem"), updatedAt:now(), updatedBy:S.uid||""};
+  if(await guarded(() => S.db.doc("manques/"+id).set(body))){ await logChange(old?"modification":"ajout", id, body.donnee); toast(`${id} enregistré`); closeDrawer(); }
+}
+
+/* ---------- Export ---------- */
+async function exportCsv(){
+  if(!S.downloads) return;
+  const cols = [["id","N°"],["theme","Thème"],["indicateur","Indicateur"],["valeur","Valeur"],["unite","Unité"],["annees","Année(s)"],["territoire","Territoire"],["champ","Ce que le chiffre prend en compte"],["ref","Réf. source"],["_src","Source"],["_date","Date de publication"],["_type","Type de source"],["verification","Vérification"],["_lien","Lien"],["remarques","Remarques"],["signalement","Signalement"]];
+  const q = v => `"${String(v ?? "").replace(/"/g,'""')}"`;
+  const lines = [cols.map(c=>q(c[1])).join(";")];
+  filtered().forEach(c => { const s = srcBy(c.ref) || {};
+    const r = {...c, valeur: typeof c.valeur==="number" ? String(c.valeur).replace(".",",") : c.valeur, _src:`${s.organisme||""}, ${s.titre||""}`, _date:s.date, _type:s.type, _lien:s.lien};
+    lines.push(cols.map(([k])=>q(r[k])).join(";")); });
+  try{ await S.downloads.save({filename:"chiffres_commerce_peripherique.csv", data:"﻿"+lines.join("\r\n")}); toast("Fichier enregistré"); }
+  catch(e){ if(e && e.code==="declined") return; if(e && e.code==="rate_limited") toast("Une demande d'enregistrement est déjà ouverte."); else toast("L'export n'est pas disponible ici."); }
+}
+
+/* ---------- Démarrage ---------- */
+try{ const t = localStorage.getItem("registre-tab"); if(t) S.tab = t; }catch(e){}
+render();
+(async () => {
+  const claude = window.claude;
+  const db = claude ? await claude.use("db") : null;
+  if(!db){ $("#notice").textContent = "La base partagée n'est pas accessible dans cette vue. Ouvrez la page sur claude.ai en étant connecté."; S.canWrite=false; S.ready.chiffres=true; render(); return; }
+  S.db = db;
+  S.user = await claude.use("user");
+  if(S.user){ S.uid = await S.user.id(); const can = await S.user.can("data.write"); if(can===false) S.canWrite=false; }
+  S.downloads = await claude.use("downloads"); $("#btn-export").hidden = !S.downloads;
+  const sub = (path, key, q) => S.unsub.push((q||db.collection(path)).onSnapshot(snap => {
+      S[key] = snap.docs.map(d => d.data()).filter(Boolean); S.ready[key] = true;
+      if(key==="chiffres") $("#notice").textContent = S.canWrite ? "Base partagée : vos ajouts et corrections sont enregistrés pour tous les lecteurs." : "Lecture seule : vous pouvez consulter et exporter la base, mais pas la modifier.";
+      render(); },
+    err => { if(err && err.code==="revoked"){ S.canWrite=false; $("#notice").textContent="L'accès à la base a été retiré pour cette vue."; render(); } }));
+  sub("chiffres","chiffres"); sub("sources","sources"); sub("manques","manques"); sub("propres","propres");
+  sub("journal","journal", db.collection("journal").orderBy("at","desc").limit(200));
+})();
+})();
+</script>

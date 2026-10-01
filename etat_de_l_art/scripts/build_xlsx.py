@@ -53,13 +53,14 @@ rows=[
  ("Vérification","Niveau de confiance dans la reprise du chiffre (voir légende ci-dessous)."),
  ("",None),
  ("Légende : vérification",None),
- (V_A,"Chiffre relu le 1er octobre 2026 dans le document d'origine."),
+ (V_A,"Chiffre relu le 1er octobre 2026 dans le document cité en source (seconde vérification). Pour une source qui est elle-même un relais, voir le niveau C."),
  (V_B,"Chiffre relevé sur la page ou le document d'origine pendant la recherche documentaire, sans nouvelle relecture."),
  (V_C,"Chiffre lu dans un document qui cite la source d'origine (article de presse, synthèse, autre rapport)."),
  (V_D,"Origine du chiffre non identifiée ou chiffre issu d'une synthèse automatique : à vérifier avant toute citation."),
  (V_E,"Chiffre repris de la présentation OCDE (diapositives), avec les sources indiquées sur la diapositive, non revérifié ici."),
  ("",None),
  ("Ajouter un chiffre","Insérer une ligne dans l'onglet « Chiffres », renseigner toutes les colonnes et utiliser une référence de l'onglet « Sources » (ajouter la source si elle est nouvelle). Les listes déroulantes « Thème », « Type de source » et « Vérification » garantissent des catégories homogènes."),
+ ("Seconde vérification","Le 1er octobre 2026, chaque source a été retéléchargée et chaque chiffre recherché dans son texte. Les corrections (année, valeur, intitulé) et les chiffres introuvables (passés au niveau D) sont détaillés dans la colonne « Remarques ». La même base est consultable et modifiable en ligne dans le « Registre du commerce périphérique ».") ,
  ("Précautions","Plusieurs indicateurs proches ont des champs différents (ex. vacance « tous sites », « rues marchandes », « centres-villes ACV » ; surfaces CDAC selon la CNAC ou selon Kyris / Procos). Comparer uniquement des chiffres de même champ et de même source."),
 ]
 for i,(a,b) in enumerate(rows,1):
