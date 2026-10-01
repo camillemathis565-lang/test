@@ -41,7 +41,7 @@ html,body{background:var(--bg)}
 body{color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.5; margin:0}
 .inner{max-width:1240px; margin:0 auto; padding-inline:16px}
 .wrap{max-width:1240px; margin:0 auto; padding-inline:16px; padding-block:20px 64px}
-.masthead{background:var(--band); color:var(--band-ink); padding-block:26px 24px; border-bottom:4px solid var(--pink-btn)}
+.masthead{background:var(--band); color:var(--band-ink); padding-block:34px 32px; border-bottom:3px solid var(--pink-btn)}
 .masthead .eyebrow{color:var(--pink-band)}
 .masthead .lede{color:var(--band-muted); font-size:.92rem; margin:6px 0 0; max-width:70ch}
 .tabbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:10; background:var(--surface); border-bottom:1px solid var(--line); box-shadow:0 1px 0 rgba(14,40,70,.03)}
@@ -185,6 +185,32 @@ td.n{text-align:right; font-variant-numeric:tabular-nums}
 .funnel button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
 .funnel b{display:block; font-size:1.3rem; font-weight:600; font-variant-numeric:tabular-nums}
 .funnel span{font-size:.76rem; color:var(--ink-2)}
+.hero-kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:8px 0 44px}
+@media (max-width:900px){.hero-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.hero-kpis{grid-template-columns:minmax(0,1fr)}}
+.hk{border:0; background:transparent; text-align:left; cursor:pointer; padding:30px 24px 26px; display:flex; flex-direction:column; gap:10px; min-width:0; position:relative}
+.hk + .hk{border-left:1px solid var(--line)}
+@media (max-width:900px){.hk:nth-child(3){border-left:0} .hk:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:480px){.hk + .hk{border-left:0; border-top:1px solid var(--line)}}
+.hk::before{content:""; position:absolute; left:24px; top:0; width:28px; height:2px; background:var(--pink-btn); opacity:0; transition:opacity .15s}
+.hk:hover::before,.hk:focus-visible::before{opacity:1}
+.hk .v{font-size:clamp(2.1rem,3.6vw,2.9rem); font-weight:300; line-height:1; letter-spacing:-.02em; color:var(--ink); font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.hk .v small{font-size:.38em; font-weight:400; letter-spacing:0; color:var(--ink-2); margin-left:6px}
+.hk .l{font-size:.9rem; color:var(--ink-2); line-height:1.45; max-width:26ch}
+.hk .s{font-size:.72rem; color:var(--muted); letter-spacing:.02em; display:flex; align-items:center; gap:6px; margin-top:auto}
+.hk .s i{width:6px; height:6px; border-radius:50%; display:inline-block}
+.kicker{font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:var(--pink); font-weight:600; margin:0 0 6px}
+.dash-title{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin:0 0 4px}
+.dash-title h2{font-size:1.25rem; font-weight:500; margin:0; letter-spacing:-.005em}
+.clean-charts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:40px; margin:22px 0 44px}
+@media (max-width:900px){.clean-charts{grid-template-columns:minmax(0,1fr)}}
+.clean-charts figure{margin:0; min-width:0; display:flex; flex-direction:column; gap:4px}
+.clean-charts figcaption{font-weight:500; font-size:.98rem}
+.clean-charts .sub{font-size:.8rem; color:var(--muted)}
+.clean-charts .src{font-size:.72rem; color:var(--muted); margin-top:4px}
+.quiet{display:flex; flex-wrap:wrap; gap:8px 28px; align-items:center; border-top:1px solid var(--line); padding-top:18px; font-size:.86rem; color:var(--ink-2)}
+.quiet b{font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
+.quiet .sp{flex:1}
 .dash-intro{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px 20px; margin:0 0 14px}
 .dash-intro p{margin:0; color:var(--ink-2); font-size:.9rem; max-width:70ch}
 .dash-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
@@ -274,12 +300,6 @@ figure.ch .src{font-size:.74rem; color:var(--muted); margin-top:auto; padding-to
         <button class="btn" id="btn-export" type="button" hidden>Exporter la sélection (CSV)</button>
       </div>
     </div>
-    <section class="stats" aria-label="Synthèse">
-      <div class="stat"><b id="st-n">–</b><span>chiffres recensés</span></div>
-      <div class="stat"><b id="st-a">–</b><span>relus dans la source citée</span><div class="meter" id="st-meter" aria-hidden="true"></div></div>
-      <div class="stat"><b id="st-d">–</b><span>à vérifier ou signalés</span></div>
-      <div class="stat"><b id="st-s">–</b><span>sources</span></div>
-    </section>
   </div>
 </header>
 <nav class="tabbar" aria-label="Sections"><div class="inner tabs" role="tablist">
@@ -388,12 +408,14 @@ document.addEventListener("pointermove", e => {
 function renderStats(){
   const n = S.chiffres.length;
   const cnt = {A:0,B:0,C:0,D:0,E:0}; S.chiffres.forEach(c => cnt[c.verification] = (cnt[c.verification]||0)+1);
+  if($("#st-n")){
   $("#st-n").textContent = n ? nf(n) : "–";
   $("#st-a").textContent = n ? Math.round(100*cnt.A/n) + " %" : "–";
   $("#st-d").textContent = n ? nf(cnt.D) : "–";
   $("#st-s").textContent = S.sources.length ? nf(S.sources.length) : "–";
   const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
   $("#st-meter").innerHTML = n ? Object.keys(cnt).filter(k=>cnt[k]).map(k => `<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(k+" · "+VERIF[k].short+" : "+cnt[k])}"></i>`).join("") : "";
+  }
   $("#tc-chiffres").textContent = n || ""; $("#tc-sources").textContent = S.sources.length || "";
   $("#tc-manques").textContent = S.manques.length || ""; $("#tc-bases").textContent = S.bases.length || ""; $("#tc-contacts").textContent = S.contacts.length || ""; $("#tc-propres").textContent = S.propres.length || "";
 }
@@ -682,7 +704,8 @@ const DASH = [
  {title:"Régulation et foncier", items:[["C094","de surface de vente autorisée en CDAC, contre 765 384 m² en 2022"],["C122","de vacance dans les zones commerciales (6,79 % en 2023)"],["C114","d'espaces naturels consommés, plus bas niveau depuis 2011"]]}
 ];
 const OWN_DASH = [["P03","de commerces employeurs en zones périphériques, 2012-2025"],["P06","dans les centres-villes des communes de 5 000 habitants et plus"],["P16","d'écart entre les QPV et le reste de leur commune"],["P20","des centres-villes sont à moins de 10 km d'une grande zone"]];
-const DASH_CHARTS = [0, 2, 8, 9];
+const DASH_CHARTS = [0, 9];
+const HERO = [["C001","grandes zones commerciales de périphérie en France", true],["C006","de la surface commerciale des pôles se trouve en périphérie (2015)"],["C049","de vacance dans les rues marchandes en 2024"],["C094","de surface de vente autorisée en CDAC en 2024, contre 765\u00a0384\u00a0m² en 2022"]];
 function bigVal(v, unit){
   const u = String(unit||"");
   const n = typeof v==="number" ? nf(v) : esc(v);
@@ -713,36 +736,24 @@ function figHtml(ch, i){
 }
 function viewTableau(){
   if(!S.ready.chiffres) return `<div class="empty">Chargement du tableau de bord…</div>`;
-  const n = S.chiffres.length, cnt = {A:0,B:0,C:0,D:0,E:0}; S.chiffres.forEach(c => cnt[c.verification] = (cnt[c.verification]||0)+1);
+  const n = S.chiffres.length, nA = S.chiffres.filter(c=>c.verification==="A").length, nD = S.chiffres.filter(c=>c.verification==="D").length;
   const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
-  const kn = (st) => S.contacts.filter(c=>c.statut===st).length;
-  const ownTiles = OWN_DASH.map(([id,label]) => { const p = S.propres.find(x=>x.id===id); if(!p) return "";
-    const v = typeof p.valeur==="number" ? (p.valeur>0 && p.unite!=="%"?"":"") + nf(p.valeur) : esc(p.valeur);
-    const sign = typeof p.valeur==="number" && p.valeur>0 && /Évolution|Écart/.test(p.indicateur) ? "+" : "";
-    return `<button class="kpi" type="button" data-tab="propres"><span class="v">${sign}${bigVal(p.valeur, p.unite)}</span><span class="l">${esc(label)}</span><span class="m">${esc(p.annees)} · calcul propre (Sirene)</span></button>`; }).join("");
-  const lab = {ajout:"Ajout", modification:"Modification", suppression:"Suppression", signalement:"Signalement"};
-  return `<div class="dash-intro"><p>Les chiffres clés de la base, avec leur année, leur source et leur niveau de vérification. Cliquez sur un chiffre pour ouvrir sa fiche.</p>
-    <button class="linkbtn" type="button" data-tab="chiffres">Voir les ${n} chiffres →</button></div>
-  <div class="dash-grid">${DASH.map(p => `<section class="panel"><h3><span>${esc(p.title)}</span></h3><div class="kpis">${p.items.map(([id,l])=>kpiHtml(id,l)).join("")}</div></section>`).join("")}</div>
-
-  <div class="dash-intro" style="margin-top:28px"><p><b style="color:var(--ink)">Graphiques clés</b> · chaque graphique présente une seule source.</p><button class="linkbtn" type="button" data-tab="graphiques">Voir les ${CHARTS.length} graphiques →</button></div>
-  <div class="dash-charts">${DASH_CHARTS.map(i => figHtml(CHARTS[i], i)).join("")}</div>
-
-  <section class="panel own" style="margin-top:28px"><h3><span>Nos calculs sur Sirene, 2012-2025</span><span class="h3s">non publiés, à présenter séparément</span></h3>
-    <div class="kpis" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${ownTiles}</div></section>
-
-  <div class="dash-grid" style="margin-top:28px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-    <section class="panel"><h3><span>Fiabilité de la base</span><span class="h3s">${n} chiffres</span></h3><div class="pbody">
-      <div class="statbar">${Object.keys(cnt).filter(k=>cnt[k]).map(k=>`<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(VERIF[k].long+" : "+cnt[k])}"></i>`).join("")}</div>
-      <div class="legend-v">${Object.keys(cnt).map(k=>`<span><i style="background:${col[k]}"></i>${k} · ${esc(VERIF[k].short)} <b class="num">${cnt[k]}</b></span>`).join("")}</div>
-      <button class="linkbtn" type="button" data-verif="D" style="align-self:flex-start">Voir les ${cnt.D} chiffres à vérifier →</button></div></section>
-    <section class="panel"><h3><span>Interviews</span><span class="h3s">${S.contacts.length} contacts</span></h3><div class="pbody">
-      <ul class="mini">${KSTATS.map(st=>`<li><span>${esc(st)}</span><b class="num">${kn(st)}</b></li>`).join("")}</ul>
-      <button class="linkbtn" type="button" data-tab="contacts" style="align-self:flex-start">Ouvrir la cartographie →</button></div></section>
-    <section class="panel"><h3><span>Dernières modifications</span></h3><div class="pbody">
-      ${S.journal.length ? `<ul class="mini">${S.journal.slice(0,4).map(j=>`<li><span><b>${esc(lab[j.action]||j.action)}</b> · <span class="mono">${esc(j.cible)}</span><br><span style="color:var(--ink-2)">${esc(String(j.resume).slice(0,90))}</span></span><time class="mono" style="color:var(--muted)">${esc(nfDate(j.at).split(" ")[0])}</time></li>`).join("")}</ul>` : `<p style="margin:0;color:var(--ink-2)">Aucune modification depuis la mise en ligne.</p>`}
-      <button class="linkbtn" type="button" data-tab="journal" style="align-self:flex-start">Voir le journal →</button></div></section>
-  </div>`;
+  const hero = HERO.map(([id,label,noUnit]) => { const c = S.chiffres.find(x=>x.id===id); if(!c) return ""; const src = srcBy(c.ref);
+    return `<button class="hk" type="button" data-open="${esc(c.id)}"><span class="v">${bigVal(c.valeur, noUnit ? "" : c.unite)}</span><span class="l">${esc(label)}</span>
+      <span class="s"><i style="background:${col[c.verification]||"var(--muted)"}" data-tip="${esc(VERIF[c.verification]?.long||"")}"></i>${esc(c.annees)} · ${esc(src ? src.organisme.split(/[,(]/)[0].trim() : c.ref)}</span></button>`; }).join("");
+  const fig = (i) => { const ch = CHARTS[i];
+    return `<figure><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div><div class="chart">${chartSvg(ch,i)}</div><div class="src">Source : ${esc(ch.src)}</div></figure>`; };
+  const toDo = S.contacts.filter(c=>c.statut==="À contacter").length;
+  return `<p class="kicker">Chiffres clés</p>
+  <div class="dash-title"><h2>Le commerce bascule vers la périphérie</h2><button class="linkbtn" type="button" data-tab="chiffres">Tous les chiffres →</button></div>
+  <div class="hero-kpis">${hero}</div>
+  <p class="kicker">Tendances</p>
+  <div class="dash-title"><h2>Moins de surfaces nouvelles, plus de vacance en zone</h2><button class="linkbtn" type="button" data-tab="graphiques">Tous les graphiques →</button></div>
+  <div class="clean-charts">${DASH_CHARTS.map(fig).join("")}</div>
+  <div class="quiet"><span><b>${n}</b> chiffres</span><span><b>${Math.round(100*nA/(n||1))} %</b> relus dans leur source</span>
+    <button class="linkbtn" type="button" data-verif="D"><b style="color:inherit">${nD}</b> à vérifier</button>
+    <span><b>${S.sources.length}</b> sources</span><span class="sp"></span>
+    <button class="linkbtn" type="button" data-tab="contacts">${toDo} interviews à organiser →</button></div>`;
 }
 
 /* ---------- Vue Bases de données ---------- */
@@ -1056,7 +1067,7 @@ render();
   S.downloads = await claude.use("downloads"); $("#btn-export").hidden = !S.downloads;
   const sub = (path, key, q) => S.unsub.push((q||db.collection(path)).onSnapshot(snap => {
       S[key] = snap.docs.map(d => d.data()).filter(Boolean); S.ready[key] = true;
-      if(key==="chiffres") $("#notice").textContent = S.canWrite ? "Base partagée : vos ajouts et corrections sont enregistrés pour tous les lecteurs." : "Lecture seule : vous pouvez consulter et exporter la base, mais pas la modifier.";
+      if(key==="chiffres"){ $("#notice").textContent = S.canWrite ? "" : "Lecture seule : vous pouvez consulter et exporter la base, mais pas la modifier."; $("#notice").hidden = S.canWrite; }
       render(); },
     err => { if(err && err.code==="revoked"){ S.canWrite=false; $("#notice").textContent="L'accès à la base a été retiré pour cette vue."; render(); } }));
   sub("chiffres","chiffres"); sub("sources","sources"); sub("manques","manques"); sub("propres","propres"); sub("bases","bases"); sub("contacts","contacts");
