@@ -155,6 +155,36 @@ tr:last-child td{border-bottom:0}
 tbody tr.click{cursor:pointer} tbody tr.click:hover td{background:var(--accent-soft)}
 td.n{text-align:right; font-variant-numeric:tabular-nums}
 .pill{display:inline-block; font-size:.74rem; padding:2px 8px; border-radius:999px; background:var(--surface-2); color:var(--ink-2); white-space:nowrap}
+.acc{display:inline-block; font-size:.74rem; padding:2px 8px; border-radius:999px; white-space:nowrap; font-weight:500}
+.acc-ouv{background:var(--v-a-bg); color:var(--v-a)} .acc-conv{background:var(--v-c-bg); color:var(--v-c)} .acc-casd{background:var(--v-b-bg); color:var(--v-b)}
+.acc-pay{background:var(--v-e-bg); color:var(--v-e)} .acc-nd{background:var(--v-d-bg); color:var(--v-d)} .acc-autre{background:var(--surface-2); color:var(--ink-2)}
+.st-0{background:var(--surface-2); color:var(--ink-2)} .st-1{background:var(--v-b-bg); color:var(--v-b)} .st-2{background:var(--v-c-bg); color:var(--v-c)} .st-3{background:var(--v-a-bg); color:var(--v-a)} .st-4{background:var(--v-d-bg); color:var(--v-d)}
+.toolbar{display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; margin:0 0 16px}
+.toolbar select,.toolbar input{border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:6px 10px}
+.toolbar input{min-width:0; flex:1 1 220px}
+.blist{display:flex; flex-direction:column; gap:8px}
+.bitem{display:grid; grid-template-columns:minmax(0,1fr) 210px; gap:16px; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; text-align:left; cursor:pointer; width:100%}
+.bitem:hover{border-color:var(--accent); box-shadow:0 2px 10px rgba(14,40,70,.07)}
+@media (max-width:640px){.bitem{grid-template-columns:minmax(0,1fr)}}
+.bitem h4{margin:0 0 4px; font-size:.98rem; line-height:1.35}
+.bitem .p{font-size:.84rem; color:var(--ink-2)}
+.bitem .side{display:flex; flex-direction:column; gap:6px; align-items:flex-start; font-size:.8rem; color:var(--ink-2)}
+.map{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; align-items:start}
+.lane{background:var(--surface-2); border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.lane h3{margin:0 0 2px; font-size:.8rem; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); display:flex; justify-content:space-between}
+.pcard{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:10px 12px; text-align:left; cursor:pointer; display:flex; flex-direction:column; gap:5px; width:100%}
+.pcard:hover{border-color:var(--accent)}
+.pcard .n{font-weight:600; line-height:1.3; font-size:.9rem}
+.pcard .o{font-size:.78rem; color:var(--muted)}
+.pcard .r{font-size:.8rem; color:var(--ink-2)}
+.pcard .tags{display:flex; flex-wrap:wrap; gap:4px}
+.kind{font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted)}
+.funnel{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin:0 0 18px}
+@media (max-width:640px){.funnel{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.funnel button{border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:8px 10px; text-align:left; cursor:pointer}
+.funnel button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.funnel b{display:block; font-size:1.3rem; font-weight:600; font-variant-numeric:tabular-nums}
+.funnel span{font-size:.76rem; color:var(--ink-2)}
 .prio-Haute{background:var(--v-d-bg); color:var(--v-d)} .prio-Moyenne{background:var(--v-c-bg); color:var(--v-c)} .prio-Basse{background:var(--surface-2); color:var(--ink-2)}
 .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
 .card{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; min-width:0; text-align:left; cursor:pointer}
@@ -224,7 +254,9 @@ figure.ch .src{font-size:.74rem; color:var(--muted); margin-top:auto; padding-to
     <button class="tab" role="tab" data-tab="chiffres" aria-selected="true">Chiffres<span class="count" id="tc-chiffres"></span></button>
     <button class="tab" role="tab" data-tab="graphiques" aria-selected="false">Graphiques<span class="count">11</span></button>
     <button class="tab" role="tab" data-tab="sources" aria-selected="false">Sources<span class="count" id="tc-sources"></span></button>
+    <button class="tab" role="tab" data-tab="bases" aria-selected="false">Bases de données<span class="count" id="tc-bases"></span></button>
     <button class="tab" role="tab" data-tab="manques" aria-selected="false">Données manquantes<span class="count" id="tc-manques"></span></button>
+    <button class="tab" role="tab" data-tab="contacts" aria-selected="false">Interviews<span class="count" id="tc-contacts"></span></button>
     <button class="tab" role="tab" data-tab="propres" aria-selected="false">Calculs Sirene<span class="count" id="tc-propres"></span></button>
     <button class="tab" role="tab" data-tab="journal" aria-selected="false">Journal</button>
     <button class="tab" role="tab" data-tab="aide" aria-selected="false">Mode d'emploi</button>
@@ -251,6 +283,12 @@ const VERIF = {
 const THEMES_BASE = ["1. Poids des zones commerciales périphériques","2. Centres-villes : emploi et établissements","3. Centres-villes : vacance commerciale","4. Fréquentation, consommation, offre","5. QPV : commerce et contexte","6. Autorisations CDAC / CNAC","7. Cadre réglementaire (seuils)","8. Artificialisation et foncier","9. Périphérie : vacance et transformation","10. Politiques publiques : moyens et résultats","11. Littérature économique : effets mesurés"];
 const TYPES = ["Statistique publique","Rapport institutionnel (Cour des comptes, Parlement, inspections, mission)","Administration / opérateur public","Texte juridique","Recherche académique / CAE","Fédération ou cabinet privé","Presse / média spécialisé"];
 const PRIOS = ["Haute","Moyenne","Basse"];
+const ACCES = ["Ouverte","Sur convention","Accès sécurisé (CASD)","Payante","Non diffusée","À préciser"];
+const USAGES = ["Utilisée dans l'analyse Sirene","Utile, à mobiliser","Repérée, à évaluer"];
+const KCATS = ["État central","Opérateurs publics","Statistique publique","Collectivités et élus","Professionnels du commerce","Recherche et expertise","Contrôle et évaluation","Europe et international"];
+const KSTATS = ["À contacter","Contacté","Entretien planifié","Entretien réalisé","Pas de suite"];
+const accCls = (a) => ({"Ouverte":"acc-ouv","Sur convention":"acc-conv","Accès sécurisé (CASD)":"acc-casd","Payante":"acc-pay","Non diffusée":"acc-nd"}[a] || "acc-autre");
+const stCls = (st) => "st-" + Math.max(0, KSTATS.indexOf(st));
 
 /* ---------- Graphiques (séries relues dans les sources le 01/10/2026) ---------- */
 const CHARTS = [
@@ -291,7 +329,7 @@ const CHARTS = [
 
 /* ---------- État ---------- */
 const S = {db:null, user:null, uid:null, canWrite:true, ready:{chiffres:false,sources:false},
-  chiffres:[], sources:[], manques:[], propres:[], journal:[],
+  chiffres:[], sources:[], manques:[], propres:[], journal:[], bases:[], contacts:[], bq:"", bacc:"", busage:"", kstat:"", kprio:"",
   tab:"chiffres", q:"", themes:new Set(), verifs:new Set(), types:new Set(), ref:null, sort:"id", unsub:[]};
 const $ = (s, el=document) => el.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -324,7 +362,7 @@ function renderStats(){
   const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
   $("#st-meter").innerHTML = n ? Object.keys(cnt).filter(k=>cnt[k]).map(k => `<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(k+" · "+VERIF[k].short+" : "+cnt[k])}"></i>`).join("") : "";
   $("#tc-chiffres").textContent = n || ""; $("#tc-sources").textContent = S.sources.length || "";
-  $("#tc-manques").textContent = S.manques.length || ""; $("#tc-propres").textContent = S.propres.length || "";
+  $("#tc-manques").textContent = S.manques.length || ""; $("#tc-bases").textContent = S.bases.length || ""; $("#tc-contacts").textContent = S.contacts.length || ""; $("#tc-propres").textContent = S.propres.length || "";
 }
 
 /* ---------- Filtres ---------- */
@@ -609,6 +647,100 @@ function viewSources(){
   </tbody></table></div>`}`;
 }
 
+/* ---------- Vue Bases de données ---------- */
+const refChips = (refs) => String(refs||"").split(/[,;]\s*/).filter(Boolean).map(r=>`<button class="chip" type="button" data-filterref="${esc(r.trim())}">${esc(r.trim())}</button>`).join(" ");
+function viewBases(){
+  const q = S.bq.trim().toLowerCase();
+  const rows = S.bases.filter(b => (!S.bacc || b.acces===S.bacc) && (!S.busage || b.usage===S.busage) &&
+    (!q || [b.nom,b.producteur,b.contenu,b.apport,b.maille].join(" ").toLowerCase().includes(q)))
+    .sort((a,b)=>a.id.localeCompare(b.id,"fr",{numeric:true}));
+  return `<div class="section-title"><h2>Bases de données disponibles</h2>${S.canWrite?`<button class="btn" type="button" id="btn-addbase">+ Ajouter une base</button>`:""}</div>
+  <p class="lead">Catalogue des bases utiles pour mesurer l'influence des zones commerciales sur les centres-villes et les QPV : celles utilisées dans l'analyse Sirene, et celles à mobiliser. Les conditions d'accès sont indiquées pour chaque base.</p>
+  <div class="toolbar">
+    <input id="bq" type="search" placeholder="Rechercher une base, un producteur…" value="${esc(S.bq)}" aria-label="Rechercher une base">
+    <label>Accès <select id="bacc"><option value="">Tous</option>${ACCES.map(a=>`<option ${S.bacc===a?"selected":""}>${esc(a)}</option>`).join("")}</select></label>
+    <label>Usage <select id="busage"><option value="">Tous</option>${USAGES.map(a=>`<option ${S.busage===a?"selected":""}>${esc(a)}</option>`).join("")}</select></label>
+  </div>
+  ${!S.bases.length?`<div class="empty">Chargement des bases…</div>`:!rows.length?`<div class="empty">Aucune base ne correspond.</div>`:`<div class="blist">${rows.map(b=>`<div class="bitem" role="button" tabindex="0" data-editbase="${esc(b.id)}">
+    <div><h4>${esc(b.nom)}</h4><div class="p"><b>${esc(b.producteur)}</b> · ${esc(b.contenu)}</div>
+      <div class="p" style="margin-top:4px">${esc(b.apport)}</div></div>
+    <div class="side"><span class="acc ${accCls(b.acces)}">${esc(b.acces)}</span><span>${esc(b.usage)}</span>
+      <span>Maille : ${esc(b.maille)}</span><span>Période : ${esc(b.periode)}</span>
+      <span>${b.lien?`<a href="${esc(b.lien)}" target="_blank" rel="noopener" data-stop>Ouvrir ↗</a>`:""} ${refChips(b.refs)}</span></div>
+  </div>`).join("")}</div>`}`;
+}
+
+/* ---------- Vue Interviews ---------- */
+function viewContacts(){
+  const rows = S.contacts.filter(c => (!S.kstat || c.statut===S.kstat) && (!S.kprio || c.priorite===S.kprio));
+  const n = (st) => S.contacts.filter(c=>c.statut===st).length;
+  const cats = [...new Set([...KCATS, ...S.contacts.map(c=>c.categorie)])];
+  const card = (c) => `<button class="pcard" type="button" data-opencontact="${esc(c.id)}">
+      <span class="kind">${esc(c.type)}</span><span class="n">${esc(c.nom)}</span>
+      ${c.organisation && c.organisation!==c.nom?`<span class="o">${esc(c.organisation)}</span>`:""}
+      <span class="r">${esc(c.role)}</span>
+      <span class="tags"><span class="pill prio-${esc(c.priorite)}">${esc(c.priorite)}</span><span class="pill ${stCls(c.statut)}">${esc(c.statut)}</span></span></button>`;
+  return `<div class="section-title"><h2>Cartographie institutionnelle et interviews</h2>${S.canWrite?`<button class="btn" type="button" id="btn-addcontact">+ Ajouter un contact</button>`:""}</div>
+  <p class="lead">Institutions et personnes à solliciter, regroupées par famille d'acteurs. Les personnes sont citées pour leur rôle public dans les sources ; vérifiez leur poste actuel avant de les contacter. Mettez à jour le statut après chaque échange.</p>
+  <div class="funnel">${KSTATS.map(st=>`<button type="button" data-kstat="${esc(st)}" aria-pressed="${S.kstat===st}"><b>${n(st)}</b><span>${esc(st)}</span></button>`).join("")}</div>
+  <div class="toolbar"><label>Priorité <select id="kprio"><option value="">Toutes</option>${PRIOS.map(p=>`<option ${S.kprio===p?"selected":""}>${p}</option>`).join("")}</select></label>
+  ${S.kstat?`<button class="chip" type="button" data-kstat="">Statut : ${esc(S.kstat)} ×</button>`:""}</div>
+  ${!S.contacts.length?`<div class="empty">Chargement des contacts…</div>`:`<div class="map">${cats.map(cat=>{ const items = rows.filter(c=>c.categorie===cat).sort((a,b)=>PRIOS.indexOf(a.priorite)-PRIOS.indexOf(b.priorite));
+    return items.length?`<section class="lane"><h3><span>${esc(cat)}</span><span class="mono">${items.length}</span></h3>${items.map(card).join("")}</section>`:""; }).join("")}</div>`}`;
+}
+function drawerContact(id){
+  const c = S.contacts.find(x=>x.id===id); if(!c) return;
+  openDrawer(`<div class="dhead"><div><div class="eyebrow">${esc(c.id)} · ${esc(c.categorie)}</div><h2>${esc(c.nom)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <div class="dbody">
+    <p style="display:flex;gap:6px;flex-wrap:wrap;margin:0"><span class="pill prio-${esc(c.priorite)}">Priorité ${esc(c.priorite.toLowerCase())}</span><span class="pill ${stCls(c.statut)}">${esc(c.statut)}</span><span class="pill">${esc(c.type)}</span></p>
+    <dl class="kv">
+      <dt>Organisation</dt><dd>${esc(c.organisation)}</dd>
+      <dt>Rôle</dt><dd>${esc(c.role)}</dd>
+      <dt>Pourquoi l'interviewer</dt><dd>${esc(c.pourquoi)}</dd>
+      <dt>Questions à poser</dt><dd>${esc(c.questions)}</dd>
+      <dt>Sources liées</dt><dd>${refChips(c.refs)||"<span class='ro'>Aucune</span>"}</dd>
+      <dt>Contact public</dt><dd>${c.contact?`<a href="${esc(c.contact)}" target="_blank" rel="noopener">${esc(c.contact)}</a>`:"<span class='ro'>À compléter</span>"}</dd>
+      <dt>Notes d'entretien</dt><dd style="white-space:pre-wrap">${esc(c.notes)||"<span class='ro'>Aucune</span>"}</dd>
+      <dt>Dernière modification</dt><dd>${c.updatedAt?esc(nfDate(c.updatedAt)):"Version initiale"} <span class="who" data-uid="${esc(c.updatedBy||"")}"></span></dd>
+    </dl><div id="del-zone"></div></div>
+  <div class="dfoot">${S.canWrite?`<button class="btn primary" type="button" data-editcontact="${esc(c.id)}">Modifier ou noter l'entretien</button><button class="btn danger" type="button" data-askdelcontact="${esc(c.id)}">Supprimer</button>`:`<span class="ro">Lecture seule.</span>`}</div>`);
+  resolveNames();
+}
+function formBase(b){
+  const isNew = !b; b = b || {acces:"Ouverte", usage:USAGES[1]};
+  return `<div class="dhead"><div><div class="eyebrow">${isNew?"Nouvelle base":"Base · "+esc(b.id)}</div><h2>${isNew?"Ajouter une base de données":esc(b.nom)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <form class="f dbody" id="form-base" data-id="${esc(b.id||"")}" novalidate>
+    ${fld("b-nom","Nom de la base", inp("b-nom", b.nom, "required autofocus"))}
+    ${fld("b-prod","Producteur", inp("b-prod", b.producteur, "required"))}
+    ${fld("b-cont","Contenu", ta("b-cont", b.contenu))}
+    <div class="two">${fld("b-maille","Maille géographique", inp("b-maille", b.maille))}${fld("b-per","Période / millésime", inp("b-per", b.periode))}</div>
+    <div class="two">${fld("b-acc","Accès", sel("b-acc", ACCES, b.acces))}${fld("b-use","Usage dans l'étude", sel("b-use", USAGES, b.usage))}</div>
+    <div class="two">${fld("b-fmt","Format", inp("b-fmt", b.format))}${fld("b-lien","Lien", inp("b-lien", b.lien, 'type="url" placeholder="https://…"'))}</div>
+    ${fld("b-app","Ce qu'elle permettrait de mesurer", ta("b-app", b.apport))}
+    ${fld("b-refs","Sources liées", inp("b-refs", b.refs, 'placeholder="S02, S10"'), "Références de l'onglet Sources, séparées par des virgules.")}
+    <p class="err" id="b-err" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">${isNew?"Ajouter":"Enregistrer"}</button><button class="btn ghost" type="button" data-close>Annuler</button>
+    ${!isNew?`<button class="btn danger" type="button" data-delbase="${esc(b.id)}">Supprimer</button>`:""}</div>
+  </form>`;
+}
+function formContact(c){
+  const isNew = !c; c = c || {type:"Institution", categorie:KCATS[0], priorite:"Moyenne", statut:"À contacter"};
+  return `<div class="dhead"><div><div class="eyebrow">${isNew?"Nouveau contact":"Contact · "+esc(c.id)}</div><h2>${isNew?"Ajouter un contact":esc(c.nom)}</h2></div><button class="close" data-close aria-label="Fermer">×</button></div>
+  <form class="f dbody" id="form-contact" data-id="${esc(c.id||"")}" novalidate>
+    <div class="two">${fld("k-type","Type", sel("k-type", ["Institution","Personne"], c.type))}${fld("k-cat","Famille d'acteurs", sel("k-cat", KCATS, c.categorie))}</div>
+    ${fld("k-nom","Nom (institution, service ou personne)", inp("k-nom", c.nom, "required autofocus"))}
+    ${fld("k-org","Organisation", inp("k-org", c.organisation))}
+    ${fld("k-role","Rôle sur le sujet", ta("k-role", c.role))}
+    ${fld("k-why","Pourquoi l'interviewer", ta("k-why", c.pourquoi))}
+    ${fld("k-q","Questions à poser", ta("k-q", c.questions))}
+    <div class="two">${fld("k-prio","Priorité", sel("k-prio", PRIOS, c.priorite))}${fld("k-stat","Statut", sel("k-stat", KSTATS, c.statut))}</div>
+    <div class="two">${fld("k-contact","Contact public (site, page)", inp("k-contact", c.contact, 'placeholder="https://…"'))}${fld("k-refs","Sources liées", inp("k-refs", c.refs, 'placeholder="S05, S07"'))}</div>
+    ${fld("k-notes","Notes d'entretien", ta("k-notes", c.notes, 'placeholder="Date, interlocuteur, points clés, suites…"'))}
+    <p class="err" id="k-err" hidden></p>
+    <div class="actions"><button class="btn primary" type="submit">${isNew?"Ajouter":"Enregistrer"}</button><button class="btn ghost" type="button" ${isNew?"data-close":`data-opencontact="${esc(c.id)}"`}>Annuler</button></div>
+  </form>`;
+}
+
 /* ---------- Vue Données manquantes ---------- */
 function viewManques(){
   const grp = PRIOS.map(p => [p, S.manques.filter(m=>m.priorite===p).sort((a,b)=>a.id.localeCompare(b.id,"fr",{numeric:true}))]);
@@ -651,6 +783,7 @@ function viewAide(){
     <li><b>Corriger</b> : ouvrez la fiche du chiffre, puis « Modifier ». Indiquez dans « Remarques » la page ou le passage qui justifie la correction.</li>
     <li><b>Signaler une erreur</b> sans la corriger : le chiffre passe au niveau D et votre remarque est conservée.</li>
     <li>Toutes les modifications sont visibles dans le <b>Journal</b>, avec leur auteur.</li>
+    <li><b>Bases de données</b> : catalogue des bases utiles, avec leurs conditions d'accès. <b>Interviews</b> : cartographie des institutions et personnes à solliciter ; mettez à jour le statut et les notes après chaque échange.</li>
   </ul>
   <h3>Seconde vérification du 1er octobre 2026</h3>
   <p>Chaque source a été téléchargée de nouveau et chaque chiffre recherché dans son texte. Une vingtaine de chiffres ont été corrigés (année, valeur, intitulé) ou rétrogradés au niveau D lorsqu'ils étaient introuvables. Le détail figure dans la colonne « Remarques » de chaque fiche.</p>
@@ -662,11 +795,11 @@ function viewAide(){
 function render(){
   renderStats();
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab===S.tab)));
-  const v = {chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
+  const v = {chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, bases:viewBases, contacts:viewContacts, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
   const active = document.activeElement && document.activeElement.id;
-  const pos = active==="q" ? document.activeElement.selectionStart : null;
+  const pos = (active==="q"||active==="bq") ? document.activeElement.selectionStart : null;
   $("#view").innerHTML = v();
-  if(active==="q"){ const q = $("#q"); q.focus(); try{ q.setSelectionRange(pos,pos); }catch(e){} }
+  if(active==="q"||active==="bq"){ const q = $("#"+active); if(q){ q.focus(); try{ q.setSelectionRange(pos,pos); }catch(e){} } }
   $("#btn-add").hidden = !S.canWrite;
   if(S.tab==="journal") resolveNames();
   try{ localStorage.setItem("registre-tab", S.tab); }catch(e){}
@@ -674,7 +807,7 @@ function render(){
 
 /* ---------- Événements ---------- */
 document.addEventListener("click", async (e) => {
-  const t = e.target.closest("button, [data-close], tr.click, a");
+  const t = e.target.closest("button, [data-close], tr.click, a, .bitem");
   if(!t) return;
   if(t.matches("a[data-stop]")) return;
   if(t.dataset.tab){ S.tab = t.dataset.tab; render(); return; }
@@ -693,16 +826,28 @@ document.addEventListener("click", async (e) => {
   if(t.id==="btn-addsrc"){ openDrawer(formSource(null)); return; }
   if(t.dataset.editsrc){ if(!S.canWrite) return; openDrawer(formSource(srcBy(t.dataset.editsrc))); return; }
   if(t.id==="btn-addmanque"){ openDrawer(formManque(null)); return; }
+  if(t.dataset.editbase){ if(!S.canWrite) return; openDrawer(formBase(S.bases.find(b=>b.id===t.dataset.editbase))); return; }
   if(t.dataset.editmanque){ if(!S.canWrite) return; openDrawer(formManque(S.manques.find(m=>m.id===t.dataset.editmanque))); return; }
   if(t.dataset.delmanque){ if(await guarded(() => S.db.doc("manques/"+t.dataset.delmanque).delete())){ await logChange("suppression", t.dataset.delmanque, "Donnée manquante supprimée"); closeDrawer(); toast("Supprimé"); } return; }
   if(t.id==="btn-export"){ exportCsv(); return; }
+  if(t.id==="btn-addbase"){ openDrawer(formBase(null)); return; }
+  if(t.dataset.delbase){ if(await guarded(() => S.db.doc("bases/"+t.dataset.delbase).delete())){ await logChange("suppression", t.dataset.delbase, "Base de données supprimée"); closeDrawer(); toast("Supprimé"); } return; }
+  if(t.id==="btn-addcontact"){ openDrawer(formContact(null)); return; }
+  if(t.dataset.opencontact){ drawerContact(t.dataset.opencontact); return; }
+  if(t.dataset.editcontact){ openDrawer(formContact(S.contacts.find(c=>c.id===t.dataset.editcontact))); return; }
+  if(t.dataset.askdelcontact){ $("#del-zone").innerHTML = `<div class="confirm"><span>Supprimer ${esc(t.dataset.askdelcontact)} ?</span><button class="btn danger" type="button" data-delcontact="${esc(t.dataset.askdelcontact)}">Confirmer la suppression</button><button class="btn ghost" type="button" data-opencontact="${esc(t.dataset.askdelcontact)}">Annuler</button></div>`; return; }
+  if(t.dataset.delcontact){ if(await guarded(() => S.db.doc("contacts/"+t.dataset.delcontact).delete())){ await logChange("suppression", t.dataset.delcontact, "Contact supprimé"); closeDrawer(); toast("Supprimé"); } return; }
+  if(t.dataset.kstat !== undefined){ S.kstat = (S.kstat===t.dataset.kstat ? "" : t.dataset.kstat); render(); return; }
 });
-document.addEventListener("keydown", e => { if(e.key==="Escape" && $("#overlay").innerHTML) closeDrawer(); });
-document.addEventListener("input", e => { if(e.target.id==="q"){ S.q = e.target.value; render(); } });
+document.addEventListener("keydown", e => { if(e.key==="Escape" && $("#overlay").innerHTML) closeDrawer(); if(e.key==="Enter" && e.target.classList && e.target.classList.contains("bitem")) e.target.click(); });
+document.addEventListener("input", e => { if(e.target.id==="q"){ S.q = e.target.value; render(); } if(e.target.id==="bq"){ S.bq = e.target.value; render(); } });
 document.addEventListener("change", e => {
   const t = e.target;
   if(t.dataset.f){ const set = S[t.dataset.f]; t.checked ? set.add(t.value) : set.delete(t.value); render(); }
   if(t.id==="sort"){ S.sort = t.value; render(); }
+  if(t.id==="bacc"){ S.bacc = t.value; render(); }
+  if(t.id==="busage"){ S.busage = t.value; render(); }
+  if(t.id==="kprio"){ S.kprio = t.value; render(); }
   if(t.id==="c-ref"){ $("#newsrc").hidden = t.value !== "__new"; }
   if(t.id==="c-theme"){ $("#c-theme-new-w").hidden = t.value !== "__new"; }
 });
@@ -714,6 +859,8 @@ document.addEventListener("submit", async (e) => {
   if(f.id==="form-source") return submitSource(f);
   if(f.id==="form-manque") return submitManque(f);
   if(f.id==="form-flag") return submitFlag();
+  if(f.id==="form-base") return submitBase(f);
+  if(f.id==="form-contact") return submitContact(f);
 });
 async function submitChiffre(f){
   const g = id => ($("#"+id)?.value ?? "").trim();
@@ -768,6 +915,24 @@ async function submitManque(f){
   if(await guarded(() => S.db.doc("manques/"+id).set(body))){ await logChange(old?"modification":"ajout", id, body.donnee); toast(`${id} enregistré`); closeDrawer(); }
 }
 
+async function submitBase(f){
+  const g = id => ($("#"+id)?.value ?? "").trim();
+  if(!g("b-nom") || !g("b-prod")){ const e=$("#b-err"); e.textContent="Renseignez le nom et le producteur."; e.hidden=false; return; }
+  const id = f.dataset.id || nextId("B", S.bases);
+  const old = S.bases.find(b=>b.id===id);
+  const body = {id, nom:g("b-nom"), producteur:g("b-prod"), contenu:g("b-cont"), maille:g("b-maille"), periode:g("b-per"), acces:g("b-acc"), usage:g("b-use"), format:g("b-fmt"), lien:g("b-lien"), apport:g("b-app"), refs:g("b-refs"), updatedAt:now(), updatedBy:S.uid||""};
+  if(await guarded(() => S.db.doc("bases/"+id).set(body))){ await logChange(old?"modification":"ajout", id, "Base : "+body.nom); toast(`${id} enregistrée`); closeDrawer(); }
+}
+async function submitContact(f){
+  const g = id => ($("#"+id)?.value ?? "").trim();
+  if(!g("k-nom")){ const e=$("#k-err"); e.textContent="Renseignez le nom."; e.hidden=false; return; }
+  const id = f.dataset.id || nextId("K", S.contacts);
+  const old = S.contacts.find(c=>c.id===id);
+  const body = {id, type:g("k-type"), categorie:g("k-cat"), nom:g("k-nom"), organisation:g("k-org"), role:g("k-role"), pourquoi:g("k-why"), questions:g("k-q"), priorite:g("k-prio"), statut:g("k-stat"), contact:g("k-contact"), refs:g("k-refs"), notes:g("k-notes"), updatedAt:now(), updatedBy:S.uid||""};
+  const resume = old ? (old.statut!==body.statut ? `${body.nom} : statut ${old.statut} → ${body.statut}` : `${body.nom} : fiche mise à jour`) : `Contact : ${body.nom}`;
+  if(await guarded(() => S.db.doc("contacts/"+id).set(body))){ await logChange(old?"modification":"ajout", id, resume); toast(`${id} enregistré`); drawerContact(id); }
+}
+
 /* ---------- Export ---------- */
 async function exportCsv(){
   if(!S.downloads) return;
@@ -797,7 +962,7 @@ render();
       if(key==="chiffres") $("#notice").textContent = S.canWrite ? "Base partagée : vos ajouts et corrections sont enregistrés pour tous les lecteurs." : "Lecture seule : vous pouvez consulter et exporter la base, mais pas la modifier.";
       render(); },
     err => { if(err && err.code==="revoked"){ S.canWrite=false; $("#notice").textContent="L'accès à la base a été retiré pour cette vue."; render(); } }));
-  sub("chiffres","chiffres"); sub("sources","sources"); sub("manques","manques"); sub("propres","propres");
+  sub("chiffres","chiffres"); sub("sources","sources"); sub("manques","manques"); sub("propres","propres"); sub("bases","bases"); sub("contacts","contacts");
   sub("journal","journal", db.collection("journal").orderBy("at","desc").limit(200));
 })();
 })();

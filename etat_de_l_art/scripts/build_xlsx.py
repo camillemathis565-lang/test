@@ -41,6 +41,8 @@ rows=[
  ("Onglet « Chiffres »","Un chiffre par ligne. Filtrer par thème, par source ou par niveau de vérification avec les flèches de l'en-tête."),
  ("Onglet « Sources »","Liste des documents, avec le nombre de chiffres repris dans l'onglet « Chiffres » (calculé automatiquement)."),
  ("Onglet « Données manquantes »","Données et documents qui manquent pour évaluer pleinement l'influence des zones périphériques sur les centres-villes et les QPV, avec le détenteur, l'accès et une démarche suggérée."),
+ ("Onglet « Bases de données »","Catalogue des bases de données utiles, avec producteur, maille, période, conditions d'accès et usage dans l'étude."),
+ ("Onglet « Interviews »","Cartographie des institutions et personnes à interviewer : rôle, raisons, questions, priorité et statut de l'échange."),
  ("Onglet « Calculs propres (Sirene) »","Nos propres calculs sur le répertoire Sirene (2012-2025). Ce ne sont pas des chiffres publiés : à présenter séparément de l'état de l'art."),
  ("Onglet « Synthèse »","Décompte des chiffres par thème et par niveau de vérification (formules)."),
  ("",None),
@@ -132,6 +134,35 @@ for i,g in enumerate(GAPS,1):
     ws3.cell(row=rr,column=9).fill=prio_fill[g[7]]; ws3.cell(row=rr,column=9).alignment=center
 ws3.freeze_panes="D5"; ws3.auto_filter.ref=f"A{HR}:J{HR+len(GAPS)}"
 dv=DataValidation(type="list",formula1='"Haute,Moyenne,Basse"',allow_blank=True); ws3.add_data_validation(dv); dv.add(f"I{HR+1}:I{HR+len(GAPS)+100}")
+
+# --- Bases de données
+wsb=wb.create_sheet("Bases de données")
+title(wsb,"Bases de données disponibles","Bases utilisées dans l'analyse Sirene ou utiles pour une évaluation complète, avec leurs conditions d'accès.")
+colsb=[("id","N°",6),("nom","Base",40),("producteur","Producteur",22),("contenu","Contenu",46),("maille","Maille",18),("periode","Période / millésime",20),("acces","Accès",18),("format","Format",14),("usage","Usage dans l'étude",22),("apport","Ce qu'elle permet de mesurer",40),("refs","Sources liées",12),("lien","Lien",36)]
+header(wsb,HR,[c[1] for c in colsb],[c[2] for c in colsb])
+acc_fill={"Ouverte":"E3F3EA","Sur convention":"FBF0DB","Accès sécurisé (CASD)":"E4EEFB","Payante":"ECE9F7","Non diffusée":"FBE5E2"}
+for i,b in enumerate(BASES):
+    rr=HR+1+i
+    for j,(k,_,_) in enumerate(colsb,1):
+        c=wsb.cell(row=rr,column=j,value=b.get(k,"")); c.font=f_body; c.alignment=wrap; c.border=border
+        if k=="lien" and b.get(k): c.hyperlink=b[k]; c.font=f_link
+        if k=="acces" and b.get(k) in acc_fill: c.fill=PatternFill("solid",fgColor=acc_fill[b[k]])
+wsb.freeze_panes="C5"; wsb.auto_filter.ref=f"A{HR}:{get_column_letter(len(colsb))}{HR+len(BASES)}"
+
+# --- Interviews
+wsk=wb.create_sheet("Interviews")
+title(wsk,"Cartographie institutionnelle et interviews","Personnes citées pour leur rôle public dans les sources : vérifier leur poste actuel avant tout contact. Mettre à jour le statut et les notes après chaque échange.")
+colsk=[("id","N°",6),("categorie","Famille d'acteurs",20),("type","Type",11),("nom","Nom",34),("organisation","Organisation",24),("role","Rôle sur le sujet",40),("pourquoi","Pourquoi l'interviewer",40),("questions","Questions à poser",44),("refs","Sources liées",12),("contact","Contact public",28),("priorite","Priorité",10),("statut","Statut",16),("notes","Notes d'entretien",36)]
+header(wsk,HR,[c[1] for c in colsk],[c[2] for c in colsk])
+for i,k in enumerate(sorted(CONTACTS,key=lambda x:(x["categorie"],["Haute","Moyenne","Basse"].index(x["priorite"])))):
+    rr=HR+1+i
+    for j,(key,_,_) in enumerate(colsk,1):
+        c=wsk.cell(row=rr,column=j,value=k.get(key,"")); c.font=f_body; c.alignment=wrap; c.border=border
+        if key=="contact" and k.get(key): c.hyperlink=k[key]; c.font=f_link
+    wsk.cell(row=rr,column=11).fill=prio_fill[k["priorite"]]
+wsk.freeze_panes="E5"; wsk.auto_filter.ref=f"A{HR}:{get_column_letter(len(colsk))}{HR+len(CONTACTS)}"
+dvs=DataValidation(type="list",formula1='"À contacter,Contacté,Entretien planifié,Entretien réalisé,Pas de suite"',allow_blank=True); wsk.add_data_validation(dvs); dvs.add(f"L{HR+1}:L{HR+len(CONTACTS)+100}")
+dvp=DataValidation(type="list",formula1='"Haute,Moyenne,Basse"',allow_blank=True); wsk.add_data_validation(dvp); dvp.add(f"K{HR+1}:K{HR+len(CONTACTS)+100}")
 
 # --- Calculs propres
 ws4=wb.create_sheet("Calculs propres (Sirene)")

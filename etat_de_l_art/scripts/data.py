@@ -8,3 +8,5 @@ SOURCES = [(s["ref"], s["organisme"], s["titre"], s["date"], s["type"], s["lien"
 F = [(c["theme"], c["indicateur"], c["valeur"], c["unite"], c["annees"], c["territoire"], c["champ"], c["ref"], _V[c["verification"]], c["remarques"]) for c in _B["chiffres"]]
 GAPS = [(g["categorie"], g["besoin"], g["donnee"], g["detenteur"], g["apport"], g["acces"], g["statut"], g["priorite"], g["demarche"]) for g in _B["manques"]]
 OWN = [(o["indicateur"], o["valeur"], o["unite"], o["annees"], o["champ"]) for o in _B["propres"]]
+BASES = _B.get("bases", [])
+CONTACTS = _B.get("contacts", [])
