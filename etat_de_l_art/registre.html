@@ -185,6 +185,38 @@ td.n{text-align:right; font-variant-numeric:tabular-nums}
 .funnel button[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
 .funnel b{display:block; font-size:1.3rem; font-weight:600; font-variant-numeric:tabular-nums}
 .funnel span{font-size:.76rem; color:var(--ink-2)}
+.dash-intro{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px 20px; margin:0 0 14px}
+.dash-intro p{margin:0; color:var(--ink-2); font-size:.9rem; max-width:70ch}
+.dash-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+@media (max-width:900px){.dash-grid{grid-template-columns:minmax(0,1fr)}}
+.panel{border:1px solid var(--line); border-radius:8px; background:var(--surface); min-width:0; overflow:hidden}
+.panel > h3{margin:0; padding:10px 16px; font-size:.78rem; text-transform:uppercase; letter-spacing:.07em; color:var(--accent); background:var(--surface-2); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:8px}
+.panel > h3 .h3s{color:var(--muted); text-transform:none; letter-spacing:0; font-weight:400}
+.kpis{display:grid; grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.kpis{grid-template-columns:minmax(0,1fr)}}
+.kpi{border:0; border-right:1px solid var(--line); background:transparent; text-align:left; padding:14px 16px; cursor:pointer; display:flex; flex-direction:column; gap:6px; min-width:0}
+.kpi:last-child{border-right:0}
+@media (max-width:560px){.kpi{border-right:0; border-bottom:1px solid var(--line)} .kpi:last-child{border-bottom:0}}
+.kpi:hover{background:var(--accent-soft)}
+.kpi .v{font-size:1.65rem; font-weight:600; line-height:1.1; color:var(--accent); font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.kpi .v small{font-size:.8rem; font-weight:500; color:var(--ink-2); margin-left:4px}
+.kpi .l{font-size:.84rem; color:var(--ink); line-height:1.35}
+.kpi .m{font-size:.74rem; color:var(--muted); display:flex; align-items:center; gap:6px; margin-top:auto; flex-wrap:wrap}
+.kpi .m .stamp{width:18px; height:18px; font-size:.66rem; border-width:1px; border-radius:4px}
+.panel.own{border-style:dashed}
+.panel.own > h3{color:var(--ink-2)}
+.dash-charts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+@media (max-width:900px){.dash-charts{grid-template-columns:minmax(0,1fr)}}
+.statbar{display:flex; height:14px; border-radius:4px; overflow:hidden; gap:2px; margin:6px 0 10px}
+.statbar i{display:block; height:100%}
+.legend-v{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.78rem; color:var(--ink-2)}
+.legend-v span{display:inline-flex; align-items:center; gap:5px}
+.legend-v i{width:10px; height:10px; border-radius:2px; display:inline-block}
+.pbody{padding:14px 16px; display:flex; flex-direction:column; gap:10px; font-size:.86rem}
+.mini{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+.mini li{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; border-bottom:1px solid var(--line); padding-bottom:7px}
+.mini li:last-child{border-bottom:0; padding-bottom:0}
+.linkbtn{border:0; background:none; color:var(--accent); cursor:pointer; padding:0; font-weight:500}
 .prio-Haute{background:var(--v-d-bg); color:var(--v-d)} .prio-Moyenne{background:var(--v-c-bg); color:var(--v-c)} .prio-Basse{background:var(--surface-2); color:var(--ink-2)}
 .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px}
 .card{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; min-width:0; text-align:left; cursor:pointer}
@@ -251,7 +283,8 @@ figure.ch .src{font-size:.74rem; color:var(--muted); margin-top:auto; padding-to
   </div>
 </header>
 <nav class="tabbar" aria-label="Sections"><div class="inner tabs" role="tablist">
-    <button class="tab" role="tab" data-tab="chiffres" aria-selected="true">Chiffres<span class="count" id="tc-chiffres"></span></button>
+    <button class="tab" role="tab" data-tab="tableau" aria-selected="true">Tableau de bord</button>
+    <button class="tab" role="tab" data-tab="chiffres" aria-selected="false">Chiffres<span class="count" id="tc-chiffres"></span></button>
     <button class="tab" role="tab" data-tab="graphiques" aria-selected="false">Graphiques<span class="count">11</span></button>
     <button class="tab" role="tab" data-tab="sources" aria-selected="false">Sources<span class="count" id="tc-sources"></span></button>
     <button class="tab" role="tab" data-tab="bases" aria-selected="false">Bases de données<span class="count" id="tc-bases"></span></button>
@@ -330,7 +363,7 @@ const CHARTS = [
 /* ---------- État ---------- */
 const S = {db:null, user:null, uid:null, canWrite:true, ready:{chiffres:false,sources:false},
   chiffres:[], sources:[], manques:[], propres:[], journal:[], bases:[], contacts:[], bq:"", bacc:"", busage:"", kstat:"", kprio:"",
-  tab:"chiffres", q:"", themes:new Set(), verifs:new Set(), types:new Set(), ref:null, sort:"id", unsub:[]};
+  tab:"tableau", q:"", themes:new Set(), verifs:new Set(), types:new Set(), ref:null, sort:"id", unsub:[]};
 const $ = (s, el=document) => el.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const nf = (v, d) => (typeof v === "number") ? v.toLocaleString("fr-FR",{maximumFractionDigits: d ?? 3}) : String(v ?? "");
@@ -609,7 +642,7 @@ function chartSvg(ch, idx){
     ch.data.forEach((d,i) => { const [px,py] = pts[i];
       out += `<circle cx="${px}" cy="${py}" r="5" fill="var(--series-1)" stroke="var(--surface)" stroke-width="2"/><circle cx="${px}" cy="${py}" r="14" fill="transparent" data-tip="${esc(d[0]+" : "+fmt(d[1]))}"/>`;
       out += `<text x="${px}" y="${H-12}" text-anchor="middle">${esc(d[0])}</text>`;
-      if(i===0 || i===ch.data.length-1 || ch.data.length<=3) out += `<text class="lab" x="${px}" y="${py-10}" text-anchor="middle">${nf(d[1], dec)}</text>`; });
+      if(i===0 || i===ch.data.length-1 || ch.data.length<=3) out += `<text class="lab" x="${i===0?px+8:px}" y="${py-10}" text-anchor="${i===0?"start":"middle"}">${nf(d[1], dec)}</text>`; });
   }
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ch.title)}">${out}</svg>`;
 }
@@ -624,13 +657,7 @@ function chartTable(ch){
   return `<table><tbody>${ch.data.map(d=>`<tr><td>${esc(d[0])}</td><td class="n">${nf(d[1])} ${esc(ch.unit)}</td></tr>`).join("")}</tbody></table>`;
 }
 function viewGraphiques(){
-  const fig = (ch,i) => {
-    const legend = ch.kind==="grouped" ? `<div class="legend">${ch.series.map((s,j)=>`<span><i class="bg-s${j+1}"></i>${esc(s)}</span>`).join("")}</div>`
-      : ch.colorBy ? `<div class="legend">${ch.data.map(d=>`<span><i class="bg-s${d[2]}"></i>${esc(d[0])}</span>`).join("")}</div>` : "";
-    return `<figure class="ch"><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div>${legend}
-      <div class="chart">${chartSvg(ch,i)}</div>
-      <details><summary>Voir les données</summary>${chartTable(ch)}</details>
-      <div class="src">Source : ${esc(ch.src)} · <button class="chip" type="button" data-filterref="${esc(ch.ref)}">Chiffres de ${esc(ch.ref)}</button></div></figure>`; };
+  const fig = (ch) => figHtml(ch, CHARTS.indexOf(ch));
   return `<p class="lead">Graphiques redessinés à partir des séries publiées, relues dans chaque document le 1er octobre 2026. Chaque graphique présente une seule source : les champs diffèrent d'une source à l'autre et les séries ne sont pas comparées entre elles.</p>
   <div class="group-label">Sources officielles</div><div class="charts">${CHARTS.filter(c=>c.group==="off").map(fig).join("")}</div>
   <div class="group-label">Données professionnelles (fédérations, acteurs privés)</div><div class="charts">${CHARTS.filter(c=>c.group==="pro").map(fig).join("")}</div>`;
@@ -645,6 +672,77 @@ function viewSources(){
   ${!rows.length?`<div class="empty">Chargement des sources…</div>`:`<div class="table-wrap"><table><thead><tr><th>Réf.</th><th>Auteur / organisme</th><th>Titre</th><th>Date</th><th>Type</th><th>Chiffres</th><th>Lien</th></tr></thead><tbody>
   ${rows.map(s=>`<tr class="click" data-editsrc="${esc(s.ref)}"><td class="mono">${esc(s.ref)}</td><td>${esc(s.organisme)}</td><td>${esc(s.titre)}</td><td style="white-space:nowrap">${esc(s.date)}</td><td><span class="pill">${esc(s.type)}</span></td><td class="n"><button class="chip" type="button" data-filterref="${esc(s.ref)}">${n(s.ref)}</button></td><td>${s.lien?`<a href="${esc(s.lien)}" target="_blank" rel="noopener" data-stop>Ouvrir ↗</a>`:"<span class='ro'>–</span>"}</td></tr>`).join("")}
   </tbody></table></div>`}`;
+}
+
+/* ---------- Tableau de bord ---------- */
+const DASH = [
+ {title:"Poids de la périphérie", items:[["C001","commerciales de périphérie recensées par le Cerema"],["C006","de la surface commerciale des pôles est en périphérie, pour 23 % des établissements"],["C033","d'emploi salarié dans les pôles de périphérie, contre +1,1 % en centre-ville"]]},
+ {title:"Centres-villes", items:[["C049","de vacance dans les rues marchandes (9,73 % en 2023)"],["C062","de vacance moyenne en centre-ville (7 % en 2012)"],["C028","des centres-villes des villes moyennes perdent des emplois de commerce"]]},
+ {title:"Quartiers prioritaires", items:[["C079","prioritaires de la politique de la ville en métropole"],["C081","de chômage, contre 7,5 % dans leur unité urbaine"],["C083","de niveau de vie médian, contre 1 900 € dans le reste de l'agglomération"]]},
+ {title:"Régulation et foncier", items:[["C094","de surface de vente autorisée en CDAC, contre 765 384 m² en 2022"],["C122","de vacance dans les zones commerciales (6,79 % en 2023)"],["C114","d'espaces naturels consommés, plus bas niveau depuis 2011"]]}
+];
+const OWN_DASH = [["P03","de commerces employeurs en zones périphériques, 2012-2025"],["P06","dans les centres-villes des communes de 5 000 habitants et plus"],["P16","d'écart entre les QPV et le reste de leur commune"],["P20","des centres-villes sont à moins de 10 km d'une grande zone"]];
+const DASH_CHARTS = [0, 2, 8, 9];
+function bigVal(v, unit){
+  const u = String(unit||"");
+  const n = typeof v==="number" ? nf(v) : esc(v);
+  if(u.startsWith("%")) return `${n} %<small>${esc(u.slice(1).trim())}</small>`;
+  if(u.startsWith("m²")) return `${n} m²<small>${esc(u.slice(2).trim())}</small>`;
+  if(u.startsWith("€")) return `${n} €<small>${esc(u.slice(1).trim())}</small>`;
+  if(u==="ha") return `${n} ha`;
+  if(u==="points") return `${n} pts`;
+  return `${n}<small>${esc(u)}</small>`;
+}
+function kpiHtml(id, label){
+  const c = S.chiffres.find(x=>x.id===id); if(!c) return "";
+  const s = srcBy(c.ref);
+  const v = c.unite==="% par an" && typeof c.valeur==="number" && c.valeur>0 ? "+"+nf(c.valeur) : c.valeur;
+  return `<button class="kpi" type="button" data-open="${esc(c.id)}">
+    <span class="v">${typeof v==="string" && v.startsWith("+") ? `${esc(v)} %<small>${esc(c.unite.slice(1).trim())}</small>` : bigVal(v, c.unite)}</span>
+    <span class="l">${esc(label)}</span>
+    <span class="m"><span class="stamp ${esc(c.verification)}" data-tip="${esc(VERIF[c.verification]?.long||"")}">${esc(c.verification)}</span>${esc(c.annees)} · ${esc(s ? s.organisme.split(/[,(]/)[0].trim() : c.ref)}</span>
+  </button>`;
+}
+function figHtml(ch, i){
+  const legend = ch.kind==="grouped" ? `<div class="legend">${ch.series.map((s,j)=>`<span><i class="bg-s${j+1}"></i>${esc(s)}</span>`).join("")}</div>`
+    : ch.colorBy ? `<div class="legend">${ch.data.map(d=>`<span><i class="bg-s${d[2]}"></i>${esc(d[0])}</span>`).join("")}</div>` : "";
+  return `<figure class="ch"><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div>${legend}
+    <div class="chart">${chartSvg(ch,i)}</div>
+    <details><summary>Voir les données</summary>${chartTable(ch)}</details>
+    <div class="src">Source : ${esc(ch.src)} · <button class="chip" type="button" data-filterref="${esc(ch.ref)}">Chiffres de ${esc(ch.ref)}</button></div></figure>`;
+}
+function viewTableau(){
+  if(!S.ready.chiffres) return `<div class="empty">Chargement du tableau de bord…</div>`;
+  const n = S.chiffres.length, cnt = {A:0,B:0,C:0,D:0,E:0}; S.chiffres.forEach(c => cnt[c.verification] = (cnt[c.verification]||0)+1);
+  const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
+  const kn = (st) => S.contacts.filter(c=>c.statut===st).length;
+  const ownTiles = OWN_DASH.map(([id,label]) => { const p = S.propres.find(x=>x.id===id); if(!p) return "";
+    const v = typeof p.valeur==="number" ? (p.valeur>0 && p.unite!=="%"?"":"") + nf(p.valeur) : esc(p.valeur);
+    const sign = typeof p.valeur==="number" && p.valeur>0 && /Évolution|Écart/.test(p.indicateur) ? "+" : "";
+    return `<button class="kpi" type="button" data-tab="propres"><span class="v">${sign}${bigVal(p.valeur, p.unite)}</span><span class="l">${esc(label)}</span><span class="m">${esc(p.annees)} · calcul propre (Sirene)</span></button>`; }).join("");
+  const lab = {ajout:"Ajout", modification:"Modification", suppression:"Suppression", signalement:"Signalement"};
+  return `<div class="dash-intro"><p>Les chiffres clés de la base, avec leur année, leur source et leur niveau de vérification. Cliquez sur un chiffre pour ouvrir sa fiche.</p>
+    <button class="linkbtn" type="button" data-tab="chiffres">Voir les ${n} chiffres →</button></div>
+  <div class="dash-grid">${DASH.map(p => `<section class="panel"><h3><span>${esc(p.title)}</span></h3><div class="kpis">${p.items.map(([id,l])=>kpiHtml(id,l)).join("")}</div></section>`).join("")}</div>
+
+  <div class="dash-intro" style="margin-top:28px"><p><b style="color:var(--ink)">Graphiques clés</b> · chaque graphique présente une seule source.</p><button class="linkbtn" type="button" data-tab="graphiques">Voir les ${CHARTS.length} graphiques →</button></div>
+  <div class="dash-charts">${DASH_CHARTS.map(i => figHtml(CHARTS[i], i)).join("")}</div>
+
+  <section class="panel own" style="margin-top:28px"><h3><span>Nos calculs sur Sirene, 2012-2025</span><span class="h3s">non publiés, à présenter séparément</span></h3>
+    <div class="kpis" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${ownTiles}</div></section>
+
+  <div class="dash-grid" style="margin-top:28px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+    <section class="panel"><h3><span>Fiabilité de la base</span><span class="h3s">${n} chiffres</span></h3><div class="pbody">
+      <div class="statbar">${Object.keys(cnt).filter(k=>cnt[k]).map(k=>`<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(VERIF[k].long+" : "+cnt[k])}"></i>`).join("")}</div>
+      <div class="legend-v">${Object.keys(cnt).map(k=>`<span><i style="background:${col[k]}"></i>${k} · ${esc(VERIF[k].short)} <b class="num">${cnt[k]}</b></span>`).join("")}</div>
+      <button class="linkbtn" type="button" data-verif="D" style="align-self:flex-start">Voir les ${cnt.D} chiffres à vérifier →</button></div></section>
+    <section class="panel"><h3><span>Interviews</span><span class="h3s">${S.contacts.length} contacts</span></h3><div class="pbody">
+      <ul class="mini">${KSTATS.map(st=>`<li><span>${esc(st)}</span><b class="num">${kn(st)}</b></li>`).join("")}</ul>
+      <button class="linkbtn" type="button" data-tab="contacts" style="align-self:flex-start">Ouvrir la cartographie →</button></div></section>
+    <section class="panel"><h3><span>Dernières modifications</span></h3><div class="pbody">
+      ${S.journal.length ? `<ul class="mini">${S.journal.slice(0,4).map(j=>`<li><span><b>${esc(lab[j.action]||j.action)}</b> · <span class="mono">${esc(j.cible)}</span><br><span style="color:var(--ink-2)">${esc(String(j.resume).slice(0,90))}</span></span><time class="mono" style="color:var(--muted)">${esc(nfDate(j.at).split(" ")[0])}</time></li>`).join("")}</ul>` : `<p style="margin:0;color:var(--ink-2)">Aucune modification depuis la mise en ligne.</p>`}
+      <button class="linkbtn" type="button" data-tab="journal" style="align-self:flex-start">Voir le journal →</button></div></section>
+  </div>`;
 }
 
 /* ---------- Vue Bases de données ---------- */
@@ -795,14 +893,13 @@ function viewAide(){
 function render(){
   renderStats();
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab===S.tab)));
-  const v = {chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, bases:viewBases, contacts:viewContacts, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
+  const v = {tableau:viewTableau, chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, bases:viewBases, contacts:viewContacts, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
   const active = document.activeElement && document.activeElement.id;
   const pos = (active==="q"||active==="bq") ? document.activeElement.selectionStart : null;
   $("#view").innerHTML = v();
   if(active==="q"||active==="bq"){ const q = $("#"+active); if(q){ q.focus(); try{ q.setSelectionRange(pos,pos); }catch(e){} } }
   $("#btn-add").hidden = !S.canWrite;
   if(S.tab==="journal") resolveNames();
-  try{ localStorage.setItem("registre-tab", S.tab); }catch(e){}
 }
 
 /* ---------- Événements ---------- */
@@ -810,7 +907,8 @@ document.addEventListener("click", async (e) => {
   const t = e.target.closest("button, [data-close], tr.click, a, .bitem");
   if(!t) return;
   if(t.matches("a[data-stop]")) return;
-  if(t.dataset.tab){ S.tab = t.dataset.tab; render(); return; }
+  if(t.dataset.tab){ S.tab = t.dataset.tab; closeDrawer(); render(); window.scrollTo({top:0}); return; }
+  if(t.dataset.verif){ S.verifs = new Set([t.dataset.verif]); S.tab = "chiffres"; render(); window.scrollTo({top:0}); return; }
   if(t.hasAttribute("data-close")){ closeDrawer(); return; }
   if(t.dataset.open){ drawerChiffre(t.dataset.open); return; }
   if(t.dataset.edit){ drawerChiffre(t.dataset.edit, "edit"); wireForm(); return; }
@@ -947,7 +1045,6 @@ async function exportCsv(){
 }
 
 /* ---------- Démarrage ---------- */
-try{ const t = localStorage.getItem("registre-tab"); if(t) S.tab = t; }catch(e){}
 render();
 (async () => {
   const claude = window.claude;
