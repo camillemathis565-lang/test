@@ -12,6 +12,7 @@
   --f-display:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
@@ -38,12 +39,32 @@
 }
 *{box-sizing:border-box}
 html,body{background:var(--bg)}
+body{overflow-x:clip}
 body{color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.5; margin:0}
 .inner{max-width:1240px; margin:0 auto; padding-inline:16px}
 .wrap{max-width:1240px; margin:0 auto; padding-inline:16px; padding-block:20px 64px}
-.masthead{background:var(--band); color:var(--band-ink); padding-block:34px 32px; border-bottom:3px solid var(--pink-btn)}
-.masthead .eyebrow{color:var(--pink-band)}
-.masthead .lede{color:var(--band-muted); font-size:.92rem; margin:6px 0 0; max-width:70ch}
+/* Couverture */
+.cover{position:relative; overflow:hidden; isolation:isolate; color:#ffffff; display:flex; flex-direction:column;
+  background:radial-gradient(90% 60% at 50% 100%, rgba(30,74,150,.55) 0%, rgba(30,74,150,0) 70%), linear-gradient(180deg,#03061a 0%,#060d2b 40%,#0b1a45 100%)}
+.cover canvas{position:absolute; inset:0; width:100%; height:100%; z-index:-1; display:block}
+.cover-bar{display:flex; justify-content:space-between; align-items:center; gap:10px 16px; flex-wrap:wrap; padding-block:16px; width:100%; box-sizing:border-box}
+.brand{font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--pink-band); font-weight:600}
+.cover-body{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; width:100%; box-sizing:border-box; padding-block:4vh 30vh}
+.cover h1{font-family:var(--f-serif); font-weight:400; font-size:clamp(2.3rem,6.2vw,4.8rem); line-height:1.08; letter-spacing:-.01em; margin:0; text-wrap:balance}
+.cover .lede{font-family:var(--f-serif); font-weight:300; font-size:clamp(1.02rem,1.7vw,1.32rem); line-height:1.6; color:rgba(226,233,247,.8); max-width:58ch; margin:22px auto 0; text-wrap:pretty; text-shadow:0 1px 14px rgba(3,6,26,.9)}
+.cover-cta{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:30px}
+.cover-cta .btn{padding:11px 22px; border-radius:999px}
+.cover-down{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); border:0; background:none; color:rgba(255,255,255,.75); cursor:pointer; padding:10px}
+.cover-down:hover{color:#ffffff}
+@media (prefers-reduced-motion:no-preference){ .cover-down svg{animation:nudge 2.4s ease-in-out infinite} @keyframes nudge{50%{transform:translateY(5px)}} }
+.cover.full{min-height:calc(100svh - 48px)}
+.cover:not(.full) .cover-body{align-items:flex-start; text-align:left; padding-block:6px 30px}
+.cover:not(.full) h1{font-size:clamp(1.6rem,3.4vw,2.3rem)}
+.cover:not(.full) .lede{margin:8px 0 0; font-size:1rem; max-width:70ch}
+.cover:not(.full) .cover-cta,.cover:not(.full) .cover-down{display:none}
+.cover:not(.full) canvas{opacity:.75; -webkit-mask-image:linear-gradient(90deg,transparent 20%,#000 70%); mask-image:linear-gradient(90deg,transparent 20%,#000 70%)}
+@media (max-width:640px){ .cover-bar .btn{padding:6px 12px; font-size:.82rem} .cover:not(.full) canvas{opacity:.4} }
+@media (max-width:640px){ .cover-body{padding-block:2vh 26vh} .cover:not(.full) .lede{display:none} }
 .tabbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:10; background:var(--surface); border-bottom:1px solid var(--line); box-shadow:0 1px 0 rgba(14,40,70,.03)}
 .footer{border-top:1px solid var(--line); margin-top:40px; padding-top:14px; font-size:.78rem; color:var(--muted)}
 button,input,select,textarea{font:inherit; color:inherit}
@@ -60,10 +81,10 @@ h1{font-family:var(--f-display); font-weight:600; font-size:clamp(1.55rem,3.4vw,
 .btn{border:1px solid var(--line); background:var(--surface); border-radius:8px; padding:8px 14px; cursor:pointer; font-weight:500; display:inline-flex; align-items:center; gap:6px}
 .btn:hover{border-color:var(--accent)}
 .btn.primary{background:var(--accent); color:var(--accent-ink); border-color:var(--accent)}
-.masthead .btn{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.35)}
-.masthead .btn:hover{border-color:var(--band-ink); background:rgba(255,255,255,.06)}
-.masthead .btn.primary{background:var(--pink-btn); color:#ffffff; border-color:var(--pink-btn)}
-.masthead .btn.primary:hover{filter:brightness(1.08); background:var(--pink-btn)}
+.cover .btn{background:transparent; color:var(--band-ink); border-color:rgba(255,255,255,.35)}
+.cover .btn:hover{border-color:var(--band-ink); background:rgba(255,255,255,.06)}
+.cover .btn.primary{background:var(--pink-btn); color:#ffffff; border-color:var(--pink-btn)}
+.cover .btn.primary:hover{filter:brightness(1.08); background:var(--pink-btn)}
 .btn.primary:hover{filter:brightness(1.08)}
 .btn.ghost{background:transparent}
 .btn.danger{color:var(--danger); border-color:var(--danger); background:transparent}
@@ -211,6 +232,50 @@ td.n{text-align:right; font-variant-numeric:tabular-nums}
 .quiet{display:flex; flex-wrap:wrap; gap:8px 28px; align-items:center; border-top:1px solid var(--line); padding-top:18px; font-size:.86rem; color:var(--ink-2)}
 .quiet b{font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
 .quiet .sp{flex:1}
+/* Accueil */
+.home-sec{padding-top:44px; scroll-margin-top:60px}
+.sec-head{display:flex; justify-content:space-between; align-items:flex-end; gap:10px 16px; flex-wrap:wrap; margin-bottom:22px}
+.serif{font-family:var(--f-serif); font-weight:400; letter-spacing:-.005em}
+.sec-head h2{font-size:clamp(1.6rem,3vw,2.2rem); line-height:1.15; margin:0}
+.hcards{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+@media (max-width:960px){.hcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.hcards{grid-template-columns:minmax(0,1fr)}}
+.hcard{border:1px solid var(--line); background:var(--surface); border-radius:4px; text-align:left; cursor:pointer; padding:24px 22px 20px; display:flex; flex-direction:column; gap:12px; min-width:0; position:relative; transition:box-shadow .2s, transform .2s, border-color .2s}
+.hcard::before{content:""; position:absolute; left:-1px; right:-1px; top:-1px; height:3px; background:linear-gradient(90deg,var(--pink-btn),var(--accent)); border-radius:4px 4px 0 0}
+.hcard:hover{box-shadow:var(--shadow); border-color:transparent}
+@media (prefers-reduced-motion:no-preference){ .hcard:hover{transform:translateY(-3px)} }
+.hcard .v{font-family:var(--f-serif); font-size:clamp(2.2rem,3.4vw,2.9rem); font-weight:400; line-height:1; letter-spacing:-.02em; color:var(--ink); font-variant-numeric:tabular-nums; overflow-wrap:anywhere}
+.hcard .v small{font-family:var(--f-body); font-size:.36em; font-weight:400; letter-spacing:0; color:var(--ink-2); margin-left:6px}
+.hcard .l{font-size:.92rem; color:var(--ink-2); line-height:1.45}
+.hcard .s{font-size:.72rem; color:var(--muted); display:flex; align-items:center; gap:6px}
+.hcard .s i{width:6px; height:6px; border-radius:50%; display:inline-block; flex:none}
+.hcard .more{margin-top:auto; padding-top:6px; font-size:.82rem; font-weight:600; color:var(--pink)}
+.stories{display:flex; flex-direction:column}
+.story{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:48px; align-items:center; padding:48px 0; border-bottom:1px solid var(--line)}
+.story:nth-child(even) .story-text{order:2}
+@media (max-width:860px){.story{grid-template-columns:minmax(0,1fr); gap:20px; padding:36px 0} .story:nth-child(even) .story-text{order:0}}
+.story-q{font-family:var(--f-serif); font-weight:300; font-size:clamp(1.35rem,2.4vw,1.85rem); line-height:1.35; margin:6px 0 22px; color:var(--ink); text-wrap:pretty}
+.story-q em{font-style:normal; font-weight:600; color:var(--pink)}
+.story .src{font-size:.74rem; color:var(--muted); margin:-10px 0 20px}
+.story figure{margin:0; min-width:0}
+.story figcaption{font-weight:500; font-size:.95rem}
+.story figure .sub{font-size:.8rem; color:var(--muted); margin-bottom:6px}
+.btn.pill-go{border-radius:999px; border-color:var(--pink-btn); color:var(--pink); background:transparent; padding:9px 18px; font-weight:600}
+.btn.pill-go:hover{background:var(--pink-btn); color:#ffffff}
+.explore{margin:56px calc(50% - 50vw) 0; padding:56px 0 60px; background:var(--surface-2)}
+.explore .inner > p{color:var(--ink-2); max-width:62ch; margin:-12px 0 24px}
+.topics{display:flex; flex-wrap:wrap; gap:10px}
+.topic{display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); background:var(--surface); border-radius:999px; padding:9px 16px; cursor:pointer; font-size:.9rem; color:var(--ink); text-align:left}
+.topic:hover{border-color:var(--pink-btn); color:var(--pink)}
+.topic .c{font-family:var(--f-mono); font-size:.72rem; color:var(--muted)}
+.tiles{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; margin-top:28px}
+@media (max-width:960px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.tile{border:0; border-top:2px solid var(--ink); background:transparent; text-align:left; padding:14px 2px 6px; cursor:pointer; display:flex; flex-direction:column; gap:4px; min-width:0}
+.tile b{font-size:1rem; font-weight:600}
+.tile span{font-size:.8rem; color:var(--ink-2); line-height:1.4}
+.tile:hover{border-top-color:var(--pink-btn)} .tile:hover b{color:var(--pink)}
+.home-foot{margin-top:36px}
 .dash-intro{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px 20px; margin:0 0 14px}
 .dash-intro p{margin:0; color:var(--ink-2); font-size:.9rem; max-width:70ch}
 .dash-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
@@ -285,22 +350,26 @@ figure.ch .src{font-size:.74rem; color:var(--muted); margin-top:auto; padding-to
 @media (prefers-reduced-motion:no-preference){ .drawer{animation:slide .18s ease-out} @keyframes slide{from{transform:translateX(24px); opacity:.6}} }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 
-<header class="masthead">
-  <div class="inner">
-    <div class="top">
-      <div>
-        <div class="eyebrow">Étude de cas France · zones commerciales, centres-villes, QPV</div>
-        <h1>Registre du commerce périphérique</h1>
-        <p class="lede">Base de chiffres sourcés : chaque valeur est rattachée à son année, à son champ et à son niveau de vérification.</p>
-      </div>
-      <div class="actions">
-        <button class="btn primary" id="btn-add" type="button">+ Ajouter un chiffre</button>
-        <button class="btn" id="btn-export" type="button" hidden>Exporter la sélection (CSV)</button>
-      </div>
+<header class="cover full" id="cover">
+  <canvas id="city" aria-hidden="true"></canvas>
+  <div class="inner cover-bar">
+    <span class="brand">Étude de cas France · Zones commerciales · Centres-villes · QPV</span>
+    <div class="actions">
+      <button class="btn primary" id="btn-add" type="button">+ Ajouter un chiffre</button>
+      <button class="btn" id="btn-export" type="button" hidden>Exporter la sélection (CSV)</button>
     </div>
   </div>
+  <div class="inner cover-body">
+    <h1>Registre du commerce périphérique</h1>
+    <p class="lede">Zones commerciales de périphérie, centres-villes et quartiers prioritaires de la politique de la ville&nbsp;: <span id="cv-n">164</span>&nbsp;chiffres sourcés, datés et vérifiés, réunis pour comprendre comment le commerce s'est déplacé hors des villes.</p>
+    <div class="cover-cta">
+      <button class="btn primary" type="button" data-tab="chiffres">Explorer les chiffres</button>
+      <button class="btn" type="button" data-tab="graphiques">Voir les graphiques</button>
+    </div>
+  </div>
+  <button class="cover-down" id="cover-down" type="button" aria-label="Descendre vers le contenu"><svg viewBox="0 0 40 16" width="40" height="16" aria-hidden="true"><path d="M2 2 L20 14 L38 2" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
 </header>
 <nav class="tabbar" aria-label="Sections"><div class="inner tabs" role="tablist">
     <button class="tab" role="tab" data-tab="tableau" aria-selected="true">Tableau de bord</button>
@@ -416,6 +485,7 @@ function renderStats(){
   const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
   $("#st-meter").innerHTML = n ? Object.keys(cnt).filter(k=>cnt[k]).map(k => `<i style="width:${100*cnt[k]/n}%;background:${col[k]}" data-tip="${esc(k+" · "+VERIF[k].short+" : "+cnt[k])}"></i>`).join("") : "";
   }
+  if(n) $("#cv-n").textContent = nf(n);
   $("#tc-chiffres").textContent = n || ""; $("#tc-sources").textContent = S.sources.length || "";
   $("#tc-manques").textContent = S.manques.length || ""; $("#tc-bases").textContent = S.bases.length || ""; $("#tc-contacts").textContent = S.contacts.length || ""; $("#tc-propres").textContent = S.propres.length || "";
 }
@@ -698,10 +768,10 @@ function viewSources(){
 
 /* ---------- Tableau de bord ---------- */
 const DASH = [
- {title:"Poids de la périphérie", items:[["C001","commerciales de périphérie recensées par le Cerema"],["C006","de la surface commerciale des pôles est en périphérie, pour 23 % des établissements"],["C033","d'emploi salarié dans les pôles de périphérie, contre +1,1 % en centre-ville"]]},
+ {title:"Poids de la périphérie", items:[["C001","commerciales de périphérie recensées par le Cerema"],["C006","de la surface commerciale des pôles est en périphérie, pour 23&nbsp;% des établissements"],["C033","d'emploi salarié dans les pôles de périphérie, contre +1,1 % en centre-ville"]]},
  {title:"Centres-villes", items:[["C049","de vacance dans les rues marchandes (9,73 % en 2023)"],["C062","de vacance moyenne en centre-ville (7 % en 2012)"],["C028","des centres-villes des villes moyennes perdent des emplois de commerce"]]},
  {title:"Quartiers prioritaires", items:[["C079","prioritaires de la politique de la ville en métropole"],["C081","de chômage, contre 7,5 % dans leur unité urbaine"],["C083","de niveau de vie médian, contre 1 900 € dans le reste de l'agglomération"]]},
- {title:"Régulation et foncier", items:[["C094","de surface de vente autorisée en CDAC, contre 765 384 m² en 2022"],["C122","de vacance dans les zones commerciales (6,79 % en 2023)"],["C114","d'espaces naturels consommés, plus bas niveau depuis 2011"]]}
+ {title:"Régulation et foncier", items:[["C094","de surface de vente autorisée en CDAC, contre 765&nbsp;384&nbsp;m² en 2022"],["C122","de vacance dans les zones commerciales (6,79 % en 2023)"],["C114","d'espaces naturels consommés, plus bas niveau depuis 2011"]]}
 ];
 const OWN_DASH = [["P03","de commerces employeurs en zones périphériques, 2012-2025"],["P06","dans les centres-villes des communes de 5 000 habitants et plus"],["P16","d'écart entre les QPV et le reste de leur commune"],["P20","des centres-villes sont à moins de 10 km d'une grande zone"]];
 const DASH_CHARTS = [0, 9];
@@ -734,23 +804,42 @@ function figHtml(ch, i){
     <details><summary>Voir les données</summary>${chartTable(ch)}</details>
     <div class="src">Source : ${esc(ch.src)} · <button class="chip" type="button" data-filterref="${esc(ch.ref)}">Chiffres de ${esc(ch.ref)}</button></div></figure>`;
 }
+const STORIES = [
+ {kicker:"Poids de la périphérie", theme:"1. Poids des zones commerciales périphériques", chart:3,
+  html:"En 2015, les pôles de périphérie concentraient <em>65&nbsp;%</em> de la surface commerciale des pôles, pour seulement 23 % des établissements."},
+ {kicker:"Régulation", theme:"6. Autorisations CDAC / CNAC", chart:0,
+  html:"Depuis le critère d'artificialisation d'octobre 2022, les surfaces autorisées en CDAC reculent&nbsp;: <em>605&nbsp;844&nbsp;m²</em> en 2024, contre 765 384 m² en 2022."},
+ {kicker:"Vacance en zone", theme:"9. Périphérie : vacance et transformation", chart:9,
+  html:"La vacance gagne aussi la périphérie&nbsp;: <em>8,1&nbsp;%</em> des locaux des zones commerciales étaient vides en 2024, contre 6,9&nbsp;% en 2021."}
+];
+const TILES = [["sources","Sources","Rapports, études et articles cités"],["bases","Bases de données","Où trouver les données brutes"],["manques","Données manquantes","Ce qu'il faut pour une évaluation complète"],["contacts","Interviews","Cartographie des acteurs à rencontrer"],["propres","Calculs Sirene","Nos propres traitements"]];
 function viewTableau(){
-  if(!S.ready.chiffres) return `<div class="empty">Chargement du tableau de bord…</div>`;
+  if(!S.ready.chiffres) return `<div class="empty" style="margin-top:32px">Chargement du tableau de bord…</div>`;
   const n = S.chiffres.length, nA = S.chiffres.filter(c=>c.verification==="A").length, nD = S.chiffres.filter(c=>c.verification==="D").length;
   const col = {A:"var(--v-a)",B:"var(--v-b)",C:"var(--v-c)",D:"var(--v-d)",E:"var(--v-e)"};
-  const hero = HERO.map(([id,label,noUnit]) => { const c = S.chiffres.find(x=>x.id===id); if(!c) return ""; const src = srcBy(c.ref);
-    return `<button class="hk" type="button" data-open="${esc(c.id)}"><span class="v">${bigVal(c.valeur, noUnit ? "" : c.unite)}</span><span class="l">${esc(label)}</span>
-      <span class="s"><i style="background:${col[c.verification]||"var(--muted)"}" data-tip="${esc(VERIF[c.verification]?.long||"")}"></i>${esc(c.annees)} · ${esc(src ? src.organisme.split(/[,(]/)[0].trim() : c.ref)}</span></button>`; }).join("");
-  const fig = (i) => { const ch = CHARTS[i];
-    return `<figure><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div><div class="chart">${chartSvg(ch,i)}</div><div class="src">Source : ${esc(ch.src)}</div></figure>`; };
+  const cards = HERO.map(([id,label,noUnit]) => { const c = S.chiffres.find(x=>x.id===id); if(!c) return ""; const src = srcBy(c.ref);
+    return `<button class="hcard" type="button" data-open="${esc(c.id)}"><span class="v">${bigVal(c.valeur, noUnit ? "" : c.unite)}</span><span class="l">${esc(label)}</span>
+      <span class="s"><i style="background:${col[c.verification]||"var(--muted)"}" data-tip="${esc(VERIF[c.verification]?.long||"")}"></i>${esc(c.annees)} · ${esc(src ? src.organisme.split(/[,(]/)[0].trim() : c.ref)}</span>
+      <span class="more">Voir la fiche →</span></button>`; }).join("");
+  const stories = STORIES.map(st => { const ch = CHARTS[st.chart];
+    return `<article class="story"><div class="story-text"><p class="kicker">${esc(st.kicker)}</p><p class="story-q">${st.html}</p>
+      <p class="src">Source : ${esc(ch.src)}</p>
+      <button class="btn pill-go" type="button" data-themego="${esc(st.theme)}">Explorer les données →</button></div>
+      <figure><figcaption>${esc(ch.title)}</figcaption><div class="sub">${esc(ch.sub)}</div><div class="chart">${chartSvg(ch,st.chart)}</div></figure></article>`; }).join("");
+  const topics = themesAll().map(t => { const k = S.chiffres.filter(c=>c.theme===t).length;
+    return `<button class="topic" type="button" data-themego="${esc(t)}">${esc(t.replace(/^\d+\.\s*/,""))}<span class="c">${k}</span></button>`; }).join("");
   const toDo = S.contacts.filter(c=>c.statut==="À contacter").length;
-  return `<p class="kicker">Chiffres clés</p>
-  <div class="dash-title"><h2>Le commerce bascule vers la périphérie</h2><button class="linkbtn" type="button" data-tab="chiffres">Tous les chiffres →</button></div>
-  <div class="hero-kpis">${hero}</div>
-  <p class="kicker">Tendances</p>
-  <div class="dash-title"><h2>Moins de surfaces nouvelles, plus de vacance en zone</h2><button class="linkbtn" type="button" data-tab="graphiques">Tous les graphiques →</button></div>
-  <div class="clean-charts">${DASH_CHARTS.map(fig).join("")}</div>
-  <div class="quiet"><span><b>${n}</b> chiffres</span><span><b>${Math.round(100*nA/(n||1))} %</b> relus dans leur source</span>
+  return `<section class="home-sec" id="home-start">
+    <div class="sec-head"><div><p class="kicker">À la une</p><h2 class="serif">Les chiffres à retenir</h2></div><button class="linkbtn" type="button" data-tab="chiffres">Explorer tous les chiffres →</button></div>
+    <div class="hcards">${cards}</div></section>
+  <section class="stories">${stories}</section>
+  <section class="explore"><div class="inner">
+    <div class="sec-head"><div><p class="kicker">Explorer</p><h2 class="serif">Parcourez l'ensemble du registre</h2></div></div>
+    <p>Choisissez un thème pour afficher ses chiffres, avec leur année, leur champ et leur niveau de vérification.</p>
+    <div class="topics">${topics}</div>
+    <div class="tiles">${TILES.map(([tab,t,d])=>`<button class="tile" type="button" data-tab="${tab}"><b>${esc(t)} →</b><span>${esc(d)}</span></button>`).join("")}</div>
+  </div></section>
+  <div class="quiet home-foot"><span><b>${n}</b> chiffres</span><span><b>${Math.round(100*nA/(n||1))} %</b> relus dans leur source</span>
     <button class="linkbtn" type="button" data-verif="D"><b style="color:inherit">${nD}</b> à vérifier</button>
     <span><b>${S.sources.length}</b> sources</span><span class="sp"></span>
     <button class="linkbtn" type="button" data-tab="contacts">${toDo} interviews à organiser →</button></div>`;
@@ -903,6 +992,7 @@ function viewAide(){
 /* ---------- Rendu ---------- */
 function render(){
   renderStats();
+  $("#cover").classList.toggle("full", S.tab==="tableau");
   document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab===S.tab)));
   const v = {tableau:viewTableau, chiffres:viewChiffres, graphiques:viewGraphiques, sources:viewSources, bases:viewBases, contacts:viewContacts, manques:viewManques, propres:viewPropres, journal:viewJournal, aide:viewAide}[S.tab];
   const active = document.activeElement && document.activeElement.id;
@@ -920,6 +1010,8 @@ document.addEventListener("click", async (e) => {
   if(t.matches("a[data-stop]")) return;
   if(t.dataset.tab){ S.tab = t.dataset.tab; closeDrawer(); render(); window.scrollTo({top:0}); return; }
   if(t.dataset.verif){ S.verifs = new Set([t.dataset.verif]); S.tab = "chiffres"; render(); window.scrollTo({top:0}); return; }
+  if(t.dataset.themego){ S.themes = new Set([t.dataset.themego]); S.verifs.clear(); S.types.clear(); S.ref=null; S.q=""; S.tab="chiffres"; closeDrawer(); render(); window.scrollTo({top:0}); return; }
+  if(t.id==="cover-down"){ const el = $("#home-start"); if(el) el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); return; }
   if(t.hasAttribute("data-close")){ closeDrawer(); return; }
   if(t.dataset.open){ drawerChiffre(t.dataset.open); return; }
   if(t.dataset.edit){ drawerChiffre(t.dataset.edit, "edit"); wireForm(); return; }
@@ -1054,6 +1146,86 @@ async function exportCsv(){
   try{ await S.downloads.save({filename:"chiffres_commerce_peripherique.csv", data:"﻿"+lines.join("\r\n")}); toast("Fichier enregistré"); }
   catch(e){ if(e && e.code==="declined") return; if(e && e.code==="rate_limited") toast("Une demande d'enregistrement est déjà ouverte."); else toast("L'export n'est pas disponible ici."); }
 }
+
+/* ---------- Couverture : plan de ville en perspective ---------- */
+(function city(){
+  const cv = $("#city"), cover = $("#cover"); if(!cv || !cv.getContext) return;
+  const ctx = cv.getContext("2d");
+  let seed = 7; const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647;
+  // Monde : rues perpendiculaires, îlots découpés en parcelles ; grandes emprises roses en périphérie (|x| élevé)
+  const X0 = -110, X1 = 110, Z1 = 220;
+  const xs = [], zs = [];
+  for(let x = X0; x <= X1; x += 1.6 + rnd()*2.6) xs.push(x);
+  for(let z = 0; z <= Z1; z += 1.6 + rnd()*2.6) zs.push(z);
+  const parcels = [], zones = [], roads = [], nodes = [];
+  for(let i=0;i<xs.length-1;i++) for(let j=0;j<zs.length-1;j++){
+    const a = xs[i]+.25, b = xs[i+1]-.25, c = zs[j]+.25, d = zs[j+1]-.25, mid = (a+b)/2, dist = Math.abs(mid);
+    const r = rnd();
+    if(dist > 11 && r < .16 + Math.min(.2, dist/180)){ zones.push([a,c,b,d]);
+      const n = 1 + Math.floor(rnd()*2); for(let k=0;k<n;k++){ const w=(b-a)*(.3+rnd()*.35), h=(d-c)*(.25+rnd()*.3), x=a+rnd()*(b-a-w), z=c+rnd()*(d-c-h); parcels.push([x,z,x+w,z+h,1]); }
+      continue; }
+    if(dist > 18 && r > .8) continue; // terrain non bâti
+    const dense = dist < 8 ? 3 : dist < 16 ? 2 : 1;
+    const nx = 1 + Math.floor(rnd()*dense), nz = 1 + Math.floor(rnd()*dense);
+    for(let u=0;u<nx;u++) for(let v=0;v<nz;v++){ if(rnd() < .12) continue;
+      const pa = a+(b-a)*u/nx+.08, pb = a+(b-a)*(u+1)/nx-.08, pc = c+(d-c)*v/nz+.08, pd = c+(d-c)*(v+1)/nz-.08; parcels.push([pa,pc,pb,pd,0]); }
+  }
+  xs.forEach(x => { let z = zs[0]; while(z < Z1){ const len = 6 + rnd()*40; if(rnd() > .12) roads.push([x,z,x,Math.min(Z1,z+len)]); z += len; } });
+  zs.forEach(z => { let x = X0; while(x < X1){ const len = 6 + rnd()*30; if(rnd() > .15) roads.push([x,z,Math.min(X1,x+len),z]); x += len; } });
+  xs.forEach(x => zs.forEach(z => { if(rnd() < .22) nodes.push([x,z, Math.abs(x) < 8 && rnd() < .5]); }));
+  const pulses = Array.from({length:28}, () => ({z: zs[1+Math.floor(rnd()*(zs.length-2))], t: rnd(), sp: .04 + rnd()*.07, dir: rnd() < .5 ? -1 : 1}));
+
+  let W=0, H=0, dpr=1, hor=0, f=0, cy=0, d0=1, d1=2, zb=0, layer=null, raf=0, visible=true;
+  const TH = .55, CAM = 14, SN = Math.sin(TH), CS = Math.cos(TH);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  // Caméra inclinée (angle TH) à la hauteur CAM au-dessus du sol
+  const dep = (z) => CAM*SN + z*CS;
+  const P = (x,z) => { const d = dep(z); return [W/2 + f*x/d, cy - f*(z*SN - CAM*CS)/d]; };
+  const fog = (z) => { const k = 1 - (dep(z) - d0)/(d1 - d0); return Math.max(0, Math.min(1, k))**1.3; };
+  const zmin = 0;
+  function build(){
+    const r = cover.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height); dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    const full = cover.classList.contains("full");
+    hor = full ? H*(W < 640 ? .6 : .52) : H*.25; f = Math.max(W, 760)*.8; cy = hor + f*Math.tan(TH);
+    const m = (cy - H)/f; zb = Math.max(0, CAM*(CS + m*SN)/(SN - m*CS)); d0 = dep(zb)*.85; d1 = d0*(full ? 4.2 : 3.2);
+    layer = document.createElement("canvas"); layer.width = cv.width; layer.height = cv.height;
+    const g = layer.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0); g.lineCap = "round";
+    const quad = (x0,z0,x1,z1) => { const p = [P(x0,z0),P(x1,z0),P(x1,z1),P(x0,z1)]; g.beginPath(); g.moveTo(...p[0]); g.lineTo(...p[1]); g.lineTo(...p[2]); g.lineTo(...p[3]); g.closePath(); };
+    zones.forEach(([a,c,b,d]) => { const k = fog((c+d)/2); if(k < .02 || d < zb - 4) return; quad(a,c,b,d);
+      g.fillStyle = `rgba(255,92,150,${.13*k})`; g.fill(); g.strokeStyle = `rgba(255,128,176,${.75*k})`; g.lineWidth = .9; g.stroke(); });
+    parcels.forEach(([a,c,b,d,pink]) => { const k = fog((c+d)/2); if(k < .02 || d < zb - 4) return; quad(a,c,b,d);
+      if(pink){ g.fillStyle = `rgba(255,120,172,${.32*k})`; g.fill(); g.strokeStyle = `rgba(255,160,198,${.8*k})`; }
+      else { g.fillStyle = `rgba(70,140,255,${.05*k})`; g.fill(); g.strokeStyle = `rgba(110,175,255,${.4*k})`; }
+      g.lineWidth = .7; g.stroke(); });
+    roads.forEach(([x0,z0,x1,z1]) => { if(z1 < zb - 4) return; if(z0 < zb - 4) z0 = zb - 4;
+      const k = fog((z0+z1)/2), p0 = P(x0,z0), p1 = P(x1,z1);
+      if(x0===x1){ const gr = g.createLinearGradient(...p0, ...p1); gr.addColorStop(0, `rgba(120,190,255,${.7*fog(z0)})`); gr.addColorStop(1, `rgba(120,190,255,${.7*fog(z1)})`); g.strokeStyle = gr; }
+      else g.strokeStyle = `rgba(120,190,255,${.7*k})`;
+      g.lineWidth = Math.max(.5, 1.5*Math.min(1, d0/dep((z0+z1)/2))); g.beginPath(); g.moveTo(...p0); g.lineTo(...p1); g.stroke(); });
+    nodes.forEach(([x,z,c]) => { const k = fog(z); if(k < .03 || z < zb - 4) return; const [px,py] = P(x,z), rr = Math.max(.8, 2.8*Math.min(1, d0/dep(z)));
+      g.beginPath(); g.arc(px,py,rr,0,7); g.fillStyle = c ? `rgba(180,225,255,${.95*k})` : `rgba(90,170,255,${.85*k})`; g.fill(); });
+    // Brume à l'horizon
+    const mist = g.createLinearGradient(0, hor - 30, 0, hor + (H-hor)*.25); mist.addColorStop(0,"rgba(6,13,43,1)"); mist.addColorStop(1,"rgba(6,13,43,0)");
+    g.fillStyle = mist; g.fillRect(0, 0, W, hor + (H-hor)*.25);
+    draw(performance.now());
+  }
+  function draw(now){
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height); if(layer) ctx.drawImage(layer,0,0);
+    if(reduce.matches) return;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    pulses.forEach(p => { const t = (p.t + now/1000*p.sp) % 1, x = p.dir*t*70, z = p.z, k = fog(z)*Math.sin(Math.PI*t); if(k < .02 || z < zb) return;
+      const [px,py] = P(x,z), rr = Math.max(1.2, 3.4*Math.min(1, d0/dep(z)));
+      const gl = ctx.createRadialGradient(px,py,0,px,py,rr*4); gl.addColorStop(0,`rgba(255,140,185,${.9*k})`); gl.addColorStop(1,"rgba(255,140,185,0)");
+      ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(px,py,rr*4,0,7); ctx.fill(); });
+  }
+  const loop = (now) => { draw(now); raf = (visible && !document.hidden && !reduce.matches) ? requestAnimationFrame(loop) : 0; };
+  const kick = () => { if(!raf && visible && !document.hidden && !reduce.matches) raf = requestAnimationFrame(loop); };
+  let pend = 0; new ResizeObserver(() => { cancelAnimationFrame(pend); pend = requestAnimationFrame(build); }).observe(cover);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; kick(); }).observe(cover);
+  document.addEventListener("visibilitychange", kick); reduce.addEventListener?.("change", () => { build(); kick(); });
+  build(); kick();
+})();
 
 /* ---------- Démarrage ---------- */
 render();
