@@ -4,7 +4,7 @@ const { Document, Packer, Paragraph, TextRun, AlignmentType, Table, TableRow, Ta
   LevelFormat, Footer, Header, PageNumber, VerticalAlign, ExternalHyperlink, HeadingLevel, ShadingType } = require("docx");
 
 const OUT = path.join(__dirname, "villes_ACV_qui_se_demarquent.docx");
-const NAVY = "003087", BAND = "0070C0", GREY = "595959", PINK = "C2255C", PINK_SOFT = "FDEEF4";
+const INK = "1A1A1A", GREY = "666666", RULE = "999999", SOFT = "D9D9D9";
 const W = 9638;
 const fr = (s) => s.replace(/ ([:;!?%»])/g, " $1").replace(/« /g, "« ").replace(/(\d) (\d{3})/g, "$1 $2").replace(/ (pts?|km|hab\.)\b/g, " $1");
 function runs(text, base = {}) {
@@ -82,20 +82,20 @@ const VILLES = [
 ];
 
 const head = ["Ville", "Région", "Pourquoi elle se démarque"].map((t, i) => new TableCell({
-  width: { size: WID[i], type: WidthType.DXA }, borders: { top: line(NAVY, 10), bottom: line(NAVY, 6), left: none, right: none },
+  width: { size: WID[i], type: WidthType.DXA }, borders: { top: line(INK, 8), bottom: line(INK, 4), left: none, right: none },
   margins: { top: 80, bottom: 80, left: 100, right: 100 },
-  children: [new Paragraph({ children: [new TextRun({ text: t, bold: true, size: 18, color: NAVY })] })] }));
+  children: [new Paragraph({ children: [new TextRun({ text: t, bold: true, size: 18, color: INK })] })] }));
 const rows = VILLES.map(([ville, pop, region, lead, items], k) => {
   const last = k === VILLES.length - 1;
-  const b = { top: none, bottom: last ? line(NAVY, 10) : line("D9D9D9"), left: none, right: none };
+  const b = { top: none, bottom: last ? line(INK, 8) : line(SOFT), left: none, right: none };
   const m = { top: 100, bottom: 100, left: 100, right: 100 };
   return new TableRow({ cantSplit: true, children: [
     new TableCell({ width: { size: WID[0], type: WidthType.DXA }, borders: b, margins: m, children: [
-      new Paragraph({ children: [new TextRun({ text: `${k + 1}. `, bold: true, color: PINK, size: 20 }), new TextRun({ text: fr(ville), bold: true, size: 20 })] }),
+      new Paragraph({ children: [new TextRun({ text: `${k + 1}. `, bold: true, color: INK, size: 20 }), new TextRun({ text: fr(ville), bold: true, size: 20 })] }),
       new Paragraph({ children: [new TextRun({ text: fr(pop), size: 16, color: GREY })] })] }),
     new TableCell({ width: { size: WID[1], type: WidthType.DXA }, borders: b, margins: m, children: [new Paragraph({ children: runs(region, { size: 18 }) })] }),
     new TableCell({ width: { size: WID[2], type: WidthType.DXA }, borders: b, margins: m, children: [
-      new Paragraph({ spacing: { after: 60 }, children: runs(lead, { bold: true, size: 18, color: NAVY }) }),
+      new Paragraph({ spacing: { after: 60 }, children: runs(lead, { bold: true, size: 18, color: INK }) }),
       ...items.map((t) => new Paragraph({ numbering: { reference: "cell", level: 0 }, spacing: { after: 40, line: 252 }, children: runs(t, { size: 17 }) }))] }),
   ] });
 });
@@ -104,9 +104,9 @@ const link = (label, url, tail = "") => new Paragraph({ numbering: { reference: 
   children: [new ExternalHyperlink({ link: url, children: [new TextRun({ text: fr(label), style: "Hyperlink", size: 16 })] }), ...runs(tail, { size: 16 })] });
 
 const C = [
-  new Paragraph({ spacing: { after: 80 }, children: [new TextRun({ text: "OCDE · ÉTUDE DE CAS FRANCE · PROPOSITION À LA DGE", bold: true, size: 16, color: PINK, characterSpacing: 20 })] }),
-  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: fr("Dix villes Action Cœur de Ville qui se démarquent"), size: 36, color: NAVY })] }),
-  new Paragraph({ spacing: { after: 200 }, border: { bottom: line(PINK, 8) }, children: [new TextRun({ text: fr("Classement proposé pour les missions d'entretiens · 8 octobre 2026 · Document de travail"), size: 18, color: GREY })] }),
+  new Paragraph({ spacing: { after: 60 }, children: [new TextRun({ text: "OCDE – Étude de cas France – Proposition à la DGE", size: 16, color: GREY })] }),
+  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: fr("Dix villes Action Cœur de Ville qui se démarquent"), size: 32, bold: true, color: INK })] }),
+  new Paragraph({ spacing: { after: 200 }, border: { bottom: line(INK, 6) }, children: [new TextRun({ text: fr("Classement proposé pour les missions d'entretiens · 8 octobre 2026 · Document de travail"), size: 18, color: GREY })] }),
   new Paragraph({ spacing: { after: 160, line: 264 }, children: runs("Villes classées par score décroissant. « Commerces employeurs » : commerces de détail en magasin employant au moins un salarié, dans un rayon de 300 à 700 m autour de la mairie (Insee, Sirene). Ces éléments montrent des évolutions favorables, sans prouver l'effet du programme : c'est l'objet des entretiens.", { size: 17, color: GREY }) }),
   new Table({ width: { size: W, type: WidthType.DXA }, columnWidths: WID, rows: [new TableRow({ tableHeader: true, children: head }), ...rows] }),
   new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun("Sources")] }),
@@ -122,11 +122,11 @@ const bullet = (ref, text, color, size, left) => ({ reference: ref, levels: [{ l
 const doc = new Document({
   creator: "OCDE – étude de cas France", title: "Dix villes Action Cœur de Ville qui se démarquent",
   styles: { default: { document: { run: { font: "Arial", size: 19 } } },
-    paragraphStyles: [{ id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 22, bold: true, color: BAND, font: "Arial" }, paragraph: { spacing: { before: 280, after: 100 }, keepNext: true, outlineLevel: 0 } }] },
-  numbering: { config: [bullet("cell", "■", PINK, 12, 240), bullet("src", "■", PINK, 12, 300)] },
+    paragraphStyles: [{ id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true, run: { size: 20, bold: true, color: INK, font: "Arial" }, paragraph: { spacing: { before: 280, after: 100 }, keepNext: true, outlineLevel: 0 } }] },
+  numbering: { config: [bullet("cell", "–", GREY, 17, 240), bullet("src", "–", GREY, 16, 300)] },
   sections: [{ properties: { page: { margin: { top: 1000, bottom: 1000, left: 1134, right: 1134 } } },
     headers: { default: new Header({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ text: fr("Villes ACV qui se démarquent · Document de travail"), size: 15, color: GREY })] })] }) },
-    footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ children: [PageNumber.CURRENT], size: 16, bold: true, color: NAVY })] })] }) },
+    footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [new TextRun({ children: [PageNumber.CURRENT], size: 16, color: GREY })] })] }) },
     children: C }],
 });
 Packer.toBuffer(doc).then((b) => { fs.writeFileSync(OUT, b); console.log("écrit", OUT); });
