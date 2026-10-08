@@ -1,0 +1,20 @@
+commune,codata_2019,codata_2020,codata_2021,codata_2022,codata_2023,codata_2024,codata_2025,evol_depuis_premiere_annee_pts,atlas_vacance_commerciale_2025,vacance_logement_2025,ventes_immo_tendance_2018_2023,reinventons_statut,territoire_pilote_sobriete_fonciere,accompagnement_cerema_transition,design_actif
+Saint-Dizier,19.7,20.0,17.2,19.9,23.2,23.8,16.8,-2.9,10-15 %,5-7 %,hausse,,,False,pilote
+Cavaillon,19.4,23.9,20.1,18.8,17.6,22.8,16.8,-2.6,15-20 %,4-5 %,baisse,,,False,
+Guéret,27.7,28.1,31.4,27.5,25.2,29.1,23.8,-3.9,15-20 %,> 7 %,baisse,infructueux,,True,accompagnee
+Gap,12.4,13.7,11.2,10.2,12.7,15.7,11.6,-0.8,10-15 %,3-4 %,hausse,,,False,
+Vesoul,13.9,13.5,13.9,10.6,13.5,16.8,12.9,-1.0,10-15 %,4-5 %,baisse,en_cours,,True,
+Pithiviers,23.1,22.1,21.0,17.6,22.5,21.3,17.4,-5.7,15-20 %,> 7 %,baisse,,,False,accompagnee
+Grasse,18.9,19.7,23.5,20.4,24.8,30.2,26.4,7.5,15-20 %,3-4 %,hausse,sans_aap,,False,accompagnee
+Bressuire,17.9,15.9,15.1,12.8,9.7,11.1,8.6,-9.3,10-15 %,< 3 %,hausse,,,True,accompagnee
+Nemours,,,,18.1,19.3,17.7,15.6,-2.5,> 20 %,5-7 %,,infructueux,,False,
+Foix,,,,13.4,11.6,16.6,14.8,1.4,10-15 %,5-7 %,baisse,preparation,,True,accompagnee
+Épernay,8.8,8.0,5.8,7.2,7.2,9.4,7.6,-1.2,5-10 %,5-7 %,baisse,,2020.0,True,
+Moulins,16.3,16.0,15.7,14.3,17.6,20.6,18.8,2.5,15-20 %,> 7 %,hausse,,,True,
+Frontignan,,,,,,,,,< 5 %,< 3 %,hausse,,,False,
+Limay,,,,,,,,,< 5 %,< 3 %,,,,True,
+Mazamet,,,,,,,,,< 5 %,> 7 %,baisse,,,True,
+Brignoles,,,,,,,,,< 5 %,5-7 %,hausse,preparation,,False,
+Castelsarrasin,,,,,,,,,< 5 %,4-5 %,,,,True,
+Saint-Malo,,,,,,,,,< 5 %,< 3 %,baisse,,,False,accompagnee
+Ambérieu-en-Bugey,,,,,,,,,< 5 %,3-4 %,baisse,preparation,,False,
