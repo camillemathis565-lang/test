@@ -1,0 +1,245 @@
+insee_com,lib_com,id_acv,Nom Officiel Département,Nom Officiel Région,POPULATION,R_commerce,R_habitat,R_demographie,R_patrimoine,R_environnement,R_cadre_de_vie,nb_reussites,type,e2012,e2019,e2025,evol_2012_2019_pct,evol_2019_2025_pct,tous_2019_2025_pct,vacance_commerciale_2025,vacance_logement_2025,ventes_immo_tendance_2018_2023,dpop_2014_2020_pct,reinventons_statut,territoire_pilote_sobriete_fonciere,accompagnement_cerema_transition,design_actif,mon_centre_ville_2030
+38053,Bourgoin-Jallieu,ACV037,Isère,Auvergne-Rhône-Alpes,29577.0,False,True,True,True,True,True,5,,12.0,18.0,12.0,50.0,-33.3,-20.0,10-15 %,< 3 %,hausse,7.4,laureat,,True,accompagnee,False
+60175,Creil,ACV069,Oise,Hauts-de-France,36106.0,True,False,True,False,True,True,4,"A2. Inversion, vacance moyenne",59.0,40.0,55.0,-32.2,37.5,13.3,10-15 %,5-7 %,hausse,3.0,,,True,accompagnee,False
+83050,Draguignan,ACV077,Var,Provence-Alpes-Côte d'Azur,39745.0,True,True,False,True,True,False,4,C. Déclin stoppé,138.0,95.0,91.0,-31.2,-4.2,0.5,10-15 %,3-4 %,hausse,-1.5,laureat,2020.0,False,,False
+64445,Pau,ACV154,Pyrénées-Atlantiques,Nouvelle-Aquitaine,77066.0,False,True,False,True,True,True,4,,332.0,266.0,244.0,-19.9,-8.3,-6.8,10-15 %,3-4 %,hausse,-2.4,laureat,,True,accompagnee,False
+07186,Privas,ACV161,Ardèche,Auvergne-Rhône-Alpes,8541.0,True,False,True,False,True,True,4,A. Inversion confirmée,46.0,35.0,37.0,-23.9,5.7,0.0,5-10 %,> 7 %,hausse,3.1,,,True,accompagnee,False
+89387,Sens,ACV195,Yonne,Bourgogne-Franche-Comté,27034.0,False,False,True,True,True,True,4,,109.0,80.0,63.0,-26.6,-21.3,-16.2,15-20 %,5-7 %,baisse,5.3,laureat,,True,accompagnee,False
+34003,Agde,ACV002,Hérault,Occitanie,29103.0,False,True,True,False,False,True,3,,13.0,17.0,20.0,30.8,17.6,6.1,5-10 %,< 3 %,hausse,11.8,,,False,accompagnee,False
+60057,Beauvais,ACV027,Oise,Hauts-de-France,56677.0,False,True,True,False,False,True,3,,149.0,167.0,139.0,12.1,-16.8,-1.5,15-20 %,3-4 %,hausse,3.9,,,False,accompagnee,False
+79049,Bressuire,ACV038,Deux-Sèvres,Nouvelle-Aquitaine,19906.0,False,True,False,False,True,True,3,,50.0,43.0,42.0,-14.0,-2.3,-5.1,10-15 %,< 3 %,hausse,2.9,,,True,accompagnee,False
+02168,Château-Thierry,ACV055,Aisne,Hauts-de-France,15204.0,False,False,True,True,False,True,3,,52.0,49.0,36.0,-5.8,-26.5,-12.2,10-15 %,5-7 %,baisse,5.2,laureat,,False,accompagnee,False
+04070,Digne-les-Bains,ACV074,Alpes-de-Haute-Provence,Provence-Alpes-Côte d'Azur,17192.0,False,False,True,False,True,True,3,,61.0,58.0,56.0,-4.9,-3.4,2.9,15-20 %,5-7 %,hausse,3.4,,,True,accompagnee,False
+53130,Laval,ACV108,Mayenne,Pays de la Loire,49657.0,False,True,False,True,True,False,3,,139.0,117.0,101.0,-15.8,-13.7,-8.3,10-15 %,< 3 %,hausse,-0.9,laureat,2022.0,False,,False
+82121,Montauban,ACV138,Tarn-et-Garonne,Occitanie,61919.0,False,True,True,False,False,True,3,,178.0,144.0,129.0,-19.1,-10.4,3.7,10-15 %,3-4 %,hausse,4.8,,,False,accompagnee,False
+78498,Poissy,ACV158,Yvelines,Île-de-France,40016.0,True,False,True,False,True,False,3,B. Centre résilient,79.0,81.0,85.0,2.5,4.9,-2.2,5-10 %,< 3 %,,7.4,,,True,,False
+86194,Poitiers,ACV159,Vienne,Nouvelle-Aquitaine,90240.0,False,False,True,False,True,True,3,,233.0,199.0,183.0,-14.6,-8.0,-1.8,10-15 %,3-4 %,baisse,3.0,,2020.0,True,accompagnee,False
+31451,Revel,ACV165,Haute-Garonne,Occitanie,9665.0,False,True,False,True,False,True,3,,38.0,31.0,29.0,-18.4,-6.5,-2.9,5-10 %,3-4 %,hausse,2.8,laureat,,False,accompagnee,False
+34301,Sète,ACV196,Hérault,Occitanie,44712.0,True,True,False,False,True,False,3,A. Inversion confirmée,180.0,153.0,174.0,-15.0,13.7,2.8,5-10 %,3-4 %,hausse,1.0,,2020.0,False,,False
+10387,Troyes,ACV205,Aube,Grand Est,62782.0,False,False,True,False,True,True,3,,221.0,214.0,202.0,-3.2,-5.6,-6.9,10-15 %,> 7 %,baisse,3.0,,,True,accompagnee,False
+26362,Valence,ACV207,Drôme,Auvergne-Rhône-Alpes,64483.0,False,True,True,False,True,False,3,,271.0,243.0,233.0,-10.3,-4.1,-5.1,10-15 %,3-4 %,hausse,3.7,,,True,,False
+35360,Vitré,ACV220,Ille-et-Vilaine,Bretagne,18998.0,False,False,True,False,True,True,3,,55.0,48.0,46.0,-12.7,-4.2,-4.8,10-15 %,< 3 %,baisse,5.9,,,True,accompagnee,False
+81004,Albi,ACV005,Tarn,Occitanie,49714.0,False,True,False,False,False,True,2,,194.0,172.0,137.0,-11.3,-20.3,-16.4,10-15 %,3-4 %,hausse,-0.9,preparation;sans_aap,,False,accompagnee,False
+30007,Alès,ACV007,Gard,Occitanie,43892.0,False,False,True,False,True,False,2,,159.0,154.0,133.0,-3.1,-13.6,-10.3,15-20 %,5-7 %,baisse,7.2,,,True,,False
+74012,Annemasse,ACV233,Haute-Savoie,Auvergne-Rhône-Alpes,37918.0,False,False,True,False,True,False,2,,154.0,158.0,148.0,2.6,-6.3,-7.0,10-15 %,3-4 %,,7.2,,,True,,False
+91021,Arpajon,ACV013,Essonne,Île-de-France,11281.0,False,False,True,False,False,True,2,,78.0,64.0,60.0,-17.9,-6.2,-11.7,10-15 %,< 3 %,,5.5,,,False,accompagnee,False
+62041,Arras,ACV014,Pas-de-Calais,Hauts-de-France,42600.0,False,False,True,False,True,False,2,,113.0,106.0,92.0,-6.2,-13.2,-3.4,10-15 %,4-5 %,hausse,3.3,,,True,,False
+71014,Autun,ACV018,Saône-et-Loire,Bourgogne-Franche-Comté,13145.0,False,False,False,True,True,False,2,,84.0,68.0,51.0,-19.0,-25.0,-22.0,15-20 %,> 7 %,hausse,-5.4,laureat,2022.0,False,,False
+01053,Bourg-en-Bresse,ACV035,Ain,Auvergne-Rhône-Alpes,41525.0,False,False,False,True,True,False,2,,168.0,149.0,141.0,-11.3,-5.4,-9.9,15-20 %,4-5 %,hausse,1.7,laureat,,True,,False
+91103,Brétigny-sur-Orge,ACV231,Essonne,Île-de-France,27106.0,False,False,True,False,False,True,2,,15.0,14.0,16.0,-6.7,14.3,11.5,10-15 %,< 3 %,,4.9,,,False,accompagnee,False
+34032,Béziers,ACV032,Hérault,Occitanie,80341.0,True,False,True,False,False,False,2,C. Déclin stoppé,219.0,166.0,163.0,-24.2,-1.8,-12.9,10-15 %,5-7 %,hausse,3.9,,,False,,False
+84031,Carpentras,ACV046,Vaucluse,Provence-Alpes-Côte d'Azur,30769.0,False,False,True,False,True,False,2,,107.0,87.0,79.0,-18.7,-9.2,-7.6,15-20 %,5-7 %,baisse,5.0,,,True,,False
+73065,Chambéry,ACV052,Savoie,Auvergne-Rhône-Alpes,59856.0,False,True,False,False,False,True,2,,261.0,258.0,224.0,-1.1,-13.2,-14.9,10-15 %,< 3 %,hausse,-0.5,infructueux,,False,accompagnee,False
+28085,Chartres,ACV054,Eure-et-Loir,Centre-Val de Loire,38447.0,False,True,False,False,True,False,2,,180.0,180.0,152.0,0.0,-15.6,-8.0,10-15 %,3-4 %,hausse,-0.7,,,True,,False
+49099,Cholet,ACV062,Maine-et-Loire,Pays de la Loire,53936.0,True,True,False,False,False,False,2,C. Déclin stoppé,146.0,106.0,101.0,-27.4,-4.7,-6.8,10-15 %,< 3 %,hausse,0.9,infructueux,,False,,False
+44036,Châteaubriant,ACV056,Loire-Atlantique,Pays de la Loire,12189.0,False,False,False,True,False,True,2,,50.0,35.0,28.0,-30.0,-20.0,0.0,10-15 %,4-5 %,baisse,1.0,laureat,,False,accompagnee,False
+86066,Châtellerault,ACV058,Vienne,Nouvelle-Aquitaine,31284.0,False,False,False,False,True,True,2,,99.0,75.0,60.0,-24.2,-20.0,-7.4,> 20 %,5-7 %,hausse,-0.5,infructueux,,True,pilote,False
+60159,Compiègne,ACV065,Oise,Hauts-de-France,40394.0,False,True,False,False,False,True,2,,148.0,161.0,146.0,8.8,-9.3,-6.4,5-10 %,3-4 %,hausse,-0.7,,,False,accompagnee,False
+91174,Corbeil-Essonnes,ACV066,Essonne,Île-de-France,52683.0,False,False,True,False,True,False,2,,44.0,53.0,55.0,20.5,3.8,0.0,> 20 %,3-4 %,,6.0,,,True,,False
+58086,Cosne-Cours-sur-Loire,ACV067,Nièvre,Bourgogne-Franche-Comté,9437.0,False,False,False,False,True,True,2,,41.0,44.0,34.0,7.3,-22.7,-6.9,10-15 %,> 7 %,hausse,-10.8,preparation,,True,accompagnee,True
+59172,Denain,ACV072,Nord,Hauts-de-France,20640.0,True,False,False,False,True,False,2,"A2. Inversion, vacance moyenne",50.0,36.0,43.0,-28.0,19.4,8.3,10-15 %,> 7 %,baisse,-0.5,,,True,,False
+59178,Douai,ACV076,Nord,Hauts-de-France,39648.0,False,False,False,True,True,False,2,,150.0,125.0,102.0,-16.7,-18.4,-7.5,,5-7 %,hausse,-2.2,laureat,,True,,True
+59183,Dunkerque,ACV079,Nord,Hauts-de-France,86788.0,False,True,False,True,False,False,2,,220.0,221.0,201.0,0.5,-9.0,-0.6,10-15 %,3-4 %,hausse,-2.9,laureat,,False,,False
+09122,Foix,ACV089,Ariège,Occitanie,9472.0,False,False,False,False,True,True,2,,50.0,48.0,49.0,-4.0,2.1,0.0,10-15 %,5-7 %,baisse,-2.1,preparation,,True,accompagnee,False
+34108,Frontignan,ACV232,Hérault,Occitanie,23808.0,True,True,False,False,False,False,2,B. Centre résilient,30.0,31.0,33.0,3.3,6.5,-2.7,< 5 %,< 3 %,hausse,2.6,,,False,,False
+76259,Fécamp,ACV086,Seine-Maritime,Normandie,18016.0,False,True,False,False,True,False,2,,95.0,87.0,74.0,-8.4,-14.9,-3.4,10-15 %,3-4 %,hausse,-6.7,,,True,,False
+06069,Grasse,ACV098,Alpes-Maritimes,Provence-Alpes-Côte d'Azur,48323.0,False,True,False,False,False,True,2,,51.0,52.0,51.0,2.0,-1.9,-4.1,15-20 %,3-4 %,hausse,-3.4,sans_aap,,False,accompagnee,False
+23096,Guéret,ACV100,Creuse,Nouvelle-Aquitaine,12840.0,False,False,False,False,True,True,2,,50.0,39.0,36.0,-22.0,-7.7,-7.0,15-20 %,> 7 %,baisse,-4.8,infructueux,,True,accompagnee,False
+85191,La Roche-sur-Yon,ACV105,Vendée,Pays de la Loire,54952.0,False,True,True,False,False,False,2,,127.0,112.0,97.0,-11.8,-13.4,-8.7,10-15 %,< 3 %,hausse,3.9,,,False,,False
+22113,Lannion,ACV106,Côtes-d'Armor,Bretagne,20344.0,False,True,False,False,True,False,2,,101.0,75.0,69.0,-25.7,-8.0,-9.2,10-15 %,< 3 %,hausse,2.9,sans_aap,,True,,False
+33243,Libourne,ACV116,Gironde,Nouvelle-Aquitaine,24557.0,False,False,False,True,False,True,2,,110.0,93.0,82.0,-15.5,-11.8,-9.8,10-15 %,4-5 %,baisse,-0.7,laureat,,False,accompagnee,False
+78335,Limay,ACV117,Yvelines,Île-de-France,17626.0,False,False,True,False,True,False,2,,8.0,8.0,8.0,0.0,0.0,20.0,< 5 %,< 3 %,,6.0,,,True,,False
+54323,Longwy,ACV120,Meurthe-et-Moselle,Grand Est,15191.0,False,False,True,False,True,False,2,,20.0,12.0,8.0,-40.0,-33.3,-6.2,10-15 %,5-7 %,baisse,5.8,infructueux,,True,,False
+56121,Lorient,ACV122,Morbihan,Bretagne,57846.0,False,True,False,False,True,False,2,,272.0,258.0,243.0,-5.1,-5.8,-4.9,10-15 %,< 3 %,hausse,-0.4,,2022.0,True,,False
+47157,Marmande,ACV130,Lot-et-Garonne,Nouvelle-Aquitaine,17239.0,False,False,False,True,False,True,2,,99.0,73.0,44.0,-26.3,-39.7,-24.2,15-20 %,5-7 %,,-2.7,laureat,,False,accompagnee,False
+59392,Maubeuge,ACV131,Nord,Hauts-de-France,29066.0,False,False,False,False,True,True,2,,24.0,19.0,17.0,-20.8,-10.5,7.7,10-15 %,5-7 %,hausse,-2.4,,2020.0,True,accompagnee,False
+81163,Mazamet,ACV047,Tarn,Occitanie,10064.0,True,False,False,False,True,False,2,C. Déclin stoppé,45.0,34.0,34.0,-24.4,0.0,-5.0,< 5 %,> 7 %,baisse,-2.2,,,True,,False
+45208,Montargis,ACV137,Loiret,Centre-Val de Loire,15061.0,False,False,True,False,False,True,2,,118.0,106.0,97.0,-10.2,-8.5,-13.9,> 20 %,> 7 %,hausse,5.3,,,False,accompagnee,False
+42147,Montbrison,ACV140,Loire,Auvergne-Rhône-Alpes,16064.0,False,False,False,False,True,True,2,,104.0,95.0,96.0,-8.7,1.1,6.1,10-15 %,4-5 %,baisse,1.6,infructueux,,True,accompagnee,False
+71306,Montceau-les-Mines,ACV141,Saône-et-Loire,Bourgogne-Franche-Comté,16831.0,False,False,False,True,True,False,2,,76.0,65.0,65.0,-14.5,0.0,-7.8,15-20 %,> 7 %,hausse,-8.8,laureat,,True,,False
+26198,Montélimar,ACV142,Drôme,Auvergne-Rhône-Alpes,40399.0,False,False,True,False,False,True,2,,130.0,114.0,105.0,-12.3,-7.9,1.3,15-20 %,5-7 %,baisse,7.0,infructueux,,False,accompagnee,False
+58194,Nevers,ACV149,Nièvre,Bourgogne-Franche-Comté,32830.0,False,False,False,False,True,True,2,,112.0,90.0,81.0,-19.6,-10.0,-11.7,> 20 %,> 7 %,baisse,-6.4,,,True,accompagnee,False
+79191,Niort,ACV150,Deux-Sèvres,Nouvelle-Aquitaine,59309.0,False,False,False,False,True,True,2,,168.0,156.0,136.0,-7.1,-12.8,-9.3,10-15 %,3-4 %,baisse,1.1,,,True,accompagnee,False
+56178,Pontivy,ACV160,Morbihan,Bretagne,14774.0,False,False,True,False,True,False,2,,69.0,62.0,59.0,-10.1,-4.8,-6.4,10-15 %,5-7 %,baisse,8.1,,,True,,False
+35236,Redon,ACV164,Ille-et-Vilaine,Bretagne,9312.0,False,False,True,False,True,False,2,D. Vacance en baisse durable,55.0,51.0,41.0,-7.3,-19.6,-1.2,5-10 %,4-5 %,baisse,4.4,,,True,,True
+17299,Rochefort,ACV168,Charente-Maritime,Nouvelle-Aquitaine,23092.0,True,False,False,False,False,True,2,C. Déclin stoppé,103.0,82.0,81.0,-20.4,-1.2,-7.3,5-10 %,4-5 %,baisse,-3.7,,,False,accompagnee,False
+41194,Romorantin-Lanthenay,ACV171,Loir-et-Cher,Centre-Val de Loire,18115.0,True,False,True,False,False,False,2,C. Déclin stoppé,45.0,33.0,32.0,-26.7,-3.0,-12.3,10-15 %,4-5 %,hausse,4.3,,,False,,False
+22278,Saint-Brieuc,ACV175,Côtes-d'Armor,Bretagne,44224.0,False,True,False,False,True,False,2,,198.0,132.0,115.0,-33.3,-12.9,-12.6,> 20 %,3-4 %,hausse,-2.3,,,True,,False
+50502,Saint-Lô,ACV180,Manche,Normandie,19373.0,False,True,False,True,False,False,2,,100.0,94.0,83.0,-6.0,-11.7,-7.2,5-10 %,3-4 %,hausse,-1.1,laureat,,False,,False
+62765,Saint-Omer,ACV184,Pas-de-Calais,Hauts-de-France,14661.0,False,False,True,False,False,True,2,,108.0,93.0,90.0,-13.9,-3.2,0.6,15-20 %,> 7 %,hausse,4.4,,,False,pilote,False
+57630,Sarrebourg,ACV188,Moselle,Grand Est,12359.0,False,False,False,False,True,True,2,,75.0,64.0,55.0,-14.7,-14.1,-8.3,10-15 %,5-7 %,baisse,-0.7,,,True,accompagnee,False
+59569,Sin-le-Noble,ACV229,Nord,Hauts-de-France,15603.0,False,False,False,True,True,False,2,,15.0,13.0,15.0,-13.3,15.4,23.1,10-15 %,5-7 %,hausse,-1.4,laureat,,True,,False
+02722,Soissons,ACV197,Aisne,Hauts-de-France,28705.0,False,False,False,False,True,True,2,,75.0,70.0,63.0,-6.7,-10.0,-8.8,10-15 %,5-7 %,hausse,2.1,,,True,accompagnee,False
+69243,Tarare,ACV198,Rhône,Auvergne-Rhône-Alpes,10428.0,False,False,False,True,True,False,2,,53.0,54.0,51.0,1.9,-5.6,-7.3,10-15 %,5-7 %,baisse,-2.2,laureat,2022.0,False,,False
+13108,Tarascon,ACV199,Bouches-du-Rhône,Provence-Alpes-Côte d'Azur,15423.0,False,False,True,False,True,False,2,,33.0,26.0,24.0,-21.2,-7.7,-12.9,10-15 %,5-7 %,hausse,6.3,,,True,,False
+19272,Tulle,ACV206,Corrèze,Nouvelle-Aquitaine,13992.0,False,False,False,True,True,False,2,,37.0,35.0,27.0,-5.4,-22.9,-30.0,> 20 %,> 7 %,baisse,-0.1,laureat,,True,,False
+03310,Vichy,ACV214,Allier,Auvergne-Rhône-Alpes,25789.0,False,False,False,False,True,True,2,,126.0,129.0,120.0,2.4,-7.0,-2.6,10-15 %,> 7 %,baisse,0.4,,,True,pilote,False
+38544,Vienne,ACV215,Isère,Auvergne-Rhône-Alpes,31051.0,False,False,True,False,True,False,2,,132.0,132.0,114.0,0.0,-13.6,-5.1,5-10 %,4-5 %,hausse,3.3,,,True,,False
+2A004,Ajaccio,ACV004,Corse-du-Sud,Corse,73822.0,False,False,True,False,False,False,1,,262.0,264.0,250.0,0.8,-5.3,-2.4,,,,5.9,,,False,,False
+61001,Alençon,ACV006,Orne,Normandie,25555.0,False,False,False,False,True,False,1,,88.0,72.0,60.0,-18.2,-16.7,-10.4,> 20 %,5-7 %,baisse,-1.1,preparation,,True,,False
+16015,Angoulème,ACV009,Charente,Nouvelle-Aquitaine,41086.0,False,False,False,False,True,False,1,,133.0,116.0,112.0,-12.8,-3.4,-3.8,> 20 %,4-5 %,baisse,-1.3,,,True,,True
+61006,Argentan,ACV011,Orne,Normandie,13291.0,False,False,False,False,False,True,1,,38.0,34.0,33.0,-10.5,-2.9,-1.7,15-20 %,4-5 %,hausse,-4.1,,,False,accompagnee,False
+13004,Arles,ACV012,Bouches-du-Rhône,Provence-Alpes-Côte d'Azur,50415.0,False,False,False,True,False,False,1,,151.0,136.0,129.0,-9.9,-5.1,3.9,10-15 %,4-5 %,hausse,-3.3,laureat,,False,,False
+07019,Aubenas,ACV015,Ardèche,Auvergne-Rhône-Alpes,12360.0,False,False,True,False,False,False,1,,84.0,79.0,66.0,-6.0,-16.5,-7.5,15-20 %,> 7 %,hausse,4.1,,,False,,False
+32013,Auch,ACV016,Gers,Occitanie,23041.0,False,False,True,False,False,False,1,,56.0,44.0,32.0,-21.4,-27.3,-1.1,15-20 %,4-5 %,hausse,3.3,preparation,,False,,False
+84007,Avignon,ACV020,Vaucluse,Provence-Alpes-Côte d'Azur,90330.0,False,False,False,False,False,True,1,,328.0,318.0,278.0,-3.0,-12.6,-6.0,10-15 %,5-7 %,hausse,-1.7,,,False,accompagnee,False
+55029,Bar-le-Duc,ACV022,Meuse,Grand Est,14668.0,False,False,False,False,False,True,1,,71.0,61.0,58.0,-14.1,-4.9,-3.0,15-20 %,> 7 %,baisse,-6.9,preparation,,False,accompagnee,False
+2B033,Bastia,ACV024,Haute-Corse,Corse,48768.0,False,False,True,False,False,False,1,,165.0,167.0,159.0,1.2,-4.8,-5.5,,,,11.5,,,False,,False
+64102,Bayonne,ACV025,Pyrénées-Atlantiques,Nouvelle-Aquitaine,52749.0,False,False,True,False,False,False,1,,268.0,256.0,259.0,-4.5,1.2,-6.1,5-10 %,< 3 %,baisse,7.9,,,False,,False
+25056,Besançon,ACV030,Doubs,Bourgogne-Franche-Comté,119198.0,False,True,False,False,False,False,1,,314.0,299.0,269.0,-4.8,-10.0,-9.9,5-10 %,3-4 %,hausse,1.3,,,False,,False
+41018,Blois,ACV033,Loir-et-Cher,Centre-Val de Loire,46813.0,False,True,False,False,False,False,1,,150.0,125.0,107.0,-16.7,-14.4,-3.0,10-15 %,3-4 %,hausse,0.7,,,False,,False
+62160,Boulogne-sur-Mer,ACV034,Pas-de-Calais,Hauts-de-France,40910.0,False,False,False,False,False,True,1,,54.0,42.0,38.0,-22.2,-9.5,-6.2,> 20 %,5-7 %,hausse,-4.4,,,False,accompagnee,False
+26057,Bourg-de-Péage,ACV170,Drôme,Auvergne-Rhône-Alpes,9578.0,False,True,False,False,False,False,1,,15.0,6.0,6.0,-60.0,0.0,4.8,10-15 %,3-4 %,hausse,-3.5,,,False,,False
+18033,Bourges,ACV036,Cher,Centre-Val de Loire,63702.0,False,False,False,False,False,True,1,,182.0,144.0,134.0,-20.9,-6.9,-10.5,> 20 %,5-7 %,baisse,-3.3,infructueux,,False,pilote,False
+05023,Briançon,ACV039,Hautes-Alpes,Provence-Alpes-Côte d'Azur,10561.0,False,False,False,True,False,False,1,,21.0,21.0,14.0,0.0,-33.3,-31.9,10-15 %,4-5 %,hausse,-13.0,laureat,,False,,False
+83023,Brignoles,ACV040,Var,Provence-Alpes-Côte d'Azur,17664.0,False,False,True,False,False,False,1,,51.0,29.0,25.0,-43.1,-13.8,9.1,< 5 %,5-7 %,hausse,5.8,preparation,,False,,False
+19031,Brive-la-Gaillarde,ACV041,Corrèze,Nouvelle-Aquitaine,46599.0,False,False,False,True,False,False,1,,192.0,184.0,135.0,-4.2,-26.6,-8.2,10-15 %,4-5 %,hausse,-2.2,laureat,,False,,False
+46042,Cahors,ACV042,Lot,Occitanie,20141.0,False,False,False,True,False,False,1,,122.0,105.0,86.0,-13.9,-18.1,-7.8,15-20 %,5-7 %,baisse,2.7,laureat,,False,,False
+62193,Calais,ACV043,Pas-de-Calais,Hauts-de-France,67380.0,False,False,False,False,False,True,1,E. Rechute (vacance remontée),91.0,74.0,81.0,-18.7,9.5,6.8,> 20 %,3-4 %,baisse,-11.6,preparation,,False,pilote,False
+11069,Carcassonne,ACV045,Aude,Occitanie,46218.0,False,False,False,False,False,True,1,,161.0,125.0,99.0,-22.4,-20.8,-11.4,15-20 %,5-7 %,hausse,1.6,,,False,accompagnee,False
+82033,Castelsarrasin,ACV223,Tarn-et-Garonne,Occitanie,14178.0,False,False,False,False,True,False,1,,33.0,22.0,23.0,-33.3,4.5,-18.0,< 5 %,4-5 %,,2.7,,,True,,False
+71076,Chalon-sur-Saône,ACV050,Saône-et-Loire,Bourgogne-Franche-Comté,45031.0,False,False,False,True,False,False,1,,213.0,184.0,190.0,-13.6,3.3,4.2,10-15 %,5-7 %,hausse,0.2,laureat,,False,,False
+37072,Chinon,ACV061,Indre-et-Loire,Centre-Val de Loire,8052.0,False,False,False,False,False,True,1,,29.0,21.0,21.0,-27.6,0.0,4.9,5-10 %,5-7 %,hausse,-0.1,,,False,accompagnee,False
+36044,Châteauroux,ACV057,Indre,Centre-Val de Loire,42968.0,False,False,False,True,False,False,1,,135.0,120.0,107.0,-11.1,-10.8,-3.3,15-20 %,4-5 %,baisse,-2.6,laureat,,False,,False
+77131,Coulommiers,ACV068,Seine-et-Marne,Île-de-France,15250.0,False,False,False,False,False,True,1,,82.0,76.0,64.0,-7.3,-15.8,-15.6,15-20 %,4-5 %,,0.4,,,False,accompagnee,False
+76217,Dieppe,ACV073,Seine-Maritime,Normandie,28358.0,False,False,False,False,False,True,1,,150.0,139.0,126.0,-7.3,-9.4,-6.8,10-15 %,5-7 %,hausse,-6.6,,,False,accompagnee,False
+28134,Dreux,ACV078,Eure-et-Loir,Centre-Val de Loire,30879.0,False,False,False,False,True,False,1,,77.0,72.0,64.0,-6.5,-11.1,-1.5,10-15 %,> 7 %,hausse,-1.4,,2020.0,False,,False
+46102,Figeac,ACV087,Lot,Occitanie,9770.0,False,False,False,True,False,False,1,,48.0,43.0,43.0,-10.4,0.0,-2.4,10-15 %,5-7 %,hausse,-0.4,laureat,,False,,False
+77186,Fontainebleau,ACV090,Seine-et-Marne,Île-de-France,15945.0,False,False,True,False,False,False,1,,135.0,123.0,125.0,-8.9,1.6,3.4,5-10 %,5-7 %,,8.6,,,False,,False
+35115,Fougères,ACV094,Ille-et-Vilaine,Bretagne,20653.0,False,False,False,False,True,False,1,,76.0,60.0,53.0,-21.1,-11.7,7.8,10-15 %,4-5 %,baisse,1.6,,,True,,False
+05061,Gap,ACV095,Hautes-Alpes,Provence-Alpes-Côte d'Azur,40500.0,False,True,False,False,False,False,1,D. Vacance en baisse durable,183.0,149.0,139.0,-18.6,-6.7,-3.6,10-15 %,3-4 %,hausse,-0.3,,,False,,False
+45155,Gien,ACV096,Loiret,Centre-Val de Loire,13387.0,False,False,False,False,True,False,1,,3.0,2.0,2.0,-33.3,0.0,50.0,> 20 %,5-7 %,hausse,-9.0,,,True,,False
+63178,Issoire,ACV102,Puy-de-Dôme,Auvergne-Rhône-Alpes,15014.0,False,False,True,False,False,False,1,,66.0,65.0,58.0,-1.5,-10.8,-5.0,5-10 %,5-7 %,hausse,4.9,,,False,,False
+72154,La Flèche,ACV104,Sarthe,Pays de la Loire,14937.0,True,False,False,False,False,False,1,"A2. Inversion, vacance moyenne",37.0,33.0,35.0,-10.8,6.1,-8.0,10-15 %,3-4 %,baisse,0.4,,,False,,False
+02408,Laon,ACV107,Aisne,Hauts-de-France,24021.0,False,False,False,False,True,False,1,,19.0,14.0,14.0,-26.3,0.0,-16.2,5-10 %,5-7 %,baisse,-4.7,,,True,,False
+71153,Le Creusot,ACV109,Saône-et-Loire,Bourgogne-Franche-Comté,20731.0,False,False,False,False,True,False,1,,22.0,15.0,15.0,-31.8,0.0,-10.7,> 20 %,> 7 %,hausse,-4.2,infructueux,,True,,False
+43157,Le Puy-en-Velay,ACV112,Haute-Loire,Auvergne-Rhône-Alpes,18629.0,False,False,False,False,False,True,1,,159.0,142.0,133.0,-10.7,-6.3,-8.9,15-20 %,> 7 %,baisse,1.7,,,False,accompagnee,False
+62498,Lens,ACV113,Pas-de-Calais,Hauts-de-France,32618.0,False,False,True,False,False,False,1,,151.0,121.0,97.0,-19.9,-19.8,-18.4,5-10 %,> 7 %,hausse,3.4,,,False,,False
+78440,Les Mureaux,ACV115,Yvelines,Île-de-France,33977.0,False,False,True,False,False,False,1,,40.0,37.0,47.0,-7.5,27.0,7.5,15-20 %,,,6.0,,,False,,False
+87085,Limoges,ACV118,Haute-Vienne,Nouvelle-Aquitaine,129760.0,False,False,False,False,False,True,1,,305.0,263.0,245.0,-13.8,-6.8,-3.8,15-20 %,4-5 %,baisse,-3.0,preparation,,False,pilote,False
+14366,Lisieux,ACV119,Calvados,Normandie,19807.0,True,False,False,False,False,False,1,C. Déclin stoppé,126.0,104.0,99.0,-17.5,-4.8,-5.1,10-15 %,5-7 %,baisse,-5.4,,,False,,False
+39300,Lons-le-Saunier,ACV121,Jura,Bourgogne-Franche-Comté,17043.0,False,False,False,False,False,True,1,,31.0,28.0,25.0,-9.7,-10.7,0.0,10-15 %,> 7 %,baisse,-1.3,,,False,accompagnee,False
+27375,Louviers,ACV124,Eure,Normandie,18350.0,False,False,False,False,True,False,1,D. Vacance en baisse durable,61.0,67.0,67.0,9.8,0.0,-5.5,10-15 %,4-5 %,hausse,2.1,infructueux,2020.0,False,,False
+34145,Lunel,ACV125,Hérault,Occitanie,26185.0,False,False,True,False,False,False,1,,48.0,54.0,46.0,12.5,-14.8,2.5,5-10 %,3-4 %,baisse,6.0,,,False,,False
+54329,Lunéville,ACV126,Meurthe-et-Moselle,Grand Est,17755.0,True,False,False,False,False,False,1,"A2. Inversion, vacance moyenne",54.0,46.0,52.0,-14.8,13.0,-5.4,5-10 %,> 7 %,baisse,-7.6,,,False,,False
+04112,Manosque,ACV129,Alpes-de-Haute-Provence,Provence-Alpes-Côte d'Azur,22926.0,False,False,True,False,False,False,1,,88.0,81.0,77.0,-8.0,-4.9,-3.5,10-15 %,4-5 %,hausse,4.9,infructueux,,False,,False
+78361,Mantes-la-Jolie,ACV117,Yvelines,Île-de-France,44539.0,False,False,False,False,True,False,1,,130.0,124.0,114.0,-4.6,-8.1,-5.0,> 20 %,4-5 %,,-2.3,,,True,,False
+77284,Meaux,ACV132,Seine-et-Marne,Île-de-France,55616.0,False,False,True,False,False,False,1,,124.0,121.0,123.0,-2.4,1.7,1.9,15-20 %,3-4 %,,4.1,,,False,,False
+77288,Melun,ACV133,Seine-et-Marne,Île-de-France,42367.0,False,False,True,False,False,False,1,,128.0,114.0,99.0,-10.9,-13.2,-4.1,> 20 %,3-4 %,,4.0,,,False,,False
+48095,Mende,ACV134,Lozère,Occitanie,12316.0,False,False,True,False,False,False,1,,52.0,39.0,41.0,-25.0,5.1,6.8,15-20 %,5-7 %,hausse,6.9,,,False,,False
+40192,Mont-de-Marsan,ACV136,Landes,Nouvelle-Aquitaine,30674.0,False,False,False,True,False,False,1,,135.0,98.0,67.0,-27.4,-31.6,-12.8,15-20 %,< 3 %,baisse,-3.4,laureat,,False,,False
+77305,Montereau-Fault-Yonne,ACV143,Seine-et-Marne,Île-de-France,22259.0,False,False,True,False,False,False,1,,49.0,37.0,38.0,-24.5,2.7,7.6,> 20 %,5-7 %,,19.4,,,False,,False
+29151,Morlaix,ACV145,Finistère,Bretagne,14903.0,False,False,False,True,False,False,1,,101.0,79.0,68.0,-21.8,-13.9,-7.2,15-20 %,5-7 %,baisse,-0.9,laureat,,False,,False
+03190,Moulins,ACV146,Allier,Auvergne-Rhône-Alpes,19343.0,False,False,False,False,True,False,1,,131.0,105.0,87.0,-19.8,-17.1,-8.7,15-20 %,> 7 %,hausse,-1.6,,,True,,False
+11262,Narbonne,ACV147,Aude,Occitanie,56395.0,False,False,True,False,False,False,1,,213.0,186.0,166.0,-12.7,-10.8,-11.1,10-15 %,4-5 %,baisse,6.2,,,False,,False
+28280,Nogent-le-Rotrou,ACV151,Eure-et-Loir,Centre-Val de Loire,9341.0,False,False,False,True,False,False,1,,52.0,41.0,38.0,-21.2,-7.3,-2.9,10-15 %,5-7 %,baisse,-6.9,laureat,,False,,False
+01283,Oyonnax,ACV152,Ain,Auvergne-Rhône-Alpes,22277.0,False,False,False,False,True,False,1,,63.0,61.0,49.0,-3.2,-19.7,-15.3,15-20 %,> 7 %,baisse,-1.0,,,True,,False
+09225,Pamiers,ACV153,Ariège,Occitanie,16394.0,False,False,False,False,False,True,1,,41.0,33.0,23.0,-19.5,-30.3,-26.9,> 20 %,5-7 %,baisse,2.7,,,False,accompagnee,False
+95487,Persan,ACV026,Val-d'Oise,Île-de-France,13996.0,False,False,True,False,False,False,1,,9.0,10.0,12.0,11.1,20.0,12.5,5-10 %,3-4 %,,12.7,,,False,,False
+45252,Pithiviers,ACV157,Loiret,Centre-Val de Loire,9094.0,False,False,False,False,False,True,1,,45.0,37.0,35.0,-17.8,-5.4,-3.5,15-20 %,> 7 %,baisse,0.1,,,False,accompagnee,False
+95500,Pontoise,ACV226,Val-d'Oise,Île-de-France,31327.0,False,False,True,False,False,False,1,,37.0,42.0,41.0,13.5,-2.4,10.6,,< 3 %,,7.4,,,False,,False
+24322,Périgueux,ACV155,Dordogne,Nouvelle-Aquitaine,29516.0,False,False,False,False,False,True,1,,178.0,159.0,136.0,-10.7,-14.5,-14.2,10-15 %,5-7 %,baisse,-2.7,,,False,accompagnee,False
+63300,Riom,ACV166,Puy-de-Dôme,Auvergne-Rhône-Alpes,18736.0,False,False,False,True,False,False,1,,72.0,54.0,49.0,-25.0,-9.3,-8.3,10-15 %,4-5 %,baisse,-0.1,laureat,,False,,False
+42187,Roanne,ACV167,Loire,Auvergne-Rhône-Alpes,34762.0,False,False,False,False,False,True,1,,158.0,138.0,140.0,-12.7,1.4,-2.3,10-15 %,5-7 %,hausse,-2.2,,,False,accompagnee,False
+12202,Rodez,ACV169,Aveyron,Occitanie,24207.0,False,True,False,False,False,False,1,,169.0,152.0,128.0,-10.1,-15.8,-10.8,10-15 %,3-4 %,hausse,1.3,,,False,,False
+74225,Rumilly,ACV172,Haute-Savoie,Auvergne-Rhône-Alpes,15998.0,False,False,True,False,False,False,1,,24.0,20.0,19.0,-16.7,-5.0,-8.3,5-10 %,3-4 %,baisse,7.5,,,False,,False
+52448,Saint-Dizier,ACV177,Haute-Marne,Grand Est,23068.0,False,False,False,False,False,True,1,D. Vacance en baisse durable,89.0,80.0,67.0,-10.1,-16.2,-21.0,10-15 %,5-7 %,hausse,-9.5,,,False,pilote,False
+31483,Saint-Gaudens,ACV227,Haute-Garonne,Occitanie,11613.0,False,False,True,False,False,False,1,,99.0,74.0,52.0,-25.3,-29.7,-20.9,> 20 %,> 7 %,,3.6,,,False,,False
+35288,Saint-Malo,ACV181,Ille-et-Vilaine,Bretagne,47323.0,False,False,False,False,False,True,1,,128.0,138.0,121.0,7.8,-12.3,-10.5,< 5 %,< 3 %,baisse,2.2,,,False,accompagnee,False
+91570,Saint-Michel-sur-Orge,ACV182,Essonne,Île-de-France,21437.0,False,False,True,False,False,False,1,,3.0,6.0,4.0,100.0,-33.3,0.0,,< 3 %,,7.0,,,False,,False
+44184,Saint-Nazaire,ACV183,Loire-Atlantique,Pays de la Loire,72057.0,False,False,True,False,False,False,1,,159.0,133.0,124.0,-16.4,-6.8,-5.3,15-20 %,< 3 %,baisse,3.7,,,False,,False
+02691,Saint-Quentin,ACV186,Aisne,Hauts-de-France,52958.0,False,False,False,False,True,False,1,,165.0,147.0,136.0,-10.9,-7.5,-15.8,> 20 %,5-7 %,baisse,-5.0,,,True,,False
+57631,Sarreguemines,ACV189,Moselle,Grand Est,20624.0,False,False,False,False,True,False,1,,126.0,109.0,97.0,-13.5,-11.0,1.2,15-20 %,5-7 %,hausse,-4.2,,,True,,False
+08409,Sedan,ACV193,Ardennes,Grand Est,16608.0,False,False,False,False,True,False,1,,56.0,40.0,36.0,-28.6,-10.0,-9.5,15-20 %,> 7 %,hausse,-8.1,sans_aap,,True,,False
+60612,Senlis,ACV194,Oise,Hauts-de-France,15255.0,False,True,False,False,False,False,1,,46.0,41.0,38.0,-10.9,-7.3,2.5,5-10 %,< 3 %,hausse,-1.1,,,False,,False
+67462,Sélestat,ACV228,Bas-Rhin,Grand Est,19300.0,True,False,False,False,False,False,1,C. Déclin stoppé,99.0,78.0,79.0,-21.2,1.3,5.1,5-10 %,3-4 %,,-1.4,,,False,,False
+65440,Tarbes,ACV123,Hautes-Pyrénées,Occitanie,43955.0,False,False,True,False,False,False,1,,210.0,179.0,151.0,-14.8,-15.6,-12.2,15-20 %,> 7 %,hausse,5.0,,,False,,False
+63430,Thiers,ACV201,Puy-de-Dôme,Auvergne-Rhône-Alpes,11633.0,False,False,False,False,True,False,1,,18.0,12.0,8.0,-33.3,-33.3,-30.2,10-15 %,> 7 %,baisse,-1.0,,,True,,False
+57672,Thionville,ACV202,Moselle,Grand Est,42163.0,False,False,False,False,True,False,1,,186.0,136.0,112.0,-26.9,-17.6,-8.7,10-15 %,3-4 %,baisse,0.7,,,True,,False
+54528,Toul,ACV203,Meurthe-et-Moselle,Grand Est,15849.0,False,False,False,False,True,False,1,,38.0,30.0,25.0,-21.1,-16.7,-9.8,10-15 %,5-7 %,baisse,-0.7,sans_aap,,True,,False
+78621,Trappes,ACV204,Yvelines,Île-de-France,33717.0,False,False,True,False,False,False,1,,30.0,31.0,31.0,3.3,0.0,27.3,,< 3 %,,4.9,,,False,,False
+56260,Vannes,ACV210,Morbihan,Bretagne,54420.0,True,False,False,False,False,False,1,B. Centre résilient,258.0,264.0,271.0,2.3,2.7,-1.5,5-10 %,< 3 %,baisse,1.8,,,False,,False
+55545,Verdun,ACV211,Meuse,Grand Est,16689.0,False,False,False,False,False,True,1,,74.0,70.0,67.0,-5.4,-4.3,-5.0,10-15 %,> 7 %,hausse,-8.2,,,False,accompagnee,False
+27681,Vernon,ACV212,Eure,Normandie,24543.0,False,True,False,False,False,False,1,,93.0,92.0,89.0,-1.1,-3.3,-6.2,10-15 %,3-4 %,hausse,0.4,,,False,,False
+70550,Vesoul,ACV213,Haute-Saône,Bourgogne-Franche-Comté,15130.0,False,False,False,False,True,False,1,D. Vacance en baisse durable,95.0,84.0,71.0,-11.6,-15.5,-7.9,10-15 %,4-5 %,baisse,-2.3,en_cours,,True,,False
+47323,Villeneuve-sur-Lot,ACV218,Lot-et-Garonne,Nouvelle-Aquitaine,21629.0,False,False,False,False,False,True,1,,92.0,61.0,58.0,-33.7,-4.9,-15.3,> 20 %,5-7 %,hausse,-6.8,,,False,accompagnee,False
+14762,Vire Normandie,ACV219,Calvados,Normandie,17135.0,False,False,False,False,True,False,1,,66.0,60.0,62.0,-9.1,3.3,1.9,5-10 %,4-5 %,hausse,-5.1,preparation,,True,,False
+51649,Vitry-le-François,ACV221,Marne,Grand Est,11454.0,True,False,False,False,False,False,1,A. Inversion confirmée,56.0,41.0,50.0,-26.8,22.0,9.1,5-10 %,> 7 %,baisse,-12.8,,,False,,False
+38563,Voiron,ACV222,Isère,Auvergne-Rhône-Alpes,20891.0,False,True,False,False,False,False,1,,77.0,84.0,80.0,9.1,-4.8,-5.6,10-15 %,< 3 %,hausse,0.8,,,False,,False
+51230,Épernay,ACV081,Marne,Grand Est,22001.0,False,False,False,False,True,False,1,,130.0,112.0,102.0,-13.8,-8.9,-6.5,5-10 %,5-7 %,baisse,-3.5,,2020.0,True,,False
+88160,Épinal,ACV082,Vosges,Grand Est,32285.0,True,False,False,False,False,False,1,C. Déclin stoppé,144.0,119.0,113.0,-17.4,-5.0,-11.8,10-15 %,5-7 %,baisse,-0.5,infructueux,,False,,False
+91223,Étampes,ACV083,Essonne,Île-de-France,26529.0,False,False,True,False,False,False,1,,50.0,54.0,50.0,8.0,-7.4,-8.9,10-15 %,4-5 %,,7.1,,,False,,False
+27229,Évreux,ACV084,Eure,Normandie,47289.0,False,False,False,False,True,False,1,,146.0,149.0,126.0,2.1,-15.4,-12.8,15-20 %,5-7 %,hausse,-5.2,,,True,,False
+91228,Évry,ACV085,Essonne,Île-de-France,66177.0,False,False,False,False,True,False,1,,24.0,29.0,32.0,20.8,10.3,-2.8,> 20 %,< 3 %,,-1.3,,,True,,False
+80001,Abbeville,ACV001,Somme,Hauts-de-France,22595.0,False,False,False,False,False,False,0,,116.0,107.0,90.0,-7.8,-15.9,-15.1,10-15 %,5-7 %,hausse,-2.8,preparation,,False,,False
+47001,Agen,ACV003,Lot-et-Garonne,Nouvelle-Aquitaine,32485.0,False,False,False,False,False,False,0,,150.0,132.0,126.0,-12.0,-4.5,-4.3,> 20 %,5-7 %,baisse,-5.6,,,False,,False
+01004,Ambérieu-en-Bugey,ACV008,Ain,Auvergne-Rhône-Alpes,14854.0,False,False,False,False,False,False,0,,20.0,21.0,20.0,5.0,-4.8,-8.8,< 5 %,3-4 %,baisse,1.9,preparation,,False,,False
+07010,Annonay,ACV010,Ardèche,Auvergne-Rhône-Alpes,16873.0,False,False,False,False,False,False,0,,72.0,50.0,45.0,-30.6,-10.0,-15.6,> 20 %,> 7 %,baisse,0.3,,,False,,False
+15012,Arpajon-sur-Cère,ACV017,Cantal,Auvergne-Rhône-Alpes,6315.0,False,False,False,False,False,False,0,,6.0,8.0,7.0,33.3,-12.5,7.7,15-20 %,< 3 %,,1.3,preparation,,False,,False
+15014,Aurillac,ACV017,Cantal,Auvergne-Rhône-Alpes,25815.0,False,False,False,False,False,False,0,,140.0,128.0,121.0,-8.6,-5.5,-7.4,15-20 %,,,-1.7,preparation,,False,,False
+89024,Auxerre,ACV019,Yonne,Bourgogne-Franche-Comté,34778.0,False,False,False,False,False,False,0,,141.0,101.0,92.0,-28.4,-8.9,-13.2,15-20 %,4-5 %,baisse,-2.0,,,False,,False
+77014,Avon,ACV090,Seine-et-Marne,Île-de-France,13660.0,False,False,False,False,False,False,0,,3.0,2.0,1.0,-33.3,-50.0,60.0,5-10 %,< 3 %,,-2.8,,,False,,False
+30028,Bagnols-sur-Cèze,ACV021,Gard,Occitanie,18248.0,False,False,False,False,False,False,0,E. Rechute (vacance remontée),82.0,66.0,64.0,-19.5,-3.0,-4.4,> 20 %,5-7 %,baisse,-0.6,,,False,,False
+97105,Basse-Terre,ACV023,Guadeloupe,Guadeloupe,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+95052,Beaumont-sur-Oise,ACV026,Val-d'Oise,Île-de-France,9590.0,False,False,False,False,False,False,0,,14.0,16.0,18.0,14.3,12.5,16.7,5-10 %,,,-0.9,,,False,,False
+90010,Belfort,ACV028,Territoire de Belfort,Bourgogne-Franche-Comté,45155.0,False,False,False,False,False,False,0,,51.0,50.0,48.0,-2.0,-4.0,-1.2,15-20 %,5-7 %,hausse,-8.7,,,False,,False
+24037,Bergerac,ACV029,Dordogne,Nouvelle-Aquitaine,26323.0,False,False,False,False,False,False,0,,117.0,108.0,95.0,-7.7,-12.0,-10.5,10-15 %,4-5 %,hausse,-5.1,preparation,,False,,False
+62178,Bruay-la-Buissière,ACV031,Pas-de-Calais,Hauts-de-France,21827.0,False,False,False,False,False,False,0,,33.0,23.0,19.0,-30.3,-17.4,-6.8,10-15 %,5-7 %,baisse,-2.8,,,False,,False
+62119,Béthune,ACV031,Pas-de-Calais,Hauts-de-France,24992.0,False,False,False,False,False,False,0,,119.0,112.0,107.0,-5.9,-4.5,-2.2,10-15 %,4-5 %,baisse,-1.7,,,False,,False
+59122,Cambrai,ACV044,Nord,Hauts-de-France,31425.0,False,False,False,False,False,False,0,,159.0,151.0,134.0,-5.0,-11.3,-8.6,10-15 %,5-7 %,baisse,-4.1,,,False,,False
+81065,Castres,ACV047,Tarn,Occitanie,42672.0,False,False,False,False,False,False,0,,148.0,123.0,98.0,-16.9,-20.3,-12.9,15-20 %,5-7 %,,2.4,,,False,,False
+84035,Cavaillon,ACV048,Vaucluse,Provence-Alpes-Côte d'Azur,25923.0,False,False,False,False,False,False,0,,101.0,93.0,79.0,-7.9,-15.1,-12.5,15-20 %,4-5 %,baisse,-1.4,,,False,,False
+97302,Cayenne,ACV049,Guyane,Guyane,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+08105,Charleville-Mézières,ACV053,Ardennes,Grand Est,46398.0,False,False,False,False,False,False,0,,17.0,17.0,14.0,0.0,-17.6,12.9,10-15 %,5-7 %,hausse,-4.6,,,False,,False
+52121,Chaumont,ACV059,Haute-Marne,Grand Est,21699.0,False,False,False,False,False,False,0,,88.0,89.0,74.0,1.1,-16.9,-5.6,15-20 %,4-5 %,baisse,-4.0,,,False,,False
+50129,Cherbourg-en-Cotentin,ACV060,Manche,Normandie,77808.0,False,False,False,False,False,False,0,,212.0,178.0,165.0,-16.0,-7.3,-6.3,10-15 %,< 3 %,,-3.9,infructueux,,False,,False
+51108,Châlons-en-Champagne,ACV051,Marne,Grand Est,43877.0,False,False,False,False,False,False,0,,109.0,95.0,84.0,-12.8,-11.6,-7.0,10-15 %,5-7 %,baisse,-1.5,,,False,,False
+28088,Châteaudun,ACV224,Eure-et-Loir,Centre-Val de Loire,12909.0,False,False,False,False,False,False,0,,48.0,39.0,36.0,-18.8,-7.7,-4.9,10-15 %,5-7 %,,-2.4,,,False,,False
+16102,Cognac,ACV063,Charente,Nouvelle-Aquitaine,18448.0,False,False,False,False,False,False,0,,78.0,60.0,46.0,-23.1,-23.3,-22.1,10-15 %,5-7 %,baisse,-0.6,,,False,,False
+68066,Colmar,ACV064,Haut-Rhin,Grand Est,67730.0,False,False,False,False,False,False,0,,343.0,368.0,350.0,7.3,-4.9,-2.0,10-15 %,4-5 %,baisse,-0.7,,,False,,False
+40088,Dax,ACV070,Landes,Nouvelle-Aquitaine,21347.0,False,False,False,False,False,False,0,,149.0,119.0,96.0,-20.1,-19.3,-16.0,15-20 %,3-4 %,baisse,2.7,,,False,,False
+97607,Dembeni,ACV071,Mayotte,Mayotte,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+39198,Dole,ACV075,Jura,Bourgogne-Franche-Comté,23775.0,False,False,False,False,False,False,0,D. Vacance en baisse durable,71.0,64.0,49.0,-9.9,-23.4,-4.8,5-10 %,4-5 %,baisse,1.3,,,False,,False
+97608,Dzaoudzi,ACV080,Mayotte,Mayotte,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+61169,Flers,ACV088,Orne,Normandie,14482.0,False,False,False,False,False,False,0,,12.0,15.0,8.0,25.0,-46.7,-16.7,10-15 %,> 7 %,baisse,-1.0,,,False,,False
+85092,Fontenay-le-Comte,ACV091,Vendée,Pays de la Loire,13471.0,False,False,False,False,False,False,0,,59.0,45.0,38.0,-23.7,-15.6,-14.3,5-10 %,4-5 %,hausse,-3.5,,,False,,False
+57227,Forbach,ACV092,Moselle,Grand Est,21130.0,False,False,False,False,False,False,0,,86.0,58.0,46.0,-32.6,-20.7,-2.1,> 20 %,5-7 %,hausse,-1.1,,,False,,False
+97209,Fort-de-France,ACV093,Martinique,Martinique,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+95277,Gonesse,ACV097,Val-d'Oise,Île-de-France,25963.0,False,False,False,False,False,False,0,,11.0,11.0,9.0,0.0,-18.2,-8.3,> 20 %,< 3 %,,-0.6,,,False,,False
+68112,Guebwiller,ACV099,Haut-Rhin,Grand Est,11137.0,False,False,False,False,False,False,0,,62.0,61.0,55.0,-1.6,-9.8,-15.5,10-15 %,5-7 %,baisse,-2.7,,,False,,False
+67180,Haguenau,ACV101,Bas-Rhin,Grand Est,35715.0,False,False,False,False,False,False,0,,122.0,129.0,119.0,5.7,-7.8,6.5,10-15 %,3-4 %,baisse,2.0,,,False,,False
+59295,Hazebrouck,ACV225,Nord,Hauts-de-France,21498.0,False,False,False,False,False,False,0,,76.0,68.0,62.0,-10.5,-8.8,4.6,5-10 %,< 3 %,,-1.1,,,False,,False
+36088,Issoudun,ACV103,Indre,Centre-Val de Loire,10992.0,False,False,False,False,False,False,0,,27.0,20.0,17.0,-25.9,-15.0,-5.4,10-15 %,> 7 %,hausse,-7.8,,,False,,False
+97213,Le Lamentin,ACV110,Martinique,Martinique,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+97407,Le Port,ACV111,La Réunion,La Réunion,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+97101,Les Abymes,ACV114,Guadeloupe,Guadeloupe,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+62510,Liévin,ACV113,Pas-de-Calais,Hauts-de-France,30149.0,False,False,False,False,False,False,0,,22.0,14.0,11.0,-36.4,-21.4,-3.6,5-10 %,,hausse,-4.7,,,False,,False
+65286,Lourdes,ACV123,Hautes-Pyrénées,Occitanie,13509.0,False,False,False,False,False,False,0,,67.0,58.0,50.0,-13.4,-13.8,-8.9,> 20 %,> 7 %,hausse,-7.8,,,False,,False
+97611,Mamoudzou,ACV128,Mayotte,Mayotte,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+78401,Melan,ACV115,Yvelines,Île-de-France,9041.0,False,False,False,False,False,False,0,,32.0,30.0,33.0,-6.2,10.0,26.0,15-20 %,,,-1.7,,,False,,False
+12145,Millau,ACV135,Aveyron,Occitanie,21712.0,False,False,False,False,False,False,0,,105.0,110.0,95.0,4.8,-13.6,-16.1,15-20 %,5-7 %,baisse,-2.6,,,False,,False
+25388,Montbéliard,ACV139,Doubs,Bourgogne-Franche-Comté,25573.0,False,False,False,False,False,False,0,,124.0,108.0,95.0,-12.9,-12.0,-9.6,5-10 %,5-7 %,baisse,0.8,,,False,,False
+03185,Montluçon,ACV144,Allier,Auvergne-Rhône-Alpes,33342.0,False,False,False,False,False,False,0,,103.0,86.0,82.0,-16.5,-4.7,-12.9,15-20 %,> 7 %,hausse,-9.3,,,False,,False
+71270,Mâcon,ACV127,Saône-et-Loire,Bourgogne-Franche-Comté,34448.0,False,False,False,False,False,False,0,,176.0,138.0,137.0,-21.6,-0.7,4.3,15-20 %,4-5 %,hausse,2.9,,,False,,True
+77333,Nemours,ACV148,Seine-et-Marne,Île-de-France,13189.0,False,False,False,False,False,False,0,,46.0,43.0,42.0,-6.5,-2.3,-1.4,> 20 %,5-7 %,,-0.7,infructueux,,False,,False
+97615,Pamandzi,ACV080,Mayotte,Mayotte,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+66136,Perpignan,ACV156,Pyrénées-Orientales,Occitanie,119656.0,False,False,False,False,False,False,0,,328.0,283.0,259.0,-13.7,-8.5,-5.6,15-20 %,5-7 %,hausse,-2.1,,,False,,False
+97120,Pointe-à-Pitre,ACV114,Guadeloupe,Guadeloupe,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+29232,Quimper,ACV162,Finistère,Bretagne,63642.0,False,False,False,False,False,False,0,,268.0,213.0,194.0,-20.5,-8.9,-8.7,10-15 %,3-4 %,baisse,-0.1,,,False,,False
+26281,Romans-sur-Isère,ACV170,Drôme,Auvergne-Rhône-Alpes,32911.0,False,False,False,False,False,False,0,,188.0,179.0,157.0,-4.8,-12.3,-2.9,10-15 %,,hausse,-1.6,,,False,,False
+72264,Sablé-sur-Sarthe,ACV104,Sarthe,Pays de la Loire,12096.0,False,False,False,False,False,False,0,,43.0,33.0,27.0,-23.3,-18.2,-14.0,> 20 %,5-7 %,,-3.1,,,False,,False
+97409,Saint-André,ACV173,La Réunion,La Réunion,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+57606,Saint-Avold,ACV174,Moselle,Grand Est,15045.0,False,False,False,False,False,False,0,,84.0,62.0,48.0,-26.2,-22.6,-9.3,> 20 %,5-7 %,hausse,-4.4,,,False,,False
+88413,Saint-Dié-des-Vosges,ACV176,Vosges,Grand Est,19319.0,False,False,False,False,False,False,0,,72.0,79.0,75.0,9.7,-5.1,-7.8,10-15 %,5-7 %,baisse,-4.1,,,False,,False
+97412,Saint-Joseph,ACV178,La Réunion,La Réunion,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+97311,Saint-Laurent-du-Maroni,ACV179,Guyane,Guyane,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+97414,Saint-Louis,ACV230,La Réunion,La Réunion,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+97416,Saint-Pierre,ACV185,La Réunion,La Réunion,,False,False,False,False,False,False,0,,,,,,,,,,,,,,False,,False
+17415,Saintes,ACV187,Charente-Maritime,Nouvelle-Aquitaine,25518.0,False,False,False,False,False,False,0,,96.0,89.0,70.0,-7.3,-21.3,-9.5,10-15 %,3-4 %,baisse,1.0,,,False,,False
+78586,Sartrouville,ACV190,Yvelines,Île-de-France,51220.0,False,False,False,False,False,False,0,,53.0,46.0,47.0,-13.2,2.2,2.6,5-10 %,,,-0.0,,,False,,False
+49328,Saumur,ACV191,Maine-et-Loire,Pays de la Loire,26215.0,False,False,False,False,False,False,0,,100.0,100.0,81.0,0.0,-19.0,-10.8,5-10 %,4-5 %,baisse,-4.2,,,False,,False
+67437,Saverne,ACV192,Bas-Rhin,Grand Est,11390.0,False,False,False,False,False,False,0,D. Vacance en baisse durable,87.0,78.0,65.0,-10.3,-16.7,-8.8,10-15 %,4-5 %,hausse,-1.1,,,False,,False
+47310,Tonneins,ACV130,Lot-et-Garonne,Nouvelle-Aquitaine,9337.0,False,False,False,False,False,False,0,,25.0,18.0,19.0,-28.0,5.6,-8.6,10-15 %,5-7 %,baisse,2.7,sans_aap,,False,,False
+59606,Valenciennes,ACV208,Nord,Hauts-de-France,42991.0,False,False,False,False,False,False,0,,283.0,236.0,227.0,-16.6,-3.8,0.5,,5-7 %,baisse,-2.4,,,False,,False
+18279,Vierzon,ACV216,Cher,Centre-Val de Loire,25348.0,False,False,False,False,False,False,0,E. Rechute (vacance remontée),57.0,33.0,30.0,-42.1,-9.1,-13.6,> 20 %,> 7 %,hausse,-7.4,,,False,,False
+12300,Villefranche-de-Rouergue,ACV217,Aveyron,Occitanie,11720.0,False,False,False,False,False,False,0,,68.0,49.0,35.0,-27.9,-28.6,-18.3,> 20 %,> 7 %,hausse,-1.2,,,False,,False
