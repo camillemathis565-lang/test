@@ -1,151 +1,253 @@
 <title>Observatoire du commerce de détail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-/* Layout : bandeau navy (identité du registre v1), navigation par onglets, contenu en grille 12 colonnes ; données de gauche à droite, du résumé au détail. */
+/* Layout : en-tête collant translucide (marque, recherche, onglets en pastilles) ; accueil ouvert par une carte des 34 700 communes ; contenu en grille 12 colonnes, cartes arrondies ; du résumé au détail. */
 :root{
-  --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef2f7; --line:#d9e0e8; --grid:#e6ebf1;
-  --band:#0e2846; --band-2:#163659; --band-ink:#ffffff; --band-muted:#a9bcd3;
-  --ink:#13233a; --ink-2:#44546a; --muted:#68788c;
-  --accent:#0b4f9c; --accent-ink:#ffffff; --accent-soft:#e6eef9; --pink:#c2255c; --pink-soft:#fdeef4;
-  --s1:#2a78d6; --s2:#e0612b; --s3:#1a9e70; --s4:#8a5cc2; --s5:#c8941a; --s6:#d0406f; --s7:#7d8796;
-  --q1:#e3edf8; --q2:#b6d0ee; --q3:#7eaee0; --q4:#3f83cc; --q5:#14559e;
-  --good:#1d7a4c; --good-bg:#e3f3ea; --warn:#9a6200; --warn-bg:#fbf0db; --bad:#b4261b; --bad-bg:#fbe5e2;
-  --shadow:0 10px 30px rgba(19,35,58,.12);
+  --bg:#f3f5f9; --surface:#ffffff; --surface-2:#eef1f6; --surface-3:#e5eaf2; --line:#dde3ec; --grid:#e8ecf2;
+  --band:#0b1d36; --band-2:#14294a; --band-ink:#ffffff; --band-muted:#9fb3cc; --band-line:rgba(255,255,255,.12);
+  --hdr:rgba(243,245,249,.82);
+  --ink:#0f1e33; --ink-2:#3f4f66; --muted:#67778d;
+  --accent:#2550c8; --accent-ink:#ffffff; --accent-soft:#e8eefc; --pink:#d6336c; --pink-soft:#fde9f0;
+  --s1:#2f6fe0; --s2:#e8662e; --s3:#14a07a; --s4:#8a5cd6; --s5:#d29a12; --s6:#d6336c; --s7:#7d8796; --ax7:#0e93a8;
+  --q1:#e4ecfa; --q2:#b9cdf3; --q3:#7fa4e8; --q4:#3f72d6; --q5:#1b48a8;
+  --good:#167a4a; --good-bg:#e0f4e9; --warn:#946000; --warn-bg:#fbf0d9; --bad:#b4261b; --bad-bg:#fce6e3;
+  --shadow-s:0 1px 2px rgba(15,30,51,.05),0 2px 8px rgba(15,30,51,.04);
+  --shadow:0 4px 10px rgba(15,30,51,.06),0 18px 40px rgba(15,30,51,.10);
+  --hero-1:#0b1d36; --hero-2:#13305a; --hero-ink:#ffffff; --hero-muted:#a7bad3;
   --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --f-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-disp:"Bricolage Grotesque","IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-serif:"Bricolage Grotesque","IBM Plex Sans",sans-serif;
+  --r:16px;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0e141c; --surface:#151d28; --surface-2:#1b2532; --line:#2a3646; --grid:#222d3b;
-    --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
-    --ink:#e8edf4; --ink-2:#b3bfcd; --muted:#8392a5;
-    --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1a2b42; --pink:#f48fb6; --pink-soft:#3a1d2a;
-    --s1:#4b93ea; --s2:#ee7a45; --s3:#2bb889; --s4:#a682dc; --s5:#e0b043; --s6:#ec6b95; --s7:#9aa5b4;
-    --q1:#1b2a3d; --q2:#1f4570; --q3:#2c66a6; --q4:#4f8fd6; --q5:#8fc0f5;
-    --good:#6fd3a0; --good-bg:#16301f; --warn:#efc06b; --warn-bg:#33270f; --bad:#f2958a; --bad-bg:#3a1a17;
-    --shadow:0 10px 30px rgba(0,0,0,.45);
+    --bg:#0a0f17; --surface:#111a26; --surface-2:#172232; --surface-3:#1d2a3d; --line:#243245; --grid:#1c2838;
+    --band:#08121f; --band-2:#13233a; --band-ink:#ffffff; --band-muted:#8fa3bd; --band-line:rgba(255,255,255,.10);
+    --hdr:rgba(10,15,23,.78);
+    --ink:#e9eef6; --ink-2:#b6c2d2; --muted:#8696ab;
+    --accent:#7aa7ff; --accent-ink:#0a1222; --accent-soft:#18284a; --pink:#ff7aa6; --pink-soft:#3a1a29;
+    --s1:#5b93ff; --s2:#ff8a50; --s3:#2ec496; --s4:#ac86f2; --s5:#f0bb3e; --s6:#ff7aa6; --s7:#9aa6b6; --ax7:#45c8de;
+    --q1:#16233a; --q2:#1d3f72; --q3:#2b62b2; --q4:#4f8ae8; --q5:#9cc2ff;
+    --good:#6fd8a4; --good-bg:#11301f; --warn:#f2c46e; --warn-bg:#33270f; --bad:#ff9a8f; --bad-bg:#3a1916;
+    --shadow-s:0 1px 2px rgba(0,0,0,.3);
+    --shadow:0 4px 10px rgba(0,0,0,.3),0 18px 40px rgba(0,0,0,.45);
+    --hero-1:#0b1830; --hero-2:#122a4f; --hero-ink:#ffffff; --hero-muted:#9fb3cf;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0e141c; --surface:#151d28; --surface-2:#1b2532; --line:#2a3646; --grid:#222d3b;
-  --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
-  --ink:#e8edf4; --ink-2:#b3bfcd; --muted:#8392a5;
-  --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1a2b42; --pink:#f48fb6; --pink-soft:#3a1d2a;
-  --s1:#4b93ea; --s2:#ee7a45; --s3:#2bb889; --s4:#a682dc; --s5:#e0b043; --s6:#ec6b95; --s7:#9aa5b4;
-  --q1:#1b2a3d; --q2:#1f4570; --q3:#2c66a6; --q4:#4f8fd6; --q5:#8fc0f5;
-  --good:#6fd3a0; --good-bg:#16301f; --warn:#efc06b; --warn-bg:#33270f; --bad:#f2958a; --bad-bg:#3a1a17;
-  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --bg:#0a0f17; --surface:#111a26; --surface-2:#172232; --surface-3:#1d2a3d; --line:#243245; --grid:#1c2838;
+  --band:#08121f; --band-2:#13233a; --band-ink:#ffffff; --band-muted:#8fa3bd; --band-line:rgba(255,255,255,.10);
+  --hdr:rgba(10,15,23,.78);
+  --ink:#e9eef6; --ink-2:#b6c2d2; --muted:#8696ab;
+  --accent:#7aa7ff; --accent-ink:#0a1222; --accent-soft:#18284a; --pink:#ff7aa6; --pink-soft:#3a1a29;
+  --s1:#5b93ff; --s2:#ff8a50; --s3:#2ec496; --s4:#ac86f2; --s5:#f0bb3e; --s6:#ff7aa6; --s7:#9aa6b6; --ax7:#45c8de;
+  --q1:#16233a; --q2:#1d3f72; --q3:#2b62b2; --q4:#4f8ae8; --q5:#9cc2ff;
+  --good:#6fd8a4; --good-bg:#11301f; --warn:#f2c46e; --warn-bg:#33270f; --bad:#ff9a8f; --bad-bg:#3a1916;
+  --shadow-s:0 1px 2px rgba(0,0,0,.3);
+  --shadow:0 4px 10px rgba(0,0,0,.3),0 18px 40px rgba(0,0,0,.45);
+  --hero-1:#0b1830; --hero-2:#122a4f; --hero-ink:#ffffff; --hero-muted:#9fb3cf;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{background:var(--bg)}
-body{color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0;overflow-x:clip}
-a{color:var(--accent)}
+body{color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;margin:0;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:2px}
 button,input,select{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .inner{max-width:1280px;margin:0 auto;padding-inline:16px}
+@media (min-width:720px){.inner{padding-inline:28px}}
 .num{font-variant-numeric:tabular-nums}
 .mono{font-family:var(--f-mono)}
 h1,h2,h3{text-wrap:balance;margin:0}
-h2{font-size:1.35rem;font-weight:600}
-h3{font-size:1.02rem;font-weight:600}
+h2{font-family:var(--f-disp);font-size:1.45rem;font-weight:650;letter-spacing:-.01em}
+h3{font-size:1.02rem;font-weight:600;letter-spacing:-.003em}
 p{margin:0}
 .muted{color:var(--muted)}
 .small{font-size:.85rem}
-.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.eyebrow{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
 
-/* bandeau */
-.band{background:var(--band);color:var(--band-ink)}
-.band .top{display:flex;align-items:center;gap:16px;padding-block:14px;flex-wrap:wrap}
-.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
-.brand b{font-family:var(--f-serif);font-weight:600;font-size:1.3rem;letter-spacing:.005em}
-.brand span{color:var(--band-muted);font-size:.8rem}
-.vtag{font-family:var(--f-mono);font-size:.72rem;border:1px solid var(--band-muted);color:var(--band-muted);border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:2px}
-.search{position:relative;flex:1 1 320px;max-width:520px;margin-left:auto}
-.search input{width:100%;padding:10px 14px 10px 38px;border-radius:8px;border:1px solid transparent;background:var(--band-2);color:var(--band-ink)}
-.search input::placeholder{color:var(--band-muted)}
-.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.75}
-.sugg{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);z-index:40;max-height:420px;overflow:auto}
-.sugg button{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:9px 14px;border:0;background:none;cursor:pointer;border-bottom:1px solid var(--grid)}
+/* en-tête */
+.band{position:sticky;top:0;z-index:50;background:var(--hdr);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-bottom:1px solid var(--line)}
+.band .top{display:flex;align-items:center;gap:14px;padding-block:12px 8px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0;text-decoration:none;color:var(--ink);cursor:pointer;background:none;border:0;padding:0;text-align:left}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(140deg,var(--hero-2),var(--hero-1));display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.brand b{display:block;color:var(--ink);font-family:var(--f-disp);font-weight:700;font-size:1.08rem;letter-spacing:-.01em;line-height:1.15}
+.brand span{display:block;color:var(--muted);font-size:.76rem;line-height:1.2}
+.brand .vtag{display:inline;}
+.vtag{font-family:var(--f-mono);font-size:.66rem;font-weight:600;background:var(--pink-soft);color:var(--pink);border-radius:5px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+.search{position:relative;flex:1 1 300px;max-width:500px;margin-left:auto}
+.search input{width:100%;padding:10px 14px 10px 40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:var(--shadow-s);transition:border-color .15s,box-shadow .15s}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.search input::placeholder{color:var(--muted)}
+.search>svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.sugg{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);z-index:40;max-height:420px;overflow:auto;padding:4px}
+.sugg button{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:9px 12px;border:0;background:none;cursor:pointer;border-radius:9px}
 .sugg button:hover,.sugg button.on{background:var(--accent-soft)}
 .sugg .t{font-size:.72rem;color:var(--muted);white-space:nowrap}
-.theme-btn{background:none;border:1px solid var(--band-muted);color:var(--band-ink);border-radius:8px;padding:8px 10px;cursor:pointer}
-nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.theme-btn{display:grid;place-items:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);border-radius:12px;cursor:pointer;box-shadow:var(--shadow-s)}
+.theme-btn:hover{color:var(--ink);border-color:var(--accent)}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:2px 10px;margin-inline:-4px;padding-inline:4px}
 nav.tabs::-webkit-scrollbar{display:none}
-nav.tabs a{color:var(--band-muted);text-decoration:none;padding:10px 14px;border-bottom:3px solid transparent;white-space:nowrap;font-weight:500;font-size:.92rem}
-nav.tabs a:hover{color:var(--band-ink)}
-nav.tabs a.on{color:var(--band-ink);border-bottom-color:var(--pink)}
+nav.tabs a{color:var(--ink-2);text-decoration:none;padding:7px 13px;border-radius:999px;white-space:nowrap;font-weight:500;font-size:.88rem;transition:background .15s,color .15s}
+nav.tabs a:hover{background:var(--surface-2);color:var(--ink)}
+nav.tabs a.on{background:var(--ink);color:var(--bg)}
+@media (max-width:640px){.band{position:static}.brand b+span{display:none}.band .top{gap:10px}.theme-btn{margin-left:auto}.search{order:3;flex-basis:100%;max-width:none}}
 
-main{padding-block:26px 60px}
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+main{padding-block:26px 64px}
+.view{animation:rise .35s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.view{animation:none}}
+main>.view>.stack>h2:first-child,main>.view>.stack>.row:first-child>h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:750;letter-spacing:-.02em}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
 .c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
 @media (max-width:960px){.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.c3{grid-column:span 6}}
 @media (max-width:560px){.c3{grid-column:span 12}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0;box-shadow:var(--shadow-s)}
 .card h3{margin-bottom:4px}
 .card .sub{color:var(--muted);font-size:.85rem;margin-bottom:12px}
-.stack{display:flex;flex-direction:column;gap:12px}
+.stack{display:flex;flex-direction:column;gap:14px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .sp{flex:1}
-.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:500;font-size:.88rem}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:500;font-size:.88rem;transition:border-color .15s,background .15s,transform .15s}
 .btn:hover{border-color:var(--accent)}
 .btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn.ghost{background:none}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.btn.ghost:hover{background:var(--surface-2);color:var(--ink);border-color:transparent}
 .btn[disabled]{opacity:.5;cursor:default}
-select,.inp{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;max-width:100%}
+select,.inp{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 10px;max-width:100%}
 label.f{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--muted);min-width:0}
-.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:.8rem;background:var(--surface-2);border:1px solid var(--line)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 12px;font-size:.82rem;background:var(--surface);border:1px solid var(--line);cursor:pointer;transition:border-color .15s,background .15s}
+.chip:hover{border-color:var(--accent);background:var(--accent-soft)}
 .chip button{border:0;background:none;cursor:pointer;color:var(--muted);padding:0}
 .pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:600}
 .pill.A{background:var(--good-bg);color:var(--good)}.pill.B{background:var(--warn-bg);color:var(--warn)}.pill.C{background:var(--bad-bg);color:var(--bad)}
 .pill.ax{background:var(--accent-soft);color:var(--accent)}
-.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start;margin-bottom:26px}
-@media (max-width:900px){.hero{grid-template-columns:1fr}}
-.hero h1{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.15}
-.hero p.lead{margin-top:12px;font-size:1.05rem;color:var(--ink-2);max-width:62ch}
 .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
-.kpi .v{font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
-.kpi .l{font-size:.82rem;color:var(--ink-2);margin-top:4px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow-s)}
+.kpi .v{font-family:var(--f-disp);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1;letter-spacing:-.02em}
+.kpi .l{font-size:.84rem;color:var(--ink-2);margin-top:6px}
 .kpi .s{font-size:.72rem;color:var(--muted);margin-top:6px}
-.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.qcard{text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
-.qcard:hover{border-color:var(--accent)}
-.qcard b{font-weight:600}
-.axes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.axis{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;cursor:pointer;text-align:left}
-.axis:hover{border-color:var(--accent)}
-.axis .n{font-family:var(--f-mono);color:var(--pink);font-size:.8rem}
+
+/* accueil */
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:8px 24px;align-items:center;background:radial-gradient(120% 90% at 85% 40%,var(--hero-2),var(--hero-1) 70%);color:var(--hero-ink);border-radius:24px;padding:clamp(22px,4vw,48px);isolation:isolate}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px;z-index:-1;border-radius:inherit;mask-image:linear-gradient(90deg,#000,transparent 60%)}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.hero .eyebrow{color:var(--hero-muted)}
+.hero h1{font-family:var(--f-disp);font-weight:750;font-size:clamp(2rem,4.4vw,3.35rem);line-height:1.02;letter-spacing:-.035em;margin-top:12px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#7fb1ff,#ff7aa6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{margin-top:16px;font-size:1.04rem;color:var(--hero-muted);max-width:56ch}
+.hero p.lead a{color:#fff}
+.hero .btn{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff}
+.hero .btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+.hero .btn.pri{background:#fff;color:#0b1d36;border-color:#fff}
+.hsearch{position:relative;margin-top:22px;max-width:520px}
+.hsearch input{width:100%;padding:14px 16px 14px 46px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;font-size:1rem}
+.hsearch input::placeholder{color:var(--hero-muted)}
+.hsearch input:focus{outline:none;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+.hsearch>svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--hero-muted)}
+.hsearch .sugg{color:var(--ink)}
+.hchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.hchips button{border:1px solid rgba(255,255,255,.16);background:none;color:var(--hero-muted);border-radius:999px;padding:4px 11px;font-size:.8rem;cursor:pointer}
+.hchips button:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+.dotmap{position:relative;width:100%;aspect-ratio:1/0.93;min-height:260px}
+.dotmap canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.dmleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:.74rem;color:var(--hero-muted);margin-top:10px}
+.dmleg .ramp{display:flex;gap:3px;align-items:center}
+.dmleg .ramp i{width:22px;height:6px;border-radius:3px}
+.dmtip{position:absolute;pointer-events:none;background:#fff;color:#0b1d36;border-radius:10px;padding:8px 11px;font-size:.78rem;box-shadow:0 10px 30px rgba(0,0,0,.35);white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));z-index:3}
+.dmtip b{display:block;font-size:.86rem}
+.kband{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+@media (max-width:900px){.kband{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.kband{grid-template-columns:1fr}}
+.kb{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;box-shadow:var(--shadow-s);position:relative;overflow:hidden}
+.kb::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--kc,var(--accent))}
+.kb .v{font-family:var(--f-disp);font-size:clamp(1.6rem,2.6vw,2.1rem);font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.kb .v small{font-size:.55em;font-weight:600;color:var(--muted);margin-left:2px}
+.kb .l{font-size:.85rem;color:var(--ink-2);margin-top:8px}
+.kb .s{font-size:.74rem;color:var(--muted);margin-top:8px;display:flex;gap:6px;align-items:center}
+.delta{font-family:var(--f-mono);font-size:.72rem;font-weight:600;border-radius:6px;padding:1px 6px}
+.delta.up{background:var(--good-bg);color:var(--good)}.delta.dn{background:var(--bad-bg);color:var(--bad)}
+.sec{margin-top:44px}
+.sech{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.sech h2{font-size:clamp(1.35rem,2.4vw,1.75rem);font-weight:750;letter-spacing:-.02em}
+.sech p{color:var(--muted);max-width:60ch}
+.entry{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1100px){.entry{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.entry{grid-template-columns:1fr}}
+.ecard{position:relative;text-align:left;cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-s);transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
+.ecard:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:transparent}
+.ecard .ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--ec) 14%,transparent);color:var(--ec)}
+.ecard b{font-family:var(--f-disp);font-size:1.2rem;font-weight:700;letter-spacing:-.01em}
+.ecard p{color:var(--muted);font-size:.9rem}
+.ecard .go{margin-top:auto;font-weight:600;font-size:.86rem;color:var(--ec);display:flex;align-items:center;gap:6px}
+.ecard .go svg{transition:transform .2s}
+.ecard:hover .go svg{transform:translateX(3px)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.qcard{position:relative;text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 64px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-s);transition:transform .2s,box-shadow .2s,border-color .2s;min-height:96px}
+.qcard:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:transparent}
+.qcard .qn{position:absolute;left:18px;top:16px;font-family:var(--f-disp);font-weight:750;font-size:1.7rem;line-height:1;color:var(--pink);letter-spacing:-.04em}
+.qcard b{font-weight:600;line-height:1.35}
+.axes{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px}
+@media (min-width:1180px){.axes{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.axis{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-s);transition:transform .2s,box-shadow .2s,border-color .2s}
+.axis:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--ac) 50%,transparent)}
+.axis .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac)}
+.axis .n{font-family:var(--f-mono);color:var(--muted);font-size:.72rem}
+.axis b{font-weight:600;line-height:1.25}
+.axis .small{line-height:1.35}
 
 /* fiche territoire */
-.fhead{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
-.fhead h2{font-family:var(--f-serif);font-size:1.9rem;font-weight:600}
-.crumbs{display:flex;gap:6px;flex-wrap:wrap;font-size:.85rem}
-.crumbs button{border:0;background:none;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
+.fhero{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);box-shadow:var(--shadow-s);margin-bottom:18px;display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:18px 28px;align-items:start;position:relative;overflow:hidden}
+.fhero::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--accent),var(--pink))}
+@media (max-width:760px){.fhero{grid-template-columns:1fr}.fhero .loc{display:none}}
+.fhero h2{font-family:var(--f-disp);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:750;letter-spacing:-.035em;line-height:1.02;margin-top:6px}
+.fhero .meta{color:var(--muted);margin-top:8px}
+.fhero .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.fk{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media (max-width:760px){.fk{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fk>div{background:var(--surface);padding:14px 16px}
+.fk .v{font-family:var(--f-disp);font-size:1.55rem;font-weight:750;letter-spacing:-.025em;line-height:1.05;font-variant-numeric:tabular-nums}
+.fk .l{font-size:.78rem;color:var(--muted);margin-top:4px}
+.fk .f{font-size:.72rem;color:var(--muted);margin-top:6px;font-family:var(--f-mono)}
+.loc svg{width:100%;height:auto;display:block}
+.loc path{fill:var(--surface-3);stroke:var(--surface);stroke-width:3}
+.loc path.on{fill:var(--pink)}
+.loc path.soft{fill:color-mix(in srgb,var(--pink) 30%,var(--surface-3))}
+.loc circle{fill:var(--pink);stroke:var(--surface);stroke-width:5}
+.axh{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.axh .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);flex:none}
+.axh .n{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);display:block}
+.fhead{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:18px}
+.fhead h2{font-family:var(--f-disp);font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:750;letter-spacing:-.03em}
+.crumbs{display:flex;gap:6px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);align-items:center}
+.crumbs button{border:0;background:none;color:var(--accent);cursor:pointer;padding:0}
+.crumbs button:hover{text-decoration:underline}
 .ind{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--grid)}
 .ind:last-child{border-bottom:0}
 .ind .lab{font-size:.88rem;display:flex;gap:6px;align-items:baseline;min-width:0}
 .ind .val{font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .ind .ref{grid-column:1/-1;display:flex;gap:10px;align-items:center;font-size:.75rem;color:var(--muted)}
-.bar{flex:1;height:6px;background:var(--surface-2);border-radius:3px;position:relative;min-width:60px;max-width:180px}
-.bar i{position:absolute;top:-3px;width:3px;height:12px;background:var(--pink);border-radius:1px}
+.bar{flex:1;height:6px;background:linear-gradient(90deg,var(--surface-2),var(--surface-3));border-radius:3px;position:relative;min-width:60px;max-width:180px}
+.bar i{position:absolute;top:-3px;width:12px;height:12px;margin-left:-5px;background:var(--pink);border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--pink)}
 .info{border:0;background:none;cursor:pointer;color:var(--muted);padding:0 2px;font-size:.8rem;line-height:1}
 .info:hover{color:var(--accent)}
-.pop{position:fixed;z-index:60;max-width:380px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:14px;font-size:.84rem}
+.pop{position:fixed;z-index:60;max-width:380px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px;font-size:.84rem}
 .pop dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:8px 0 0}
 .pop dt{color:var(--muted)}
 .pop dd{margin:0}
 .na{color:var(--muted);font-style:italic;font-weight:400}
 
 /* tableaux */
-.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;font-size:.86rem}
-th,td{padding:8px 10px;border-bottom:1px solid var(--grid);text-align:left;vertical-align:top}
-th{font-weight:600;color:var(--ink-2);background:var(--surface-2);position:sticky;top:0}
+th,td{padding:9px 12px;border-bottom:1px solid var(--grid);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink-2);background:var(--surface-2);position:sticky;top:0;font-size:.8rem}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 tr.hl td{background:var(--accent-soft)}
 tbody tr:hover td{background:var(--surface-2)}
@@ -153,50 +255,58 @@ tbody tr:hover td{background:var(--surface-2)}
 /* graphiques */
 .chart{width:100%;overflow:hidden}
 .chart svg{display:block;width:100%;height:auto}
-.chart text{fill:var(--ink-2);font-family:var(--f-body);font-size:11px}
+.chart text{fill:var(--muted);font-family:var(--f-body);font-size:11px}
 .chart .ax{stroke:var(--line)}
 .chart .gr{stroke:var(--grid)}
-.fig{display:flex;flex-direction:column;gap:8px}
-.fig .tools{display:flex;gap:6px;justify-content:flex-end}
-.fig .tools button{font-size:.75rem;padding:3px 8px}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2)}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.fig{display:flex;flex-direction:column;gap:10px}
+.fig h3{font-size:.98rem}
+.fig .tools{display:flex;gap:2px;justify-content:flex-end}
+.fig .tools button{font-size:.72rem;padding:3px 8px;font-family:var(--f-mono)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 .src{font-size:.74rem;color:var(--muted)}
 .mapwrap{position:relative}
-.mapwrap svg path.dep{stroke:var(--surface);stroke-width:.6;cursor:pointer}
+.mapwrap svg path.dep{stroke:var(--surface);stroke-width:.6;cursor:pointer;transition:opacity .15s}
 .mapwrap svg path.dep:hover{stroke:var(--ink);stroke-width:1.4}
-.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 9px;border-radius:6px;font-size:.78rem;z-index:70;max-width:260px}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 9px;border-radius:8px;font-size:.78rem;z-index:70;max-width:260px}
 
 /* assistant */
-.msgs li{margin-bottom:8px}
-.ai{white-space:pre-wrap;background:var(--surface-2);border-radius:10px;padding:14px;font-family:var(--f-serif);font-size:1rem;line-height:1.55}
-.note{background:var(--surface-2);border-left:3px solid var(--pink);padding:10px 12px;border-radius:6px;font-size:.86rem;color:var(--ink-2)}
-.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;z-index:80;font-size:.88rem}
-.loading{display:flex;flex-direction:column;gap:10px;padding:40px 0}
-.skel{height:14px;border-radius:6px;background:var(--surface-2);max-width:620px}
-.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.subtabs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.85rem}
-.subtabs button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:.8rem}
-@media (prefers-reduced-motion:no-preference){.card,.kpi{transition:border-color .15s}}
+.msgs{padding-left:0;list-style:none;margin:0}
+.msgs li{margin-bottom:10px;padding-left:22px;position:relative}
+.msgs li::before{content:"";position:absolute;left:4px;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--pink)}
+.ai{white-space:pre-wrap;background:var(--surface-2);border-radius:12px;padding:16px;font-size:1rem;line-height:1.6}
+.note{background:var(--surface-2);border-left:3px solid var(--pink);padding:10px 12px;border-radius:8px;font-size:.86rem;color:var(--ink-2)}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:80;font-size:.88rem;box-shadow:var(--shadow)}
+.loading{display:flex;flex-direction:column;gap:12px;padding:40px 0}
+.loading h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:750;letter-spacing:-.02em;max-width:22ch}
+.skel{height:14px;border-radius:7px;background:linear-gradient(90deg,var(--surface-2),var(--surface-3),var(--surface-2));background-size:200% 100%;max-width:620px}
+@media (prefers-reduced-motion:no-preference){.skel{animation:sh 1.4s linear infinite}@keyframes sh{to{background-position:-200% 0}}}
+.subtabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;background:var(--surface-2);padding:4px;border-radius:14px;width:fit-content;max-width:100%}
+.subtabs button{border:0;background:none;border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85rem;color:var(--ink-2)}
+.subtabs button:hover{color:var(--ink)}
+.subtabs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-s);font-weight:600}
+footer{border-top:1px solid var(--line);padding-block:26px;color:var(--muted);font-size:.8rem}
+footer .fb{display:flex;gap:12px;align-items:flex-start}
+@media (prefers-reduced-motion:no-preference){.card,.kpi{transition:border-color .15s,box-shadow .2s}}
+@media (prefers-reduced-motion:reduce){.ecard,.qcard,.axis{transition:none}.ecard:hover,.qcard:hover,.axis:hover{transform:none}}
 </style>
 
 <header class="band">
   <div class="inner top">
-    <div class="brand"><b>Observatoire du commerce de détail <span class="vtag">v2</span></b><span>France · double transition, périphéries, centres-villes, QPV, frontières</span></div>
+    <button class="brand" type="button" data-go="accueil" aria-label="Accueil"><span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9 5 4.5h14L20.5 9"/><path d="M3.5 9h17v1.2a2.8 2.8 0 0 1-5.6 0 2.8 2.8 0 0 1-5.8 0 2.8 2.8 0 0 1-5.6 0z"/><path d="M5 13.5V20h14v-6.5"/><path d="M10 20v-4h4v4" stroke="#ff7aa6"/></svg></span><span><b>Observatoire du commerce<span class="vtag">v2</span></b><span>Commerce de détail en France · double transition, territoires</span></span></button>
     <div class="search" role="search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" autocomplete="off" placeholder="Commune, EPCI, département, région, zone commerciale, QPV, frontière…" aria-label="Rechercher un territoire">
+      <input id="q" type="search" autocomplete="off" placeholder="Commune, EPCI, département, zone commerciale, QPV…" aria-label="Rechercher un territoire">
       <div class="sugg" id="sugg" hidden></div>
     </div>
-    <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème">◐</button>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
   </div>
   <div class="inner"><nav class="tabs" id="tabs" aria-label="Sections"></nav></div>
 </header>
 <main class="inner" id="main">
   <div class="loading" id="loading"><p class="eyebrow">Chargement des données</p><h2>Plus de 460 000 commerces, 34 700 communes, 1 372 zones commerciales et 1 362 quartiers prioritaires</h2><div class="skel"></div><div class="skel" style="max-width:480px"></div><div class="skel" style="max-width:540px"></div></div>
 </main>
-<footer><div class="inner">Observatoire du commerce de détail, version 2 · Données : Insee (Sirene, populations), Cerema (zones commerciales, artificialisation), ANCT (QPV, programmes), IGN, OCDE, Commission européenne. Chaque indicateur affiche sa définition, sa méthode, sa source et son millésime (bouton ⓘ).</div></footer>
+<footer><div class="inner fb"><span class="logo" style="width:28px;height:28px;border-radius:9px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 9 5 4.5h14L20.5 9M3.5 9h17v1.2a2.8 2.8 0 0 1-17 0zM5 13.5V20h14v-6.5"/></svg></span><p>Observatoire du commerce de détail, version 2 · Données : Insee (Sirene, populations), Cerema (zones commerciales, artificialisation), ANCT (QPV, programmes), IGN, OCDE, Commission européenne. Chaque indicateur affiche sa définition, sa méthode, sa source et son millésime (bouton ⓘ).</p></div></footer>
 
 <script>
 "use strict";
@@ -247,6 +357,17 @@ const AXES=[
  {n:5,t:"Zones périphériques",d:"Poids, évolution, surfaces, grandes surfaces"},
  {n:6,t:"Centres-villes",d:"Dynamique, employeurs, vacance (villes ACV)"},
  {n:7,t:"Quartiers prioritaires",d:"Commerces implantés en QPV, évolution"}];
+const AXI=["M3.5 9 5 4.5h14L20.5 9M3.5 9h17v1.2a2.8 2.8 0 0 1-17 0zM5 13.5V20h14v-6.5M10 20v-4h4v4",
+ "M3 4.5h18v11.5H3zM8 20h8M12 16v4M7 12.5l3-3 2.5 2.5 4.5-4.5",
+ "M5 19c0-8.5 5.5-14 15-14 0 9.5-5.5 15-14 15zM5 19l8-8",
+ "M12 3v18M3.5 8h6M6.5 5l-3 3 3 3M20.5 16h-6M17.5 13l3 3-3 3",
+ "M9.5 12a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0",
+ "M3 21h18M5 21V9.5l5-3V21M10 21V3.5l9 4.5v13M13 11h3M13 15h3",
+ "M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5M9.5 20v-5h5v5"];
+const AXC=["var(--s1)","var(--s4)","var(--s3)","var(--s5)","var(--s2)","var(--s6)","var(--ax7)"];
+const svgI=(d,z=20,w=1.8)=>`<svg width="${z}" height="${z}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+const axIcon=(n,z)=>svgI(AXI[n-1],z);
+const IC={pin:"M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21zM9.5 9.5a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0",map:"M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5zM9 4v13.5M15 6.5V20",q:"M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5M12 18h.01M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0",spark:"M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z",arrow:"M5 12h14M13 6l6 6-6 6",search:"M4 11a7 7 0 1 0 14 0 7 7 0 1 0-14 0M20 20l-3.5-3.5"};
 const SIR="Reconstitution du stock d'établissements actifs au 1er janvier de chaque année à partir de Sirene (stock, historique et géolocalisation). Les adresses tirées au hasard dans la commune sont exclues des rattachements infra-communaux.";
 const IND=[
  // axe 1
@@ -421,9 +542,10 @@ function lineChart({labels,series,unit="",h=230,idx=false,dec=0}){
   tk.forEach(t=>g+=`<line class="gr" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmt(t,dec)}</text>`);
   labels.forEach((l,i)=>g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${esc(l)}</text>`);
   if(idx)g+=`<line class="ax" x1="${L}" x2="${W-R}" y1="${y(100)}" y2="${y(100)}" stroke-dasharray="3 3"/>`;
-  series.forEach((s,k)=>{const c=s.c||COLS[k%6];let p="";s.v.forEach((v,i)=>{if(v!=null)p+=(p?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1)});
-    g+=`<path d="${p}" fill="none" stroke="${c}" stroke-width="${s.w||2.2}" ${s.dash?'stroke-dasharray="5 4"':''}/>`;
-    s.v.forEach((v,i)=>{if(v!=null&&(i===s.v.length-1))g+=`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${c}"/><text x="${x(i)-6}" y="${y(v)-8}" text-anchor="end" style="font-weight:600;fill:${c}">${fmt(v,dec)}</text>`})});
+  series.forEach((s,k)=>{const c=s.c||COLS[k%6];let p="",f=-1,l=-1;s.v.forEach((v,i)=>{if(v!=null){p+=(p?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1);if(f<0)f=i;l=i}});
+    if(k===0&&!s.dash&&l>f)g+=`<path d="${p}L${x(l).toFixed(1)},${y(lo)}L${x(f).toFixed(1)},${y(lo)}Z" fill="${c}" fill-opacity=".09" stroke="none"/>`;
+    g+=`<path d="${p}" fill="none" stroke="${c}" stroke-width="${s.w||2.4}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?'stroke-dasharray="5 4"':''}/>`;
+    s.v.forEach((v,i)=>{if(v!=null&&(i===s.v.length-1))g+=`<circle cx="${x(i)}" cy="${y(v)}" r="4.5" fill="${c}" stroke="var(--surface)" stroke-width="2"/><text x="${x(i)-8}" y="${y(v)-9}" text-anchor="end" style="font-weight:700;fill:${c}">${fmt(v,dec)}</text>`})});
   return g+`</svg>`+legend(series);
 }
 function legend(series){return series.length>1?`<div class="legend">${series.map((s,k)=>`<span><i style="background:${s.c||COLS[k%6]}"></i>${esc(s.n)}</span>`).join("")}</div>`:""}
@@ -434,7 +556,7 @@ function barChart({items,unit="",dec=0,h,ref=null,sign=false}){
   let g=`<svg viewBox="0 0 ${W} ${H}" role="img"><line class="ax" x1="${x(0)}" x2="${x(0)}" y1="4" y2="${H-6}"/>`;
   items.forEach((it,k)=>{const y=8+k*rowH; if(it.v==null){g+=`<text x="${L-8}" y="${y+12}" text-anchor="end">${esc(it.l)}</text><text x="${L+4}" y="${y+12}" class="na">n.d.</text>`;return}
     const x0=x(Math.min(0,it.v)),x1=x(Math.max(0,it.v));
-    g+=`<text x="${L-8}" y="${y+12}" text-anchor="end" ${it.hl?'style="font-weight:700;fill:var(--ink)"':''}>${esc(it.l.length>40?it.l.slice(0,39)+"…":it.l)}</text><rect x="${x0}" y="${y}" width="${Math.max(1,x1-x0)}" height="${rowH-8}" rx="2" fill="${it.c||(it.hl?"var(--pink)":"var(--s1)")}"/><text x="${x1+5}" y="${y+12}">${sign?sgn(it.v,dec):fmt(it.v,dec)}${unit}</text>`});
+    g+=`<text x="${L-8}" y="${y+12}" text-anchor="end" ${it.hl?'style="font-weight:700;fill:var(--ink)"':''}>${esc(it.l.length>40?it.l.slice(0,39)+"…":it.l)}</text><rect x="${x0}" y="${y}" width="${Math.max(1,x1-x0)}" height="${rowH-8}" rx="4" fill="${it.c||(it.hl?"var(--pink)":"var(--s1)")}"/><text x="${x1+5}" y="${y+12}">${sign?sgn(it.v,dec):fmt(it.v,dec)}${unit}</text>`});
   if(ref!=null)g+=`<line x1="${x(ref)}" x2="${x(ref)}" y1="2" y2="${H-4}" stroke="var(--ink)" stroke-dasharray="3 3"/>`;
   return g+`</svg>`;
 }
@@ -539,7 +661,8 @@ const lsearch=(ph,id)=>`<div class="search lsearch" id="${id}" style="max-width:
 /* ============================================================ rendu */
 function render(){if(!C)return;nav();FIGN=0;for(const k in FIGS)delete FIGS[k];const m=$("#main");
   const v={accueil:vHome,territoire:vTerr,comparer:vCmp,carte:vMap,analyses:vAn,axes:vAxes,questions:vQ,assistant:vAs,sources:vSrc}[S.tab]||vHome;
-  m.innerHTML=v(); (AFTER[S.tab]||(()=>{}))();}
+  if(DMRO){DMRO.disconnect();DMRO=null}
+  m.innerHTML=`<div class="view">${v()}</div>`; (AFTER[S.tab]||(()=>{}))();}
 const AFTER={};
 
 /* ---------------- accueil */
@@ -554,25 +677,61 @@ const QUESTIONS=[
  "Comment concilier compétitivité commerciale, revitalisation urbaine et objectifs environnementaux ?"];
 function vHome(){
   const A=agg(T.fr);
-  const k=[[fmt(A.r25),"commerces en magasin actifs au 1er janvier 2025",`${sgn(pct(A.r25,A.r19))} % depuis 2019 · Sirene`],
-   [fmt(share(A.p_r25,A.r25),1)+" %","des commerces sont situés dans une zone commerciale de périphérie",`${sgn(pct(A.p_r25,A.p_r12))} % de commerces en périphérie depuis 2012`],
-   [sgn(pct(A.c_r25,A.c_r12),1)+" %","évolution des commerces de centre-ville depuis 2012",`communes de 5 000 hab. et plus · ${fmt(A.c_r25)} commerces`],
-   [fmt(share(A.q_r25,A.r25),1)+" %","des commerces sont implantés dans un QPV",`${fmt(A.q_r25)} commerces dans ${fmt(A.nqpv)} quartiers`]];
-  return `<section class="hero"><div><p class="eyebrow">Observatoire national · version 2 · données au 1er janvier 2025</p><h1>Le commerce de détail en France, du territoire à la question de recherche</h1>
-  <p class="lead">Une plateforme pour explorer les données, comparer les territoires et produire les analyses de l'étude pour la DGE, sur le modèle du rapport de l'OCDE <a href="https://www.oecd.org/en/publications/local-retail-global-trends_55e2edec-en/full-report.html" target="_blank" rel="noopener"><i>Local Retail, Global Trends</i></a>, avec un approfondissement sur les zones frontalières, les zones périphériques, les centres-villes, les QPV et la double transition.</p>
-  <div class="row" style="margin-top:18px"><button class="btn pri" data-go="assistant" type="button">Ouvrir le Research Assistant</button><button class="btn" data-go="questions" type="button">Les 8 questions de recherche</button><button class="btn" data-go="sources" type="button">Sources et jeux de données</button></div></div>
-  <div class="kpis">${k.map(x=>`<div class="kpi"><div class="v">${x[0]}</div><div class="l">${x[1]}</div><div class="s">${x[2]}</div></div>`).join("")}</div></section>
+  const dl=(v,t)=>`<span class="delta ${v>=0?"up":"dn"}">${sgn(v,1)} %</span>${t}`;
+  const kb=[["var(--s1)",fmt(A.r25),"","commerces en magasin actifs au 1er janvier 2025",dl(pct(A.r25,A.r19),"depuis 2019")],
+   ["var(--s2)",fmt(share(A.p_r25,A.r25),1),"%","des commerces sont situés dans une zone commerciale périphérique",dl(pct(A.p_r25,A.p_r12),"en périphérie depuis 2012")],
+   ["var(--s6)",fmt(A.c_r25),"","commerces dans les centres-villes des communes de 5 000 habitants et plus",dl(pct(A.c_r25,A.c_r12),"depuis 2012")],
+   ["var(--ax7)",fmt(share(A.q_r25,A.r25),1),"%",`des commerces sont implantés dans l'un des ${fmt(A.nqpv)} quartiers prioritaires`,dl(pct(A.q_r25,A.q_r12),"en QPV depuis 2012")]];
+  const EN=[["territoire","var(--s1)",IC.pin,"Explorer un territoire","Tous les indicateurs d'une commune, d'une intercommunalité, d'un département, d'une zone commerciale ou d'un QPV, situés par rapport à la France.","Ouvrir une fiche"],
+   ["carte","var(--s3)",IC.map,"Cartographier",`${IND.length} indicateurs par département, avec les zones commerciales, les QPV et les villes des programmes nationaux.`,"Voir la carte"],
+   ["questions","var(--pink)",IC.q,"Répondre aux questions","Huit questions de recherche, chacune avec ses graphiques, ses limites et ses sources.","Parcourir les questions"],
+   ["assistant","var(--s4)",IC.spark,"Research Assistant","Un territoire et une thématique : graphiques, statistiques, messages clés et exports prêts pour le rapport.","Lancer l'assistant"]];
+  const chips=[["Strasbourg","com:"+CODE["67482"]],["Bressuire","com:"+CODE["79049"]],["Espace frontalier suisse","bord:Suisse"],["Villes Action Cœur de Ville","g:acv"],["Nord","dep:59"],["Auvergne-Rhône-Alpes","reg:84"]];
+  return `<section class="hero"><div>
+   <p class="eyebrow">Observatoire national · version 2 · données au 1er janvier 2025</p>
+   <h1>Le commerce de détail en France, <em>commune par commune</em></h1>
+   <p class="lead">${fmt(A.r25)} commerces en magasin, ${fmt(N)} communes, ${fmt(D.zones.n)} zones commerciales et ${fmt(D.qpv.n)} quartiers prioritaires, pour l'étude de la DGE inspirée du rapport de l'OCDE <a href="https://www.oecd.org/en/publications/local-retail-global-trends_55e2edec-en/full-report.html" target="_blank" rel="noopener"><i>Local Retail, Global Trends</i></a> : double transition, zones frontalières, périphéries, centres-villes et QPV.</p>
+   <div class="hsearch lsearch" id="hS">${svgI(IC.search,18,2)}<input type="search" autocomplete="off" placeholder="Rechercher une commune, un EPCI, une zone commerciale…" aria-label="Rechercher un territoire"><div class="sugg" hidden></div></div>
+   <div class="hchips">${chips.map(([l,id])=>`<button type="button" data-open="${id}">${esc(l)}</button>`).join("")}</div>
+   <div class="row" style="margin-top:24px"><button class="btn pri" data-go="assistant" type="button">Ouvrir le Research Assistant ${svgI(IC.arrow,16,2)}</button><button class="btn" data-go="questions" type="button">Les 8 questions de recherche</button></div></div>
+   <div><div class="dotmap" id="dotmap"><canvas role="img" aria-label="Carte des communes : taille selon le nombre de commerces, couleur selon la part de commerces en zone périphérique"></canvas></div>
+    <div class="dmleg"><span>Un point par commune · taille : nombre de commerces · couleur : part en zone périphérique</span><span class="ramp"><span>0 %</span>${DMC.map(c=>`<i style="background:${c}"></i>`).join("")}<span>plus de 60 %</span></span></div></div>
+  </section>
+  <div class="kband">${kb.map(x=>`<div class="kb" style="--kc:${x[0]}"><div class="v">${x[1]}${x[2]?`<small>${x[2]}</small>`:""}</div><div class="l">${x[3]}</div><div class="s">${x[4]}</div></div>`).join("")}</div>
+  <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Par où commencer</p><h2>Quatre façons d'entrer dans les données</h2></div></div>
+   <div class="entry">${EN.map(e=>`<button class="ecard" type="button" data-go="${e[0]}" style="--ec:${e[1]}"><span class="ic">${svgI(e[2],22)}</span><b>${e[3]}</b><p>${e[4]}</p><span class="go">${e[5]} ${svgI(IC.arrow,16,2)}</span></button>`).join("")}</div></section>
+  <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Sept axes</p><h2>Les axes d'analyse</h2></div><p>Indicateurs territoriaux calculés, chiffres nationaux sourcés, dispositifs publics et données manquantes.</p></div>
+   <div class="axes">${AXES.map(a=>`<button class="axis" type="button" data-axe="${a.n}" style="--ac:${AXC[a.n-1]}"><span class="ic">${axIcon(a.n,20)}</span><span class="n">AXE ${a.n}</span><b>${a.t}</b><span class="small muted">${a.d}</span></button>`).join("")}</div></section>
+  <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Huit questions</p><h2>Les questions de recherche</h2></div><p>Chaque question ouvre une analyse chiffrée, avec ses graphiques, ses limites et ses sources.</p></div>
+   <div class="qgrid">${QUESTIONS.map((q,i)=>`<button class="qcard" type="button" data-q="${i}"><span class="qn">${i+1}</span><b>${esc(q)}</b></button>`).join("")}</div></section>
+  <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Tendances nationales</p><h2>Où le commerce se développe, où il recule</h2></div></div>
   <div class="grid">
-   <div class="card c12"><div class="row"><h3 class="sp">Trouver un territoire</h3><span class="small muted">Tous les indicateurs d'un territoire en deux clics : chercher, choisir.</span></div>
-    <div class="row" style="margin-top:10px">${["fr","g:front","bord:Suisse","g:acv","g:pvd","reg:84","dep:59"].map(id=>`<button class="chip" data-open="${id}" type="button">${esc(terr(id).label)}</button>`).join("")}<button class="chip" data-open="com:${CODE["67482"]}" type="button">Strasbourg</button><button class="chip" data-open="com:${CODE["79049"]}" type="button">Bressuire</button></div></div>
-   <div class="card c12"><h3>Questions de recherche</h3><p class="sub">Chaque question ouvre une analyse chiffrée, avec ses graphiques, ses limites et ses sources.</p>
-    <div class="qgrid">${QUESTIONS.map((q,i)=>`<button class="qcard" type="button" data-q="${i}"><span class="eyebrow">Question ${i+1}</span><b>${esc(q)}</b></button>`).join("")}</div></div>
-   <div class="card c12"><h3>Sept axes d'analyse</h3><p class="sub">Indicateurs territoriaux calculés, chiffres nationaux sourcés, dispositifs publics et données manquantes.</p>
-    <div class="axes">${AXES.map(a=>`<button class="axis" type="button" data-axe="${a.n}"><span class="n">Axe ${a.n}</span><br><b>${a.t}</b><br><span class="small muted">${a.d}</span></button>`).join("")}</div></div>
-   <div class="card c6">${fig("Commerces en magasin par lieu d'implantation, 2012 = 100",lineChart({labels:["2012","2019","2025"],idx:true,series:[{n:"Zones périphériques",v:[100,A.p_r19/A.p_r12*100,A.p_r25/A.p_r12*100]},{n:"Centres-villes",v:[100,A.c_r19/A.c_r12*100,A.c_r25/A.c_r12*100]},{n:"QPV",v:[100,A.q_r19/A.q_r12*100,A.q_r25/A.q_r12*100]},{n:"Ensemble",v:[100,A.r19/A.r12*100,A.r25/A.r12*100],dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29","N30","N16"])})}</div>
-   <div class="card c6">${fig("Consommation d'espaces naturels, agricoles et forestiers (ha par an)",lineChart({labels:D.artif_nat.annees,series:[{n:"Total",v:D.artif_nat.total},{n:"Habitat",v:D.artif_nat.habitat},{n:"Activité économique",v:D.artif_nat.activite}]}),{src:srcTxt(["N10"]),data:[["Année","Total (ha)","Habitat (ha)","Activité (ha)"],...D.artif_nat.annees.map((y,i)=>[y,D.artif_nat.total[i],D.artif_nat.habitat[i],D.artif_nat.activite[i]])]})}</div>
-  </div>`;
+   <div class="card c6">${fig("Commerces en magasin par lieu d'implantation, 2012 = 100",lineChart({labels:["2012","2019","2025"],idx:true,series:[{n:"Zones périphériques",v:[100,A.p_r19/A.p_r12*100,A.p_r25/A.p_r12*100],c:"var(--s2)"},{n:"Centres-villes",v:[100,A.c_r19/A.c_r12*100,A.c_r25/A.c_r12*100],c:"var(--s6)"},{n:"QPV",v:[100,A.q_r19/A.q_r12*100,A.q_r25/A.q_r12*100],c:"var(--ax7)"},{n:"Ensemble",v:[100,A.r19/A.r12*100,A.r25/A.r12*100],dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29","N30","N16"])})}</div>
+   <div class="card c6">${fig("Consommation d'espaces naturels, agricoles et forestiers (ha par an)",lineChart({labels:D.artif_nat.annees,series:[{n:"Total",v:D.artif_nat.total,c:"var(--s3)"},{n:"Habitat",v:D.artif_nat.habitat,c:"var(--s1)"},{n:"Activité économique",v:D.artif_nat.activite,c:"var(--s2)"}]}),{src:srcTxt(["N10"]),data:[["Année","Total (ha)","Habitat (ha)","Activité (ha)"],...D.artif_nat.annees.map((y,i)=>[y,D.artif_nat.total[i],D.artif_nat.habitat[i],D.artif_nat.activite[i]])]})}</div>
+  </div></section>`;
 }
+/* carte des communes (canvas) */
+const DMC=["#4d82ff","#7d6cf5","#ad62e6","#de5fb8","#ff6b8f"];
+let DM=null, DMRO=null;
+function dmPrep(){if(DM)return DM;let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;const o=[];
+  for(let i=0;i<N;i++){const x=C.x[i],y=C.y[i];if(x==null||y==null)continue;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;const r=C.r25[i]||0,p=r>0?(C.p_r25[i]||0)/r:0;o.push([i,r,p<=0?0:p<=.15?1:p<=.35?2:p<=.6?3:4])}
+  o.sort((a,b)=>a[1]-b[1]);return DM={o,x0,x1,y0,y1}}
+function drawDots(box){const cv=$("canvas",box);const w=box.clientWidth,h=box.clientHeight;if(!w||!h)return;const dpr=Math.min(2,window.devicePixelRatio||1);
+  cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);const g=cv.getContext("2d");g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,w,h);
+  const {o,x0,x1,y0,y1}=dmPrep(),pad=6,s=Math.min((w-2*pad)/(x1-x0),(h-2*pad)/(y1-y0)),ox=(w-(x1-x0)*s)/2,oy=(h-(y1-y0)*s)/2;
+  const X=x=>ox+(x-x0)*s,Y=y=>h-oy-(y-y0)*s,sf=Math.max(.6,Math.min(1.4,w/560)),pts=[];
+  g.globalCompositeOperation="lighter";
+  for(const [i,r,c] of o){const px=X(C.x[i]),py=Y(C.y[i]);
+    if(r===0){g.globalAlpha=.22;g.fillStyle="#8fa8d0";g.fillRect(px-.6,py-.6,1.2,1.2);continue}
+    const rad=(.55+Math.pow(r,.4)*.11)*sf;g.globalAlpha=.78;g.fillStyle=DMC[c];g.beginPath();g.arc(px,py,rad,0,6.2832);g.fill();pts.push([px,py,rad,i])}
+  g.globalAlpha=1;g.globalCompositeOperation="source-over";box._pts=pts}
+function dmHit(box,e){const r=box.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;let b=null,bd=9;for(const p of box._pts||[]){const d=Math.hypot(p[0]-mx,p[1]-my)-p[2];if(d<bd){bd=d;b=p}}return b}
+AFTER.accueil=()=>{localSearch($("#hS"),id=>openT(id));const box=$("#dotmap");if(!box)return;drawDots(box);
+  let tip=null;const hide=()=>{if(tip){tip.remove();tip=null}box.style.cursor=""};
+  box.onmousemove=e=>{const p=dmHit(box,e);if(!p)return hide();const i=p[3];if(!tip){tip=document.createElement("div");tip.className="dmtip";box.appendChild(tip)}
+    tip.innerHTML=`<b>${esc(C.nom[i])}</b>${esc(D.noms.dep[C.dep[i]]||"")} · ${fmt(C.r25[i])} commerce${C.r25[i]>1?"s":""} · ${fmt(share(C.p_r25[i],C.r25[i]),0)} % en périphérie`;tip.style.left=Math.max(90,Math.min(box.clientWidth-90,p[0]))+"px";tip.style.top=(p[1]-p[2])+"px";box.style.cursor="pointer"};
+  box.onmouseleave=hide;box.onclick=e=>{const p=dmHit(box,e);if(p)openT("com:"+p[3])};
+  if(window.ResizeObserver){let w=box.clientWidth;DMRO=new ResizeObserver(()=>{if(Math.abs(box.clientWidth-w)>2){w=box.clientWidth;drawDots(box)}});DMRO.observe(box)}};
 document.addEventListener("click",e=>{const q=e.target.closest("[data-q]");if(q)go("questions",{q:+q.dataset.q});const a=e.target.closest("[data-axe]");if(a)go("axes",{axe:+a.dataset.axe})});
 
 /* ---------------- fiche territoire */
@@ -582,13 +741,23 @@ function indRow(ind,t,F){
   const v=val(ind,t),fr=ind.comp?50:val(ind,T.fr); const c=ind.peer&&RANKED.has(t.type)?centile(ind,t,v):null;
   return `<div class="ind"><div class="lab">${esc(ind.l)} ${infoBtn(ind.id)}</div><div class="val">${v==null?'<span class="na">n.d.</span>':(ind.sg?sgn(v,ind.d):fmt(v,ind.d))} <span class="small muted" style="font-weight:400">${esc(ind.u)}</span></div>
    <div class="ref"><span>France : ${fr==null?"–":(ind.sg?sgn(fr,ind.d):fmt(fr,ind.d))}</span>${c!=null?`<span class="bar" title="Position parmi les territoires comparables"><i style="left:calc(${c.toFixed(0)}% - 1px)"></i></span><span>${fmt(c)}e centile</span>`:""}</div></div>`}
+function locSvg(t){const on=new Set(),all=t.id==="fr";if(!all)t.idx.forEach(i=>on.add(C.dep[i]));let g=`<svg viewBox="80 -7140 1190 1110" role="img" aria-label="Localisation">`;
+  for(const [d,p] of Object.entries(D.geo_dep))if(p)g+=`<path d="${p}" class="${all||on.has(d)?(t.type==="com"?"soft":"on"):""}"/>`;
+  if(t.type==="com"&&C.x[t.i]!=null)g+=`<circle cx="${C.x[t.i]/10}" cy="${-C.y[t.i]/10}" r="30"/>`;return g+`</svg>`}
 function vTerr(){
   const t=terr(S.cur);
   if(t.type==="zone")return vZone(t); if(t.type==="qpv")return vQpv(t);
   const A=t.type==="com"?rowAgg(t.i):agg(t), F=agg(T.fr);
   const pop=A.pop, ncom=t.idx.length;
-  const head=`<div class="fhead"><div class="stack" style="gap:6px">${crumbs(t)}<p class="eyebrow">${TYPEL[t.type]}</p><h2>${esc(t.label)}</h2><p class="muted">${fmt(pop)} habitants (2023)${ncom>1?" · "+fmt(ncom)+" communes":""}${t.type==="com"?` · ${esc(D.noms.dens[C.dens[t.i]])}${C.acv[t.i]?" · Action Cœur de Ville":""}${C.pvd[t.i]?" · Petites villes de demain":""}${C.littoral[t.i]?" · littoral":""}${C.montagne[t.i]?" · montagne":""}`:""}</p></div>
-   <div class="row sp" style="justify-content:flex-end"><button class="btn" type="button" id="toCmp">Ajouter à la comparaison</button><button class="btn pri" type="button" id="toAs">Analyser dans l'assistant</button></div></div>`;
+  const isFr=t.id==="fr", rf=(a,b,d,sg)=>isFr?"":"France : "+(sg?sgn(b,d):fmt(b,d))+(sg?" %":"");
+  const fk=[[fmt(A.r25),"commerces en magasin (2025)",isFr?"":fmt(share(A.r25,F.r25),2)+" % du total national"],
+   [fmt(per(A.r25,pop,1000),1),"commerces pour 1 000 habitants",rf(0,per(F.r25,F.pop,1000),1)],
+   [sgn(pct(A.r25,A.r19),1)+" %","évolution des commerces 2019-2025",rf(0,pct(F.r25,F.r19),1,1)],
+   [fmt(share(A.p_r25,A.r25),1)+" %","des commerces en zone périphérique",isFr?"":"France : "+fmt(share(F.p_r25,F.r25),1)+" %"]];
+  const head=`<section class="fhero"><div>${crumbs(t)}<p class="eyebrow" style="margin-top:12px">${TYPEL[t.type]}</p><h2>${esc(t.label)}</h2><p class="meta">${fmt(pop)} habitants (2023)${ncom>1?" · "+fmt(ncom)+" communes":""}${t.type==="com"?` · ${esc(D.noms.dens[C.dens[t.i]])}${C.acv[t.i]?" · Action Cœur de Ville":""}${C.pvd[t.i]?" · Petites villes de demain":""}${C.littoral[t.i]?" · littoral":""}${C.montagne[t.i]?" · montagne":""}`:""}</p>
+   <div class="acts"><button class="btn pri" type="button" id="toAs">${svgI(IC.spark,16)} Analyser dans l'assistant</button><button class="btn" type="button" id="toCmp">Ajouter à la comparaison</button></div></div>
+   <div class="loc">${locSvg(t)}</div>
+   <div class="fk">${fk.map(k=>`<div><div class="v">${k[0]}</div><div class="l">${k[1]}</div>${k[2]?`<div class="f">${k[2]}</div>`:""}</div>`).join("")}</div></section>`;
   const yrs=["2012","2016","2019","2022","2025"];
   const ser=k=>yrs.map(y=>A[k+y.slice(2)]), frs=k=>yrs.map(y=>F[k+y.slice(2)]);
   const ix=(a)=>a.map(v=>a[0]>0?v/a[0]*100:null);
@@ -597,7 +766,7 @@ function vTerr(){
     if(ci!=null){const ce=D.centres.data;extra+=`<div class="card c6"><h3>Centre-ville et exposition périphérique</h3><p class="sub">Cercle de ${ce.rayon[ci]} m autour de la mairie · zone périphérique la plus proche à ${fmt(ce.dist[ci],1)} km</p>${fig("Commerces du centre-ville et des zones périphériques à moins de 10 km, 2012 = 100",lineChart({labels:yrs,idx:true,series:[{n:"Centre-ville",v:ix(yrs.map(y=>ce["r"+y.slice(2)][ci]))},{n:"Périphérie à moins de 10 km",v:ix(yrs.map(y=>ce["pr"+y.slice(2)][ci]))}]}),{src:srcTxt(["N29","N30"]),note:`${fmt(ce.surf10[ci])} ha de zones commerciales à moins de 10 km.`})}</div>`}
     if(ai!=null){const a=D.acv.data;extra+=`<div class="card c6"><h3>Atlas Action Cœur de Ville</h3><p class="sub">Classes publiées par l'ANCT (atlas national, T4 2025) et baromètre Codata 2026</p>${[["Vacance commerciale 2025",a.vac_com[ai]],["Logements vacants depuis 2 ans ou plus",a.vac_log[ai]],["Ventes immobilières depuis 2018",a.ventes[ai]],["Réinventons nos cœurs de ville",a.reinventons[ai]],["Territoire pilote de sobriété foncière",a.tpsf[ai]],["Accompagnement en transition écologique",a.transition[ai]==="True"?"oui":a.transition[ai]==="False"?"non":a.transition[ai]],["Design actif",a.design[ai]],["Vacance commerciale du centre (Codata, 2019 → 2025)",a.codata[ai]],["Fréquentation (MyTraffic, 2022-2023)",a.mytraffic[ai]]].map(r=>`<div class="ind"><div class="lab">${r[0]}</div><div class="val">${r[1]==null||r[1]===""?'<span class="na">–</span>':esc(r[1])}</div></div>`).join("")}<p class="src">Source : ${srcTxt(["N31","N25","S59"])}</p></div>`}}
   return head+`<div class="grid">
-   ${AXES.map(ax=>{const L=IND.filter(i=>i.axe===ax.n);return `<div class="card c4"><div class="row"><span class="pill ax">Axe ${ax.n}</span><h3 class="sp">${ax.t}</h3></div>${L.map(i=>indRow(i,t,F)).join("")}${ax.n===2?`<p class="small muted" style="margin-top:8px">Usages numériques (IA, outils, cybersécurité) : chiffres nationaux uniquement, voir l'axe 2.</p>`:""}${ax.n===4&&!(A.etr_p>0)?`<p class="small muted" style="margin-top:8px">Hors départements couverts par l'étude Insee sur les achats à l'étranger.</p>`:""}</div>`}).join("")}
+   ${AXES.map(ax=>{const L=IND.filter(i=>i.axe===ax.n);return `<div class="card c4"><div class="axh" style="--ac:${AXC[ax.n-1]}"><span class="ic">${axIcon(ax.n,18)}</span><div><span class="n">AXE ${ax.n}</span><h3>${ax.t}</h3></div></div>${L.map(i=>indRow(i,t,F)).join("")}${ax.n===2?`<p class="small muted" style="margin-top:8px">Usages numériques (IA, outils, cybersécurité) : chiffres nationaux uniquement, voir l'axe 2.</p>`:""}${ax.n===4&&!(A.etr_p>0)?`<p class="small muted" style="margin-top:8px">Hors départements couverts par l'étude Insee sur les achats à l'étranger.</p>`:""}</div>`}).join("")}
    <div class="card c8">${fig("Commerces en magasin, 2012 = 100",lineChart({labels:yrs,idx:true,series:[{n:t.label,v:ix(ser("r")),c:"var(--pink)"},{n:"Employeurs ("+t.label+")",v:ix(ser("e")),c:"var(--s1)"},{n:"France",v:ix(frs("r")),dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29"]),data:[["Année","Commerces","Employeurs","France (commerces)"],...yrs.map((y,k)=>[y,ser("r")[k],ser("e")[k],frs("r")[k]])]})}</div>
    <div class="card c6">${fig("Où sont les commerces ? Répartition 2012 et 2025",stackChart({cats:["Centre-ville","Zone périphérique","QPV","Ailleurs"],rows:[{l:"2012",v:[A.c_r12,A.p_r12,A.q_r12,A.r12-A.c_r12-A.p_r12-A.q_r12]},{l:"2025",v:[A.c_r25,A.p_r25,A.q_r25,A.r25-A.c_r25-A.p_r25-A.q_r25]},{l:"France 2025",v:[F.c_r25,F.p_r25,F.q_r25,F.r25-F.c_r25-F.p_r25-F.q_r25]}]}),{src:srcTxt(["N29","N30","N16"]),note:"Centre-ville mesuré dans les communes de 5 000 habitants ou plus seulement."})}</div>
    <div class="card c6">${fig("Secteurs d'activité des commerces, 2025",stackChart({cats:["Alimentaire généraliste","Alimentaire spécialisé","Carburants","Info-com","Équipement du foyer","Culture et loisirs","Autres (habillement, santé…)"],rows:[{l:t.label.slice(0,24),v:[A.n1,A.n2,A.n3,A.n4,A.n5,A.n6,A.n7]},{l:"France",v:[F.n1,F.n2,F.n3,F.n4,F.n5,F.n6,F.n7]}]}),{src:srcTxt(["N29"])})}</div>
@@ -708,7 +877,7 @@ function vAxes(){
   if(a.n===7)charts=`<div class="card c6">${byDim(INDM.evq,"reg")}</div><div class="card c6">${byDim(INDM.pqemp,"dens")}</div>`;
   const pol=D.contenus.politiques.filter(p=>p.axes.includes(a.n)); const mis=MISSING.filter(m=>m[0]===a.n);
   return `<div class="stack"><div class="subtabs">${AXES.map(x=>`<button type="button" data-ax="${x.n}" class="${x.n===S.axe?"on":""}">Axe ${x.n} · ${x.t}</button>`).join("")}</div>
-  <h2>Axe ${a.n} · ${a.t}</h2>
+  <div class="axh" style="--ac:${AXC[a.n-1]};margin:6px 0 4px"><span class="ic" style="width:48px;height:48px;border-radius:14px">${axIcon(a.n,24)}</span><div><span class="n">AXE ${a.n}</span><h2 style="font-size:clamp(1.5rem,3vw,2.1rem);font-weight:750;letter-spacing:-.02em">${a.t}</h2></div></div>
   <div class="grid"><div class="card c12"><h3>Chiffres nationaux sourcés</h3><p class="sub">Niveau de fiabilité : A = statistique publique ou source primaire, B = source secondaire ou relayée, C = estimation.</p><div class="kpis" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">${natCards(a.n)||'<p class="muted">Pas de chiffre national spécifique : voir les indicateurs territoriaux.</p>'}</div></div>
   <div class="card c12"><h3>Indicateurs territoriaux</h3><p class="sub">Valeurs pour la France ; chaque indicateur est disponible pour toutes les communes, intercommunalités, départements, régions et groupes.</p>${IND.filter(i=>i.axe===a.n).map(i=>indRow(i,T.fr,F)).join("")}</div>
   ${charts}
