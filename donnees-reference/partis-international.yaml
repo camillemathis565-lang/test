@@ -1,0 +1,47 @@
+# Référentiel des principaux partis étrangers pour la comparaison internationale (fonction 3)
+# STATUT : brouillon à vérifier ; identifiants Manifesto Project / CHES / ParlGov à renseigner à l'ingestion.
+# Liste non exhaustive : partis représentés au parlement national lors des dernières élections.
+
+a_verifier: true
+
+pays:
+  DE:
+    nom: Allemagne
+    partis: [CDU, CSU, SPD, "Bündnis 90/Die Grünen", FDP, AfD, "Die Linke", BSW]
+  GB:
+    nom: Royaume-Uni
+    partis: [Labour, Conservatives, "Liberal Democrats", "Reform UK", "Green Party", SNP, "Plaid Cymru"]
+  ES:
+    nom: Espagne
+    partis: [PSOE, PP, Vox, Sumar, Podemos, ERC, Junts, "EH Bildu", PNV]
+  IT:
+    nom: Italie
+    partis: ["Fratelli d'Italia", "Partito Democratico", "Movimento 5 Stelle", Lega, "Forza Italia", "Alleanza Verdi e Sinistra", Azione, "Italia Viva"]
+  NL:
+    nom: Pays-Bas
+    partis: [PVV, "GroenLinks-PvdA", VVD, NSC, D66, BBB, CDA, SP, PvdD, "ChristenUnie", SGP, Volt, JA21, DENK]
+  SE:
+    nom: Suède
+    partis: [Socialdemokraterna, Moderaterna, Sverigedemokraterna, Vänsterpartiet, Centerpartiet, Kristdemokraterna, Miljöpartiet, Liberalerna]
+  DK:
+    nom: Danemark
+    partis: [Socialdemokratiet, Venstre, Moderaterne, "Socialistisk Folkeparti", Danmarksdemokraterne, "Liberal Alliance", "Det Konservative Folkeparti", Enhedslisten, "Radikale Venstre", "Dansk Folkeparti", Alternativet]
+  US:
+    nom: États-Unis
+    partis: ["Democratic Party", "Republican Party"]
+    note: "Programmes de convention (party platforms) ; comparer aussi les programmes des candidats."
+  CA:
+    nom: Canada
+    partis: ["Liberal Party", "Conservative Party", NDP, "Bloc Québécois", "Green Party"]
+  KR:
+    nom: Corée du Sud
+    partis: ["Democratic Party of Korea", "People Power Party", "Rebuilding Korea Party", "Reform Party"]
+  JP:
+    nom: Japon
+    partis: [LDP, CDP, Komeito, "Nippon Ishin no Kai", DPFP, JCP, Reiwa Shinsengumi, Sanseito]
+  AU:
+    nom: Australie
+    partis: ["Australian Labor Party", "Liberal Party", "National Party", "Australian Greens", "One Nation"]
+
+# Avertissement affiché dans l'interface : les systèmes institutionnels (bipartisme, fédéralisme, régime parlementaire,
+# coalitions) diffèrent ; les proximités sont indicatives et calculées sur les textes programmatiques.

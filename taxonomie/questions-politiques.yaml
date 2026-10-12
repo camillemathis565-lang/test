@@ -1,0 +1,247 @@
+# Catalogue des questions de politique publique (enjeux comparables) — extrait v0.1
+# Formulations neutres, échelles et sens de lecture DESCRIPTIFS à valider par le comité méthodologique.
+# scale: ordinale_5 (-2..+2) | numerique | binaire | categorielle
+# direction: libellés utilisés pour qualifier une évolution (durcissement / assouplissement…) sans jugement.
+# dims: contribution aux dimensions d'alignement (publiée).
+
+version: "0.1"
+issues:
+
+  - code: RETRAITES.AGE_LEGAL
+    topic: TRA.RET.AGE
+    question: Quel âge légal de départ à la retraite ?
+    scale: numerique
+    unit: ans
+    direction: {pos: "âge plus tardif", neg: "âge plus précoce"}
+    dims: {economique: 1.0}
+
+  - code: RETRAITES.DUREE_COTISATION
+    topic: TRA.RET.DUREE
+    question: Quelle durée de cotisation pour une pension à taux plein ?
+    scale: numerique
+    unit: trimestres
+    direction: {pos: "durée plus longue", neg: "durée plus courte"}
+    dims: {economique: 1.0}
+
+  - code: RETRAITES.CAPITALISATION
+    topic: TRA.RET.SYS
+    question: Quelle place pour la capitalisation dans le système de retraite ?
+    scale: ordinale_5
+    labels: {-2: "Pas de capitalisation / suppression des dispositifs", -1: "Réduction", 0: "Statu quo", 1: "Développement facultatif", 2: "Pilier obligatoire"}
+    direction: {pos: "plus de capitalisation", neg: "moins de capitalisation"}
+    dims: {economique: 1.0}
+
+  - code: SALAIRES.SMIC
+    topic: TRA.SAL
+    question: Quelle évolution du SMIC au-delà de la revalorisation automatique ?
+    scale: numerique
+    unit: "EUR nets mensuels"
+    direction: {pos: "hausse plus forte", neg: "hausse plus faible"}
+    dims: {economique: 1.0}
+
+  - code: TEMPS_TRAVAIL.DUREE_LEGALE
+    topic: TRA.TPS
+    question: Quelle durée légale hebdomadaire du travail ?
+    scale: numerique
+    unit: heures
+    direction: {pos: "durée plus longue", neg: "durée plus courte"}
+    dims: {economique: 1.0}
+
+  - code: CHOMAGE.DUREE_INDEMNISATION
+    topic: TRA.CHO
+    question: Faut-il modifier la durée et les conditions d'indemnisation du chômage ?
+    scale: ordinale_5
+    labels: {-2: "Forte extension", -1: "Extension", 0: "Statu quo", 1: "Restriction", 2: "Forte restriction"}
+    direction: {pos: "conditions plus restrictives", neg: "conditions plus favorables"}
+    dims: {economique: 1.0}
+
+  - code: FISCALITE.PATRIMOINE
+    topic: ECO.FISC.PAT
+    question: Quelle imposition du patrimoine ?
+    scale: ordinale_5
+    labels: {-2: "Forte baisse / suppression", -1: "Baisse", 0: "Statu quo", 1: "Hausse ciblée", 2: "Impôt général sur la fortune élargi"}
+    direction: {pos: "imposition plus forte", neg: "imposition plus faible"}
+    dims: {economique: -1.0}
+
+  - code: FISCALITE.IS_TAUX
+    topic: ECO.FISC.IS
+    question: Quel taux normal de l'impôt sur les sociétés ?
+    scale: numerique
+    unit: "%"
+    direction: {pos: "taux plus élevé", neg: "taux plus faible"}
+    dims: {economique: -1.0}
+
+  - code: FISCALITE.TVA_PRODUITS_ESSENTIELS
+    topic: ECO.FISC.TVA
+    question: Faut-il baisser la TVA sur certains produits (énergie, alimentation) ?
+    scale: binaire
+    dims: {economique: 0.3}
+
+  - code: DETTE.TRAJECTOIRE
+    topic: ECO.DETTE
+    question: Quel objectif de déficit public à la fin du quinquennat ?
+    scale: numerique
+    unit: "% du PIB"
+    direction: {pos: "déficit plus élevé", neg: "déficit plus faible"}
+    dims: {economique: -0.5}
+
+  - code: ENERGIE.NUCLEAIRE
+    topic: ENR.NUC
+    question: Quelle place pour l'énergie nucléaire ?
+    scale: ordinale_5
+    labels: {-2: "Sortie programmée", -1: "Réduction de la part", 0: "Maintien du parc", 1: "Prolongation et quelques nouveaux réacteurs", 2: "Programme massif de nouveaux réacteurs"}
+    direction: {pos: "plus de nucléaire", neg: "moins de nucléaire"}
+    dims: {environnementale: 0.0, economique: 0.0}
+
+  - code: ENERGIE.EOLIEN
+    topic: ENR.REN
+    question: Quel développement de l'éolien (terrestre et en mer) ?
+    scale: ordinale_5
+    labels: {-2: "Moratoire / démantèlement", -1: "Ralentissement", 0: "Trajectoire actuelle", 1: "Accélération", 2: "Forte accélération"}
+    direction: {pos: "plus d'éolien", neg: "moins d'éolien"}
+    dims: {environnementale: 1.0}
+
+  - code: CLIMAT.OBJECTIF_NEUTRALITE
+    topic: ENV.CLIM
+    question: Quel horizon pour la neutralité carbone ?
+    scale: numerique
+    unit: année
+    direction: {pos: "horizon plus lointain", neg: "horizon plus proche"}
+    dims: {environnementale: -1.0}
+
+  - code: AGRICULTURE.PESTICIDES
+    topic: AGR.PHYTO
+    question: Quelle réglementation des pesticides ?
+    scale: ordinale_5
+    labels: {-2: "Assouplissement fort", -1: "Assouplissement", 0: "Statu quo", 1: "Renforcement", 2: "Sortie programmée"}
+    direction: {pos: "réglementation plus stricte", neg: "réglementation plus souple"}
+    dims: {environnementale: 1.0}
+
+  - code: IMMIGRATION.NIVEAU
+    topic: IMM.ENT
+    question: Quel objectif en matière de niveau d'immigration légale ?
+    scale: ordinale_5
+    labels: {-2: "Forte ouverture", -1: "Ouverture", 0: "Statu quo", 1: "Réduction", 2: "Forte réduction"}
+    direction: {pos: "plus restrictif", neg: "moins restrictif"}
+    dims: {societale: 1.0}
+
+  - code: IMMIGRATION.REGULARISATION
+    topic: IMM.TRAV
+    question: Faut-il faciliter la régularisation des travailleurs sans titre de séjour ?
+    scale: ordinale_5
+    labels: {-2: "Régularisation large", -1: "Facilitation ciblée", 0: "Statu quo", 1: "Restriction", 2: "Suppression des voies de régularisation"}
+    direction: {pos: "plus restrictif", neg: "moins restrictif"}
+    dims: {societale: 1.0}
+
+  - code: NATIONALITE.DROIT_DU_SOL
+    topic: IMM.NAT
+    question: Quel régime d'acquisition de la nationalité par la naissance en France ?
+    scale: categorielle
+    categories: ["extension", "statu_quo", "restriction", "suppression"]
+    direction: {pos: "plus restrictif", neg: "moins restrictif"}
+    dims: {societale: 1.0}
+
+  - code: SECURITE.EFFECTIFS
+    topic: SEC.POL
+    question: Combien de policiers et gendarmes supplémentaires ?
+    scale: numerique
+    unit: postes
+    dims: {societale: 0.3}
+
+  - code: JUSTICE.PEINES_PLANCHER
+    topic: JUS.PEN
+    question: Faut-il instaurer des peines minimales obligatoires ?
+    scale: binaire
+    direction: {pos: "approche plus répressive", neg: "approche moins répressive"}
+    dims: {societale: 1.0}
+
+  - code: DEFENSE.BUDGET
+    topic: DEF.BUD
+    question: Quel effort de défense en part du PIB ?
+    scale: numerique
+    unit: "% du PIB"
+    dims: {}
+
+  - code: DEFENSE.OTAN_COMMANDEMENT
+    topic: DEF.OTAN
+    question: Quelle relation avec le commandement intégré de l'OTAN ?
+    scale: categorielle
+    categories: ["renforcement", "statu_quo", "sortie_du_commandement_integre", "sortie_de_l_alliance"]
+    dims: {europeenne: 0.5}
+
+  - code: EUROPE.PRIMAUTE
+    topic: EUR.SOUV
+    question: Quelle articulation entre droit national et droit européen ?
+    scale: ordinale_5
+    labels: {-2: "Approfondissement fédéral", -1: "Intégration renforcée", 0: "Statu quo", 1: "Exceptions nationales", 2: "Primauté du droit national"}
+    direction: {pos: "plus de souveraineté nationale", neg: "plus d'intégration européenne"}
+    dims: {europeenne: -1.0}
+
+  - code: EUROPE.REGLES_BUDGETAIRES
+    topic: EUR.BUD
+    question: Faut-il réviser ou s'affranchir des règles budgétaires européennes ?
+    scale: ordinale_5
+    labels: {-2: "Renforcement", -1: "Respect strict", 0: "Respect avec flexibilités existantes", 1: "Révision demandée", 2: "Non-application unilatérale"}
+    dims: {europeenne: -0.7, economique: -0.3}
+
+  - code: COMMERCE.ACCORDS_LIBRE_ECHANGE
+    topic: CEX.ACC
+    question: Quelle position sur les accords de libre-échange en négociation ?
+    scale: ordinale_5
+    labels: {-2: "Rejet de principe", -1: "Rejet sauf clauses", 0: "Au cas par cas", 1: "Soutien avec clauses", 2: "Soutien"}
+    dims: {economique: 0.5}
+
+  - code: INSTITUTIONS.PROPORTIONNELLE
+    topic: INS.PARL
+    question: Faut-il introduire la proportionnelle aux élections législatives ?
+    scale: categorielle
+    categories: ["integrale", "partielle", "statu_quo"]
+    dims: {institutionnelle: 1.0}
+
+  - code: INSTITUTIONS.RIC
+    topic: INS.REF
+    question: Faut-il instaurer un référendum d'initiative citoyenne ?
+    scale: ordinale_5
+    labels: {-2: "Opposition", -1: "Réserve", 0: "Statu quo (RIP)", 1: "Assouplissement du RIP", 2: "RIC (législatif / abrogatoire / révocatoire)"}
+    dims: {institutionnelle: 1.0}
+
+  - code: INSTITUTIONS.CONSTITUTION
+    topic: INS.CONST
+    question: Faut-il changer de Constitution ?
+    scale: categorielle
+    categories: ["nouvelle_constitution", "revision_importante", "revisions_ciblees", "statu_quo"]
+    dims: {institutionnelle: 1.0}
+
+  - code: LOGEMENT.ENCADREMENT_LOYERS
+    topic: LOG.LOY
+    question: Quel encadrement des loyers ?
+    scale: ordinale_5
+    labels: {-2: "Suppression", -1: "Restriction du dispositif", 0: "Statu quo", 1: "Extension", 2: "Généralisation / blocage"}
+    dims: {economique: -1.0}
+
+  - code: SANTE.REGULATION_INSTALLATION
+    topic: SAN.VILLE
+    question: Faut-il réguler l'installation des médecins ?
+    scale: ordinale_5
+    labels: {-2: "Liberté totale", -1: "Incitations seules", 0: "Statu quo", 1: "Régulation partielle", 2: "Régulation contraignante"}
+    dims: {economique: -0.5}
+
+  - code: SANTE.FIN_DE_VIE
+    topic: SAN.FIN
+    question: Faut-il légaliser une aide à mourir ?
+    scale: ordinale_5
+    labels: {-2: "Opposition", -1: "Soins palliatifs seulement", 0: "Statu quo", 1: "Aide à mourir encadrée", 2: "Aide à mourir élargie"}
+    dims: {societale: -1.0}
+
+  - code: NUMERIQUE.REGULATION_IA
+    topic: NUM.IA
+    question: Quelle régulation de l'intelligence artificielle ?
+    scale: ordinale_5
+    labels: {-2: "Déréglementation", -1: "Allègement", 0: "Application du cadre européen", 1: "Renforcement", 2: "Moratoires / interdictions étendues"}
+    dims: {}
+
+  - code: EDUCATION.UNIFORME
+    topic: EDU.SEC
+    question: Faut-il généraliser une tenue commune à l'école ?
+    scale: binaire
+    dims: {societale: 0.3}

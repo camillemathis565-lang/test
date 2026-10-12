@@ -1,0 +1,308 @@
+# Taxonomie des politiques publiques — version 2026.10
+# Codes stables (ne jamais réutiliser un code supprimé). Extensible : ajouter des enfants sans modifier les parents.
+# cap   = code majeur du Comparative Agendas Project
+# marpor = catégories du Manifesto Project les plus pertinentes (indicatif ; le codage fin se fait par proposition)
+# Correspondances à valider par le comité méthodologique.
+
+version: "2026.10"
+themes:
+
+  - code: ECO
+    label: Économie
+    en: Economy
+    cap: 1
+    marpor: [per401, per403, per404, per410, per412, per413, per414]
+    children:
+      - {code: ECO.FISC, label: Fiscalité, en: Taxation, children: [
+          {code: ECO.FISC.IR, label: Impôt sur le revenu},
+          {code: ECO.FISC.IS, label: Impôt sur les sociétés},
+          {code: ECO.FISC.TVA, label: TVA et fiscalité indirecte},
+          {code: ECO.FISC.PAT, label: Fiscalité du patrimoine et des successions},
+          {code: ECO.FISC.LOC, label: Fiscalité locale},
+          {code: ECO.FISC.PROD, label: Impôts de production},
+          {code: ECO.FISC.FRAUDE, label: Fraude et évasion fiscales},
+          {code: ECO.FISC.ENV, label: Fiscalité environnementale}]}
+      - {code: ECO.DETTE, label: Dette publique et déficit, en: Public debt}
+      - {code: ECO.DEP, label: Dépenses publiques, en: Public spending}
+      - {code: ECO.IND, label: Industrie et réindustrialisation, en: Industry}
+      - {code: ECO.PME, label: PME, artisanat, entrepreneuriat, en: SMEs}
+      - {code: ECO.COM, label: Commerce intérieur, en: Domestic trade}
+      - {code: ECO.INNOV, label: Innovation, en: Innovation}
+      - {code: ECO.CONC, label: Concurrence et régulation des marchés, en: Competition}
+      - {code: ECO.PA, label: Pouvoir d'achat et prix, en: Purchasing power}
+      - {code: ECO.FIN, label: Banques, finance, épargne, en: Finance}
+      - {code: ECO.ETAT, label: État actionnaire, nationalisations, privatisations, en: State ownership}
+      - {code: ECO.CONSO, label: Protection des consommateurs, en: Consumer protection}
+
+  - code: TRA
+    label: Travail et protection sociale
+    en: Labour and social protection
+    cap: 5
+    marpor: [per504, per505, per701, per702]
+    children:
+      - {code: TRA.EMP, label: Emploi}
+      - {code: TRA.CHO, label: Chômage et assurance chômage}
+      - {code: TRA.TPS, label: Temps de travail}
+      - {code: TRA.DIAL, label: Dialogue social, syndicats}
+      - {code: TRA.RET, label: Retraites, cap: 13, children: [
+          {code: TRA.RET.AGE, label: Âge de départ},
+          {code: TRA.RET.DUREE, label: Durée de cotisation},
+          {code: TRA.RET.NIV, label: Niveau des pensions},
+          {code: TRA.RET.SYS, label: Architecture du système (régimes, points, capitalisation)},
+          {code: TRA.RET.PEN, label: Pénibilité et carrières longues}]}
+      - {code: TRA.SAL, label: Salaires, SMIC, partage de la valeur}
+      - {code: TRA.COND, label: Conditions et santé au travail}
+      - {code: TRA.MIN, label: Minima sociaux, RSA, pauvreté, cap: 13}
+      - {code: TRA.FAM, label: Politique familiale, cap: 13}
+      - {code: TRA.HAND, label: Handicap et autonomie, cap: 13}
+
+  - code: EDU
+    label: Éducation et recherche
+    en: Education and research
+    cap: 6
+    marpor: [per506, per507]
+    children:
+      - {code: EDU.PRIM, label: Primaire et maternelle}
+      - {code: EDU.SEC, label: Collège et lycée}
+      - {code: EDU.SUP, label: Enseignement supérieur}
+      - {code: EDU.RECH, label: Recherche, cap: 17}
+      - {code: EDU.APP, label: Apprentissage et formation professionnelle}
+      - {code: EDU.ENS, label: Enseignants (recrutement, rémunération)}
+      - {code: EDU.PRIV, label: Enseignement privé et liberté scolaire}
+      - {code: EDU.LAIC, label: Laïcité à l'école}
+
+  - code: SAN
+    label: Santé
+    en: Health
+    cap: 3
+    marpor: [per504]
+    children:
+      - {code: SAN.HOP, label: Hôpital}
+      - {code: SAN.VILLE, label: Médecine de ville, déserts médicaux}
+      - {code: SAN.PREV, label: Prévention, santé publique}
+      - {code: SAN.AM, label: Assurance maladie, complémentaires}
+      - {code: SAN.MED, label: Médicament, industrie pharmaceutique}
+      - {code: SAN.PSY, label: Santé mentale}
+      - {code: SAN.FIN, label: Fin de vie}
+      - {code: SAN.DEP, label: Grand âge, EHPAD}
+
+  - code: ENV
+    label: Environnement
+    en: Environment
+    cap: 7
+    marpor: [per501, per416]
+    children:
+      - {code: ENV.BIO, label: Biodiversité}
+      - {code: ENV.CLIM, label: Climat (atténuation, adaptation)}
+      - {code: ENV.EAU, label: Eau}
+      - {code: ENV.POLL, label: Pollutions, santé environnementale}
+      - {code: ENV.DECH, label: Déchets, économie circulaire}
+      - {code: ENV.ANIM, label: Condition animale}
+
+  - code: ENR
+    label: Énergie
+    en: Energy
+    cap: 8
+    children:
+      - {code: ENR.NUC, label: Nucléaire}
+      - {code: ENR.REN, label: Énergies renouvelables}
+      - {code: ENR.FOS, label: Énergies fossiles}
+      - {code: ENR.PRIX, label: Prix de l'énergie, marché européen de l'électricité}
+      - {code: ENR.SOBR, label: Sobriété, efficacité, rénovation énergétique}
+
+  - code: AGR
+    label: Agriculture et alimentation
+    en: Agriculture
+    cap: 4
+    marpor: [per703]
+    children:
+      - {code: AGR.REV, label: Revenu agricole}
+      - {code: AGR.PAC, label: Politique agricole commune}
+      - {code: AGR.PHYTO, label: Pesticides et pratiques agricoles}
+      - {code: AGR.ALIM, label: Alimentation, souveraineté alimentaire}
+      - {code: AGR.PECHE, label: Pêche}
+      - {code: AGR.FONC, label: Foncier agricole, installation}
+
+  - code: MOB
+    label: Transports et mobilité
+    en: Transport
+    cap: 10
+    children:
+      - {code: MOB.FER, label: Ferroviaire}
+      - {code: MOB.ROUT, label: Route, automobile, carburants}
+      - {code: MOB.URB, label: Transports urbains}
+      - {code: MOB.AER, label: Aérien}
+      - {code: MOB.FRET, label: Fret et logistique}
+
+  - code: IMM
+    label: Immigration et asile
+    en: Immigration
+    cap: 9
+    marpor: [per601, per602, per607, per608]
+    children:
+      - {code: IMM.ENT, label: Entrées, visas, titres de séjour}
+      - {code: IMM.ASILE, label: Asile}
+      - {code: IMM.ELOIG, label: Éloignements}
+      - {code: IMM.INTEG, label: Intégration, langue}
+      - {code: IMM.NAT, label: Nationalité, naturalisation}
+      - {code: IMM.DROITS, label: Accès des étrangers aux prestations}
+      - {code: IMM.TRAV, label: Immigration de travail}
+      - {code: IMM.UE, label: Politique migratoire européenne}
+
+  - code: SEC
+    label: Sécurité
+    en: Security
+    cap: 12
+    marpor: [per605]
+    children:
+      - {code: SEC.POL, label: Police, gendarmerie}
+      - {code: SEC.MUN, label: Polices municipales}
+      - {code: SEC.TERR, label: Terrorisme}
+      - {code: SEC.DROG, label: Drogues}
+      - {code: SEC.ROUT, label: Sécurité routière}
+      - {code: SEC.CIV, label: Sécurité civile}
+      - {code: SEC.VIDEO, label: Surveillance, libertés publiques}
+
+  - code: JUS
+    label: Justice
+    en: Justice
+    cap: 12
+    children:
+      - {code: JUS.PEN, label: Justice pénale, peines}
+      - {code: JUS.PRIS, label: Prisons}
+      - {code: JUS.MIN, label: Justice des mineurs}
+      - {code: JUS.CIV, label: Justice civile, délais}
+      - {code: JUS.MOY, label: Moyens de la justice}
+      - {code: JUS.LIB, label: Droits fondamentaux, libertés}
+
+  - code: DEF
+    label: Défense
+    en: Defence
+    cap: 16
+    marpor: [per104, per105]
+    children:
+      - {code: DEF.BUD, label: Budget et programmation militaire}
+      - {code: DEF.ARM, label: Armées, format, service national}
+      - {code: DEF.NUC, label: Dissuasion nucléaire}
+      - {code: DEF.OTAN, label: OTAN, alliances}
+      - {code: DEF.EUR, label: Défense européenne}
+      - {code: DEF.IND, label: Industrie de défense, exportations d'armement}
+
+  - code: EUR
+    label: Europe
+    en: Europe
+    cap: 19
+    marpor: [per108, per110]
+    children:
+      - {code: EUR.INST, label: Institutions et traités européens}
+      - {code: EUR.BUD, label: Budget européen, règles budgétaires}
+      - {code: EUR.ELARG, label: Élargissement}
+      - {code: EUR.SOUV, label: Souveraineté, primauté du droit européen}
+      - {code: EUR.EURO, label: Euro, politique monétaire}
+
+  - code: INS
+    label: Institutions et démocratie
+    en: Institutions
+    cap: 20
+    marpor: [per202, per301, per302, per201]
+    children:
+      - {code: INS.CONST, label: Constitution, Ve / VIe République}
+      - {code: INS.PARL, label: Parlement, mode de scrutin, proportionnelle}
+      - {code: INS.REF, label: Référendum, démocratie participative}
+      - {code: INS.DEC, label: Décentralisation, collectivités}
+      - {code: INS.ETH, label: Éthique, transparence, financement de la vie politique}
+      - {code: INS.FP, label: Fonction publique, administration}
+      - {code: INS.LAIC, label: Laïcité, cultes}
+
+  - code: CUL
+    label: Culture, médias, sport
+    en: Culture
+    cap: 23
+    children:
+      - {code: CUL.CREA, label: Création, spectacle vivant}
+      - {code: CUL.PAT, label: Patrimoine}
+      - {code: CUL.MED, label: Médias, audiovisuel public}
+      - {code: CUL.LANG, label: Langue française, langues régionales}
+      - {code: CUL.SPORT, label: Sport}
+      - {code: CUL.JEUN, label: Jeunesse, vie associative}
+
+  - code: LOG
+    label: Logement et urbanisme
+    en: Housing
+    cap: 14
+    children:
+      - {code: LOG.SOC, label: Logement social}
+      - {code: LOG.LOY, label: Loyers, encadrement}
+      - {code: LOG.ACC, label: Accession à la propriété}
+      - {code: LOG.RENO, label: Rénovation, passoires thermiques}
+      - {code: LOG.URB, label: Urbanisme, artificialisation des sols}
+      - {code: LOG.SDF, label: Sans-abrisme}
+
+  - code: NUM
+    label: Numérique
+    en: Digital
+    cap: 17
+    children:
+      - {code: NUM.IA, label: Intelligence artificielle}
+      - {code: NUM.DATA, label: Données personnelles, vie privée}
+      - {code: NUM.PLAT, label: Régulation des plateformes}
+      - {code: NUM.SOUV, label: Souveraineté numérique, cloud}
+      - {code: NUM.INFRA, label: Infrastructures, fibre, couverture mobile}
+      - {code: NUM.INCL, label: Inclusion numérique}
+      - {code: NUM.CYBER, label: Cybersécurité}
+
+  - code: CEX
+    label: Commerce extérieur
+    en: Foreign trade
+    cap: 18
+    children:
+      - {code: CEX.ACC, label: Accords de libre-échange}
+      - {code: CEX.PROT, label: Protectionnisme, droits de douane}
+      - {code: CEX.REL, label: Relocalisation, chaînes d'approvisionnement}
+
+  - code: RUR
+    label: Ruralité et aménagement du territoire
+    en: Rural affairs
+    cap: 21
+    children:
+      - {code: RUR.SERV, label: Services publics de proximité}
+      - {code: RUR.MOB, label: Mobilité rurale}
+      - {code: RUR.REV, label: Revitalisation, petites villes}
+
+  - code: OM
+    label: Outre-mer
+    en: Overseas territories
+    children:
+      - {code: OM.VIE, label: Vie chère}
+      - {code: OM.STAT, label: Statuts institutionnels}
+      - {code: OM.NC, label: Nouvelle-Calédonie}
+      - {code: OM.MAY, label: Mayotte}
+      - {code: OM.ENV, label: Environnement et risques}
+
+  - code: INT
+    label: Politique étrangère
+    en: Foreign policy
+    cap: 19
+    children:
+      - {code: INT.UKR, label: Russie, Ukraine}
+      - {code: INT.MO, label: Proche et Moyen-Orient}
+      - {code: INT.AFR, label: Afrique}
+      - {code: INT.USA, label: Relations transatlantiques}
+      - {code: INT.CHN, label: Chine, Indo-Pacifique}
+      - {code: INT.AIDE, label: Aide publique au développement}
+      - {code: INT.MULTI, label: Multilatéralisme, ONU}
+
+  - code: SOC
+    label: Société et égalité
+    en: Society and equality
+    cap: 2
+    marpor: [per503, per603, per604]
+    children:
+      - {code: SOC.EGAL, label: Égalité femmes-hommes}
+      - {code: SOC.DISC, label: Discriminations, racisme, antisémitisme}
+      - {code: SOC.LGBT, label: Droits des personnes LGBT+}
+      - {code: SOC.BIOE, label: Bioéthique, PMA, GPA}
+      - {code: SOC.QUART, label: Quartiers prioritaires, politique de la ville}
+
+# Pour ajouter un sujet : ajouter un enfant avec un nouveau code, renseigner `since: "<version>"`.
+# Pour déprécier : `deprecated: "<version>"` + `replaced_by: <code>` ; les propositions existantes sont reclassées par le pipeline.

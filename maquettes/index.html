@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programmes 2027 — prototype</title>
+<style>
+:root{
+  --bg:#faf7f2; --surface:#ffffff; --ink:#1d1d1b; --muted:#6b6862; --line:#e3ded5; --accent:#0f5e78;
+  --neg2:#8c510a; --neg1:#d8b365; --zero:#e9e5dc; --pos1:#5ab4ac; --pos2:#01665e; --absent:#f1eee8;
+  --ok:#2f6f3e; --warn:#9a6b00;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181a; --surface:#1f2225; --ink:#ece9e3; --muted:#a39f97; --line:#34383c; --accent:#6cc0dc;
+    --zero:#3a3d40; --absent:#25282b;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181a; --surface:#1f2225; --ink:#ece9e3; --muted:#a39f97; --line:#34383c; --accent:#6cc0dc;
+  --zero:#3a3d40; --absent:#25282b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+header{border-bottom:2px solid var(--ink);background:var(--surface)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0}
+.brand{font-family:var(--serif);font-size:24px;font-weight:700;letter-spacing:-.01em}
+.brand small{display:block;font-family:var(--sans);font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 10px;font:inherit;color:var(--muted);cursor:pointer}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.banner{background:#fff3cd;color:#5c4400;font-size:13px;padding:6px 16px;text-align:center}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .banner{background:#3a3220;color:#f0d58a}}
+main{padding:24px 0 64px}
+h1,h2,h3{font-family:var(--serif);letter-spacing:-.01em;margin:0 0 8px}
+h1{font-size:34px;line-height:1.15}
+h2{font-size:22px;margin-top:28px}
+.lede{color:var(--muted);max-width:720px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:16px}
+.grid{display:grid;gap:16px}
+@media(min-width:820px){.g2{grid-template-columns:2fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+.search{display:flex;gap:8px;margin:16px 0}
+.search input{flex:1;min-width:0;padding:12px 14px;border:1px solid var(--line);border-radius:4px;font:inherit;background:var(--surface);color:var(--ink)}
+.btn{padding:10px 14px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:4px;font:inherit;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:5px 10px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);font-weight:600}
+.meta{font-size:12px;color:var(--muted)}
+.tag{display:inline-block;font-size:11px;padding:1px 6px;border:1px solid var(--line);border-radius:3px;color:var(--muted);margin-right:4px;white-space:nowrap}
+.tag.ok{color:var(--ok);border-color:currentColor}
+.tag.warn{color:var(--warn);border-color:currentColor}
+.cite{display:inline-block;font-size:11px;font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 4px;margin-left:3px;cursor:pointer;background:none;font-family:var(--sans);line-height:1.5}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+td.absent{background:repeating-linear-gradient(45deg,var(--absent),var(--absent) 6px,transparent 6px,transparent 12px);color:var(--muted);font-size:12px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{border:0;background:var(--surface);padding:6px 10px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.matrix td{text-align:center;font-size:12px;min-width:70px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-2px;margin-right:4px;border:1px solid var(--line)}
+.cards{display:grid;gap:12px}
+@media(min-width:700px){.cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}}
+.card h3{font-size:18px}
+.card ul{margin:0;padding-left:18px}
+.summary4{display:grid;gap:12px}
+@media(min-width:820px){.summary4{grid-template-columns:repeat(4,1fr)}}
+.summary4 .panel h3{font-family:var(--sans);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.big{font-family:var(--serif);font-size:30px;font-weight:700}
+.tooltip{position:fixed;z-index:10;max-width:360px;background:var(--ink);color:var(--bg);padding:10px 12px;border-radius:4px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none}
+.tooltip q{font-family:var(--serif);font-style:italic}
+.timeline svg, .radar svg{width:100%;height:auto;display:block}
+.chat{display:flex;flex-direction:column;gap:12px}
+.msg{padding:12px 14px;border-radius:4px;border:1px solid var(--line);background:var(--surface)}
+.msg.user{align-self:flex-end;background:transparent;max-width:80%}
+.sources{border-top:1px solid var(--line);margin-top:10px;padding-top:8px;font-size:13px}
+.hidden{display:none}
+footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<div class="banner" role="note">Prototype de maquette — <strong>partis anonymisés et données entièrement fictives</strong>. Aucune position n'est attribuée à un parti réel.</div>
+<header>
+  <div class="wrap top">
+    <div class="brand">Programmes 2027<small>Comparer · Sourcer · Comprendre</small></div>
+    <nav role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="accueil" aria-selected="true">Accueil</button>
+      <button role="tab" data-tab="comparer" aria-selected="false">Comparer</button>
+      <button role="tab" data-tab="historique" aria-selected="false">Historique</button>
+      <button role="tab" data-tab="alignement" aria-selected="false">Alignement</button>
+      <button role="tab" data-tab="assistant" aria-selected="false">Assistant</button>
+      <button id="themeBtn" aria-label="Basculer clair / sombre">Clair / sombre</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ACCUEIL -->
+<section id="tab-accueil">
+  <h1>Comparez les programmes pour 2027, source par source.</h1>
+  <p class="lede">Chaque proposition est reliée à sa citation exacte, à son document original et à une archive horodatée. Aucun classement, aucune consigne de vote.</p>
+  <form class="search" onsubmit="event.preventDefault();go('assistant');ask(document.getElementById('q').value)">
+    <input id="q" aria-label="Question" value="Qui souhaite modifier l'âge légal de départ à la retraite ?">
+    <button class="btn">Chercher</button>
+  </form>
+  <p class="meta">Données (fictives) au 12/01/2027 · 6 partis · 214 propositions · 391 sources · 96 % vérifiées</p>
+  <h2>Thèmes</h2>
+  <div class="chips" id="homeThemes"></div>
+  <h2>Partis <span class="meta">— ordre alphabétique</span></h2>
+  <div class="cards" id="homeParties"></div>
+</section>
+
+<!-- COMPARER -->
+<section id="tab-comparer" class="hidden">
+  <h1>Comparer · Retraites</h1>
+  <div class="controls">
+    <div class="chips" id="partyPicker" aria-label="Partis sélectionnés"></div>
+  </div>
+  <div class="controls">
+    <div class="seg" id="viewSeg">
+      <button data-view="table" aria-pressed="true">Tableau</button>
+      <button data-view="matrix" aria-pressed="false">Matrice</button>
+      <button data-view="cards" aria-pressed="false">Cartes</button>
+    </div>
+    <label class="meta"><input type="checkbox" id="shuffle"> Ordre aléatoire des partis</label>
+  </div>
+  <div id="view" class="panel scroll"></div>
+  <div class="summary4" style="margin-top:16px" id="summary"></div>
+  <h2>Contexte</h2>
+  <div class="grid g3">
+    <div class="panel"><div class="meta">Indicateur (fictif) · Producteur X · 2025</div><div class="big">62,8 ans</div>Âge moyen effectif de départ <button class="cite" data-c="ctx1">S</button></div>
+    <div class="panel"><div class="meta">Indicateur (fictif) · Producteur Y · 2025</div><div class="big">−0,4 % PIB</div>Solde du système de retraite <button class="cite" data-c="ctx2">S</button></div>
+    <div class="panel"><div class="meta">Évaluations publiées</div><div class="big">3</div>Chiffrages tiers disponibles sur ce thème — affichés à côté des coûts annoncés.</div>
+  </div>
+</section>
+
+<!-- HISTORIQUE -->
+<section id="tab-historique" class="hidden">
+  <h1>Parti A — évolution 2002 → 2027</h1>
+  <p class="lede">Lignée : « Mouvement X » (2002–2016) → Parti A. Chaque point renvoie aux deux extraits comparés. Les qualifications (durcissement, assouplissement…) sont descriptives et doublement validées.</p>
+  <div class="panel timeline" id="timeline"></div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--accent)"></span>Proposition présente</span>
+    <span><span class="sw" style="background:transparent"></span>○ Non reprise au programme</span>
+    <span>↑ durcissement · ↓ assouplissement · ⇄ changement de position · + nouvelle</span>
+  </div>
+</section>
+
+<!-- ALIGNEMENT -->
+<section id="tab-alignement" class="hidden">
+  <h1>Alignement idéologique</h1>
+  <p class="lede">Positions estimées par un modèle de réponse à l'item sur les enjeux validés, avec intervalles. Méthode et code publiés. Les valeurs ci-dessous sont fictives.</p>
+  <div class="grid g2">
+    <div class="panel radar" id="radar"></div>
+    <div class="panel">
+      <h3>Proximité avec Parti A</h3>
+      <table style="min-width:0" id="prox"></table>
+      <p class="meta">Score combiné (positions 60 %, contenu 25 %, saillance 15 %) · intervalle à 90 % · n = enjeux communs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ASSISTANT -->
+<section id="tab-assistant" class="hidden">
+  <h1>Assistant</h1>
+  <p class="lede">Répond uniquement à partir des sources indexées. Chaque phrase est sourcée ; les phrases non soutenues par une source sont supprimées.</p>
+  <div class="chat" id="chat"></div>
+  <form class="search" onsubmit="event.preventDefault();ask(document.getElementById('q2').value)">
+    <input id="q2" aria-label="Votre question" placeholder="Posez une question…">
+    <button class="btn">Envoyer</button>
+  </form>
+  <div class="chips">
+    <button class="chip" onclick="ask('Pour qui dois-je voter ?')">Pour qui dois-je voter ?</button>
+    <button class="chip" onclick="ask('Qui souhaite modifier l\'âge légal de départ à la retraite ?')">Âge légal</button>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Prototype · Méthode · Journal des corrections · Financements · Droit de réponse · Données ouvertes (ODbL)</div></footer>
+<div class="tooltip" id="tip" role="tooltip"></div>
+
+<script>
+const PARTIES=["Parti A","Parti B","Parti C","Parti D","Parti E","Parti F"];
+const THEMES=["Économie","Travail","Retraites","Santé","Éducation","Environnement","Énergie","Immigration","Sécurité","Justice","Défense","Europe","Institutions","Logement","Numérique","Culture","Ruralité","Outre-mer","Politique étrangère"];
+// Données fictives : enjeux × partis → {t: texte, p: position -2..2, s: statut, c: id citation}
+const ISSUES=[
+ {k:"Âge légal de départ", d:{"Parti A":{t:"62 ans",p:-1,s:"mesure détaillée",c:"a1"},"Parti B":{t:"64 ans (maintien)",p:0,s:"prise de position",c:"b1"},"Parti C":{t:"60 ans",p:-2,s:"promesse",c:"c1"},"Parti D":{t:"65 ans",p:1,s:"proposition",c:"d1"},"Parti F":{t:"62 ans, carrières longues 60",p:-1,s:"mesure détaillée",c:"f1"}}},
+ {k:"Durée de cotisation", d:{"Parti A":{t:"42 annuités",p:-1,s:"mesure détaillée",c:"a2"},"Parti C":{t:"40 annuités",p:-2,s:"promesse",c:"c2"},"Parti D":{t:"43 annuités",p:0,s:"proposition",c:"d2"}}},
+ {k:"Système par points", d:{"Parti B":{t:"Étude d'un système universel",p:1,s:"objectif",c:"b3"},"Parti E":{t:"Système par points",p:2,s:"proposition",c:"e3"},"Parti C":{t:"Opposition",p:-2,s:"critique d'une autre mesure",c:"c3"}}},
+ {k:"Pension minimale", d:{"Parti A":{t:"1 200 € net",p:-1,s:"promesse",c:"a4"},"Parti B":{t:"1 200 € net",p:-1,s:"proposition",c:"b4"},"Parti C":{t:"Niveau du SMIC",p:-2,s:"promesse",c:"c4"},"Parti E":{t:"1 100 €",p:0,s:"proposition",c:"e4"},"Parti F":{t:"1 200 €",p:-1,s:"proposition",c:"f4"}}},
+ {k:"Capitalisation complémentaire", d:{"Parti D":{t:"Pilier obligatoire",p:2,s:"proposition",c:"d5"},"Parti E":{t:"Incitations fiscales",p:1,s:"objectif",c:"e5"}}}
+];
+const CITES={ctx1:{q:"Valeur fictive de démonstration.",m:"Producteur X · série Y · millésime 2025"},ctx2:{q:"Valeur fictive de démonstration.",m:"Producteur Y · rapport annuel 2025"}};
+ISSUES.forEach(i=>Object.entries(i.d).forEach(([p,v])=>CITES[v.c]={q:"Citation fictive de démonstration attribuée à "+p+" sur « "+i.k.toLowerCase()+" ».",m:p+" · Programme 2027, p. "+(10+v.c.charCodeAt(1)%40)+" · 18/01/2027 · ✓ Vérifié"}));
+
+let sel=["Parti A","Parti B","Parti C","Parti D"], view="table";
+const $=s=>document.querySelector(s);
+const order=()=>{let s=[...sel].sort();if($("#shuffle").checked){s=s.map(v=>[Math.random(),v]).sort().map(x=>x[1])}return s};
+const col=p=>p==null?"var(--absent)":["var(--neg2)","var(--neg1)","var(--zero)","var(--pos1)","var(--pos2)"][p+2];
+const ink=p=>Math.abs(p)===2?"#fff":"inherit";
+
+function go(t){document.querySelectorAll("nav [role=tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));document.querySelectorAll("main>section").forEach(s=>s.classList.toggle("hidden",s.id!=="tab-"+t))}
+document.querySelectorAll("nav [role=tab]").forEach(b=>b.onclick=()=>go(b.dataset.tab));
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark"};
+
+$("#homeThemes").innerHTML=THEMES.map(t=>`<button class="chip" onclick="go('comparer')">${t}</button>`).join("");
+$("#homeParties").innerHTML=PARTIES.map((p,i)=>`<div class="panel card"><h3>${p}</h3><div class="meta">Candidat·e ${String.fromCharCode(65+i)} · ${30+i*7} propositions · ${55+i*9} sources</div><p><span class="tag ok">programme publié</span><span class="tag">couverture ${92+i%4} %</span></p></div>`).join("");
+
+function picker(){ $("#partyPicker").innerHTML=PARTIES.map(p=>`<button class="chip" aria-pressed="${sel.includes(p)}" data-p="${p}">${p}</button>`).join("");
+  document.querySelectorAll("#partyPicker .chip").forEach(b=>b.onclick=()=>{const p=b.dataset.p;sel=sel.includes(p)?sel.filter(x=>x!==p):[...sel,p];if(!sel.length)sel=[p];render()});}
+function cell(v){return v?`${v.t}<button class="cite" data-c="${v.c}">S</button><br><span class="tag">${v.s}</span>`:""}
+function render(){
+  picker(); const ps=order(); let h="";
+  if(view==="table"){
+    h=`<table><thead><tr><th>Enjeu</th>${ps.map(p=>`<th>${p}</th>`).join("")}</tr></thead><tbody>`+
+      ISSUES.map(i=>`<tr><td><strong>${i.k}</strong></td>${ps.map(p=>i.d[p]?`<td>${cell(i.d[p])}</td>`:`<td class="absent">Aucune proposition trouvée dans les sources indexées</td>`).join("")}</tr>`).join("")+`</tbody></table>`;
+  } else if(view==="matrix"){
+    h=`<table class="matrix"><thead><tr><th>Enjeu</th>${ps.map(p=>`<th>${p}</th>`).join("")}</tr></thead><tbody>`+
+      ISSUES.map(i=>`<tr><td style="text-align:left">${i.k}</td>${ps.map(p=>{const v=i.d[p];return v?`<td style="background:${col(v.p)};color:${ink(v.p)}">${v.t}<button class="cite" data-c="${v.c}" style="background:var(--surface)">S</button></td>`:`<td class="absent">—</td>`}).join("")}</tr>`).join("")+`</tbody></table>
+      <div class="legend"><span><span class="sw" style="background:var(--neg2)"></span>−2</span><span><span class="sw" style="background:var(--neg1)"></span>−1</span><span><span class="sw" style="background:var(--zero)"></span>0 / statu quo</span><span><span class="sw" style="background:var(--pos1)"></span>+1</span><span><span class="sw" style="background:var(--pos2)"></span>+2</span><span>Échelle propre à chaque enjeu, libellés neutres définis par le comité méthodologique.</span></div>`;
+  } else {
+    h=`<div class="cards">`+ps.map(p=>`<div class="panel card"><h3>${p}</h3><ul>${ISSUES.filter(i=>i.d[p]).map(i=>`<li><strong>${i.k}</strong> : ${cell(i.d[p])}</li>`).join("")||"<li class='meta'>Aucune proposition trouvée</li>"}</ul></div>`).join("")+`</div>`;
+  }
+  $("#view").innerHTML=h;
+  // Synthèse
+  const agree=[],div=[],uniq=[],abs=[];
+  ISSUES.forEach(i=>{const present=ps.filter(p=>i.d[p]);const missing=ps.filter(p=>!i.d[p]);
+    if(present.length===1)uniq.push(`${present[0]} — ${i.k}`);
+    missing.forEach(p=>abs.push(`${p} — ${i.k}`));
+    for(let a=0;a<present.length;a++)for(let b=a+1;b<present.length;b++){const x=i.d[present[a]].p,y=i.d[present[b]].p;
+      if(x===y)agree.push(`${present[a]} & ${present[b]} — ${i.k}`); else if(Math.abs(x-y)>=2||x*y<0)div.push(`${present[a]} / ${present[b]} — ${i.k}`)}});
+  const box=(t,arr)=>`<div class="panel"><h3>${t}</h3><div class="big">${arr.length}</div><ul class="meta" style="padding-left:16px;margin:4px 0 0">${arr.slice(0,4).map(x=>`<li>${x}</li>`).join("")}${arr.length>4?"<li>…</li>":""}</ul></div>`;
+  $("#summary").innerHTML=box("Accords",agree)+box("Divergences",div)+box("Propositions uniques",uniq)+box("Sujets absents",abs);
+}
+document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll("#viewSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));render()});
+$("#shuffle").onchange=render;
+render();
+
+// Infobulles de citation
+const tip=$("#tip");
+document.addEventListener("mouseover",e=>{const c=e.target.closest(".cite");if(!c){tip.style.display="none";return}const d=CITES[c.dataset.c];if(!d)return;
+  tip.innerHTML=`<q>${d.q}</q><div style="margin-top:6px;opacity:.8">${d.m}</div><div style="margin-top:6px;opacity:.8">Ouvrir la source ↗ · Archive ↗</div>`;
+  const r=c.getBoundingClientRect();tip.style.display="block";tip.style.left=Math.max(8,Math.min(r.left,innerWidth-370))+"px";tip.style.top=(r.bottom+6)+"px"});
+document.addEventListener("click",e=>{const c=e.target.closest(".cite");if(c)alert("Ouverture du document original surligné (prototype).\n\n"+(CITES[c.dataset.c]||{}).m)});
+
+// Frise historique (SVG)
+(function(){
+  const years=[2002,2007,2012,2017,2022,2027];
+  const rows=[
+    {k:"Âge légal",v:["60","60","60","62","62","62"],m:["","","","↑","",""]},
+    {k:"Nucléaire",v:[null,"●","●","●","●","●"],m:["","+","","","⇄",""]},
+    {k:"Monnaie / UE",v:["●","●","○","○","○","○"],m:["","","","","",""]},
+    {k:"Pension minimale",v:[null,null,"●","●","●","●"],m:["","","+","","↓",""]}
+  ];
+  const W=900,H=60+rows.length*60,x0=170,dx=(W-x0-40)/(years.length-1);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Frise fictive de l'évolution du Parti A">`;
+  years.forEach((y,i)=>s+=`<text x="${x0+i*dx}" y="24" text-anchor="middle" font-size="13" fill="currentColor" opacity=".6">${y}</text>`);
+  rows.forEach((r,j)=>{const y=60+j*60;s+=`<text x="0" y="${y+5}" font-size="14" fill="currentColor">${r.k}</text>`;
+    s+=`<line x1="${x0}" x2="${x0+(years.length-1)*dx}" y1="${y}" y2="${y}" stroke="currentColor" opacity=".15"/>`;
+    r.v.forEach((v,i)=>{if(v==null)return;const cx=x0+i*dx;const hollow=v==="○";
+      s+=`<circle cx="${cx}" cy="${y}" r="9" fill="${hollow?"none":"var(--accent)"}" stroke="var(--accent)" stroke-width="2"><title>${r.k} ${years[i]} — sources (fictives)</title></circle>`;
+      if(v!=="●"&&v!=="○")s+=`<text x="${cx}" y="${y+28}" text-anchor="middle" font-size="12" fill="currentColor" opacity=".7">${v}</text>`;
+      if(r.m[i])s+=`<text x="${cx+14}" y="${y-10}" font-size="15" fill="var(--warn)">${r.m[i]}</text>`;})});
+  $("#timeline").innerHTML=s+"</svg>";
+})();
+
+// Radar (SVG) + proximité
+(function(){
+  const dims=["Économique","Sociétale","Environnementale","Européenne","Institutionnelle","Idéologique"];
+  const data={"Parti A":[-.5,-.2,.4,.1,.3,-.3],"Parti D":[.6,.5,-.2,-.4,-.1,.5],"Parti E":[.3,-.3,.2,.7,0,.1]};
+  const styles={"Parti A":"var(--accent)","Parti D":"var(--neg2)","Parti E":"var(--pos2)"};
+  const S=420,c=S/2,R=150;const pt=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/dims.length,r=R*(v+1)/2;return[c+r*Math.cos(a),c+r*Math.sin(a)]};
+  let s=`<svg viewBox="0 0 ${S} ${S}" role="img" aria-label="Radar idéologique fictif">`;
+  [.25,.5,.75,1].forEach(f=>s+=`<polygon points="${dims.map((_,i)=>pt(i,f*2-1).join(",")).join(" ")}" fill="none" stroke="currentColor" opacity=".12"/>`);
+  dims.forEach((d,i)=>{const[x,y]=pt(i,1.18);s+=`<text x="${x}" y="${y}" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">${d}</text>`});
+  Object.entries(data).forEach(([p,v])=>s+=`<polygon points="${v.map((x,i)=>pt(i,x).join(",")).join(" ")}" fill="${styles[p]}" fill-opacity=".12" stroke="${styles[p]}" stroke-width="2"><title>${p}</title></polygon>`);
+  s+="</svg>";
+  $("#radar").innerHTML=s+`<div class="legend">${Object.keys(data).map(p=>`<span><span class="sw" style="background:${styles[p]}"></span>${p}</span>`).join("")}<span>Valeurs fictives · intervalles masqués dans le prototype</span></div>`;
+  const prox=[["Parti F",.81,.74,.86,23],["Parti C",.64,.55,.71,19],["Parti E",.52,.44,.60,21],["Parti B",.47,.39,.55,20],["Parti D",.31,.23,.39,22]];
+  $("#prox").innerHTML="<tr><th>Parti</th><th>Score</th><th>IC 90 %</th><th>n</th></tr>"+prox.map(r=>`<tr><td>${r[0]}</td><td><strong>${r[1].toFixed(2)}</strong></td><td class="meta">${r[2].toFixed(2)}–${r[3].toFixed(2)}</td><td class="meta">${r[4]}</td></tr>`).join("");
+})();
+
+// Assistant (réponses scénarisées)
+function ask(q){
+  if(!q)return;const chat=$("#chat");chat.insertAdjacentHTML("beforeend",`<div class="msg user">${q.replace(/</g,"&lt;")}</div>`);
+  let a;
+  if(/voter|meilleur|choisir/i.test(q)){
+    a=`Je ne donne pas de consigne de vote ni de classement des candidats. Je peux en revanche comparer factuellement leurs propositions sur les thèmes qui vous importent — par exemple <a href="#" onclick="go('comparer');return false">les retraites</a>.`;
+  } else {
+    a=`<p><strong>Valeur en vigueur (fictive) :</strong> 64 ans <button class="cite" data-c="b1">L1</button></p>
+    <p><strong>Au-dessus de la valeur en vigueur :</strong> Parti D — 65 ans <button class="cite" data-c="d1">E4</button></p>
+    <p><strong>Maintien :</strong> Parti B <button class="cite" data-c="b1">E2</button></p>
+    <p><strong>En dessous :</strong> Parti A — 62 ans <button class="cite" data-c="a1">E1</button> ; Parti C — 60 ans <button class="cite" data-c="c1">E3</button> ; Parti F — 62 ans, 60 pour les carrières longues <button class="cite" data-c="f1">E5</button></p>
+    <p><strong>Aucune proposition trouvée :</strong> Parti E (sources indexées au 12/01/2027)</p>
+    <div class="sources">Sources (5) · E1 Programme Parti A p. 34 · E2 Discours Parti B 14/02 (00:42:10) · E3 Programme Parti C · E4 Programme Parti D · E5 Livret thématique Parti F<br>
+    <span class="meta">ℹ Réponse générée par IA à partir de 5 extraits vérifiés · 0 phrase supprimée par le vérificateur · <a href="#">Signaler</a></span></div>`;
+  }
+  chat.insertAdjacentHTML("beforeend",`<div class="msg">${a}</div>`);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+# Référentiel des partis français et filiations (2002 → 2027)
+# STATUT : brouillon à vérifier ligne à ligne par l'équipe éditoriale avant ingestion,
+# chaque fait (date, renommage, candidature) devant être rattaché à une source (party_lineage.source_excerpt_id).
+# Les candidatures 2027 ne sont pas listées : elles sont saisies au fil des déclarations, puis de la liste officielle.
+# Ordre alphabétique des slugs.
+
+a_verifier: true
+
+partis:
+
+  - slug: debout-la-france
+    nom: Debout la France
+    sigle: DLF
+    lignee: [{nom: Debout la République, periode: "1999/2008–2014"}, {nom: Debout la France, depuis: 2014}]
+    presidentielles: {2012: Nicolas Dupont-Aignan, 2017: Nicolas Dupont-Aignan, 2022: Nicolas Dupont-Aignan}
+
+  - slug: horizons
+    nom: Horizons
+    fondation: 2021
+
+  - slug: la-france-insoumise
+    nom: La France insoumise
+    sigle: LFI
+    fondation: 2016
+    lignee_programmatique:
+      - {election: 2012, porteur: "Front de gauche (coalition incluant le Parti de gauche et le PCF)", candidat: Jean-Luc Mélenchon}
+    presidentielles: {2017: Jean-Luc Mélenchon, 2022: Jean-Luc Mélenchon}
+    note: "La comparaison 2012 → 2017 suit la lignée programmatique du candidat ; à signaler explicitement dans l'interface."
+
+  - slug: les-ecologistes
+    nom: Les Écologistes
+    lignee: [{nom: Les Verts, jusqu_a: 2010}, {nom: Europe Écologie Les Verts (EELV), periode: "2010–2023"}, {nom: Les Écologistes, depuis: 2023}]
+    presidentielles: {2002: Noël Mamère, 2007: Dominique Voynet, 2012: Eva Joly, 2017: "pas de candidature propre (soutien au candidat PS)", 2022: Yannick Jadot}
+
+  - slug: les-republicains
+    nom: Les Républicains
+    sigle: LR
+    lignee: [{nom: RPR, jusqu_a: 2002}, {nom: UMP, periode: "2002–2015"}, {nom: Les Républicains, depuis: 2015}]
+    presidentielles: {2002: Jacques Chirac, 2007: Nicolas Sarkozy, 2012: Nicolas Sarkozy, 2017: François Fillon, 2022: Valérie Pécresse}
+
+  - slug: lutte-ouvriere
+    nom: Lutte ouvrière
+    sigle: LO
+    presidentielles: {2002: Arlette Laguiller, 2007: Arlette Laguiller, 2012: Nathalie Arthaud, 2017: Nathalie Arthaud, 2022: Nathalie Arthaud}
+
+  - slug: modem
+    nom: Mouvement démocrate
+    sigle: MoDem
+    lignee: [{nom: UDF, jusqu_a: 2007}, {nom: MoDem, depuis: 2007}]
+    presidentielles: {2002: François Bayrou, 2007: François Bayrou, 2012: François Bayrou, 2017: "pas de candidature propre (alliance avec En Marche)", 2022: "pas de candidature propre (soutien au président sortant)"}
+
+  - slug: npa
+    nom: Nouveau Parti anticapitaliste
+    sigle: NPA
+    lignee: [{nom: Ligue communiste révolutionnaire (LCR), jusqu_a: 2009}, {nom: NPA, depuis: 2009}]
+    presidentielles: {2002: Olivier Besancenot, 2007: Olivier Besancenot, 2012: Philippe Poutou, 2017: Philippe Poutou, 2022: Philippe Poutou}
+
+  - slug: parti-communiste-francais
+    nom: Parti communiste français
+    sigle: PCF
+    presidentielles: {2002: Robert Hue, 2007: Marie-George Buffet, 2012: "soutien au candidat du Front de gauche", 2017: "soutien au candidat de LFI", 2022: Fabien Roussel}
+
+  - slug: parti-socialiste
+    nom: Parti socialiste
+    sigle: PS
+    presidentielles: {2002: Lionel Jospin, 2007: Ségolène Royal, 2012: François Hollande, 2017: Benoît Hamon, 2022: Anne Hidalgo}
+
+  - slug: place-publique
+    nom: Place publique
+    fondation: 2018
+    note: "Pas de candidature présidentielle propre avant 2027 ; historique à documenter (programmes européens, positions publiques)."
+
+  - slug: reconquete
+    nom: Reconquête
+    fondation: 2021
+    presidentielles: {2022: Éric Zemmour}
+
+  - slug: renaissance
+    nom: Renaissance
+    lignee: [{nom: En Marche !, periode: "2016–2017"}, {nom: La République en marche (LREM), periode: "2017–2022"}, {nom: Renaissance, depuis: 2022}]
+    presidentielles: {2017: Emmanuel Macron, 2022: Emmanuel Macron}
+
+  - slug: rassemblement-national
+    nom: Rassemblement national
+    sigle: RN
+    lignee: [{nom: Front national (FN), periode: "1972–2018"}, {nom: Rassemblement national, depuis: 2018}]
+    presidentielles: {2002: Jean-Marie Le Pen, 2007: Jean-Marie Le Pen, 2012: Marine Le Pen, 2017: Marine Le Pen, 2022: Marine Le Pen}
+
+  - slug: udi
+    nom: Union des démocrates et indépendants
+    sigle: UDI
+    fondation: 2012
+
+# Autres formations à ajouter selon les déclarations de candidature : Génération·s, Les Patriotes, UPR, Résistons !,
+# Parti radical, Parti animaliste, mouvements régionalistes, etc.
+# Règle : un parti sans candidature propre à une élection reçoit le statut « pas de candidature propre » (avec soutien éventuel),
+# jamais « positions abandonnées ».
