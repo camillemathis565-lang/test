@@ -9,7 +9,7 @@ Plateforme publiée : https://claude.ai/artifact/M3Cr5q9xH7mjFWU5wq8wj5 (version
   - `communes.json` : 34 744 communes de l'Hexagone et de Corse, 70 variables (commerces Sirene 2012-2025, centre, périphérie, QPV, secteurs, entrées et sorties, tailles, e-commerce, artificialisation 2011-2024, population, programmes).
   - `zones.json`, `qpv.json`, `centres.json` : zones commerciales périphériques, quartiers prioritaires, centres-villes.
   - `frontieres.json` : Insee Première n° 2075 (achats transfrontaliers 2024).
-  - `contenus.json` : sources, jeux de données, chiffres nationaux sourcés, politiques et dispositifs (dont le registre v1).
+  - `contenus.json` : sources, jeux de données, chiffres nationaux sourcés, séries nationales (OCDE, CCR/Eurostat), politiques et dispositifs (dont le registre v1), calendrier de l'étude, base des interviews, base des données manquantes et historique du journal de bord.
 - `build/build_data.py` et `build/build_content.py` : scripts de préparation.
 
 ## Reconstruire les données
@@ -20,6 +20,10 @@ V1DB=<export de la base du registre v1> python3 build/build_content.py
 ```
 
 `SRC` contient les fichiers listés en tête de `build_data.py` (Sirene, inventaire Cerema des zones, QPV 2024, ADMIN EXPRESS, CONSOENAF 2011-2025, populations Insee, Insee Première n° 2075, listes ACV et PVD).
+
+## Suivi de l'étude
+
+L'onglet « Suivi de l'étude » réunit le journal de bord, la base des interviews et la base des données manquantes. Les listes de référence viennent de `contenus.json` ; les statuts, les notes et les ajouts de l'équipe sont enregistrés dans la base partagée de la page (collections `journal`, `interviews`, `manquantes`), modifiable par les personnes qui ont un accès en écriture.
 
 ## Limites connues
 

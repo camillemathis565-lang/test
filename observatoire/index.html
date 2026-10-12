@@ -285,6 +285,51 @@ tbody tr:hover td{background:var(--surface-2)}
 .subtabs button{border:0;background:none;border-radius:10px;padding:6px 12px;cursor:pointer;font-size:.85rem;color:var(--ink-2)}
 .subtabs button:hover{color:var(--ink)}
 .subtabs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-s);font-weight:600}
+/* suivi de l'étude */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;counter-reset:st}
+.steps li{position:relative;padding:22px 10px 0 0;display:flex;flex-direction:column;gap:2px;font-size:.8rem;color:var(--muted)}
+.steps li::before{content:"";position:absolute;top:7px;left:0;right:0;height:2px;background:var(--line)}
+.steps li.done::before,.steps li.now::before{background:linear-gradient(90deg,var(--accent),var(--pink))}
+.steps .sd{position:absolute;top:0;left:0;width:16px;height:16px;border-radius:50%;background:var(--surface);border:2px solid var(--line)}
+.steps li.done .sd{background:var(--accent);border-color:var(--accent)}
+.steps li.now .sd{background:var(--pink);border-color:var(--pink);box-shadow:0 0 0 5px var(--pink-soft)}
+.steps b{color:var(--ink);font-size:.82rem}
+.steps li.now b{color:var(--pink)}
+@media (max-width:760px){.steps{grid-template-columns:1fr 1fr;row-gap:14px}}
+.btn.small{padding:4px 10px;font-size:.8rem}
+.stickyc{position:static}
+@media (min-width:961px){.stickyc{position:sticky;top:130px}}
+.jl{list-style:none;margin:0;padding:0}
+.jm{font-family:var(--f-disp);font-weight:700;font-size:1.05rem;text-transform:capitalize;margin:18px 0 8px;color:var(--ink)}
+.jm:first-child{margin-top:0}
+.je{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--grid)}
+.jd{font-family:var(--f-disp);font-weight:750;font-size:1.5rem;line-height:1;text-align:center;color:var(--ink)}
+.jd small{display:block;font-family:var(--f-body);font-size:.7rem;font-weight:500;color:var(--muted);margin-top:3px}
+.jb{display:flex;flex-direction:column;gap:4px;min-width:0}
+.jt{align-self:flex-start;font-size:.7rem;font-weight:600;border-radius:999px;padding:1px 9px;color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent)}
+.ibar{display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;background:var(--surface-2)}
+.blk{font-family:var(--f-disp);font-size:1.15rem;font-weight:700;margin:22px 0 10px}
+.ivg{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+@media (max-width:420px){.ivg{grid-template-columns:1fr}}
+.ivc{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--sc);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-s);min-width:0;transition:box-shadow .3s}
+.ivc.flash{box-shadow:0 0 0 3px var(--pink)}
+.ivh{display:flex;gap:12px;align-items:flex-start}
+.ivn{font-family:var(--f-disp);font-weight:750;font-size:1.3rem;color:var(--pink);line-height:1.1}
+.stat{flex:none;font-size:.72rem;font-weight:600;border-radius:999px;padding:2px 10px;color:var(--sc);background:color-mix(in srgb,var(--sc) 14%,transparent);white-space:nowrap}
+.ivf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.ivf{grid-template-columns:1fr}}
+.ivc textarea,.mrow input{width:100%}
+.tag{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:2px 9px;font-size:.74rem;cursor:pointer;color:var(--ink-2)}
+.tag[style*="--ac"]{color:var(--ac);background:color-mix(in srgb,var(--ac) 10%,transparent);border-color:transparent}
+.tag:hover{border-color:var(--accent)}
+.mlist{display:flex;flex-direction:column;gap:12px}
+.mrow{display:grid;grid-template-columns:38px minmax(0,1fr);gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow-s)}
+.mrow .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac)}
+.mb{display:flex;flex-direction:column;gap:8px;min-width:0}
+.md{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 12px;margin:0;font-size:.84rem}
+.md dt{color:var(--muted)}.md dd{margin:0}
+@media (max-width:560px){.md{grid-template-columns:1fr}.md dt{margin-top:4px}.mrow{grid-template-columns:1fr}.mrow .ic{display:none}}
+details.card summary{cursor:pointer}
 footer{border-top:1px solid var(--line);padding-block:26px;color:var(--muted);font-size:.8rem}
 footer .fb{display:flex;gap:12px;align-items:flex-start}
 @media (prefers-reduced-motion:no-preference){.card,.kpi{transition:border-color .15s,box-shadow .2s}}
@@ -344,6 +389,7 @@ async function load(){
   NUMS.push("etr_w","etr_p");
   C.n_com=new Array(N).fill(1); NUMS.push("n_com");
   D.src={}; D.contenus.sources.forEach(s=>D.src[s.ref]=s);
+  MISSING=D.contenus.manquantes.map(x=>[x.axe,x.indicateur,x.sources,x.etat+(x.piste?". "+x.piste:"")]);
   D.acvBy={}; const a=D.acv.data; for(let i=0;i<D.acv.n;i++)D.acvBy[a.code[i]]=i;
   D.cenBy={}; const ce=D.centres.data; for(let i=0;i<D.centres.n;i++)D.cenBy[ce.code[i]]=i;
 }
@@ -424,21 +470,7 @@ const IND=[
 ];
 const INDM={};IND.forEach(x=>INDM[x.id]=x);
 /* indicateurs demandés mais non disponibles à l'échelle territoriale en données ouvertes */
-const MISSING=[
- [1,"Chiffre d'affaires et productivité par territoire","Insee Ésane (national, par secteur) ; Commission européenne, SME Performance Review (national)","Le chiffre d'affaires n'est pas diffusé à l'échelle communale ; seules les données nationales sont intégrées (axe 1)."],
- [1,"Vacance commerciale par commune","Codata (données privées) ; atlas Action cœur de ville (classes de 5 points, villes ACV) ; taxe sur les friches commerciales","Classes de vacance de l'atlas ANCT intégrées pour les villes ACV ; pas de source ouverte exhaustive."],
- [1,"Fréquentation et attractivité commerciale","MyTraffic (privé, observatoire ANCT des villes ACV)","Données de téléphonie non ouvertes."],
- [1,"Dépenses de consommation par territoire","Insee, comptes nationaux ; données de cartes bancaires (non ouvertes)","Seule la part des dépenses à l'étranger est disponible (Insee, départements)."],
- [2,"Omnicanalité, click and collect, plateformes, outils de gestion, compétences numériques","Baromètre France Num (DGE) ; Eurostat, enquête TIC entreprises","Résultats nationaux par taille d'entreprise ; aucune déclinaison territoriale ouverte."],
- [2,"Cybersécurité","Baromètre France Num ; Cybermalveillance.gouv.fr","National uniquement."],
- [3,"Émissions de CO₂ et consommation d'énergie des commerces","OCDE, comptes d'émissions (national) ; ADEME, plateforme OPERAT (décret tertiaire)","OPERAT n'est pas diffusée par établissement."],
- [3,"Mobilité des consommateurs, dépendance automobile, accessibilité en transports publics","Enquête mobilité des personnes (SDES) ; horaires GTFS (transport.data.gouv.fr)","Calcul d'accessibilité possible à partir des GTFS, non intégré à ce stade."],
- [3,"Logistique urbaine, circuits courts, résilience climatique","Cerema, ADEME ; Agreste (recensement agricole) ; Géorisques","À intégrer dans une prochaine version."],
- [4,"Différentiels de prix (carburant, tabac, alimentation)","prix-carburants.gouv.fr ; Eurostat, niveaux de prix ; OFDT","Écarts de taxe intégrés (TVA) ; séries de prix à intégrer."],
- [4,"Revenus des territoires frontaliers","Insee Filosofi (commune)","Disponible en données ouvertes, à intégrer."],
- [5,"Fréquentation et emploi des zones périphériques","MyTraffic ; inventaire Cerema (emploi partiellement renseigné)","Non ouvert ou incomplet."],
- [6,"Mixité des usages et attractivité résidentielle des centres","Fichiers fonciers (Cerema, accès restreint) ; LOVAC ; DVF","Atlas ACV (vacance des logements, ventes) intégré pour les villes ACV."],
- [7,"Inclusion numérique, mobilité et consommation locale en QPV","Indice de fragilité numérique (Mednum) ; recensement","À intégrer."]];
+let MISSING=[]; // base des données manquantes (contenus.json)
 
 /* ============================================================ territoires */
 const T={}; // id -> territoire
@@ -590,11 +622,13 @@ function spearman(pts){const rk=a=>{const o=a.map((v,i)=>[v,i]).sort((u,v)=>u[0]
 let FIGN=0; const FIGS={};
 function fig(title,svg,{src="",note="",data=null}={}){const id="f"+(++FIGN);FIGS[id]={title,src,data};
   return `<figure class="fig" id="${id}" style="margin:0"><div class="row"><h3 class="sp">${esc(title)}</h3><div class="tools"><button class="btn ghost" data-exp="svg" data-fig="${id}" type="button">SVG</button><button class="btn ghost" data-exp="png" data-fig="${id}" type="button">PNG</button>${data?`<button class="btn ghost" data-exp="csv" data-fig="${id}" type="button">CSV</button>`:""}</div></div><div class="chart">${svg}</div>${note?`<p class="small muted">${note}</p>`:""}${src?`<p class="src">Source : ${src}</p>`:""}</figure>`}
-const srcTxt=refs=>refs.map(r=>D.src[r]?`<a href="${esc(D.src[r].lien)}" target="_blank" rel="noopener">${esc(D.src[r].organisme)}</a>`:r).join(" ; ");
+const srcTxt=refs=>refs.map(r=>{const s=D.src[r];return !s?esc(r):s.lien?`<a href="${esc(s.lien)}" target="_blank" rel="noopener">${esc(s.organisme)}</a>`:`<span title="${esc(s.titre)}">${esc(s.organisme)} (document de travail)</span>`}).join(" ; ");
 
 /* ============================================================ export (capacité downloads) */
 let DL=null, SAMPLE=null;
-async function caps(){try{if(window.claude&&claude.use){DL=await claude.use("downloads");SAMPLE=await claude.use("sample");render()}}catch(e){}}
+async function caps(){try{if(!(window.claude&&claude.use))return;const [dl,sa,db,us]=await Promise.all(["downloads","sample","db","user"].map(n=>Promise.resolve(claude.use(n)).catch(()=>null)));DL=dl;SAMPLE=sa;DB=db;USR=us;
+  if(USR){try{SV.me=await USR.id();SV.canW=await USR.can("data.write");SV.adm=await USR.canEdit()}catch(e){}}
+  if(DB)subscribe();const a=document.activeElement;if(!(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)))render()}catch(e){}}
 async function save(filename,data){
   if(!DL){toast("Le téléchargement n'est pas disponible dans cette vue.");return}
   try{await DL.save({filename,data});toast("Fichier enregistré")}catch(e){if(e&&e.code==="declined")return;toast(e&&e.code==="rate_limited"?"Une demande est déjà ouverte.":"Téléchargement impossible ("+(e&&e.code||"erreur")+").")}
@@ -631,8 +665,8 @@ document.addEventListener("click",e=>{
 });
 
 /* ============================================================ navigation */
-const TABS=[["accueil","Accueil"],["territoire","Territoires"],["comparer","Comparer"],["carte","Carte"],["analyses","Analyses"],["axes","Axes"],["questions","Questions de recherche"],["assistant","Research Assistant"],["sources","Sources et données"]];
-const S={tab:"accueil",cur:store.get("obs-cur")||"fr",cmp:["g:front","g:nonfront","fr"],axe:1,mapInd:"dens",mapLayer:"",an:"corr",cx:"artacth",cy:"evc",clev:"dep",rupInd:"r",rupLev:"dep",pivDim:"reg",pivInd:["dens","ev1925","pperi","iecom"],q:0,asT:null,asAxe:1,src:"ind",srcQ:""};
+const TABS=[["accueil","Accueil"],["territoire","Territoires"],["comparer","Comparer"],["carte","Carte"],["analyses","Analyses"],["axes","Axes"],["questions","Questions de recherche"],["assistant","Research Assistant"],["suivi","Suivi de l'étude"],["sources","Sources et données"]];
+const S={tab:"accueil",cur:store.get("obs-cur")||"fr",cmp:["g:front","g:nonfront","fr"],axe:1,mapInd:"dens",mapLayer:"",an:"corr",cx:"artacth",cy:"evc",clev:"dep",rupInd:"r",rupLev:"dep",pivDim:"reg",pivInd:["dens","ev1925","pperi","iecom"],q:0,asT:null,asAxe:1,src:"ind",srcQ:"",sv:"journal",jt:"",ma:"",ms:""};
 function go(tab,extra={}){Object.assign(S,extra);S.tab=tab;if(location.hash!=="#"+tab)history.replaceState(null,"","#"+tab);render();scrollTo({top:0})}
 window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h)&&h!==S.tab){S.tab=h;render()}});
 function nav(){$("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#${k}" class="${S.tab===k?"on":""}" data-go="${k}">${l}</a>`).join("")}
@@ -660,7 +694,7 @@ const lsearch=(ph,id)=>`<div class="search lsearch" id="${id}" style="max-width:
 
 /* ============================================================ rendu */
 function render(){if(!C)return;nav();FIGN=0;for(const k in FIGS)delete FIGS[k];const m=$("#main");
-  const v={accueil:vHome,territoire:vTerr,comparer:vCmp,carte:vMap,analyses:vAn,axes:vAxes,questions:vQ,assistant:vAs,sources:vSrc}[S.tab]||vHome;
+  const v={accueil:vHome,territoire:vTerr,comparer:vCmp,carte:vMap,analyses:vAn,axes:vAxes,questions:vQ,assistant:vAs,suivi:vSuivi,sources:vSrc}[S.tab]||vHome;
   if(DMRO){DMRO.disconnect();DMRO=null}
   m.innerHTML=`<div class="view">${v()}</div>`; (AFTER[S.tab]||(()=>{}))();}
 const AFTER={};
@@ -700,6 +734,7 @@ function vHome(){
   <div class="kband">${kb.map(x=>`<div class="kb" style="--kc:${x[0]}"><div class="v">${x[1]}${x[2]?`<small>${x[2]}</small>`:""}</div><div class="l">${x[3]}</div><div class="s">${x[4]}</div></div>`).join("")}</div>
   <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Par où commencer</p><h2>Quatre façons d'entrer dans les données</h2></div></div>
    <div class="entry">${EN.map(e=>`<button class="ecard" type="button" data-go="${e[0]}" style="--ec:${e[1]}"><span class="ic">${svgI(e[2],22)}</span><b>${e[3]}</b><p>${e[4]}</p><span class="go">${e[5]} ${svgI(IC.arrow,16,2)}</span></button>`).join("")}</div></section>
+  ${suiviHome()}
   <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Sept axes</p><h2>Les axes d'analyse</h2></div><p>Indicateurs territoriaux calculés, chiffres nationaux sourcés, dispositifs publics et données manquantes.</p></div>
    <div class="axes">${AXES.map(a=>`<button class="axis" type="button" data-axe="${a.n}" style="--ac:${AXC[a.n-1]}"><span class="ic">${axIcon(a.n,20)}</span><span class="n">AXE ${a.n}</span><b>${a.t}</b><span class="small muted">${a.d}</span></button>`).join("")}</div></section>
   <section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Huit questions</p><h2>Les questions de recherche</h2></div><p>Chaque question ouvre une analyse chiffrée, avec ses graphiques, ses limites et ses sources.</p></div>
@@ -875,13 +910,14 @@ function vAxes(){
   if(a.n===5)charts=`<div class="card c6">${byDim(INDM.evperi,"dens")}</div><div class="card c6">${byDim(INDM.zsurfh,"aav")}</div><div class="card c12">${fig("Les 15 zones périphériques comptant le plus de commerces en 2025",barChart({items:topZones(15).map(j=>({l:zoneLabel(j),v:D.zones.data.r25[j]}))}),{src:srcTxt(["N29","N30"])})}</div>`;
   if(a.n===6)charts=`<div class="card c6">${byDim(INDM.evc,"prog")}</div><div class="card c6">${byDim(INDM.evc1925,"taille")}</div>`;
   if(a.n===7)charts=`<div class="card c6">${byDim(INDM.evq,"reg")}</div><div class="card c6">${byDim(INDM.pqemp,"dens")}</div>`;
+  charts+=extraAxe(a.n);
   const pol=D.contenus.politiques.filter(p=>p.axes.includes(a.n)); const mis=MISSING.filter(m=>m[0]===a.n);
   return `<div class="stack"><div class="subtabs">${AXES.map(x=>`<button type="button" data-ax="${x.n}" class="${x.n===S.axe?"on":""}">Axe ${x.n} · ${x.t}</button>`).join("")}</div>
   <div class="axh" style="--ac:${AXC[a.n-1]};margin:6px 0 4px"><span class="ic" style="width:48px;height:48px;border-radius:14px">${axIcon(a.n,24)}</span><div><span class="n">AXE ${a.n}</span><h2 style="font-size:clamp(1.5rem,3vw,2.1rem);font-weight:750;letter-spacing:-.02em">${a.t}</h2></div></div>
   <div class="grid"><div class="card c12"><h3>Chiffres nationaux sourcés</h3><p class="sub">Niveau de fiabilité : A = statistique publique ou source primaire, B = source secondaire ou relayée, C = estimation.</p><div class="kpis" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">${natCards(a.n)||'<p class="muted">Pas de chiffre national spécifique : voir les indicateurs territoriaux.</p>'}</div></div>
   <div class="card c12"><h3>Indicateurs territoriaux</h3><p class="sub">Valeurs pour la France ; chaque indicateur est disponible pour toutes les communes, intercommunalités, départements, régions et groupes.</p>${IND.filter(i=>i.axe===a.n).map(i=>indRow(i,T.fr,F)).join("")}</div>
   ${charts}
-  <div class="card c6"><h3>Politiques et dispositifs</h3>${pol.length?pol.map(p=>`<div class="ind"><div class="lab"><b>${esc(p.nom)}</b></div><div class="val small">${esc(p.periode)}</div><div class="ref" style="display:block">${esc(p.description)} ${p.moyens?"· "+esc(p.moyens):""} · ${esc(p.porteur)} · ${srcTxt([p.ref])}</div></div>`).join(""):'<p class="muted">Aucun dispositif spécifique recensé.</p>'}</div>
+  <div class="card c6"><h3>Politiques et dispositifs</h3>${pol.length?pol.map(p=>`<div class="ind"><div class="lab"><b>${esc(p.nom)}</b></div><div class="val small">${esc(p.periode)}</div><div class="ref" style="display:block">${esc(p.description)} ${p.moyens?"· "+esc(p.moyens):""} · ${esc(p.porteur)} · ${srcTxt(String(p.ref).split(" "))}</div></div>`).join(""):'<p class="muted">Aucun dispositif spécifique recensé.</p>'}</div>
   <div class="card c6"><h3>Données manquantes</h3><p class="sub">Indicateurs demandés sans source territoriale ouverte, et où les trouver.</p>${mis.map(m=>`<div class="ind"><div class="lab"><b>${esc(m[1])}</b></div><div class="ref" style="display:block">${esc(m[2])}. ${esc(m[3])}</div></div>`).join("")||'<p class="muted">Aucune.</p>'}</div></div></div>`;
 }
 AFTER.axes=()=>$$("[data-ax]").forEach(b=>b.onclick=()=>{S.axe=+b.dataset.ax;render()});
@@ -919,19 +955,19 @@ function vQ(){
     <div class="card c6">${fig("Entreprises utilisant l'IA, 10 salariés et plus (%)",barChart({items:[{l:"France 2020",v:4.8},{l:"UE-27 2020",v:6.0},{l:"France 2025",v:18.2,hl:1},{l:"UE-27 2025",v:19.9}],dec:1,unit:" %"}),{src:srcTxt(["N03"])})}</div>
     <div class="card c6">${fig("Intensité e-commerce selon la densité des communes",barChart({items:g.map(x=>({l:x.label,v:INDM.iecom.f(agg(x))})),dec:1,ref:val(INDM.iecom,T.fr)}),{src:srcTxt(["N29"]),note:"Établissements de vente à distance (NAF 47.91) pour 100 commerces en magasin."})}</div>
     <div class="card c6"><h3>Lecture</h3><p>Les grands détaillants et les PME de plus de 10 salariés ont rattrapé la moyenne européenne pour la vente en ligne (40 à 45 % ont un site permettant de commander). L'IA progresse vite chez les TPE et PME (40 % en 2026, +14 points en un an), mais les micro-commerces, 95 % des détaillants, restent mal mesurés : aucune source ouverte ne décline la maturité numérique par secteur fin et par territoire.</p></div>`;
-    lim="Le baromètre France Num ne publie pas de microdonnées ; l'OCDE exclut les entreprises de moins de 10 salariés.";src=["N03","N05","N29","N23"]}
+    lim="Le baromètre France Num ne publie pas de microdonnées ; l'OCDE exclut les entreprises de moins de 10 salariés.";src=["N03","N05","N29","N23"];body+=`<div class="card c6">${serFig("web","Détaillants de 10 salariés et plus dont le site web permet de commander (%)",{cols:["var(--pink)","var(--s7)"],note:"Hors places de marché et hors micro-entreprises ; années sans donnée comparable omises."})}</div>`}
   if(i===5){const deps=Object.values(T).filter(t=>t.type==="dep").map(t=>({t,v:val(INDM.durab,t)})).filter(x=>x.v!=null).sort((a,b)=>b.v-a.v);
     body=`<div class="card c6">${fig("Indice de durabilité du commerce : les 12 départements en tête",barChart({items:deps.slice(0,12).map(x=>({l:x.t.label,v:x.v,c:"var(--s3)"}))}),{src:srcTxt(["N29","N10","N30"]),data:[["Département","Indice"],...deps.map(x=>[x.t.label,x.v])]})}</div>
     <div class="card c6">${fig("… et les 12 derniers",barChart({items:deps.slice(-12).map(x=>({l:x.t.label,v:x.v,c:"var(--s2)"}))}),{src:srcTxt(["N29","N10","N30"])})}</div>
     <div class="card c12"><p>L'indice combine trois dimensions mesurables partout : une faible part de commerces en zone périphérique, une bonne densité de commerces alimentaires de proximité et une faible consommation d'espaces pour l'activité par habitant. La carte de l'indice est disponible dans l'onglet Carte (indicateur « Indice de durabilité du commerce »).</p></div>`;
-    lim="Indice expérimental. Il ne mesure ni les émissions, ni l'énergie des bâtiments, ni les mobilités, faute de données territoriales ouvertes.";src=["N29","N10","N30","N04"]}
+    lim="Indice expérimental. Il ne mesure ni les émissions, ni l'énergie des bâtiments, ni les mobilités, faute de données territoriales ouvertes.";src=["N29","N10","N30","N04"];body+=`<div class="card c6">${serFig("ges","Émissions de gaz à effet de serre du commerce de détail, 2008 = 100",{idx:true,cols:["var(--s3)","var(--s7)"],note:"France −56 %, UE-27 −39 % (estimations)."})}</div>`}
   if(i===6){const ts=[T["g:acv"],T["g:pvd"],T["g:horsprog"]];
     const ce=D.centres.data;const gr={acv:{r12:0,r19:0,r25:0},hors:{r12:0,r19:0,r25:0}};for(let k=0;k<D.centres.n;k++){const ii=CODE[ce.code[k]];const key=ii!=null&&C.acv[ii]?"acv":"hors";gr[key].r12+=ce.r12[k];gr[key].r19+=ce.r19[k];gr[key].r25+=ce.r25[k]}
     const tc=(a,b,n)=>(Math.pow(b/a,1/n)-1)*100;
     body=`<div class="card c6">${fig("Commerces de centre-ville : croissance annuelle moyenne avant et depuis 2019",barChart({items:[{l:"Villes ACV, 2012-2019",v:tc(gr.acv.r12,gr.acv.r19,7)},{l:"Villes ACV, 2019-2025",v:tc(gr.acv.r19,gr.acv.r25,6),hl:1},{l:"Autres centres, 2012-2019",v:tc(gr.hors.r12,gr.hors.r19,7)},{l:"Autres centres, 2019-2025",v:tc(gr.hors.r19,gr.hors.r25,6)}],dec:2,sign:true,unit:" %"}),{src:srcTxt(["N29","N12"]),note:"Centres-villes des communes de 5 000 habitants ou plus. ACV a été lancé en 2018."})}</div>
     <div class="card c6">${fig("Commerces en magasin : évolution 2019-2025 par programme",barChart({items:ts.map(t=>({l:t.label,v:val(INDM.ev1925,t)})),dec:1,sign:true,unit:" %",ref:val(INDM.ev1925,T.fr)}),{src:srcTxt(["N29","N11","N12"])})}</div>
-    <div class="card c12"><h3>Dispositifs recensés</h3><div class="tw"><table><thead><tr><th>Dispositif</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td>${srcTxt([p.ref])}</td></tr>`).join("")}</tbody></table></div></div>`;
-    lim="Comparaison descriptive « avant / après » : les villes ACV ont été choisies pour leurs difficultés. Une évaluation d'impact demanderait un groupe témoin apparié (méthode des doubles différences) ; la Cour des comptes (2022, 2026) souligne l'absence d'évaluation de ce type.";src=["N29","N11","N12","S26","S48"]}
+    <div class="card c12"><h3>Dispositifs recensés</h3><div class="tw"><table><thead><tr><th>Dispositif</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td>${srcTxt(String(p.ref).split(" "))}</td></tr>`).join("")}</tbody></table></div></div>`;
+    lim="Comparaison descriptive « avant / après » : les villes ACV ont été choisies pour leurs difficultés. Une évaluation d'impact demanderait un groupe témoin apparié (méthode des doubles différences) ; la Cour des comptes (2022, 2026) souligne l'absence d'évaluation de ce type.";src=["N29","N11","N12","S26","S48","N33","N34","N35"];body+=extraQ7()}
   if(i===7){const ts=levelTerrs("dep");const pts=ts.map(t=>({x:val(INDM.artacth,t),y:val(INDM.evc,t),l:t.label,id:t.id})).filter(p=>p.x!=null&&p.y!=null);const r=reg(pts);
     body=`<div class="card c8">${fig("Artificialisation pour l'activité et vitalité des centres-villes, par département",scatter({pts,xl:"Artificialisation pour l'activité 2011-2024 (m² par hab.)",yl:"Évolution des commerces de centre-ville 2012-2025 (%)",dx:1,dy:1}),{src:srcTxt(["N10","N29"]),data:[["Département","m²/hab.","Évolution centre (%)"],...pts.map(p=>[p.l,p.x,p.y])]})}</div>
     <div class="card c4"><h3>Lecture</h3><p>Corrélation entre les deux indicateurs : r = ${r?fmt(r.r,2):"–"} (${fmt(pts.length)} départements). Les départements en haut à gauche concilient faible artificialisation et centres-villes en progression : ce sont des cas à étudier en entretien. Utilisez l'onglet Analyses pour refaire ce croisement au niveau des intercommunalités ou des communes.</p></div>`;
@@ -998,6 +1034,128 @@ AFTER.assistant=()=>{const box=$("#asS");if(box)localSearch(box,id=>{S.asT=id;re
     catch(e){out.innerHTML=`<p class="small muted" style="margin-top:12px">${e&&e.code==="not_granted"?"La rédaction n'a pas été autorisée.":"La rédaction n'a pas abouti ("+esc(e&&e.code||"erreur")+")."}</p>`}finally{ai.disabled=false}}};
 const axe0=()=>S.asAxe===0?"toutes les thématiques":"axe "+S.asAxe+" ("+AXES[S.asAxe-1].t+")";
 
+/* ---------------- graphiques issus de la présentation OCDE à la DGE */
+const TCOL=["var(--pink)","var(--s5)","var(--s3)","var(--s1)"];
+function serFig(k,title,{idx=false,dec=0,cols=TCOL,note=""}={}){const X=D.contenus.series[k];
+  return fig(title,lineChart({labels:X.annees,idx,dec,series:X.series.map(([n,v],j)=>({n,v,c:cols[j%cols.length]}))}),{src:srcTxt([X.ref]),note,data:[["Année",...X.series.map(s=>s[0])],...X.annees.map((y,i)=>[y,...X.series.map(s=>s[1][i])])]})}
+function extraAxe(n){const X=D.contenus.series;
+  if(n===1)return `<div class="card c6">${fig("Entreprises, emploi et valeur ajoutée du commerce de détail par taille d'entreprise, France et UE-27 (2024, %)",stackChart({cats:X.taille.cats,rows:X.taille.rows.map(([l,v])=>({l,v}))}),{src:srcTxt(["N02"]),note:"Les grandes entreprises (0,1 % des détaillants) réalisent 58 % de la valeur ajoutée en France, contre 40 % dans l'UE-27. Estimations provisoires pour 2024.",data:[["",...X.taille.cats],...X.taille.rows.map(([l,v])=>[l,...v])]})}</div>
+   <div class="card c6">${serFig("va","Valeur ajoutée réelle du commerce de détail par taille d'entreprise, 2008 = 100",{idx:true,note:"NACE G47, euros constants. 2024 : estimation de prévision immédiate du CCR."})}</div>
+   <div class="card c6">${serFig("prod","Productivité du travail par taille d'entreprise, 2008 = 100",{idx:true,note:"Valeur ajoutée par personne employée. 2024 : estimation du CCR."})}</div>`;
+  if(n===2)return `<div class="card c6">${serFig("web","Détaillants de 10 salariés et plus dont le site web permet de commander (%)",{cols:["var(--pink)","var(--s7)"],note:"Hors ventes sur les places de marché et hors micro-entreprises. Années sans donnée comparable omises (2010, 2022-2024) : l'axe n'est pas proportionnel au temps."})}</div>
+   <div class="card c6">${fig("Entreprises utilisant l'IA, 10 salariés et plus, toutes activités (%)",barChart({items:[{l:"France 2020",v:X.ia.series[0][1][0],c:"var(--pink)"},{l:"UE-27 2020",v:X.ia.series[1][1][0],c:"var(--s7)"},{l:"France 2025",v:X.ia.series[0][1][1],c:"var(--pink)"},{l:"UE-27 2025",v:X.ia.series[1][1][1],c:"var(--s7)"}],dec:1,unit:" %"}),{src:srcTxt(["N03"]),note:"La France atteint 91 % du taux européen en 2025, contre 80 % en 2020."})}</div>`;
+  if(n===3)return `<div class="card c6">${serFig("ges","Émissions de gaz à effet de serre du commerce de détail, 2008 = 100",{idx:true,cols:["var(--s3)","var(--s7)"],note:"France : −56 %, 1er rang de l'UE-27 (−39 %). UE-27 : estimations. GES hors CO₂ issu de la biomasse, principe de résidence."})}</div>`;
+  return ""}
+function extraQ7(){const X=D.contenus.taxonomie,P=D.contenus.series.pnrr;
+  return `<div class="card c6">${fig("Dispositifs français recensés par l'OCDE : orientation",barChart({items:X.orientation.map(([l,v])=>({l,v,c:"var(--s3)"}))}),{src:srcTxt(["N33"]),note:`Dont ${X.cible_commerce} dispositifs ciblés sur le commerce de détail. Prédominance des mesures écologiques.`,data:[["Orientation","Dispositifs"],...X.orientation]})}</div>
+   <div class="card c6">${fig("Dispositifs français recensés par l'OCDE : nature du soutien",barChart({items:X.nature.map(([l,v])=>({l,v,c:"var(--s4)"}))}),{src:srcTxt(["N33"]),note:"Le soutien à la transition écologique prend surtout la forme d'expertise, non d'apport en capital.",data:[["Nature","Dispositifs"],...X.nature]})}</div>
+   <div class="card c6">${fig("PNRR : répartition de l'enveloppe (Md€)",barChart({items:P.rows.map(([l,v])=>({l,v,c:"var(--s1)"})),dec:1,unit:" Md€"}),{src:srcTxt(["N33","N34"]),note:"40,3 Md€ sur 2021-2026 ; 49,5 % soutiennent les objectifs climatiques, 21,6 % la transition numérique. Effets surtout indirects pour le commerce.",data:[["Volet","Md€"],...P.rows]})}</div>`}
+
+/* ---------------- suivi de l'étude : journal de bord, interviews, données manquantes */
+let DB=null, USR=null, PEND=false;
+const SV={me:null,canW:null,adm:false,ro:false,ready:false,journal:[],int:{},man:{},names:{},err:null};
+const ISTAT=["À contacter","Contacté","Entretien planifié","Entretien réalisé","Compte rendu rédigé","Décliné"];
+const ICOL={"À contacter":"var(--s7)","Contacté":"var(--s5)","Entretien planifié":"var(--s1)","Entretien réalisé":"var(--s3)","Compte rendu rédigé":"var(--ax7)","Décliné":"var(--s2)"};
+const MSTAT=["À demander","Demande en cours","Obtenu","Intégré","Sans suite"];
+const MCOL={"À demander":"var(--s7)","Demande en cours":"var(--s5)","Obtenu":"var(--s1)","Intégré":"var(--s3)","Sans suite":"var(--s2)"};
+const JTYPES=["Données","Sources","Analyse","Fonction","Design","Interviews","Livrable","Réunion","Décision"];
+const jcol=t=>COLS[Math.max(0,JTYPES.indexOf(t))%7];
+const BLOCS=["Double transition","Centres-villes et zones périphériques","Zones frontalières","Autres"];
+const canWrite=()=>!!DB&&!SV.ro&&SV.canW!==false;
+function subscribe(){const err=e=>{SV.err=e&&e.code;softRender()};
+  DB.collection("journal").onSnapshot(s=>{SV.journal=s.docs.map(d=>({...d.data(),id:d.id,db:1}));SV.ready=true;who();softRender()},err);
+  DB.collection("interviews").onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());SV.int=o;SV.ready=true;who();softRender()},err);
+  DB.collection("manquantes").onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());SV.man=o;who();softRender()},err)}
+function who(){if(!USR)return;const ids=[...new Set([...SV.journal.map(x=>x.par),...Object.values(SV.int).map(x=>x.par),...Object.values(SV.man).map(x=>x.par)].filter(Boolean))];if(!ids.length)return;
+  USR.profiles(ids).then(ps=>{let ch=false;for(const id in ps){const n=ps[id].name||"";if(SV.names[id]!==n){SV.names[id]=n;ch=true}}if(ch)softRender()})}
+function softRender(){if(!C||!["suivi","accueil"].includes(S.tab))return;const a=document.activeElement;
+  if(a&&$("#main").contains(a)&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){PEND=true;return}const y=scrollY;render();scrollTo(0,y)}
+document.addEventListener("focusout",()=>{if(PEND)setTimeout(()=>{const a=document.activeElement;if(!(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))){PEND=false;softRender()}},60)});
+const byWho=x=>x&&x.par?(x.par===SV.me?"vous":SV.names[x.par]||"un membre de l'équipe"):"";
+const when=iso=>{if(!iso)return"";const d=new Date(iso);return isNaN(d)?"":d.toLocaleDateString("fr-FR",{day:"numeric",month:"short"})+" "+d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})};
+const today=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+async function dbw(fn){if(!DB){toast("Enregistrement indisponible dans cette vue.");return false}
+  try{await fn();return true}catch(e){const c=e&&e.code;if(c==="invalid_argument"){SV.ro=true;toast("Votre accès ne permet pas de modifier les données partagées.");softRender()}else if(c==="quota_exceeded")toast("La base est pleine : supprimez des entrées.");else toast("Enregistrement impossible ("+(c||"erreur")+").");return false}}
+const stamp=()=>({maj:new Date().toISOString(),par:SV.me||null});
+function saveRow(col,id,patch){const cur=(col==="interviews"?SV.int:SV.man)[id]||{};return dbw(()=>DB.collection(col).doc(id).set({...cur,...patch,...stamp()}))}
+function intRows(){const base=D.contenus.interviews.map((x,k)=>({...x,n:k+1,...(SV.int[x.id]||{}),id:x.id}));
+  const add=Object.entries(SV.int).filter(([id,x])=>x.ajout).map(([id,x],k)=>({axes:[],questions:[],...x,id,n:base.length+k+1}));
+  return [...base,...add.sort((a,b)=>String(a.cree||"").localeCompare(b.cree||""))].map((x,k)=>({...x,n:k+1,statut:x.statut||"À contacter"}))}
+function manRows(){const base=D.contenus.manquantes.map(x=>({...x,...(SV.man[x.id]||{}),id:x.id}));
+  const add=Object.entries(SV.man).filter(([id,x])=>x.ajout).map(([id,x])=>({interlocuteurs:[],...x,id}));
+  return [...base,...add].map(x=>({...x,statut:x.statut||"À demander"}))}
+function stepper(){const E=D.contenus.etapes,t=today();let cur=-1;E.forEach((e,k)=>{if(e[0]<=t)cur=k});
+  return `<ol class="steps">${E.map((e,k)=>`<li class="${k<cur?"done":k===cur?"now":""}"><span class="sd"></span><b>${esc(e[1])}</b><span>${esc(e[2])}</span></li>`).join("")}</ol>`}
+function suiviHome(){const I=intRows(),M=manRows(),done=I.filter(x=>/réalisé|rédigé/.test(x.statut)).length,plan=I.filter(x=>x.statut==="Entretien planifié").length,mOk=M.filter(x=>/Obtenu|Intégré/.test(x.statut)).length;
+  const J=[...D.contenus.journal,...SV.journal].sort((a,b)=>String(b.date).localeCompare(a.date))[0];
+  return `<section class="sec"><div class="sech"><div class="sp"><p class="eyebrow">Suivi de l'étude</p><h2>Où en est l'étude</h2></div><button class="btn" data-go="suivi" type="button">Ouvrir le suivi ${svgI(IC.arrow,16,2)}</button></div>
+   <div class="card">${stepper()}<div class="kband" style="margin-top:16px">
+    <div class="kb" style="--kc:var(--s3)"><div class="v">${done}<small>/ ${I.length}</small></div><div class="l">entretiens réalisés</div><div class="s">${plan} planifié${plan>1?"s":""}</div></div>
+    <div class="kb" style="--kc:var(--s5)"><div class="v">${mOk}<small>/ ${M.length}</small></div><div class="l">données manquantes obtenues ou intégrées</div><div class="s">${M.filter(x=>x.priorite==="Haute").length} prioritaires</div></div>
+    <div class="kb" style="--kc:var(--pink)" ><div class="v" style="font-size:1.2rem;line-height:1.25">${J?esc(J.titre):"–"}</div><div class="l">dernière entrée du journal</div><div class="s">${J?new Date(J.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"}):""}</div></div>
+   </div></div></section>`}
+function vSuivi(){const w=canWrite(),I=intRows(),M=manRows();
+  const tabs=[["journal","Journal de bord"],["int","Interviews ("+I.length+")"],["man","Données manquantes ("+M.length+")"]];
+  const st=!DB?`<p class="note">Lecture seule dans cette vue. Ouverte dans claude.ai par un membre de l'équipe connecté, la page enregistre les statuts, les notes et les ajouts, partagés avec toutes les personnes qui y ont accès.</p>`
+    :!w?`<p class="note">Lecture seule : votre niveau d'accès ne permet pas de modifier les données partagées.</p>`
+    :`<p class="note">Statuts, notes et ajouts enregistrés et partagés avec les personnes qui ont accès à la page.${SV.err?" Synchronisation interrompue ("+esc(SV.err)+"), rechargez la page.":""}</p>`;
+  let body="";
+  if(S.sv==="journal"){const all=[...D.contenus.journal.map((x,k)=>({...x,id:"h"+k,hist:1})),...SV.journal].filter(x=>!S.jt||x.type===S.jt).sort((a,b)=>String(b.date).localeCompare(a.date)||String(b.cree||"").localeCompare(a.cree||""));
+    let lastM="";const items=all.map(x=>{const d=new Date(x.date+"T12:00");const mo=isNaN(d)?"":d.toLocaleDateString("fr-FR",{month:"long",year:"numeric"});const head=mo!==lastM?`<li class="jm">${esc(mo)}</li>`:"";lastM=mo;
+      const del=x.db&&w&&(x.par===SV.me||SV.adm)?`<button class="btn ghost small" data-jdel="${esc(x.id)}" type="button">Supprimer</button>`:"";
+      return head+`<li class="je"><span class="jd">${isNaN(d)?"":d.getDate()}<small>${isNaN(d)?"":d.toLocaleDateString("fr-FR",{month:"short"})}</small></span><div class="jb"><span class="jt" style="--tc:${jcol(x.type)}">${esc(x.type)}</span><b>${esc(x.titre)}</b>${x.detail?`<p class="small muted">${esc(x.detail)}</p>`:""}<div class="row small muted" style="gap:8px">${x.hist?"Historique du dépôt":x.par?"Ajouté par "+esc(byWho(x)):""}${del}</div></div></li>`}).join("");
+    body=`<div class="grid"><div class="c8"><div class="row" style="margin-bottom:12px"><div class="subtabs" style="margin:0"><button type="button" data-jt="" class="${!S.jt?"on":""}">Tout</button>${JTYPES.filter(t=>all.some(x=>x.type===t)||t===S.jt).map(t=>`<button type="button" data-jt="${t}" class="${S.jt===t?"on":""}">${t}</button>`).join("")}</div></div><ol class="jl">${items||'<li class="muted">Aucune entrée.</li>'}</ol></div>
+     <div class="c4"><div class="card stickyc"><h3>Ajouter une entrée</h3><p class="sub">Nouveau jeu de données, chiffre, analyse, réunion, décision…</p>${w?`<form id="jForm" class="stack" style="gap:10px"><div class="row"><label class="f">Date<input class="inp" type="date" name="date" value="${today()}" required></label><label class="f sp">Type<select name="type">${JTYPES.map(t=>`<option>${t}</option>`).join("")}</select></label></div><label class="f">Titre<input class="inp" name="titre" required maxlength="200"></label><label class="f">Détail (facultatif)<textarea class="inp" name="detail" rows="3" maxlength="1000"></textarea></label><button class="btn pri" type="submit">Ajouter au journal</button></form>`:`<p class="small muted">L'ajout d'entrées est réservé aux membres de l'équipe connectés avec un accès en écriture.</p>`}</div></div></div>`}
+  if(S.sv==="int"){const cnt=ISTAT.map(s=>[s,I.filter(x=>x.statut===s).length]);
+    const card=x=>{const lm=M.filter(m=>(m.interlocuteurs||[]).includes(x.id));const del=x.ajout&&w&&(x.par===SV.me||SV.adm)?`<button class="btn ghost small" data-idel="${esc(x.id)}" type="button">Supprimer</button>`:"";
+      return `<article class="ivc" data-iv="${esc(x.id)}" style="--sc:${ICOL[x.statut]||"var(--s7)"}"><div class="ivh"><span class="ivn">${String(x.n).padStart(2,"0")}</span><div class="sp" style="min-width:0"><b>${esc(x.personnes)}</b><div class="small muted">${esc(x.organisation)}${x.fonction?" · "+esc(x.fonction):""}</div></div><span class="stat">${esc(x.statut)}</span></div>
+       ${x.pourquoi?`<p class="small">${esc(x.pourquoi)}</p>`:""}
+       <div class="row small" style="gap:6px">${(x.axes||[]).map(a=>`<button class="tag" type="button" data-axe="${a}" style="--ac:${AXC[a-1]}">${axIcon(a,13)} ${esc(AXES[a-1].t)}</button>`).join("")}${(x.questions||[]).map(q=>`<button class="tag" type="button" data-q="${q-1}" title="${esc(QUESTIONS[q-1])}">Q${q}</button>`).join("")}</div>
+       ${lm.length?`<p class="small muted">Peut éclairer : ${lm.map(m=>esc(m.indicateur)).join(" ; ")}</p>`:""}
+       ${w?`<div class="ivf"><label class="f">Statut<select data-ik="statut">${ISTAT.map(s=>`<option ${s===x.statut?"selected":""}>${s}</option>`).join("")}</select></label><label class="f">Date de l'entretien<input class="inp" type="date" data-ik="date" value="${esc(x.date||"")}"></label><label class="f">Référent dans l'équipe<input class="inp" data-ik="referent" value="${esc(x.referent||"")}" maxlength="80"></label></div>
+        <label class="f">Notes<textarea class="inp" data-ik="notes" rows="2" maxlength="4000">${esc(x.notes||"")}</textarea></label><div class="row small muted"><button class="btn small" data-isave type="button">Enregistrer</button><span class="sp">${x.maj?"Mis à jour le "+esc(when(x.maj))+(x.par?" par "+esc(byWho(x)):""):""}</span>${del}</div>`
+       :`${x.date||x.referent||x.notes?`<p class="small">${x.date?"Entretien : "+esc(new Date(x.date+"T12:00").toLocaleDateString("fr-FR"))+" · ":""}${x.referent?"Référent : "+esc(x.referent):""}</p>${x.notes?`<p class="small muted" style="white-space:pre-wrap">${esc(x.notes)}</p>`:""}`:""}`}</article>`};
+    body=`<div class="ibar">${cnt.map(([s,n])=>n?`<i style="flex:${n};background:${ICOL[s]}" title="${esc(s)} : ${n}"></i>`:"").join("")}</div><div class="legend" style="margin:8px 0 18px">${cnt.map(([s,n])=>`<span><i style="background:${ICOL[s]}"></i>${esc(s)} · <b>${n}</b></span>`).join("")}</div>
+     ${BLOCS.map(b=>{const L=I.filter(x=>(BLOCS.includes(x.bloc)?x.bloc:"Autres")===b);return L.length?`<h3 class="blk">${esc(b)}</h3><div class="ivg">${L.map(card).join("")}</div>`:""}).join("")}
+     ${w?`<details class="card" style="margin-top:18px"><summary><b>Ajouter une personne</b></summary><form id="iForm" class="stack" style="gap:10px;margin-top:12px"><div class="row"><label class="f sp">Personne(s)<input class="inp" name="personnes" required maxlength="160"></label><label class="f sp">Organisation<input class="inp" name="organisation" required maxlength="160"></label><label class="f">Thème<select name="bloc">${BLOCS.map(b=>`<option>${b}</option>`).join("")}</select></label></div><label class="f">Fonction<input class="inp" name="fonction" maxlength="300"></label><label class="f">Pourquoi cette personne<textarea class="inp" name="pourquoi" rows="2" maxlength="600"></textarea></label><div class="row small">${AXES.map(a=>`<label><input type="checkbox" name="axe" value="${a.n}"> Axe ${a.n}</label>`).join("")}</div><button class="btn pri" type="submit">Ajouter</button></form></details>`:""}
+     <p class="src" style="margin-top:14px">Liste établie par l'équipe d'après le document « Liste des personnes à interviewer » ; coordonnées personnelles non publiées.</p>`}
+  if(S.sv==="man"){const L=M.filter(x=>(!S.ma||x.axe===+S.ma)&&(!S.ms||x.statut===S.ms));
+    const prio={Haute:"C",Moyenne:"B",Basse:"A"};
+    body=`<div class="row" style="margin-bottom:14px"><label class="f">Axe<select id="maF"><option value="">Tous</option>${AXES.map(a=>`<option value="${a.n}" ${+S.ma===a.n?"selected":""}>Axe ${a.n} · ${a.t}</option>`).join("")}</select></label><label class="f">Statut de la demande<select id="msF"><option value="">Tous</option>${MSTAT.map(s=>`<option ${S.ms===s?"selected":""}>${s}</option>`).join("")}</select></label><span class="sp"></span><span class="small muted">${L.length} indicateur${L.length>1?"s":""}</span></div>
+     <div class="mlist">${L.map(x=>{const del=x.ajout&&w&&(x.par===SV.me||SV.adm)?`<button class="btn ghost small" data-mdel="${esc(x.id)}" type="button">Supprimer</button>`:"";
+      return `<article class="mrow" data-mv="${esc(x.id)}" style="--ac:${AXC[(x.axe||1)-1]};--sc:${MCOL[x.statut]}"><span class="ic">${axIcon(x.axe||1,18)}</span><div class="mb"><div class="row" style="gap:8px"><b class="sp">${esc(x.indicateur)}</b><span class="pill ${prio[x.priorite]||"B"}">Priorité ${esc((x.priorite||"Moyenne").toLowerCase())}</span><span class="stat">${esc(x.statut)}</span></div>
+       <dl class="md"><dt>Maille souhaitée</dt><dd>${esc(x.maille||"–")}</dd><dt>Sources possibles</dt><dd>${esc(x.sources||"–")}</dd><dt>État</dt><dd>${esc(x.etat||"–")}${x.piste?" · "+esc(x.piste):""}</dd>${(x.interlocuteurs||[]).length?`<dt>Interlocuteurs</dt><dd>${x.interlocuteurs.map(id=>{const p=I.find(r=>r.id===id);return p?`<button class="tag" type="button" data-goiv="${esc(id)}">${esc(p.personnes)} (${esc(p.organisation)})</button>`:""}).join(" ")}</dd>`:""}</dl>
+       ${w?`<div class="row" style="align-items:flex-end"><label class="f">Statut<select data-mk="statut">${MSTAT.map(s=>`<option ${s===x.statut?"selected":""}>${s}</option>`).join("")}</select></label><label class="f sp">Notes<input class="inp" data-mk="notes" value="${esc(x.notes||"")}" maxlength="2000"></label><button class="btn small" data-msave type="button">Enregistrer</button>${del}</div>${x.maj?`<p class="small muted">Mis à jour le ${esc(when(x.maj))}${x.par?" par "+esc(byWho(x)):""}</p>`:""}`:x.notes?`<p class="small muted">${esc(x.notes)}</p>`:""}</div></article>`}).join("")}</div>
+     ${w?`<details class="card" style="margin-top:18px"><summary><b>Signaler une donnée manquante</b></summary><form id="mForm" class="stack" style="gap:10px;margin-top:12px"><div class="row"><label class="f sp">Indicateur<input class="inp" name="indicateur" required maxlength="200"></label><label class="f">Axe<select name="axe">${AXES.map(a=>`<option value="${a.n}">Axe ${a.n}</option>`).join("")}</select></label><label class="f">Priorité<select name="priorite"><option>Haute</option><option selected>Moyenne</option><option>Basse</option></select></label></div><div class="row"><label class="f sp">Maille souhaitée<input class="inp" name="maille" maxlength="120"></label><label class="f sp">Sources possibles<input class="inp" name="sources" maxlength="400"></label></div><label class="f">Piste<input class="inp" name="piste" maxlength="400"></label><button class="btn pri" type="submit">Ajouter</button></form></details>`:""}`}
+  return `<div class="stack"><div class="row"><h2 class="sp">Suivi de l'étude</h2><button class="btn" type="button" id="svCsv">Exporter (CSV)</button></div>
+   <div class="card">${stepper()}<p class="src" style="margin-top:10px">Calendrier provisoire de l'étude de cas France. Source : ${srcTxt(["N33"])}</p></div>${st}
+   <div class="subtabs">${tabs.map(t=>`<button type="button" data-sv="${t[0]}" class="${S.sv===t[0]?"on":""}">${t[1]}</button>`).join("")}</div>${body}</div>`}
+const formObj=f=>Object.fromEntries([...new FormData(f).entries()].map(([k,v])=>[k,String(v).trim()]));
+AFTER.suivi=()=>{
+  $$("[data-sv]").forEach(b=>b.onclick=()=>{S.sv=b.dataset.sv;render()});
+  $$("[data-jt]").forEach(b=>b.onclick=()=>{S.jt=b.dataset.jt;render()});
+  const maF=$("#maF");if(maF)maF.onchange=()=>{S.ma=maF.value;render()};const msF=$("#msF");if(msF)msF.onchange=()=>{S.ms=msF.value;render()};
+  $$("[data-goiv]").forEach(b=>b.onclick=()=>{S.sv="int";render();const el=$(`[data-iv="${CSS.escape(b.dataset.goiv)}"]`);if(el){el.scrollIntoView({block:"center"});el.classList.add("flash")}});
+  const jf=$("#jForm");if(jf)jf.onsubmit=async e=>{e.preventDefault();const o=formObj(jf);if(!o.titre)return;const b=$("button[type=submit]",jf);b.disabled=true;
+    if(await dbw(()=>DB.collection("journal").add({date:o.date||today(),type:o.type,titre:o.titre,detail:o.detail||"",cree:new Date().toISOString(),par:SV.me||null}))){jf.reset();toast("Entrée ajoutée")}b.disabled=false};
+  $$("[data-jdel]").forEach(b=>b.onclick=()=>dbw(()=>DB.collection("journal").doc(b.dataset.jdel).delete()));
+  $$("[data-iv]").forEach(c=>{const id=c.dataset.iv,get=k=>$(`[data-ik="${k}"]`,c);if(!get("statut"))return;
+    get("statut").onchange=e=>saveRow("interviews",id,{statut:e.target.value});get("date").onchange=e=>saveRow("interviews",id,{date:e.target.value});
+    $("[data-isave]",c).onclick=async b=>{if(await saveRow("interviews",id,{notes:get("notes").value.trim(),referent:get("referent").value.trim()}))toast("Enregistré")}});
+  $$("[data-idel]").forEach(b=>b.onclick=()=>dbw(()=>DB.collection("interviews").doc(b.dataset.idel).delete()));
+  const iF=$("#iForm");if(iF)iF.onsubmit=async e=>{e.preventDefault();const o=formObj(iF);const axes=[...iF.querySelectorAll("[name=axe]:checked")].map(x=>+x.value);
+    if(await dbw(()=>DB.collection("interviews").add({ajout:true,personnes:o.personnes,organisation:o.organisation,bloc:o.bloc,fonction:o.fonction||"",pourquoi:o.pourquoi||"",axes,questions:[],statut:"À contacter",cree:new Date().toISOString(),...stamp()}))){iF.reset();toast("Personne ajoutée")}};
+  $$("[data-mv]").forEach(c=>{const id=c.dataset.mv,s=$(`[data-mk="statut"]`,c);if(!s)return;s.onchange=()=>saveRow("manquantes",id,{statut:s.value});
+    $("[data-msave]",c).onclick=async()=>{if(await saveRow("manquantes",id,{notes:$(`[data-mk="notes"]`,c).value.trim()}))toast("Enregistré")}});
+  $$("[data-mdel]").forEach(b=>b.onclick=()=>dbw(()=>DB.collection("manquantes").doc(b.dataset.mdel).delete()));
+  const mF=$("#mForm");if(mF)mF.onsubmit=async e=>{e.preventDefault();const o=formObj(mF);
+    if(await dbw(()=>DB.collection("manquantes").add({ajout:true,indicateur:o.indicateur,axe:+o.axe,priorite:o.priorite,maille:o.maille||"",sources:o.sources||"",piste:o.piste||"",etat:"Signalé par l'équipe",interlocuteurs:[],statut:"À demander",cree:new Date().toISOString(),...stamp()}))){mF.reset();toast("Donnée manquante ajoutée")}};
+  $("#svCsv").onclick=()=>{let rows;
+    if(S.sv==="int")rows=[["N°","Thème","Personne(s)","Organisation","Fonction","Pourquoi","Axes","Statut","Date de l'entretien","Référent","Notes","Mis à jour"],...intRows().map(x=>[x.n,x.bloc,x.personnes,x.organisation,x.fonction,x.pourquoi,(x.axes||[]).join(","),x.statut,x.date||"",x.referent||"",x.notes||"",x.maj||""])];
+    else if(S.sv==="man")rows=[["Axe","Indicateur","Maille","Sources possibles","État","Piste","Interlocuteurs","Priorité","Statut de la demande","Notes","Mis à jour"],...manRows().map(x=>[x.axe,x.indicateur,x.maille,x.sources,x.etat,x.piste,(x.interlocuteurs||[]).map(id=>(intRows().find(r=>r.id===id)||{}).personnes||id).join(" ; "),x.priorite,x.statut,x.notes||"",x.maj||""])];
+    else rows=[["Date","Type","Titre","Détail","Origine"],...[...D.contenus.journal.map(x=>({...x,o:"Historique"})),...SV.journal.map(x=>({...x,o:"Ajout"}))].sort((a,b)=>String(b.date).localeCompare(a.date)).map(x=>[x.date,x.type,x.titre,x.detail||"",x.o])];
+    save("observatoire-suivi-"+S.sv+".csv",csv(rows))}};
+
 /* ---------------- sources et données */
 function vSrc(){
   const tabs=[["ind","Indicateurs ("+IND.length+")"],["bases","Jeux de données ("+D.contenus.bases.length+")"],["sources","Sources ("+D.contenus.sources.length+")"],["chiffres","Chiffres clés ("+(D.contenus.chiffres.length+D.contenus.national.length)+")"],["pol","Politiques et dispositifs ("+D.contenus.politiques.length+")"],["miss","Données manquantes ("+MISSING.length+")"]];
@@ -1007,8 +1165,8 @@ function vSrc(){
   if(S.src==="sources")body=`<div class="tw"><table><thead><tr><th>Réf.</th><th>Organisme</th><th>Titre</th><th>Date</th><th>Type</th></tr></thead><tbody>${D.contenus.sources.filter(s=>m(s.ref+s.organisme+s.titre)).map(s=>`<tr><td class="mono">${esc(s.ref)}</td><td>${esc(s.organisme)}</td><td>${s.lien?`<a href="${esc(s.lien)}" target="_blank" rel="noopener">${esc(s.titre)}</a>`:esc(s.titre)}</td><td>${esc(s.date)}</td><td class="small">${esc(s.type)}</td></tr>`).join("")}</tbody></table></div>`;
   if(S.src==="chiffres"){const all=[...D.contenus.national.map(x=>({t:"Axe "+x.axe,i:x.indicateur,v:x.valeur,u:x.unite,a:x.annee,te:"France",r:x.ref,f:x.fiabilite})),...D.contenus.chiffres.map(x=>({t:x.theme,i:x.indicateur,v:x.valeur,u:x.unite,a:x.annees,te:x.territoire,r:x.ref,f:x.verification}))];
     body=`<div class="tw"><table><thead><tr><th>Thème</th><th>Indicateur</th><th class="n">Valeur</th><th>Unité</th><th>Année</th><th>Territoire</th><th>Source</th><th>Fiabilité</th></tr></thead><tbody>${all.filter(x=>m(x.t+x.i+x.te)).map(x=>`<tr><td class="small">${esc(x.t)}</td><td>${esc(x.i)}</td><td class="n">${typeof x.v==="number"?fmt(x.v,x.v%1?1:0):esc(x.v)}</td><td>${esc(x.u)}</td><td>${esc(x.a)}</td><td>${esc(x.te)}</td><td class="small">${srcTxt([x.r])}</td><td><span class="pill ${esc(String(x.f||"").slice(0,1))}">${esc(x.f)}</span></td></tr>`).join("")}</tbody></table></div>`}
-  if(S.src==="pol")body=`<div class="tw"><table><thead><tr><th>Dispositif</th><th>Axes</th><th>Échelon</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.filter(p=>m(p.nom+p.description)).map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${p.axes.join(", ")}</td><td>${esc(p.echelon)}</td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td class="small">${srcTxt([p.ref])}</td></tr>`).join("")}</tbody></table></div>`;
-  if(S.src==="miss")body=`<div class="tw"><table><thead><tr><th>Axe</th><th>Indicateur demandé</th><th>Où le trouver</th><th>État</th></tr></thead><tbody>${MISSING.filter(x=>m(x[1]+x[2])).map(x=>`<tr><td>${x[0]}</td><td><b>${esc(x[1])}</b></td><td class="small">${esc(x[2])}</td><td class="small">${esc(x[3])}</td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="pol")body=`<div class="tw"><table><thead><tr><th>Dispositif</th><th>Axes</th><th>Échelon</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.filter(p=>m(p.nom+p.description)).map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${p.axes.join(", ")}</td><td>${esc(p.echelon)}</td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td class="small">${srcTxt(String(p.ref).split(" "))}</td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="miss")body=`<p class="note" style="margin-bottom:12px">Pistes, interlocuteurs, priorités et suivi des demandes : onglet <a href="#suivi" data-go="suivi">Suivi de l'étude</a>.</p><div class="tw"><table><thead><tr><th>Axe</th><th>Indicateur demandé</th><th>Où le trouver</th><th>État</th></tr></thead><tbody>${MISSING.filter(x=>m(x[1]+x[2])).map(x=>`<tr><td>${x[0]}</td><td><b>${esc(x[1])}</b></td><td class="small">${esc(x[2])}</td><td class="small">${esc(x[3])}</td></tr>`).join("")}</tbody></table></div>`;
   return `<div class="stack"><div class="row"><h2 class="sp">Sources et données</h2><input class="inp" id="srcQ" type="search" placeholder="Filtrer…" value="${esc(S.srcQ)}" style="max-width:260px"><button class="btn" type="button" id="srcCsv">Exporter cette liste (CSV)</button></div>
   <p class="note">Toutes les données de la plateforme sont publiques. Les indicateurs territoriaux sont recalculés à partir des fichiers sources (Sirene, Cerema, Insee, ANCT, IGN) ; les chiffres nationaux reprennent des publications officielles, avec leur niveau de fiabilité. Les fichiers de travail de l'observatoire (data/*.json) et les scripts de préparation sont versionnés avec la plateforme.</p>
   <div class="subtabs">${tabs.map(t=>`<button type="button" data-st="${t[0]}" class="${S.src===t[0]?"on":""}">${t[1]}</button>`).join("")}</div>${body}</div>`;
