@@ -1,0 +1,861 @@
+<title>Observatoire du commerce de détail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout : bandeau navy (identité du registre v1), navigation par onglets, contenu en grille 12 colonnes ; données de gauche à droite, du résumé au détail. */
+:root{
+  --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef2f7; --line:#d9e0e8; --grid:#e6ebf1;
+  --band:#0e2846; --band-2:#163659; --band-ink:#ffffff; --band-muted:#a9bcd3;
+  --ink:#13233a; --ink-2:#44546a; --muted:#68788c;
+  --accent:#0b4f9c; --accent-ink:#ffffff; --accent-soft:#e6eef9; --pink:#c2255c; --pink-soft:#fdeef4;
+  --s1:#2a78d6; --s2:#e0612b; --s3:#1a9e70; --s4:#8a5cc2; --s5:#c8941a; --s6:#d0406f; --s7:#7d8796;
+  --q1:#e3edf8; --q2:#b6d0ee; --q3:#7eaee0; --q4:#3f83cc; --q5:#14559e;
+  --good:#1d7a4c; --good-bg:#e3f3ea; --warn:#9a6200; --warn-bg:#fbf0db; --bad:#b4261b; --bad-bg:#fbe5e2;
+  --shadow:0 10px 30px rgba(19,35,58,.12);
+  --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --f-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e141c; --surface:#151d28; --surface-2:#1b2532; --line:#2a3646; --grid:#222d3b;
+    --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
+    --ink:#e8edf4; --ink-2:#b3bfcd; --muted:#8392a5;
+    --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1a2b42; --pink:#f48fb6; --pink-soft:#3a1d2a;
+    --s1:#4b93ea; --s2:#ee7a45; --s3:#2bb889; --s4:#a682dc; --s5:#e0b043; --s6:#ec6b95; --s7:#9aa5b4;
+    --q1:#1b2a3d; --q2:#1f4570; --q3:#2c66a6; --q4:#4f8fd6; --q5:#8fc0f5;
+    --good:#6fd3a0; --good-bg:#16301f; --warn:#efc06b; --warn-bg:#33270f; --bad:#f2958a; --bad-bg:#3a1a17;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e141c; --surface:#151d28; --surface-2:#1b2532; --line:#2a3646; --grid:#222d3b;
+  --band:#0a1a2e; --band-2:#13283f; --band-ink:#ffffff; --band-muted:#93a8c2;
+  --ink:#e8edf4; --ink-2:#b3bfcd; --muted:#8392a5;
+  --accent:#6aa8ee; --accent-ink:#0d141e; --accent-soft:#1a2b42; --pink:#f48fb6; --pink-soft:#3a1d2a;
+  --s1:#4b93ea; --s2:#ee7a45; --s3:#2bb889; --s4:#a682dc; --s5:#e0b043; --s6:#ec6b95; --s7:#9aa5b4;
+  --q1:#1b2a3d; --q2:#1f4570; --q3:#2c66a6; --q4:#4f8fd6; --q5:#8fc0f5;
+  --good:#6fd3a0; --good-bg:#16301f; --warn:#efc06b; --warn-bg:#33270f; --bad:#f2958a; --bad-bg:#3a1a17;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;margin:0;overflow-x:clip}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.inner{max-width:1280px;margin:0 auto;padding-inline:16px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono)}
+h1,h2,h3{text-wrap:balance;margin:0}
+h2{font-size:1.35rem;font-weight:600}
+h3{font-size:1.02rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+/* bandeau */
+.band{background:var(--band);color:var(--band-ink)}
+.band .top{display:flex;align-items:center;gap:16px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand b{font-family:var(--f-serif);font-weight:600;font-size:1.3rem;letter-spacing:.005em}
+.brand span{color:var(--band-muted);font-size:.8rem}
+.vtag{font-family:var(--f-mono);font-size:.72rem;border:1px solid var(--band-muted);color:var(--band-muted);border-radius:4px;padding:1px 6px;margin-left:8px;vertical-align:2px}
+.search{position:relative;flex:1 1 320px;max-width:520px;margin-left:auto}
+.search input{width:100%;padding:10px 14px 10px 38px;border-radius:8px;border:1px solid transparent;background:var(--band-2);color:var(--band-ink)}
+.search input::placeholder{color:var(--band-muted)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.75}
+.sugg{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);z-index:40;max-height:420px;overflow:auto}
+.sugg button{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:9px 14px;border:0;background:none;cursor:pointer;border-bottom:1px solid var(--grid)}
+.sugg button:hover,.sugg button.on{background:var(--accent-soft)}
+.sugg .t{font-size:.72rem;color:var(--muted);white-space:nowrap}
+.theme-btn{background:none;border:1px solid var(--band-muted);color:var(--band-ink);border-radius:8px;padding:8px 10px;cursor:pointer}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{color:var(--band-muted);text-decoration:none;padding:10px 14px;border-bottom:3px solid transparent;white-space:nowrap;font-weight:500;font-size:.92rem}
+nav.tabs a:hover{color:var(--band-ink)}
+nav.tabs a.on{color:var(--band-ink);border-bottom-color:var(--pink)}
+
+main{padding-block:26px 60px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+@media (max-width:960px){.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.c3{grid-column:span 6}}
+@media (max-width:560px){.c3{grid-column:span 12}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.card h3{margin-bottom:4px}
+.card .sub{color:var(--muted);font-size:.85rem;margin-bottom:12px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sp{flex:1}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:500;font-size:.88rem}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ghost{background:none}
+.btn[disabled]{opacity:.5;cursor:default}
+select,.inp{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;max-width:100%}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--muted);min-width:0}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-size:.8rem;background:var(--surface-2);border:1px solid var(--line)}
+.chip button{border:0;background:none;cursor:pointer;color:var(--muted);padding:0}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:600}
+.pill.A{background:var(--good-bg);color:var(--good)}.pill.B{background:var(--warn-bg);color:var(--warn)}.pill.C{background:var(--bad-bg);color:var(--bad)}
+.pill.ax{background:var(--accent-soft);color:var(--accent)}
+.hero{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start;margin-bottom:26px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.hero h1{font-family:var(--f-serif);font-weight:600;font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.15}
+.hero p.lead{margin-top:12px;font-size:1.05rem;color:var(--ink-2);max-width:62ch}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi .v{font-size:1.6rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:.82rem;color:var(--ink-2);margin-top:4px}
+.kpi .s{font-size:.72rem;color:var(--muted);margin-top:6px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.qcard{text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.qcard:hover{border-color:var(--accent)}
+.qcard b{font-weight:600}
+.axes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.axis{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;cursor:pointer;text-align:left}
+.axis:hover{border-color:var(--accent)}
+.axis .n{font-family:var(--f-mono);color:var(--pink);font-size:.8rem}
+
+/* fiche territoire */
+.fhead{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.fhead h2{font-family:var(--f-serif);font-size:1.9rem;font-weight:600}
+.crumbs{display:flex;gap:6px;flex-wrap:wrap;font-size:.85rem}
+.crumbs button{border:0;background:none;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
+.ind{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--grid)}
+.ind:last-child{border-bottom:0}
+.ind .lab{font-size:.88rem;display:flex;gap:6px;align-items:baseline;min-width:0}
+.ind .val{font-weight:600;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ind .ref{grid-column:1/-1;display:flex;gap:10px;align-items:center;font-size:.75rem;color:var(--muted)}
+.bar{flex:1;height:6px;background:var(--surface-2);border-radius:3px;position:relative;min-width:60px;max-width:180px}
+.bar i{position:absolute;top:-3px;width:3px;height:12px;background:var(--pink);border-radius:1px}
+.info{border:0;background:none;cursor:pointer;color:var(--muted);padding:0 2px;font-size:.8rem;line-height:1}
+.info:hover{color:var(--accent)}
+.pop{position:fixed;z-index:60;max-width:380px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:14px;font-size:.84rem}
+.pop dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:8px 0 0}
+.pop dt{color:var(--muted)}
+.pop dd{margin:0}
+.na{color:var(--muted);font-style:italic;font-weight:400}
+
+/* tableaux */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.86rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--grid);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink-2);background:var(--surface-2);position:sticky;top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.hl td{background:var(--accent-soft)}
+tbody tr:hover td{background:var(--surface-2)}
+
+/* graphiques */
+.chart{width:100%;overflow:hidden}
+.chart svg{display:block;width:100%;height:auto}
+.chart text{fill:var(--ink-2);font-family:var(--f-body);font-size:11px}
+.chart .ax{stroke:var(--line)}
+.chart .gr{stroke:var(--grid)}
+.fig{display:flex;flex-direction:column;gap:8px}
+.fig .tools{display:flex;gap:6px;justify-content:flex-end}
+.fig .tools button{font-size:.75rem;padding:3px 8px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.src{font-size:.74rem;color:var(--muted)}
+.mapwrap{position:relative}
+.mapwrap svg path.dep{stroke:var(--surface);stroke-width:.6;cursor:pointer}
+.mapwrap svg path.dep:hover{stroke:var(--ink);stroke-width:1.4}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 9px;border-radius:6px;font-size:.78rem;z-index:70;max-width:260px}
+
+/* assistant */
+.msgs li{margin-bottom:8px}
+.ai{white-space:pre-wrap;background:var(--surface-2);border-radius:10px;padding:14px;font-family:var(--f-serif);font-size:1rem;line-height:1.55}
+.note{background:var(--surface-2);border-left:3px solid var(--pink);padding:10px 12px;border-radius:6px;font-size:.86rem;color:var(--ink-2)}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;z-index:80;font-size:.88rem}
+.loading{display:flex;flex-direction:column;gap:10px;padding:40px 0}
+.skel{height:14px;border-radius:6px;background:var(--surface-2);max-width:620px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.subtabs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.85rem}
+.subtabs button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:.8rem}
+@media (prefers-reduced-motion:no-preference){.card,.kpi{transition:border-color .15s}}
+</style>
+
+<header class="band">
+  <div class="inner top">
+    <div class="brand"><b>Observatoire du commerce de détail <span class="vtag">v2</span></b><span>France · double transition, périphéries, centres-villes, QPV, frontières</span></div>
+    <div class="search" role="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" placeholder="Commune, EPCI, département, région, zone commerciale, QPV, frontière…" aria-label="Rechercher un territoire">
+      <div class="sugg" id="sugg" hidden></div>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Changer de thème">◐</button>
+  </div>
+  <div class="inner"><nav class="tabs" id="tabs" aria-label="Sections"></nav></div>
+</header>
+<main class="inner" id="main">
+  <div class="loading" id="loading"><p class="eyebrow">Chargement des données</p><h2>Plus de 460 000 commerces, 34 700 communes, 1 372 zones commerciales et 1 362 quartiers prioritaires</h2><div class="skel"></div><div class="skel" style="max-width:480px"></div><div class="skel" style="max-width:540px"></div></div>
+</main>
+<footer><div class="inner">Observatoire du commerce de détail, version 2 · Données : Insee (Sirene, populations), Cerema (zones commerciales, artificialisation), ANCT (QPV, programmes), IGN, OCDE, Commission européenne. Chaque indicateur affiche sa définition, sa méthode, sa source et son millésime (bouton ⓘ).</div></footer>
+
+<script>
+"use strict";
+/* ============================================================ utilitaires */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const NF={0:new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}),1:new Intl.NumberFormat("fr-FR",{maximumFractionDigits:1,minimumFractionDigits:1}),2:new Intl.NumberFormat("fr-FR",{maximumFractionDigits:2,minimumFractionDigits:2})};
+const fmt=(v,d=0)=>v==null||!isFinite(v)?"–":(NF[d]||(NF[d]=new Intl.NumberFormat("fr-FR",{maximumFractionDigits:d,minimumFractionDigits:d}))).format(v);
+const sgn=(v,d=1)=>v==null||!isFinite(v)?"–":(v>0?"+":"")+fmt(v,d);
+const norm=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[-'’]/g," ").replace(/\s+/g," ").trim();
+const pct=(a,b)=>b>0?(a/b-1)*100:null;
+const share=(a,b)=>b>0?a/b*100:null;
+const per=(a,b,k)=>b>0?a/b*k:null;
+const mean=a=>{const v=a.filter(x=>x!=null&&isFinite(x));return v.length?v.reduce((s,x)=>s+x,0)/v.length:null};
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* ============================================================ thème */
+(function(){const t=store.get("obs-theme");if(t)document.documentElement.dataset.theme=t;})();
+$("#themeBtn").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store.set("obs-theme",r.dataset.theme);render()};
+
+/* ============================================================ données */
+const D={}; let C, N, CI={};
+const NUMS=[]; // colonnes additives
+async function load(){
+  const files=["communes","noms","geo_dep","zones","qpv","centres","acv","frontieres","artif_nat","contenus"];
+  const res=await Promise.all(files.map(f=>fetch("data/"+f+".json").then(r=>{if(!r.ok)throw new Error(f);return r.json()})));
+  files.forEach((f,i)=>D[f]=res[i]);
+  C=D.communes.data; N=D.communes.n; D.communes.cols.forEach((c,i)=>CI[c]=i);
+  const skip=new Set(["code","nom","dep","epci","dens","aav","x","y"]);
+  D.communes.cols.forEach(c=>{if(!skip.has(c))NUMS.push(c)});
+  // part des dépenses à l'étranger (Insee 2075), pondérée par la population
+  const pe=D.frontieres.part_depenses_dep; C.etr_w=new Array(N); C.etr_p=new Array(N);
+  for(let i=0;i<N;i++){const v=pe[C.dep[i]];C.etr_w[i]=v!=null?v*C.pop[i]:0;C.etr_p[i]=v!=null?C.pop[i]:0}
+  NUMS.push("etr_w","etr_p");
+  C.n_com=new Array(N).fill(1); NUMS.push("n_com");
+  D.src={}; D.contenus.sources.forEach(s=>D.src[s.ref]=s);
+  D.acvBy={}; const a=D.acv.data; for(let i=0;i<D.acv.n;i++)D.acvBy[a.code[i]]=i;
+  D.cenBy={}; const ce=D.centres.data; for(let i=0;i<D.centres.n;i++)D.cenBy[ce.code[i]]=i;
+}
+
+/* ============================================================ indicateurs */
+const AXES=[
+ {n:1,t:"Commerce de détail",d:"Établissements, emploi, taille, secteurs, dynamique"},
+ {n:2,t:"Transition numérique",d:"E-commerce, IA, outils, cybersécurité"},
+ {n:3,t:"Transition environnementale",d:"Artificialisation, sobriété foncière, émissions"},
+ {n:4,t:"Zones frontalières",d:"Achats transfrontaliers, fiscalité, flux"},
+ {n:5,t:"Zones périphériques",d:"Poids, évolution, surfaces, grandes surfaces"},
+ {n:6,t:"Centres-villes",d:"Dynamique, employeurs, vacance (villes ACV)"},
+ {n:7,t:"Quartiers prioritaires",d:"Commerces implantés en QPV, évolution"}];
+const SIR="Reconstitution du stock d'établissements actifs au 1er janvier de chaque année à partir de Sirene (stock, historique et géolocalisation). Les adresses tirées au hasard dans la commune sont exclues des rattachements infra-communaux.";
+const IND=[
+ // axe 1
+ {id:"r25",axe:1,l:"Commerces en magasin",u:"établissements",f:A=>A.r25,d:0,def:"Établissements actifs au 1er janvier 2025 dont l'activité principale relève du commerce de détail en magasin (NAF 47.1 à 47.7).",m:SIR,s:["N29"],y:"2025"},
+ {id:"dens",axe:1,l:"Densité commerciale",u:"pour 1 000 hab.",f:A=>per(A.r25,A.pop,1000),d:1,def:"Commerces en magasin actifs rapportés à la population municipale.",m:"Commerces 2025 (Sirene) / population légale 2023 × 1 000.",s:["N29","N13"],y:"2025 / 2023",peer:1},
+ {id:"ev1925",axe:1,l:"Évolution des commerces 2019-2025",u:"%",f:A=>pct(A.r25,A.r19),d:1,sg:1,def:"Variation du nombre de commerces en magasin actifs entre le 1er janvier 2019 et le 1er janvier 2025.",m:SIR,s:["N29"],y:"2019-2025",peer:1},
+ {id:"ev1219",axe:1,l:"Évolution des commerces 2012-2019",u:"%",f:A=>pct(A.r19,A.r12),d:1,sg:1,def:"Variation du nombre de commerces en magasin actifs entre 2012 et 2019.",m:SIR,s:["N29"],y:"2012-2019"},
+ {id:"e25",axe:1,l:"Établissements employeurs",u:"établissements",f:A=>A.e25,d:0,def:"Commerces en magasin actifs ayant au moins un salarié selon Sirene.",m:"Caractère employeur de l'établissement à la date de la photographie (Sirene).",s:["N29"],y:"2025"},
+ {id:"pemp",axe:1,l:"Part des commerces employeurs",u:"%",f:A=>share(A.e25,A.r25),d:1,def:"Part des commerces actifs qui emploient au moins un salarié.",m:"Employeurs 2025 / commerces actifs 2025.",s:["N29"],y:"2025",peer:1},
+ {id:"eve1925",axe:1,l:"Évolution des employeurs 2019-2025",u:"%",f:A=>pct(A.e25,A.e19),d:1,sg:1,def:"Variation du nombre de commerces employeurs entre 2019 et 2025.",m:SIR,s:["N29"],y:"2019-2025",peer:1},
+ {id:"emp",axe:1,l:"Emploi salarié estimé",u:"salariés",f:A=>A.emp,d:0,def:"Ordre de grandeur de l'emploi salarié des points de vente.",m:"Somme des centres de classe des tranches d'effectifs Sirene des commerces en magasin actifs (millésime d'effectif le plus récent, souvent 2022 ou 2023). Les tranches non renseignées comptent pour zéro : la valeur est un minimum.",s:["N29"],y:"2026 (stock)",q:"C"},
+ {id:"taille",axe:1,l:"Salariés par point de vente",u:"salariés",f:A=>per(A.emp,A.sz0+A.sz1+A.sz2+A.sz3,1),d:1,def:"Emploi salarié estimé rapporté au nombre de points de vente actifs du stock Sirene.",m:"Voir « Emploi salarié estimé ».",s:["N29"],y:"2026 (stock)",q:"C",peer:1},
+ {id:"pmicro",axe:1,l:"Points de vente de moins de 10 salariés",u:"%",f:A=>share(A.sz0+A.sz1,A.sz0+A.sz1+A.sz2+A.sz3),d:1,def:"Part des points de vente sans salarié ou de 1 à 9 salariés (tranche d'effectifs de l'établissement).",m:"Tranches d'effectifs Sirene ; tranche inconnue comptée sans salarié.",s:["N29"],y:"2026 (stock)",peer:1},
+ {id:"preseau",axe:1,l:"Points de vente d'enseignes en réseau",u:"%",f:A=>share(A.res,A.sz0+A.sz1+A.sz2+A.sz3),d:1,def:"Part des points de vente appartenant à une entreprise qui exploite au moins 10 commerces en magasin (commerce intégré). Indicateur approché du commerce organisé : les franchisés et adhérents de groupements, juridiquement indépendants, n'y sont pas comptés.",m:"Nombre d'établissements actifs par SIREN dans le stock Sirene.",s:["N29"],y:"2026 (stock)",q:"B",peer:1},
+ {id:"gs25",axe:1,l:"Grandes surfaces",u:"établissements",f:A=>A.gs25,d:0,def:"Hypermarchés, supermarchés, grands magasins et grandes surfaces de bricolage (NAF 47.11D, 47.11F, 47.19A, 47.52B).",m:SIR,s:["N29"],y:"2025"},
+ {id:"txe",axe:1,l:"Taux d'entrée 2022-2025",u:"% du stock 2022",f:A=>share(A.in25,A.r22),d:1,def:"Commerces actifs en 2025 qui ne l'étaient pas en 2022 (créations, transferts, changements d'activité), rapportés au stock 2022.",m:"Comparaison des photographies Sirene au 1er janvier 2022 et 2025.",s:["N29"],y:"2022-2025",peer:1},
+ {id:"txs",axe:1,l:"Taux de sortie 2022-2025",u:"% du stock 2022",f:A=>share(A.out25,A.r22),d:1,def:"Commerces actifs en 2022 qui ne le sont plus en 2025 (cessations, transferts, changements d'activité), rapportés au stock 2022.",m:"Comparaison des photographies Sirene au 1er janvier 2022 et 2025.",s:["N29"],y:"2022-2025",peer:1,lo:1},
+ {id:"palim",axe:1,l:"Part de l'alimentaire",u:"%",f:A=>share(A.n1+A.n2,A.r25),d:1,def:"Part des commerces alimentaires, généralistes (NAF 47.1) ou spécialisés (47.2), parmi les commerces en magasin.",m:SIR,s:["N29"],y:"2025",peer:1},
+ {id:"dalim",axe:1,l:"Commerces alimentaires",u:"pour 10 000 hab.",f:A=>per(A.n1+A.n2,A.pop,1e4),d:1,def:"Commerces alimentaires généralistes et spécialisés rapportés à la population.",m:"Commerces NAF 47.1 et 47.2 en 2025 / population 2023 × 10 000.",s:["N29","N13"],y:"2025",peer:1},
+ {id:"dphar",axe:1,l:"Pharmacies",u:"pour 10 000 hab.",f:A=>per(A.phar,A.pop,1e4),d:1,def:"Pharmacies (NAF 47.73Z) rapportées à la population.",m:SIR,s:["N29","N13"],y:"2025",peer:1},
+ {id:"vital",axe:1,l:"Indice de vitalité commerciale",u:"/100",comp:"vital",d:0,def:"Indice composite expérimental : moyenne des rangs (centiles) du territoire parmi les territoires de même niveau pour la densité commerciale, l'évolution 2019-2025, la part d'employeurs et le solde entrées-sorties 2022-2025.",m:"Centiles calculés au sein du même niveau (communes de taille comparable, EPCI, départements ou régions). 50 = médiane.",s:["N29","N13"],y:"2025",q:"C"},
+ // axe 2
+ {id:"ecom",axe:2,l:"Établissements de vente à distance",u:"établissements",f:A=>A.ecom,d:0,def:"Établissements actifs de vente à distance sur catalogue général ou spécialisé (NAF 47.91A et 47.91B), catégorie qui regroupe l'essentiel du e-commerce.",m:"Stock Sirene, établissements actifs. Le lieu compté est l'établissement déclaré, pas le lieu de livraison ; les marketplaces et les ventes en ligne des magasins n'y figurent pas.",s:["N29"],y:"2026 (stock)",q:"B"},
+ {id:"iecom",axe:2,l:"Intensité e-commerce",u:"pour 100 commerces",f:A=>per(A.ecom,A.r25,100),d:1,def:"Établissements de vente à distance pour 100 commerces en magasin.",m:"NAF 47.91A et 47.91B / commerces en magasin 2025 × 100.",s:["N29"],y:"2025-2026",q:"B",peer:1},
+ // axe 3
+ {id:"artact",axe:3,l:"Espaces consommés pour l'activité",u:"ha (2011-2024)",f:A=>A.art_act,d:1,def:"Espaces naturels, agricoles et forestiers consommés entre 2011 et 2024 pour des destinations d'activité économique (commerce, industrie, bureaux…).",m:"Fichiers fonciers retraités par le Cerema (CONSOENAF), destination « activité », somme des années 2011 à 2024.",s:["N10"],y:"2011-2024"},
+ {id:"artacth",axe:3,l:"Artificialisation pour l'activité",u:"m² par hab.",f:A=>per(A.art_act*1e4,A.pop,1),d:1,def:"Surface consommée pour l'activité économique entre 2011 et 2024, rapportée à la population.",m:"CONSOENAF (activité) × 10 000 / population 2023.",s:["N10","N13"],y:"2011-2024",peer:1,lo:1},
+ {id:"partact",axe:3,l:"Part de l'activité dans la consommation d'espaces",u:"%",f:A=>share(A.art_act,A.art_tot),d:1,def:"Part de la consommation d'espaces 2011-2024 destinée à l'activité économique.",m:"CONSOENAF : activité / total.",s:["N10"],y:"2011-2024",peer:1,lo:1},
+ {id:"tendart",axe:3,l:"Rythme d'artificialisation pour l'activité",u:"% (2019-24 vs 2011-14)",f:A=>A.art_act_1115>0?((A.art_act_1924/6)/(A.art_act_1115/4)-1)*100:null,d:0,sg:1,def:"Variation du rythme annuel moyen de consommation d'espaces pour l'activité entre 2011-2014 et 2019-2024.",m:"Moyenne annuelle 2019-2024 (6 ans) / moyenne annuelle 2011-2014 (4 ans) - 1.",s:["N10"],y:"2011-2024",lo:1},
+ {id:"pperi",axe:3,l:"Commerces situés en zone périphérique",u:"%",f:A=>share(A.p_r25,A.r25),d:1,def:"Part des commerces en magasin situés dans une zone commerciale de périphérie. Indicateur indirect de la dépendance à la voiture pour les achats.",m:"Commerces géolocalisés dans les polygones « commerce » de l'inventaire Cerema (tolérance 50 m).",s:["N29","N30"],y:"2025",peer:1,lo:1},
+ {id:"durab",axe:3,l:"Indice de durabilité du commerce",u:"/100",comp:"durab",d:0,def:"Indice composite expérimental : moyenne des centiles pour une faible part de commerces en périphérie, une forte densité de commerces alimentaires de proximité et une faible artificialisation pour l'activité par habitant.",m:"Centiles au sein du même niveau. 50 = médiane. Ne mesure ni les émissions ni l'énergie, faute de données territoriales ouvertes.",s:["N29","N10","N30"],y:"2011-2025",q:"C"},
+ // axe 4
+ {id:"etr",axe:4,l:"Dépenses en magasin réalisées à l'étranger",u:"% des dépenses",f:A=>A.etr_p>0?A.etr_w/A.etr_p:null,d:1,def:"Part des paiements par carte en magasin des ménages réalisée dans un pays voisin, au niveau du département de résidence.",m:"Clients actifs du Crédit Mutuel Alliance Fédérale ; valeur départementale, moyenne pondérée par la population pour les regroupements.",s:["N06"],y:"2024",peer:1},
+ {id:"dtab",axe:4,l:"Débits de tabac",u:"pour 10 000 hab.",f:A=>per(A.tab,A.pop,1e4),d:1,def:"Établissements de commerce de détail de tabac (NAF 47.26Z) rapportés à la population.",m:SIR,s:["N29","N13"],y:"2025",peer:1},
+ {id:"dcarb",axe:4,l:"Stations-service",u:"pour 10 000 hab.",f:A=>per(A.n3,A.pop,1e4),d:1,def:"Commerces de détail de carburants (NAF 47.3) rapportés à la population.",m:SIR,s:["N29","N13"],y:"2025",peer:1},
+ // axe 5
+ {id:"pr25",axe:5,l:"Commerces en zone périphérique",u:"établissements",f:A=>A.p_r25,d:0,def:"Commerces en magasin actifs situés dans une zone commerciale de périphérie.",m:"Voir « Commerces situés en zone périphérique ».",s:["N29","N30"],y:"2025"},
+ {id:"evperi",axe:5,l:"Évolution des commerces en périphérie 2012-2025",u:"%",f:A=>pct(A.p_r25,A.p_r12),d:1,sg:1,def:"Variation du nombre de commerces actifs dans les zones périphériques entre 2012 et 2025.",m:"Périmètres de zones fixes (Cerema) : mesure la densification des zones existantes.",s:["N29","N30"],y:"2012-2025",peer:1},
+ {id:"nzone",axe:5,l:"Zones commerciales périphériques",u:"zones",f:A=>A.nzone,d:0,def:"Zones commerciales de périphérie dont la commune principale est dans le territoire.",m:"Inventaire Cerema des zones d'activités, polygones à vocation commerciale regroupés par zone.",s:["N30"],y:"2023"},
+ {id:"zsurfh",axe:5,l:"Surface de zones commerciales",u:"m² par hab.",f:A=>per(A.zsurf*1e4,A.pop,1),d:1,def:"Surface des zones commerciales de périphérie rapportée à la population.",m:"Surface des polygones Cerema (ha) × 10 000 / population 2023.",s:["N30","N13"],y:"2023",peer:1,lo:1},
+ {id:"pgs",axe:5,l:"Grandes surfaces pour 10 000 hab.",u:"pour 10 000 hab.",f:A=>per(A.gs25,A.pop,1e4),d:2,def:"Hypermarchés, supermarchés, grands magasins et grandes surfaces de bricolage rapportés à la population.",m:SIR,s:["N29","N13"],y:"2025",peer:1},
+ // axe 6
+ {id:"cr25",axe:6,l:"Commerces en centre-ville",u:"établissements",f:A=>A.c_r25,d:0,def:"Commerces en magasin actifs situés dans le centre-ville, approché par un cercle autour de la mairie (300 m sous 10 000 hab., 500 m de 10 000 à 50 000, 700 m au-delà). Communes de 5 000 habitants ou plus, hors Paris, Lyon et Marseille.",m:"Géolocalisation Sirene ; chef-lieu de commune IGN ADMIN EXPRESS.",s:["N29","N15"],y:"2025"},
+ {id:"evc",axe:6,l:"Évolution des commerces de centre-ville 2012-2025",u:"%",f:A=>pct(A.c_r25,A.c_r12),d:1,sg:1,def:"Variation du nombre de commerces actifs dans les centres-villes entre 2012 et 2025.",m:"Voir « Commerces en centre-ville ».",s:["N29","N15"],y:"2012-2025",peer:1},
+ {id:"evc1925",axe:6,l:"Évolution des commerces de centre-ville 2019-2025",u:"%",f:A=>pct(A.c_r25,A.c_r19),d:1,sg:1,def:"Variation du nombre de commerces actifs dans les centres-villes entre 2019 et 2025.",m:"Voir « Commerces en centre-ville ».",s:["N29","N15"],y:"2019-2025",peer:1},
+ {id:"pcentre",axe:6,l:"Commerces situés en centre-ville",u:"%",f:A=>share(A.c_r25,A.r25),d:1,def:"Part des commerces de la commune situés dans le cercle de centre-ville.",m:"Communes de 5 000 habitants ou plus seulement.",s:["N29"],y:"2025",peer:1},
+ {id:"pcemp",axe:6,l:"Part d'employeurs en centre-ville",u:"%",f:A=>share(A.c_e25,A.c_r25),d:1,def:"Part des commerces de centre-ville qui emploient au moins un salarié.",m:SIR,s:["N29"],y:"2025",peer:1},
+ // axe 7
+ {id:"qr25",axe:7,l:"Commerces en QPV",u:"établissements",f:A=>A.q_r25,d:0,def:"Commerces en magasin actifs situés dans un quartier prioritaire de la politique de la ville (périmètres 2024).",m:"Géolocalisation Sirene ; périmètres QPV 2024 (ANCT).",s:["N29","N16"],y:"2025"},
+ {id:"evq",axe:7,l:"Évolution des commerces en QPV 2012-2025",u:"%",f:A=>pct(A.q_r25,A.q_r12),d:1,sg:1,def:"Variation du nombre de commerces actifs dans les QPV entre 2012 et 2025 (périmètres 2024 fixes).",m:"Voir « Commerces en QPV ».",s:["N29","N16"],y:"2012-2025",peer:1},
+ {id:"nqpv",axe:7,l:"Quartiers prioritaires",u:"QPV",f:A=>A.nqpv,d:0,def:"Quartiers prioritaires de la politique de la ville (périmètres 2024) dont la commune principale est dans le territoire.",m:"Liste ANCT 2024.",s:["N16"],y:"2024"},
+ {id:"qpar",axe:7,l:"Commerces par QPV",u:"commerces",f:A=>per(A.q_r25,A.nqpv,1),d:1,def:"Commerces en magasin actifs dans les QPV, rapportés au nombre de QPV.",m:"Voir « Commerces en QPV ».",s:["N29","N16"],y:"2025",peer:1},
+ {id:"pqemp",axe:7,l:"Part d'employeurs parmi les commerces en QPV",u:"%",f:A=>share(A.q_e25,A.q_r25),d:1,def:"Part des commerces situés en QPV qui emploient au moins un salarié.",m:SIR,s:["N29","N16"],y:"2025",peer:1},
+];
+const INDM={};IND.forEach(x=>INDM[x.id]=x);
+/* indicateurs demandés mais non disponibles à l'échelle territoriale en données ouvertes */
+const MISSING=[
+ [1,"Chiffre d'affaires et productivité par territoire","Insee Ésane (national, par secteur) ; Commission européenne, SME Performance Review (national)","Le chiffre d'affaires n'est pas diffusé à l'échelle communale ; seules les données nationales sont intégrées (axe 1)."],
+ [1,"Vacance commerciale par commune","Codata (données privées) ; atlas Action cœur de ville (classes de 5 points, villes ACV) ; taxe sur les friches commerciales","Classes de vacance de l'atlas ANCT intégrées pour les villes ACV ; pas de source ouverte exhaustive."],
+ [1,"Fréquentation et attractivité commerciale","MyTraffic (privé, observatoire ANCT des villes ACV)","Données de téléphonie non ouvertes."],
+ [1,"Dépenses de consommation par territoire","Insee, comptes nationaux ; données de cartes bancaires (non ouvertes)","Seule la part des dépenses à l'étranger est disponible (Insee, départements)."],
+ [2,"Omnicanalité, click and collect, plateformes, outils de gestion, compétences numériques","Baromètre France Num (DGE) ; Eurostat, enquête TIC entreprises","Résultats nationaux par taille d'entreprise ; aucune déclinaison territoriale ouverte."],
+ [2,"Cybersécurité","Baromètre France Num ; Cybermalveillance.gouv.fr","National uniquement."],
+ [3,"Émissions de CO₂ et consommation d'énergie des commerces","OCDE, comptes d'émissions (national) ; ADEME, plateforme OPERAT (décret tertiaire)","OPERAT n'est pas diffusée par établissement."],
+ [3,"Mobilité des consommateurs, dépendance automobile, accessibilité en transports publics","Enquête mobilité des personnes (SDES) ; horaires GTFS (transport.data.gouv.fr)","Calcul d'accessibilité possible à partir des GTFS, non intégré à ce stade."],
+ [3,"Logistique urbaine, circuits courts, résilience climatique","Cerema, ADEME ; Agreste (recensement agricole) ; Géorisques","À intégrer dans une prochaine version."],
+ [4,"Différentiels de prix (carburant, tabac, alimentation)","prix-carburants.gouv.fr ; Eurostat, niveaux de prix ; OFDT","Écarts de taxe intégrés (TVA) ; séries de prix à intégrer."],
+ [4,"Revenus des territoires frontaliers","Insee Filosofi (commune)","Disponible en données ouvertes, à intégrer."],
+ [5,"Fréquentation et emploi des zones périphériques","MyTraffic ; inventaire Cerema (emploi partiellement renseigné)","Non ouvert ou incomplet."],
+ [6,"Mixité des usages et attractivité résidentielle des centres","Fichiers fonciers (Cerema, accès restreint) ; LOVAC ; DVF","Atlas ACV (vacance des logements, ventes) intégré pour les villes ACV."],
+ [7,"Inclusion numérique, mobilité et consommation locale en QPV","Indice de fragilité numérique (Mednum) ; recensement","À intégrer."]];
+
+/* ============================================================ territoires */
+const T={}; // id -> territoire
+let SEARCH=[];
+const SIZE=[["<2 000 hab.",0,2000],["2 000 à 10 000 hab.",2000,1e4],["10 000 à 50 000 hab.",1e4,5e4],["50 000 hab. et plus",5e4,1e12]];
+const sizeOf=p=>SIZE.findIndex(s=>p>=s[1]&&p<s[2]);
+function buildTerritories(){
+  const nm=D.noms, depReg=nm.dep_reg;
+  const groups={}; const add=(id,i)=>{(groups[id]||(groups[id]=[])).push(i)};
+  const borderDeps={};Object.entries(D.frontieres.pays).forEach(([p,ds])=>ds.forEach(d=>(borderDeps[d]||(borderDeps[d]=[])).push(p)));
+  for(let i=0;i<N;i++){
+    const dep=C.dep[i], reg=depReg[dep];
+    add("fr",i); add("dep:"+dep,i); add("reg:"+reg,i); add("epci:"+C.epci[i],i);
+    if(borderDeps[dep]){add("g:front",i);borderDeps[dep].forEach(p=>add("bord:"+p,i))} else add("g:nonfront",i);
+    if(C.acv[i])add("g:acv",i); else if(C.pvd[i])add("g:pvd",i); else add("g:horsprog",i);
+    add("g:dens"+C.dens[i],i); add("g:aav"+C.aav[i],i); add("g:taille"+sizeOf(C.pop[i]),i);
+    if(C.littoral[i])add("g:littoral",i); if(C.montagne[i])add("g:montagne",i);
+  }
+  const mk=(id,type,label,idx,extra={})=>T[id]=Object.assign({id,type,label,idx},extra);
+  mk("fr","france","France métropolitaine",groups.fr);
+  Object.keys(nm.reg).forEach(r=>groups["reg:"+r]&&mk("reg:"+r,"reg",nm.reg[r],groups["reg:"+r]));
+  Object.keys(nm.dep).forEach(d=>groups["dep:"+d]&&mk("dep:"+d,"dep",nm.dep[d]+" ("+d+")",groups["dep:"+d],{dep:d,reg:depReg[d]}));
+  nm.epci_codes.forEach((s,k)=>groups["epci:"+k]&&mk("epci:"+k,"epci",nm.epci[s]||("EPCI "+s),groups["epci:"+k],{siren:s}));
+  Object.keys(D.frontieres.pays).forEach(p=>mk("bord:"+p,"bord","Espace frontalier "+(["Allemagne","Espagne","Italie","Andorre"].includes(p)?"avec l'":"avec la ")+p.replace(/^(Belgique|Suisse|Luxembourg)$/,"$1"),groups["bord:"+p],{pays:p}));
+  T["bord:Luxembourg"].label="Espace frontalier avec le Luxembourg"; T["bord:Monaco"].label="Espace frontalier avec Monaco"; T["bord:Andorre"].label="Espace frontalier avec Andorre";
+  mk("g:front","group","Départements frontaliers",groups["g:front"]);
+  mk("g:nonfront","group","Départements non frontaliers",groups["g:nonfront"]);
+  mk("g:acv","group","Villes Action Cœur de Ville",groups["g:acv"]);
+  mk("g:pvd","group","Petites villes de demain",groups["g:pvd"]);
+  mk("g:horsprog","group","Communes hors ACV et PVD",groups["g:horsprog"]);
+  nm.dens.forEach((d,k)=>groups["g:dens"+k]&&mk("g:dens"+k,"group","Communes : "+d.toLowerCase(),groups["g:dens"+k]));
+  const AAVL={"11":"Commune-centre d'un pôle","12":"Autre commune d'un pôle principal","13":"Commune d'un pôle secondaire","20":"Commune de couronne","30":"Commune hors attraction des villes"};
+  nm.aav.forEach((a,k)=>groups["g:aav"+k]&&mk("g:aav"+k,"group",(AAVL[a]||a)+" (aires d'attraction)",groups["g:aav"+k]));
+  SIZE.forEach((s,k)=>groups["g:taille"+k]&&mk("g:taille"+k,"group","Communes de "+s[0],groups["g:taille"+k]));
+  mk("g:littoral","group","Communes littorales",groups["g:littoral"]); mk("g:montagne","group","Communes de montagne",groups["g:montagne"]);
+  // recherche
+  const S=[];
+  for(let i=0;i<N;i++)S.push({k:norm(C.nom[i]),l:C.nom[i],t:"Commune · "+C.dep[i],id:"com:"+i,w:C.pop[i]});
+  Object.values(T).forEach(t=>{if(t.type!=="france")S.push({k:norm(t.label),l:t.label,t:{reg:"Région",dep:"Département",epci:"EPCI",bord:"Frontière",group:"Groupe"}[t.type],id:t.id,w:t.type==="reg"?9e8:t.type==="dep"?8e8:t.type==="bord"||t.type==="group"?7e8:3e7})});
+  S.push({k:norm("France métropolitaine"),l:"France métropolitaine",t:"Pays",id:"fr",w:1e9});
+  const Z=D.zones.data;for(let j=0;j<D.zones.n;j++){const i=CODE[Z.com[j]];S.push({k:norm("zone commerciale "+(i!=null?C.nom[i]:Z.com[j])),l:"Zone commerciale · "+(i!=null?C.nom[i]:Z.com[j])+" ("+fmt(Z.surf[j])+" ha)",t:"Zone",id:"zone:"+j,w:Z.r25[j]})}
+  const Q=D.qpv.data;for(let j=0;j<D.qpv.n;j++){S.push({k:norm(Q.nom[j]+" "+(CODE[Q.com[j]]!=null?C.nom[CODE[Q.com[j]]]:"")+" qpv "+Q.code[j]),l:Q.nom[j]+" ("+(CODE[Q.com[j]]!=null?C.nom[CODE[Q.com[j]]]:Q.com[j])+")",t:"QPV",id:"qpv:"+j,w:Q.r25[j]})}
+  SEARCH=S;
+}
+const CODE={};
+function prepCodes(){for(let i=0;i<N;i++)CODE[C.code[i]]=i}
+function terr(id){
+  if(T[id])return T[id];
+  if(id.startsWith("com:")){const i=+id.slice(4);const dep=C.dep[i];return T[id]={id,type:"com",label:C.nom[i],idx:[i],i,dep,reg:D.noms.dep_reg[dep],epci:"epci:"+C.epci[i]}}
+  if(id.startsWith("zone:")){const j=+id.slice(5),Z=D.zones.data;const i=CODE[Z.com[j]];return T[id]={id,type:"zone",j,label:"Zone commerciale de "+(i!=null?C.nom[i]:Z.com[j]),com:i}}
+  if(id.startsWith("qpv:")){const j=+id.slice(4),Q=D.qpv.data;const i=CODE[Q.com[j]];return T[id]={id,type:"qpv",j,label:"QPV "+Q.nom[j],com:i}}
+  return T.fr;
+}
+const TYPEL={france:"Pays",reg:"Région",dep:"Département",epci:"Intercommunalité",com:"Commune",bord:"Espace frontalier",group:"Groupe de territoires",zone:"Zone commerciale périphérique",qpv:"Quartier prioritaire"};
+
+/* ============================================================ agrégats et pairs */
+const AGG={};
+function agg(t){
+  if(AGG[t.id])return AGG[t.id];
+  const A={};NUMS.forEach(c=>A[c]=0);
+  for(const i of t.idx){for(const c of NUMS)A[c]+=C[c][i]}
+  return AGG[t.id]=A;
+}
+function rowAgg(i){const A={};NUMS.forEach(c=>A[c]=C[c][i]);return A}
+function val(ind,t){if(ind.comp)return composite(ind.comp,t);return ind.f(t.type==="com"?rowAgg(t.i):agg(t))}
+/* niveaux de comparaison : valeurs de l'indicateur pour tous les territoires du même niveau */
+const PEER={};
+function peerKey(t){if(t.type==="com")return "com"+sizeOf(C.pop[t.i]);return t.type}
+function peerList(t){
+  const k=peerKey(t);
+  if(k.startsWith("com")){const s=+k.slice(3);const out=[];for(let i=0;i<N;i++)if(sizeOf(C.pop[i])===s&&C.pop[i]>=200)out.push("com:"+i);return out}
+  return Object.values(T).filter(x=>x.type===t.type).map(x=>x.id);
+}
+function peerVals(ind,t){
+  const k=peerKey(t)+"|"+ind.id; if(PEER[k])return PEER[k];
+  const ids=peerList(t); const v=[];
+  for(const id of ids){const x=ind.f(id.startsWith("com:")?rowAgg(+id.slice(4)):agg(terr(id)));if(x!=null&&isFinite(x))v.push(x)}
+  v.sort((a,b)=>a-b); return PEER[k]=v;
+}
+function centile(ind,t,x){if(x==null||!isFinite(x))return null;const v=peerVals(ind,t);if(v.length<5)return null;let lo=0,hi=v.length;while(lo<hi){const m=(lo+hi)>>1;if(v[m]<x)lo=m+1;else hi=m}let e=lo;while(e<v.length&&v[e]===x)e++;return ((lo+e)/2)/v.length*100}
+const COMP={vital:[["dens",1],["ev1925",1],["pemp",1],["net",1]],durab:[["pperi",-1],["dalim",1],["artacth",-1]]};
+INDM.net={id:"net",f:A=>A.r22>0?(A.in25-A.out25)/A.r22*100:null};
+const RANKED=new Set(["com","epci","dep","reg"]);
+function composite(k,t){
+  if(!RANKED.has(t.type))return null;
+  const A=t.type==="com"?rowAgg(t.i):agg(t); const parts=[];
+  for(const [id,s] of COMP[k]){const ind=INDM[id];const x=ind.f(A);const c=centile(ind,t,x);if(c!=null)parts.push(s>0?c:100-c)}
+  return parts.length===COMP[k].length?mean(parts):null;
+}
+
+/* ============================================================ graphiques (SVG) */
+const COLS=["var(--s1)","var(--s2)","var(--s3)","var(--s4)","var(--s5)","var(--s6)","var(--s7)"];
+function niceMax(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));for(const m of [1,1.2,1.5,2,2.5,3,4,5,6,8,10])if(m*p>=v)return m*p;return 10*p}
+function ticks(lo,hi,n=4){const st=niceMax((hi-lo)/n);const a=[];let v=Math.ceil(lo/st)*st;for(;v<=hi+1e-9;v+=st)a.push(+v.toFixed(6));return a}
+function lineChart({labels,series,unit="",h=230,idx=false,dec=0}){
+  const W=640,H=h,L=52,R=16,Tp=14,B=28; const all=series.flatMap(s=>s.v).filter(x=>x!=null);
+  let lo=Math.min(...all),hi=Math.max(...all); if(lo===hi){lo-=1;hi+=1} const pad=(hi-lo)*.12; lo=idx?Math.min(lo-pad,100):Math.max(0,lo-pad); if(lo>0&&!idx&&lo<(hi-lo))lo=0; hi=hi+pad;
+  const tk=ticks(lo,hi); lo=Math.min(lo,tk[0]); hi=Math.max(hi,tk[tk.length-1]);
+  const x=i=>L+(W-L-R)*(labels.length===1?.5:i/(labels.length-1)), y=v=>Tp+(H-Tp-B)*(1-(v-lo)/(hi-lo));
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  tk.forEach(t=>g+=`<line class="gr" x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end">${fmt(t,dec)}</text>`);
+  labels.forEach((l,i)=>g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${esc(l)}</text>`);
+  if(idx)g+=`<line class="ax" x1="${L}" x2="${W-R}" y1="${y(100)}" y2="${y(100)}" stroke-dasharray="3 3"/>`;
+  series.forEach((s,k)=>{const c=s.c||COLS[k%6];let p="";s.v.forEach((v,i)=>{if(v!=null)p+=(p?"L":"M")+x(i).toFixed(1)+","+y(v).toFixed(1)});
+    g+=`<path d="${p}" fill="none" stroke="${c}" stroke-width="${s.w||2.2}" ${s.dash?'stroke-dasharray="5 4"':''}/>`;
+    s.v.forEach((v,i)=>{if(v!=null&&(i===s.v.length-1))g+=`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${c}"/><text x="${x(i)-6}" y="${y(v)-8}" text-anchor="end" style="font-weight:600;fill:${c}">${fmt(v,dec)}</text>`})});
+  return g+`</svg>`+legend(series);
+}
+function legend(series){return series.length>1?`<div class="legend">${series.map((s,k)=>`<span><i style="background:${s.c||COLS[k%6]}"></i>${esc(s.n)}</span>`).join("")}</div>`:""}
+function barChart({items,unit="",dec=0,h,ref=null,sign=false}){
+  const W=640,rowH=24,L=Math.min(250,Math.max(110,Math.max(...items.map(i=>i.l.length))*6.2)),R=70,H=h||items.length*rowH+20;
+  const vals=items.map(i=>i.v).filter(v=>v!=null); let lo=Math.min(0,...vals),hi=Math.max(0,...vals); if(ref!=null){lo=Math.min(lo,ref);hi=Math.max(hi,ref)} if(hi===lo)hi=lo+1;
+  const x=v=>L+(W-L-R)*(v-lo)/(hi-lo);
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img"><line class="ax" x1="${x(0)}" x2="${x(0)}" y1="4" y2="${H-6}"/>`;
+  items.forEach((it,k)=>{const y=8+k*rowH; if(it.v==null){g+=`<text x="${L-8}" y="${y+12}" text-anchor="end">${esc(it.l)}</text><text x="${L+4}" y="${y+12}" class="na">n.d.</text>`;return}
+    const x0=x(Math.min(0,it.v)),x1=x(Math.max(0,it.v));
+    g+=`<text x="${L-8}" y="${y+12}" text-anchor="end" ${it.hl?'style="font-weight:700;fill:var(--ink)"':''}>${esc(it.l.length>40?it.l.slice(0,39)+"…":it.l)}</text><rect x="${x0}" y="${y}" width="${Math.max(1,x1-x0)}" height="${rowH-8}" rx="2" fill="${it.c||(it.hl?"var(--pink)":"var(--s1)")}"/><text x="${x1+5}" y="${y+12}">${sign?sgn(it.v,dec):fmt(it.v,dec)}${unit}</text>`});
+  if(ref!=null)g+=`<line x1="${x(ref)}" x2="${x(ref)}" y1="2" y2="${H-4}" stroke="var(--ink)" stroke-dasharray="3 3"/>`;
+  return g+`</svg>`;
+}
+function stackChart({rows,cats,h}){ // rows:[{l,v:[...]}] valeurs en %
+  const W=640,rowH=26,L=Math.min(220,Math.max(90,Math.max(...rows.map(r=>r.l.length))*6.4)),R=10,H=h||rows.length*rowH+12;
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  rows.forEach((r,k)=>{const y=6+k*rowH;let x=L;const tot=r.v.reduce((a,b)=>a+(b||0),0)||1;
+    g+=`<text x="${L-8}" y="${y+13}" text-anchor="end">${esc(r.l)}</text>`;
+    r.v.forEach((v,j)=>{const w=(W-L-R)*(v||0)/tot;g+=`<rect x="${x}" y="${y}" width="${w}" height="${rowH-8}" fill="${COLS[j%7]}"><title>${esc(cats[j])} : ${fmt(v/tot*100,0)} %</title></rect>`;if(w>28)g+=`<text x="${x+w/2}" y="${y+13}" text-anchor="middle" style="fill:#fff;font-weight:600">${fmt(v/tot*100,0)}</text>`;x+=w})});
+  return g+`</svg><div class="legend">${cats.map((c,j)=>`<span><i style="background:${COLS[j%7]}"></i>${esc(c)}</span>`).join("")}</div>`;
+}
+function scatter({pts,xl,yl,dx=1,dy=1,hl=null}){
+  const W=640,H=360,L=56,R=16,Tp=14,B=40; const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const q=(a,p)=>{const s=[...a].sort((u,v)=>u-v);return s[Math.floor((s.length-1)*p)]};
+  let x0=q(xs,.01),x1=q(xs,.99),y0=q(ys,.01),y1=q(ys,.99); if(x0===x1){x0-=1;x1+=1} if(y0===y1){y0-=1;y1+=1}
+  const tx=ticks(x0,x1),ty=ticks(y0,y1); x0=Math.min(x0,tx[0]);x1=Math.max(x1,tx[tx.length-1]);y0=Math.min(y0,ty[0]);y1=Math.max(y1,ty[ty.length-1]);
+  const X=v=>L+(W-L-R)*(Math.min(Math.max(v,x0),x1)-x0)/(x1-x0),Y=v=>Tp+(H-Tp-B)*(1-(Math.min(Math.max(v,y0),y1)-y0)/(y1-y0));
+  let g=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  ty.forEach(t=>g+=`<line class="gr" x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}"/><text x="${L-6}" y="${Y(t)+4}" text-anchor="end">${fmt(t,dy)}</text>`);
+  tx.forEach(t=>g+=`<text x="${X(t)}" y="${H-B+16}" text-anchor="middle">${fmt(t,dx)}</text>`);
+  g+=`<text x="${(L+W-R)/2}" y="${H-4}" text-anchor="middle" style="font-weight:600">${esc(xl)}</text><text transform="translate(12 ${(Tp+H-B)/2}) rotate(-90)" text-anchor="middle" style="font-weight:600">${esc(yl)}</text>`;
+  const op=pts.length>2000?.25:pts.length>300?.45:.7;
+  pts.forEach(p=>{if(p.id!==hl)g+=`<circle cx="${X(p.x).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="${pts.length>2000?1.6:3}" fill="var(--s1)" fill-opacity="${op}"><title>${esc(p.l)} : ${fmt(p.x,dx)} ; ${fmt(p.y,dy)}</title></circle>`});
+  const r=reg(pts); if(r){g+=`<line x1="${X(x0)}" y1="${Y(r.a+r.b*x0)}" x2="${X(x1)}" y2="${Y(r.a+r.b*x1)}" stroke="var(--s2)" stroke-width="2"/>`}
+  const h=pts.find(p=>p.id===hl); if(h)g+=`<circle cx="${X(h.x)}" cy="${Y(h.y)}" r="6" fill="var(--pink)" stroke="var(--surface)" stroke-width="2"/><text x="${X(h.x)+9}" y="${Y(h.y)-8}" style="font-weight:700;fill:var(--pink)">${esc(h.l)}</text>`;
+  return g+`</svg>`;
+}
+function reg(pts){const n=pts.length;if(n<3)return null;let sx=0,sy=0,sxx=0,sxy=0,syy=0;pts.forEach(p=>{sx+=p.x;sy+=p.y;sxx+=p.x*p.x;sxy+=p.x*p.y;syy+=p.y*p.y});const vx=sxx-sx*sx/n,vy=syy-sy*sy/n,cv=sxy-sx*sy/n;if(vx<=0||vy<=0)return null;const b=cv/vx;return{b,a:(sy-b*sx)/n,r:cv/Math.sqrt(vx*vy),n}}
+function spearman(pts){const rk=a=>{const o=a.map((v,i)=>[v,i]).sort((u,v)=>u[0]-v[0]);const r=new Array(a.length);o.forEach((p,k)=>r[p[1]]=k);return r};const rx=rk(pts.map(p=>p.x)),ry=rk(pts.map(p=>p.y));const q=reg(rx.map((v,i)=>({x:v,y:ry[i]})));return q?q.r:null}
+/* figure avec outils d'export */
+let FIGN=0; const FIGS={};
+function fig(title,svg,{src="",note="",data=null}={}){const id="f"+(++FIGN);FIGS[id]={title,src,data};
+  return `<figure class="fig" id="${id}" style="margin:0"><div class="row"><h3 class="sp">${esc(title)}</h3><div class="tools"><button class="btn ghost" data-exp="svg" data-fig="${id}" type="button">SVG</button><button class="btn ghost" data-exp="png" data-fig="${id}" type="button">PNG</button>${data?`<button class="btn ghost" data-exp="csv" data-fig="${id}" type="button">CSV</button>`:""}</div></div><div class="chart">${svg}</div>${note?`<p class="small muted">${note}</p>`:""}${src?`<p class="src">Source : ${src}</p>`:""}</figure>`}
+const srcTxt=refs=>refs.map(r=>D.src[r]?`<a href="${esc(D.src[r].lien)}" target="_blank" rel="noopener">${esc(D.src[r].organisme)}</a>`:r).join(" ; ");
+
+/* ============================================================ export (capacité downloads) */
+let DL=null, SAMPLE=null;
+async function caps(){try{if(window.claude&&claude.use){DL=await claude.use("downloads");SAMPLE=await claude.use("sample");render()}}catch(e){}}
+async function save(filename,data){
+  if(!DL){toast("Le téléchargement n'est pas disponible dans cette vue.");return}
+  try{await DL.save({filename,data});toast("Fichier enregistré")}catch(e){if(e&&e.code==="declined")return;toast(e&&e.code==="rate_limited"?"Une demande est déjà ouverte.":"Téléchargement impossible ("+(e&&e.code||"erreur")+").")}
+}
+function resolvedSVG(id){
+  const svg=$("#"+id+" svg"); if(!svg)return null; const cl=svg.cloneNode(true); const cs=getComputedStyle(document.documentElement);
+  const fix=s=>s.replace(/var\((--[\w-]+)\)/g,(m,v)=>cs.getPropertyValue(v).trim()||"#888");
+  cl.querySelectorAll("*").forEach(n=>{["fill","stroke"].forEach(a=>{const v=n.getAttribute(a);if(v&&v.includes("var("))n.setAttribute(a,fix(v))});const st=n.getAttribute("style");if(st)n.setAttribute("style",fix(st));
+    if(n.tagName==="text"&&!n.getAttribute("fill")&&!(st||"").includes("fill"))n.setAttribute("fill",cs.getPropertyValue("--ink-2").trim());
+    if(n.classList.contains("gr"))n.setAttribute("stroke",cs.getPropertyValue("--grid").trim()); if(n.classList.contains("ax"))n.setAttribute("stroke",cs.getPropertyValue("--line").trim());});
+  cl.setAttribute("xmlns","http://www.w3.org/2000/svg"); cl.setAttribute("font-family","IBM Plex Sans, Helvetica, Arial, sans-serif"); cl.setAttribute("font-size","11");
+  const bg=document.createElementNS("http://www.w3.org/2000/svg","rect");const vb=cl.viewBox.baseVal;bg.setAttribute("x",vb.x);bg.setAttribute("y",vb.y);bg.setAttribute("width",vb.width);bg.setAttribute("height",vb.height);bg.setAttribute("fill",cs.getPropertyValue("--surface").trim());cl.insertBefore(bg,cl.firstChild);
+  return new XMLSerializer().serializeToString(cl);
+}
+const slug=s=>norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,60);
+const csv=rows=>"﻿"+rows.map(r=>r.map(v=>{const s=v==null?"":String(v);return /[;"\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(";")).join("\n");
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-exp]"); if(!b)return; const f=FIGS[b.dataset.fig]; const name=slug(f.title);
+  if(b.dataset.exp==="csv"){save(name+".csv",csv(f.data));return}
+  const s=resolvedSVG(b.dataset.fig); if(!s)return;
+  if(b.dataset.exp==="svg"){save(name+".svg",s);return}
+  const img=new Image(); const url=URL.createObjectURL(new Blob([s],{type:"image/svg+xml"}));
+  img.onload=()=>{const k=2,cv=document.createElement("canvas");cv.width=img.width*k||1280;cv.height=img.height*k||720;const x=cv.getContext("2d");x.drawImage(img,0,0,cv.width,cv.height);URL.revokeObjectURL(url);cv.toBlob(bl=>bl&&save(name+".png",bl),"image/png")};
+  img.src=url;
+});
+
+/* ============================================================ popover source */
+function infoBtn(id){return `<button class="info" data-info="${id}" type="button" aria-label="Définition et source">ⓘ</button>`}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-info]"); $$(".pop").forEach(p=>p.remove()); if(!b)return;
+  const ind=INDM[b.dataset.info]; if(!ind)return; const r=b.getBoundingClientRect();
+  const p=document.createElement("div");p.className="pop";p.innerHTML=`<b>${esc(ind.l)}</b> <span class="pill ax">Axe ${ind.axe}</span>${ind.q?` <span class="pill ${ind.q}">fiabilité ${ind.q}</span>`:` <span class="pill A">fiabilité A</span>`}<dl><dt>Définition</dt><dd>${esc(ind.def)}</dd><dt>Méthode</dt><dd>${esc(ind.m)}</dd><dt>Unité</dt><dd>${esc(ind.u)}</dd><dt>Millésime</dt><dd>${esc(ind.y)}</dd><dt>Source</dt><dd>${ind.s.map(s=>D.src[s]?`<a href="${esc(D.src[s].lien)}" target="_blank" rel="noopener">${esc(D.src[s].organisme)} : ${esc(D.src[s].titre)}</a> (${esc(D.src[s].date)})`:s).join("<br>")}</dd></dl>`;
+  document.body.appendChild(p); const w=p.offsetWidth,h=p.offsetHeight; p.style.left=Math.max(8,Math.min(innerWidth-w-8,r.left-20))+"px"; p.style.top=(r.bottom+h+8<innerHeight?r.bottom+6:Math.max(8,r.top-h-6))+"px";
+});
+
+/* ============================================================ navigation */
+const TABS=[["accueil","Accueil"],["territoire","Territoires"],["comparer","Comparer"],["carte","Carte"],["analyses","Analyses"],["axes","Axes"],["questions","Questions de recherche"],["assistant","Research Assistant"],["sources","Sources et données"]];
+const S={tab:"accueil",cur:store.get("obs-cur")||"fr",cmp:["g:front","g:nonfront","fr"],axe:1,mapInd:"dens",mapLayer:"",an:"corr",cx:"artacth",cy:"evc",clev:"dep",rupInd:"r",rupLev:"dep",pivDim:"reg",pivInd:["dens","ev1925","pperi","iecom"],q:0,asT:null,asAxe:1,src:"ind",srcQ:""};
+function go(tab,extra={}){Object.assign(S,extra);S.tab=tab;if(location.hash!=="#"+tab)history.replaceState(null,"","#"+tab);render();scrollTo({top:0})}
+window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h)&&h!==S.tab){S.tab=h;render()}});
+function nav(){$("#tabs").innerHTML=TABS.map(([k,l])=>`<a href="#${k}" class="${S.tab===k?"on":""}" data-go="${k}">${l}</a>`).join("")}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){e.preventDefault();go(a.dataset.go)}
+  const o=e.target.closest("[data-open]");if(o){e.preventDefault();openT(o.dataset.open)}});
+function openT(id,tab="territoire"){S.cur=id;store.set("obs-cur",id);go(tab)}
+
+/* recherche */
+const qi=$("#q"),sg=$("#sugg"); let SUG=[],SI=0,searchTarget=null;
+function doSearch(v){const k=norm(v);if(k.length<2){sg.hidden=true;return}
+  const r=[];for(const s of SEARCH){const p=s.k.indexOf(k);if(p>=0)r.push([p===0?0:s.k.includes(" "+k)?1:2,-s.w,s])}
+  r.sort((a,b)=>a[0]-b[0]||a[1]-b[1]); SUG=r.slice(0,12).map(x=>x[2]); SI=0;
+  sg.innerHTML=SUG.length?SUG.map((s,i)=>`<button type="button" class="${i===0?"on":""}" data-pick="${i}"><span>${esc(s.l)}</span><span class="t">${esc(s.t)}</span></button>`).join(""):`<p class="small muted" style="padding:10px 14px">Aucun territoire trouvé.</p>`; sg.hidden=false}
+qi.addEventListener("input",()=>{searchTarget=null;doSearch(qi.value)});
+qi.addEventListener("keydown",e=>{if(sg.hidden)return;if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();SI=(SI+(e.key==="ArrowDown"?1:-1)+SUG.length)%SUG.length;$$("button",sg).forEach((b,i)=>b.classList.toggle("on",i===SI))}if(e.key==="Enter"&&SUG[SI]){e.preventDefault();pick(SUG[SI])}if(e.key==="Escape")sg.hidden=true});
+sg.addEventListener("click",e=>{const b=e.target.closest("[data-pick]");if(b)pick(SUG[+b.dataset.pick])});
+document.addEventListener("click",e=>{if(!e.target.closest(".search")&&!e.target.closest(".lsearch"))$$(".sugg").forEach(s=>s.hidden=true)});
+function pick(s){sg.hidden=true;qi.value="";qi.blur();openT(s.id)}
+/* recherche locale (comparer, assistant) */
+function localSearch(box,onPick){const inp=$("input",box),out=$(".sugg",box);let L=[];
+  inp.addEventListener("input",()=>{const k=norm(inp.value);if(k.length<2){out.hidden=true;return}const r=[];for(const s of SEARCH){const p=s.k.indexOf(k);if(p>=0)r.push([p===0?0:2,-s.w,s])}r.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);L=r.slice(0,10).map(x=>x[2]);out.innerHTML=L.map((s,i)=>`<button type="button" data-i="${i}"><span>${esc(s.l)}</span><span class="t">${esc(s.t)}</span></button>`).join("");out.hidden=!L.length});
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"&&L[0]){e.preventDefault();onPick(L[0].id)}});
+  out.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b)onPick(L[+b.dataset.i].id)})}
+const lsearch=(ph,id)=>`<div class="search lsearch" id="${id}" style="max-width:420px;margin:0"><input class="inp" type="search" autocomplete="off" placeholder="${esc(ph)}" style="background:var(--surface);color:var(--ink);border:1px solid var(--line);padding-left:12px"><div class="sugg" hidden></div></div>`;
+
+/* ============================================================ rendu */
+function render(){if(!C)return;nav();FIGN=0;for(const k in FIGS)delete FIGS[k];const m=$("#main");
+  const v={accueil:vHome,territoire:vTerr,comparer:vCmp,carte:vMap,analyses:vAn,axes:vAxes,questions:vQ,assistant:vAs,sources:vSrc}[S.tab]||vHome;
+  m.innerHTML=v(); (AFTER[S.tab]||(()=>{}))();}
+const AFTER={};
+
+/* ---------------- accueil */
+const QUESTIONS=[
+ "Quel est l'impact des zones commerciales périphériques sur la vitalité des centres-villes ?",
+ "Quel est l'impact des zones commerciales périphériques sur les QPV ?",
+ "Les territoires frontaliers présentent-ils des modèles commerciaux spécifiques ?",
+ "Comment les écarts de fiscalité et de prix influencent-ils les comportements d'achat ?",
+ "Quels commerces sont les plus avancés dans la transition numérique ?",
+ "Quels territoires sont les plus avancés dans la transition environnementale ?",
+ "Quelles politiques publiques semblent les plus efficaces pour soutenir le commerce de détail ?",
+ "Comment concilier compétitivité commerciale, revitalisation urbaine et objectifs environnementaux ?"];
+function vHome(){
+  const A=agg(T.fr);
+  const k=[[fmt(A.r25),"commerces en magasin actifs au 1er janvier 2025",`${sgn(pct(A.r25,A.r19))} % depuis 2019 · Sirene`],
+   [fmt(share(A.p_r25,A.r25),1)+" %","des commerces sont situés dans une zone commerciale de périphérie",`${sgn(pct(A.p_r25,A.p_r12))} % de commerces en périphérie depuis 2012`],
+   [sgn(pct(A.c_r25,A.c_r12),1)+" %","évolution des commerces de centre-ville depuis 2012",`communes de 5 000 hab. et plus · ${fmt(A.c_r25)} commerces`],
+   [fmt(share(A.q_r25,A.r25),1)+" %","des commerces sont implantés dans un QPV",`${fmt(A.q_r25)} commerces dans ${fmt(A.nqpv)} quartiers`]];
+  return `<section class="hero"><div><p class="eyebrow">Observatoire national · version 2 · données au 1er janvier 2025</p><h1>Le commerce de détail en France, du territoire à la question de recherche</h1>
+  <p class="lead">Une plateforme pour explorer les données, comparer les territoires et produire les analyses de l'étude pour la DGE, sur le modèle du rapport de l'OCDE <a href="https://www.oecd.org/en/publications/local-retail-global-trends_55e2edec-en/full-report.html" target="_blank" rel="noopener"><i>Local Retail, Global Trends</i></a>, avec un approfondissement sur les zones frontalières, les zones périphériques, les centres-villes, les QPV et la double transition.</p>
+  <div class="row" style="margin-top:18px"><button class="btn pri" data-go="assistant" type="button">Ouvrir le Research Assistant</button><button class="btn" data-go="questions" type="button">Les 8 questions de recherche</button><button class="btn" data-go="sources" type="button">Sources et jeux de données</button></div></div>
+  <div class="kpis">${k.map(x=>`<div class="kpi"><div class="v">${x[0]}</div><div class="l">${x[1]}</div><div class="s">${x[2]}</div></div>`).join("")}</div></section>
+  <div class="grid">
+   <div class="card c12"><div class="row"><h3 class="sp">Trouver un territoire</h3><span class="small muted">Tous les indicateurs d'un territoire en deux clics : chercher, choisir.</span></div>
+    <div class="row" style="margin-top:10px">${["fr","g:front","bord:Suisse","g:acv","g:pvd","reg:84","dep:59"].map(id=>`<button class="chip" data-open="${id}" type="button">${esc(terr(id).label)}</button>`).join("")}<button class="chip" data-open="com:${CODE["67482"]}" type="button">Strasbourg</button><button class="chip" data-open="com:${CODE["79049"]}" type="button">Bressuire</button></div></div>
+   <div class="card c12"><h3>Questions de recherche</h3><p class="sub">Chaque question ouvre une analyse chiffrée, avec ses graphiques, ses limites et ses sources.</p>
+    <div class="qgrid">${QUESTIONS.map((q,i)=>`<button class="qcard" type="button" data-q="${i}"><span class="eyebrow">Question ${i+1}</span><b>${esc(q)}</b></button>`).join("")}</div></div>
+   <div class="card c12"><h3>Sept axes d'analyse</h3><p class="sub">Indicateurs territoriaux calculés, chiffres nationaux sourcés, dispositifs publics et données manquantes.</p>
+    <div class="axes">${AXES.map(a=>`<button class="axis" type="button" data-axe="${a.n}"><span class="n">Axe ${a.n}</span><br><b>${a.t}</b><br><span class="small muted">${a.d}</span></button>`).join("")}</div></div>
+   <div class="card c6">${fig("Commerces en magasin par lieu d'implantation, 2012 = 100",lineChart({labels:["2012","2019","2025"],idx:true,series:[{n:"Zones périphériques",v:[100,A.p_r19/A.p_r12*100,A.p_r25/A.p_r12*100]},{n:"Centres-villes",v:[100,A.c_r19/A.c_r12*100,A.c_r25/A.c_r12*100]},{n:"QPV",v:[100,A.q_r19/A.q_r12*100,A.q_r25/A.q_r12*100]},{n:"Ensemble",v:[100,A.r19/A.r12*100,A.r25/A.r12*100],dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29","N30","N16"])})}</div>
+   <div class="card c6">${fig("Consommation d'espaces naturels, agricoles et forestiers (ha par an)",lineChart({labels:D.artif_nat.annees,series:[{n:"Total",v:D.artif_nat.total},{n:"Habitat",v:D.artif_nat.habitat},{n:"Activité économique",v:D.artif_nat.activite}]}),{src:srcTxt(["N10"]),data:[["Année","Total (ha)","Habitat (ha)","Activité (ha)"],...D.artif_nat.annees.map((y,i)=>[y,D.artif_nat.total[i],D.artif_nat.habitat[i],D.artif_nat.activite[i]])]})}</div>
+  </div>`;
+}
+document.addEventListener("click",e=>{const q=e.target.closest("[data-q]");if(q)go("questions",{q:+q.dataset.q});const a=e.target.closest("[data-axe]");if(a)go("axes",{axe:+a.dataset.axe})});
+
+/* ---------------- fiche territoire */
+function crumbs(t){const p=[];if(t.type==="com"){p.push(["reg:"+t.reg],["dep:"+t.dep],[t.epci])}else if(t.type==="epci"){const i=t.idx[0];p.push(["reg:"+D.noms.dep_reg[C.dep[i]]],["dep:"+C.dep[i]])}else if(t.type==="dep")p.push(["reg:"+t.reg]);
+  return `<div class="crumbs"><button type="button" data-open="fr">France</button>${p.filter(x=>T[x[0]]).map(x=>` › <button type="button" data-open="${x[0]}">${esc(T[x[0]].label)}</button>`).join("")}</div>`}
+function indRow(ind,t,F){
+  const v=val(ind,t),fr=ind.comp?50:val(ind,T.fr); const c=ind.peer&&RANKED.has(t.type)?centile(ind,t,v):null;
+  return `<div class="ind"><div class="lab">${esc(ind.l)} ${infoBtn(ind.id)}</div><div class="val">${v==null?'<span class="na">n.d.</span>':(ind.sg?sgn(v,ind.d):fmt(v,ind.d))} <span class="small muted" style="font-weight:400">${esc(ind.u)}</span></div>
+   <div class="ref"><span>France : ${fr==null?"–":(ind.sg?sgn(fr,ind.d):fmt(fr,ind.d))}</span>${c!=null?`<span class="bar" title="Position parmi les territoires comparables"><i style="left:calc(${c.toFixed(0)}% - 1px)"></i></span><span>${fmt(c)}e centile</span>`:""}</div></div>`}
+function vTerr(){
+  const t=terr(S.cur);
+  if(t.type==="zone")return vZone(t); if(t.type==="qpv")return vQpv(t);
+  const A=t.type==="com"?rowAgg(t.i):agg(t), F=agg(T.fr);
+  const pop=A.pop, ncom=t.idx.length;
+  const head=`<div class="fhead"><div class="stack" style="gap:6px">${crumbs(t)}<p class="eyebrow">${TYPEL[t.type]}</p><h2>${esc(t.label)}</h2><p class="muted">${fmt(pop)} habitants (2023)${ncom>1?" · "+fmt(ncom)+" communes":""}${t.type==="com"?` · ${esc(D.noms.dens[C.dens[t.i]])}${C.acv[t.i]?" · Action Cœur de Ville":""}${C.pvd[t.i]?" · Petites villes de demain":""}${C.littoral[t.i]?" · littoral":""}${C.montagne[t.i]?" · montagne":""}`:""}</p></div>
+   <div class="row sp" style="justify-content:flex-end"><button class="btn" type="button" id="toCmp">Ajouter à la comparaison</button><button class="btn pri" type="button" id="toAs">Analyser dans l'assistant</button></div></div>`;
+  const yrs=["2012","2016","2019","2022","2025"];
+  const ser=k=>yrs.map(y=>A[k+y.slice(2)]), frs=k=>yrs.map(y=>F[k+y.slice(2)]);
+  const ix=(a)=>a.map(v=>a[0]>0?v/a[0]*100:null);
+  let extra="";
+  if(t.type==="com"){const ci=D.cenBy[C.code[t.i]];const ai=D.acvBy[C.code[t.i]];
+    if(ci!=null){const ce=D.centres.data;extra+=`<div class="card c6"><h3>Centre-ville et exposition périphérique</h3><p class="sub">Cercle de ${ce.rayon[ci]} m autour de la mairie · zone périphérique la plus proche à ${fmt(ce.dist[ci],1)} km</p>${fig("Commerces du centre-ville et des zones périphériques à moins de 10 km, 2012 = 100",lineChart({labels:yrs,idx:true,series:[{n:"Centre-ville",v:ix(yrs.map(y=>ce["r"+y.slice(2)][ci]))},{n:"Périphérie à moins de 10 km",v:ix(yrs.map(y=>ce["pr"+y.slice(2)][ci]))}]}),{src:srcTxt(["N29","N30"]),note:`${fmt(ce.surf10[ci])} ha de zones commerciales à moins de 10 km.`})}</div>`}
+    if(ai!=null){const a=D.acv.data;extra+=`<div class="card c6"><h3>Atlas Action Cœur de Ville</h3><p class="sub">Classes publiées par l'ANCT (atlas national, T4 2025) et baromètre Codata 2026</p>${[["Vacance commerciale 2025",a.vac_com[ai]],["Logements vacants depuis 2 ans ou plus",a.vac_log[ai]],["Ventes immobilières depuis 2018",a.ventes[ai]],["Réinventons nos cœurs de ville",a.reinventons[ai]],["Territoire pilote de sobriété foncière",a.tpsf[ai]],["Accompagnement en transition écologique",a.transition[ai]==="True"?"oui":a.transition[ai]==="False"?"non":a.transition[ai]],["Design actif",a.design[ai]],["Vacance commerciale du centre (Codata, 2019 → 2025)",a.codata[ai]],["Fréquentation (MyTraffic, 2022-2023)",a.mytraffic[ai]]].map(r=>`<div class="ind"><div class="lab">${r[0]}</div><div class="val">${r[1]==null||r[1]===""?'<span class="na">–</span>':esc(r[1])}</div></div>`).join("")}<p class="src">Source : ${srcTxt(["N31","N25","S59"])}</p></div>`}}
+  return head+`<div class="grid">
+   ${AXES.map(ax=>{const L=IND.filter(i=>i.axe===ax.n);return `<div class="card c4"><div class="row"><span class="pill ax">Axe ${ax.n}</span><h3 class="sp">${ax.t}</h3></div>${L.map(i=>indRow(i,t,F)).join("")}${ax.n===2?`<p class="small muted" style="margin-top:8px">Usages numériques (IA, outils, cybersécurité) : chiffres nationaux uniquement, voir l'axe 2.</p>`:""}${ax.n===4&&!(A.etr_p>0)?`<p class="small muted" style="margin-top:8px">Hors départements couverts par l'étude Insee sur les achats à l'étranger.</p>`:""}</div>`}).join("")}
+   <div class="card c8">${fig("Commerces en magasin, 2012 = 100",lineChart({labels:yrs,idx:true,series:[{n:t.label,v:ix(ser("r")),c:"var(--pink)"},{n:"Employeurs ("+t.label+")",v:ix(ser("e")),c:"var(--s1)"},{n:"France",v:ix(frs("r")),dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29"]),data:[["Année","Commerces","Employeurs","France (commerces)"],...yrs.map((y,k)=>[y,ser("r")[k],ser("e")[k],frs("r")[k]])]})}</div>
+   <div class="card c6">${fig("Où sont les commerces ? Répartition 2012 et 2025",stackChart({cats:["Centre-ville","Zone périphérique","QPV","Ailleurs"],rows:[{l:"2012",v:[A.c_r12,A.p_r12,A.q_r12,A.r12-A.c_r12-A.p_r12-A.q_r12]},{l:"2025",v:[A.c_r25,A.p_r25,A.q_r25,A.r25-A.c_r25-A.p_r25-A.q_r25]},{l:"France 2025",v:[F.c_r25,F.p_r25,F.q_r25,F.r25-F.c_r25-F.p_r25-F.q_r25]}]}),{src:srcTxt(["N29","N30","N16"]),note:"Centre-ville mesuré dans les communes de 5 000 habitants ou plus seulement."})}</div>
+   <div class="card c6">${fig("Secteurs d'activité des commerces, 2025",stackChart({cats:["Alimentaire généraliste","Alimentaire spécialisé","Carburants","Info-com","Équipement du foyer","Culture et loisirs","Autres (habillement, santé…)"],rows:[{l:t.label.slice(0,24),v:[A.n1,A.n2,A.n3,A.n4,A.n5,A.n6,A.n7]},{l:"France",v:[F.n1,F.n2,F.n3,F.n4,F.n5,F.n6,F.n7]}]}),{src:srcTxt(["N29"])})}</div>
+   <div class="card c6">${fig("Entrées et sorties de commerces entre deux photographies",barChart({items:[["2012-16","16"],["2016-19","19"],["2019-22","22"],["2022-25","25"]].flatMap(([l,s])=>[{l:"Entrées "+l,v:A["in"+s],c:"var(--s3)"},{l:"Sorties "+l,v:-A["out"+s],c:"var(--s2)"}]),sign:true}),{src:srcTxt(["N29"]),data:[["Période","Entrées","Sorties"],...[["2012-2016","16"],["2016-2019","19"],["2019-2022","22"],["2022-2025","25"]].map(([l,s])=>[l,A["in"+s],A["out"+s]])]})}</div>
+   ${extra}</div>`;
+}
+AFTER.territoire=()=>{const b=$("#toCmp");if(b)b.onclick=()=>{if(!S.cmp.includes(S.cur))S.cmp.push(S.cur);go("comparer")};const a=$("#toAs");if(a)a.onclick=()=>{S.asT=S.cur;go("assistant")}};
+function vZone(t){const Z=D.zones.data,j=t.j;const yrs=["12","16","19","22","25"];
+  const coms=String(Z.coms[j]).split(",").map(s=>s.trim()).map(c=>CODE[c]).filter(i=>i!=null);
+  return `<div class="fhead"><div class="stack" style="gap:6px"><p class="eyebrow">${TYPEL.zone}</p><h2>${esc(t.label)}</h2><p class="muted">${fmt(Z.surf[j],1)} ha · communes : ${coms.map(i=>`<button class="chip" type="button" data-open="com:${i}">${esc(C.nom[i])}</button>`).join(" ")}</p></div></div>
+  <div class="grid"><div class="card c4"><h3>Indicateurs</h3>${[["Commerces en 2025",fmt(Z.r25[j])],["Commerces en 2012",fmt(Z.r12[j])],["Évolution 2012-2025",sgn(pct(Z.r25[j],Z.r12[j]))+" %"],["Employeurs en 2025",fmt(Z.e25[j])],["Grandes surfaces en 2025",fmt(Z.gs25[j])],["Commerces par hectare",fmt(per(Z.r25[j],Z.surf[j],1),2)]].map(r=>`<div class="ind"><div class="lab">${r[0]}</div><div class="val">${r[1]}</div></div>`).join("")}<p class="src">Source : ${srcTxt(["N29","N30"])}</p></div>
+  <div class="card c8">${fig("Commerces de la zone",lineChart({labels:yrs.map(y=>"20"+y),series:[{n:"Commerces",v:yrs.map(y=>Z["r"+y][j])},{n:"Employeurs",v:yrs.map(y=>Z["e"+y][j])},{n:"Grandes surfaces",v:yrs.map(y=>Z["gs"+y][j])}]}),{src:srcTxt(["N29","N30"])})}</div></div>`}
+function vQpv(t){const Q=D.qpv.data,j=t.j;const yrs=["12","16","19","22","25"];const i=t.com;
+  return `<div class="fhead"><div class="stack" style="gap:6px"><p class="eyebrow">${TYPEL.qpv} · ${esc(Q.code[j])}</p><h2>${esc(Q.nom[j])}</h2><p class="muted">${i!=null?`<button class="chip" type="button" data-open="com:${i}">${esc(C.nom[i])}</button>`:""} · zone périphérique la plus proche à ${fmt(Q.dist[j],1)} km · ${fmt(Q.surf5[j])} ha de zones à moins de 5 km</p></div></div>
+  <div class="grid"><div class="card c4"><h3>Indicateurs</h3>${[["Commerces en 2025",fmt(Q.r25[j])],["Évolution 2012-2025",sgn(pct(Q.r25[j],Q.r12[j]))+" %"],["Employeurs en 2025",fmt(Q.e25[j])],["Part d'employeurs",fmt(share(Q.e25[j],Q.r25[j]),1)+" %"],["Commerces en périphérie à moins de 5 km (2025)",fmt(Q.pr25[j])],["Évolution de la périphérie proche 2012-2025",sgn(pct(Q.pr25[j],Q.pr12[j]))+" %"]].map(r=>`<div class="ind"><div class="lab">${r[0]}</div><div class="val">${r[1]}</div></div>`).join("")}<p class="src">Source : ${srcTxt(["N29","N16","N30"])}</p></div>
+  <div class="card c8">${fig("Commerces du quartier et de la périphérie proche, 2012 = 100",lineChart({labels:yrs.map(y=>"20"+y),idx:true,series:[{n:"QPV",v:yrs.map(y=>Q.r12[j]>0?Q["r"+y][j]/Q.r12[j]*100:null)},{n:"Zones périphériques à moins de 5 km",v:yrs.map(y=>Q.pr12[j]>0?Q["pr"+y][j]/Q.pr12[j]*100:null)}]}),{src:srcTxt(["N29","N16","N30"])})}</div></div>`}
+
+/* ---------------- comparer */
+const PRESETS=()=>[["Frontaliers, non frontaliers, France",["g:front","g:nonfront","fr"]],["ACV, PVD, autres communes",["g:acv","g:pvd","g:horsprog"]],["Huit espaces frontaliers",Object.keys(D.frontieres.pays).map(p=>"bord:"+p)],["Densité des communes",[0,1,2,3].map(k=>"g:dens"+k)],["Taille des communes",[0,1,2,3].map(k=>"g:taille"+k)],["Littoral, montagne, France",["g:littoral","g:montagne","fr"]]];
+function vCmp(){
+  const ts=S.cmp.map(terr).filter(t=>t.type!=="zone"&&t.type!=="qpv"); const keys=["dens","ev1925","pemp","preseau","iecom","artacth","pperi","evperi","evc","evq","etr","dtab","dcarb","vital","durab"];
+  const yrs=["2012","2016","2019","2022","2025"];
+  return `<div class="stack"><div class="row"><h2 class="sp">Comparer des territoires</h2>${lsearch("Ajouter un territoire…","cmpS")}</div>
+  <div class="row">${ts.map(t=>`<span class="chip">${esc(t.label)}<button type="button" data-rm="${t.id}" aria-label="Retirer">×</button></span>`).join("")}${ts.length?`<button class="btn ghost small" id="cmpClr" type="button">Tout retirer</button>`:""}</div>
+  <div class="row"><span class="small muted">Comparaisons prêtes :</span>${PRESETS().map((p,i)=>`<button class="chip" type="button" data-pre="${i}">${esc(p[0])}</button>`).join("")}</div>
+  ${ts.length?`<div class="tw"><table><thead><tr><th>Indicateur</th>${ts.map(t=>`<th class="n">${esc(t.label)}</th>`).join("")}</tr></thead><tbody>${keys.map(k=>{const ind=INDM[k];const vs=ts.map(t=>val(ind,t));return `<tr><td>${esc(ind.l)} ${infoBtn(k)}<br><span class="small muted">${esc(ind.u)}</span></td>${vs.map(v=>`<td class="n">${ind.sg?sgn(v,ind.d):fmt(v,ind.d)}</td>`).join("")}</tr>`}).join("")}</tbody></table></div>
+  <div class="grid"><div class="card c6">${fig("Commerces en magasin, 2012 = 100",lineChart({labels:yrs,idx:true,series:ts.slice(0,6).map(t=>{const A=t.type==="com"?rowAgg(t.i):agg(t);return{n:t.label,v:yrs.map(y=>A["r"+y.slice(2)]/A.r12*100)}})}),{src:srcTxt(["N29"])})}</div>
+   <div class="card c6"><label class="f">Indicateur du graphique<select id="cmpInd">${IND.filter(i=>!i.comp||true).map(i=>`<option value="${i.id}" ${i.id===(S.cmpInd||"dens")?"selected":""}>Axe ${i.axe} · ${esc(i.l)}</option>`).join("")}</select></label>${(()=>{const ind=INDM[S.cmpInd||"dens"];return fig(ind.l+" ("+ind.u+")",barChart({items:ts.map(t=>({l:t.label,v:val(ind,t)})),dec:ind.d,sign:!!ind.sg,ref:ind.comp?50:val(ind,T.fr)}),{src:srcTxt(ind.s),note:"Ligne pointillée : France.",data:[["Territoire",ind.l+" ("+ind.u+")"],...ts.map(t=>[t.label,val(ind,t)])]})})()}</div></div>
+  <div class="row"><button class="btn" type="button" id="cmpCsv">Exporter le tableau (CSV)</button></div>`:`<div class="card"><p>Ajoutez des territoires avec la recherche ou choisissez une comparaison prête.</p></div>`}</div>`;
+}
+AFTER.comparer=()=>{localSearch($("#cmpS"),id=>{if(!S.cmp.includes(id))S.cmp.push(id);render()});
+  $$("[data-rm]").forEach(b=>b.onclick=()=>{S.cmp=S.cmp.filter(x=>x!==b.dataset.rm);render()});
+  $$("[data-pre]").forEach(b=>b.onclick=()=>{S.cmp=[...PRESETS()[+b.dataset.pre][1]];render()});
+  const c=$("#cmpClr");if(c)c.onclick=()=>{S.cmp=[];render()};const s=$("#cmpInd");if(s)s.onchange=()=>{S.cmpInd=s.value;render()};
+  const x=$("#cmpCsv");if(x)x.onclick=()=>{const ts=S.cmp.map(terr);save("comparaison-territoires.csv",csv([["Indicateur","Unité","Axe","Source","Millésime",...ts.map(t=>t.label)],...IND.map(i=>[i.l,i.u,i.axe,i.s.join(" "),i.y,...ts.map(t=>{const v=val(i,t);return v==null?"":(+v.toFixed(3))})])]))}};
+
+/* ---------------- carte */
+function depVals(ind){const o={};Object.values(T).filter(t=>t.type==="dep").forEach(t=>o[t.dep]=val(ind,t));return o}
+function vMap(){
+  const ind=INDM[S.mapInd]; const v=depVals(ind); const arr=Object.values(v).filter(x=>x!=null).sort((a,b)=>a-b);
+  const br=[.2,.4,.6,.8].map(p=>arr[Math.floor((arr.length-1)*p)]); const cl=x=>x==null?"var(--surface-2)":`var(--q${1+br.filter(b=>x>b).length})`;
+  let paths=""; for(const [d,p] of Object.entries(D.geo_dep)){if(!p)continue;paths+=`<path class="dep" d="${p}" fill="${cl(v[d])}" data-dep="${d}"><title>${esc(D.noms.dep[d])} : ${ind.sg?sgn(v[d],ind.d):fmt(v[d],ind.d)} ${esc(ind.u)}</title></path>`}
+  let pts=""; const L=S.mapLayer;
+  if(L==="zones"){const Z=D.zones.data;for(let j=0;j<D.zones.n;j++)if(Z.r25[j]>0)pts+=`<circle cx="${Z.x[j]/10}" cy="${-Z.y[j]/10}" r="${Math.max(1.2,Math.sqrt(Z.r25[j])/2.2).toFixed(1)}" fill="var(--s2)" fill-opacity=".6" stroke="var(--surface)" stroke-width=".3"><title>Zone commerciale (${fmt(Z.r25[j])} commerces)</title></circle>`}
+  if(L==="qpv"){const Q=D.qpv.data;for(let j=0;j<D.qpv.n;j++)pts+=`<circle cx="${Q.x[j]/10}" cy="${-Q.y[j]/10}" r="2" fill="var(--s4)" fill-opacity=".7"><title>${esc(Q.nom[j])}</title></circle>`}
+  if(L==="acv"||L==="pvd"){for(let i=0;i<N;i++)if(C[L][i]&&C.x[i]!=null)pts+=`<circle cx="${C.x[i]/10}" cy="${-C.y[i]/10}" r="${L==="acv"?3:1.8}" fill="${L==="acv"?"var(--pink)":"var(--s3)"}" fill-opacity=".8"><title>${esc(C.nom[i])}</title></circle>`}
+  const top=Object.entries(v).filter(e=>e[1]!=null).sort((a,b)=>b[1]-a[1]);
+  return `<div class="stack"><div class="row"><h2 class="sp">Carte des départements</h2>
+  <label class="f">Indicateur<select id="mapInd">${IND.map(i=>`<option value="${i.id}" ${i.id===S.mapInd?"selected":""}>Axe ${i.axe} · ${esc(i.l)}</option>`).join("")}</select></label>
+  <label class="f">Points<select id="mapL"><option value="">Aucun</option><option value="zones" ${L==="zones"?"selected":""}>Zones commerciales périphériques</option><option value="qpv" ${L==="qpv"?"selected":""}>Quartiers prioritaires</option><option value="acv" ${L==="acv"?"selected":""}>Villes Action Cœur de Ville</option><option value="pvd" ${L==="pvd"?"selected":""}>Petites villes de demain</option></select></label></div>
+  <div class="grid"><div class="card c8"><figure class="fig mapwrap" id="fmap" style="margin:0"><div class="row"><h3 class="sp">${esc(ind.l)} (${esc(ind.u)})</h3><div class="tools"><button class="btn ghost" data-exp="svg" data-fig="fmap" type="button">SVG</button><button class="btn ghost" data-exp="png" data-fig="fmap" type="button">PNG</button></div></div>
+   <div class="chart"><svg viewBox="80 -7140 1190 1110" role="img" aria-label="Carte">${paths}${pts}</svg></div>
+   <div class="legend">${[0,1,2,3,4].map(k=>`<span><i style="background:var(--q${k+1})"></i>${k===0?"≤ "+fmt(br[0],ind.d):k===4?"> "+fmt(br[3],ind.d):fmt(br[k-1],ind.d)+" à "+fmt(br[k],ind.d)}</span>`).join("")}<span><i style="background:var(--surface-2)"></i>non disponible</span></div>
+   <p class="src">Classes par quintiles. Cliquez sur un département pour ouvrir sa fiche. Source : ${srcTxt(ind.s)}</p></figure></div>
+  <div class="card c4"><h3>Classement</h3><p class="sub">${esc(ind.def)}</p><div class="tw" style="max-height:520px"><table><tbody>${top.map((e,k)=>`<tr><td class="n">${k+1}</td><td><a href="#" data-open="dep:${e[0]}">${esc(D.noms.dep[e[0]])}</a></td><td class="n">${ind.sg?sgn(e[1],ind.d):fmt(e[1],ind.d)}</td></tr>`).join("")}</tbody></table></div></div></div></div>`;
+}
+FIGS.fmap={title:"carte"};
+AFTER.carte=()=>{FIGS.fmap={title:"carte "+INDM[S.mapInd].l};$("#mapInd").onchange=e=>{S.mapInd=e.target.value;render()};$("#mapL").onchange=e=>{S.mapLayer=e.target.value;render()};$$("path.dep").forEach(p=>p.onclick=()=>openT("dep:"+p.dataset.dep))};
+
+/* ---------------- analyses */
+const LEV=[["com5k","Communes de 5 000 hab. et plus"],["epci","Intercommunalités"],["dep","Départements"],["reg","Régions"]];
+function levelTerrs(l){if(l==="com5k"){const o=[];for(let i=0;i<N;i++)if(C.pop[i]>=5000)o.push(terr("com:"+i));return o}return Object.values(T).filter(t=>t.type===l)}
+const DIMS=[["reg","Région",i=>D.noms.reg[D.noms.dep_reg[C.dep[i]]]],["dens","Densité (grille communale)",i=>D.noms.dens[C.dens[i]]],["taille","Taille de commune",i=>SIZE[sizeOf(C.pop[i])][0]],["aav","Aire d'attraction des villes",i=>({"11":"Commune-centre","12":"Pôle principal","13":"Pôle secondaire","20":"Couronne","30":"Hors attraction"}[D.noms.aav[C.aav[i]]]||"?")],["front","Frontière",i=>{const ps=Object.entries(D.frontieres.pays).filter(([p,ds])=>ds.includes(C.dep[i])).map(e=>e[0]);return ps.length?"Frontalier : "+ps.join(", "):"Non frontalier"}],["prog","Programme national",i=>C.acv[i]?"Action Cœur de Ville":C.pvd[i]?"Petites villes de demain":"Aucun des deux"],["litt","Littoral",i=>C.littoral[i]?"Littoral":"Non littoral"],["mont","Montagne",i=>C.montagne[i]?"Montagne":"Hors montagne"]];
+function pivot(dim){const fn=DIMS.find(d=>d[0]===dim)[2];const g={};for(let i=0;i<N;i++){const k=fn(i);(g[k]||(g[k]=[])).push(i)}return Object.entries(g).map(([k,idx])=>({id:"piv:"+dim+":"+k,type:"group",label:k,idx})).sort((a,b)=>a.label.localeCompare(b.label,"fr"))}
+function vAn(){
+  const tabs=[["corr","Corrélations"],["rup","Ruptures de tendance"],["piv","Tableau croisé"],["auto","Graphique automatique"]];
+  let body="";
+  if(S.an==="corr"){const X=INDM[S.cx],Y=INDM[S.cy];const ts=levelTerrs(S.clev);const pts=[];for(const t of ts){const x=val(X,t),y=val(Y,t);if(x!=null&&y!=null&&isFinite(x)&&isFinite(y))pts.push({x,y,l:t.label,id:t.id})}
+    const r=reg(pts),rs=spearman(pts);
+    body=`<div class="row"><label class="f">Indicateur en abscisse<select id="cx">${IND.map(i=>`<option value="${i.id}" ${i.id===S.cx?"selected":""}>${esc(i.l)}</option>`).join("")}</select></label><label class="f">Indicateur en ordonnée<select id="cy">${IND.map(i=>`<option value="${i.id}" ${i.id===S.cy?"selected":""}>${esc(i.l)}</option>`).join("")}</select></label><label class="f">Territoires<select id="clev">${LEV.map(l=>`<option value="${l[0]}" ${l[0]===S.clev?"selected":""}>${l[1]}</option>`).join("")}</select></label></div>
+    <div class="grid"><div class="card c8">${fig(Y.l+" selon "+X.l.toLowerCase(),scatter({pts,xl:X.l+" ("+X.u+")",yl:Y.l+" ("+Y.u+")",dx:X.d,dy:Y.d,hl:S.cur}),{src:srcTxt([...new Set([...X.s,...Y.s])]),data:[["Territoire",X.l,Y.l],...pts.map(p=>[p.l,p.x,p.y])]})}</div>
+    <div class="card c4"><h3>Résultat</h3><div class="ind"><div class="lab">Territoires</div><div class="val">${fmt(pts.length)}</div></div><div class="ind"><div class="lab">Corrélation de Pearson (r)</div><div class="val">${r?fmt(r.r,2):"–"}</div></div><div class="ind"><div class="lab">Corrélation de rangs (Spearman)</div><div class="val">${rs!=null?fmt(rs,2):"–"}</div></div><div class="ind"><div class="lab">Pente de la droite</div><div class="val">${r?fmt(r.b,3):"–"}</div></div>
+    <p class="note" style="margin-top:12px">${r?`Lecture : ${Math.abs(r.r)<.1?"pas de relation linéaire visible":Math.abs(r.r)<.3?"relation faible":Math.abs(r.r)<.5?"relation modérée":"relation marquée"} (${r.r>0?"positive":"négative"}). Une corrélation ne prouve pas un effet : taille, densité et région peuvent jouer sur les deux indicateurs. Les axes sont tronqués aux 1er et 99e centiles.`:"Pas assez de données."}</p></div></div>`}
+  if(S.an==="rup"){const key=S.rupInd,lab={r:"Commerces en magasin",e:"Commerces employeurs",c_r:"Commerces de centre-ville",p_r:"Commerces en zone périphérique",q_r:"Commerces en QPV"}[key];
+    const col=y=>key==="r"||key==="e"?key+y:key+y; const avail=key==="r"||key==="e"?["12","16","19","22","25"]:["12","19","25"];
+    const g=(A,a,b,n)=>A[col(a)]>0&&A[col(b)]>0?(Math.pow(A[col(b)]/A[col(a)],1/n)-1)*100:null;
+    const rows=levelTerrs(S.rupLev).map(t=>{const A=t.type==="com"?rowAgg(t.i):agg(t);const g1=g(A,"12","19",7),g2=g(A,"19","25",6);return{t,g1,g2,d:g1!=null&&g2!=null?g2-g1:null,n:A[col("25")]}}).filter(r=>r.d!=null&&r.n>=(S.rupLev==="com5k"?20:50));
+    rows.sort((a,b)=>a.d-b.d); const F=agg(T.fr);
+    body=`<div class="row"><label class="f">Série<select id="rupI">${Object.entries({r:"Commerces en magasin",e:"Commerces employeurs",c_r:"Commerces de centre-ville",p_r:"Commerces en zone périphérique",q_r:"Commerces en QPV"}).map(([k,l])=>`<option value="${k}" ${k===key?"selected":""}>${l}</option>`).join("")}</select></label><label class="f">Territoires<select id="rupL">${LEV.map(l=>`<option value="${l[0]}" ${l[0]===S.rupLev?"selected":""}>${l[1]}</option>`).join("")}</select></label></div>
+    <p class="note">Rupture de tendance : écart entre le taux de croissance annuel moyen 2019-2025 et celui de 2012-2019, en points. France : ${sgn(g(F,"12","19",7),2)} % par an avant 2019, ${sgn(g(F,"19","25",6),2)} % par an depuis.</p>
+    <div class="grid"><div class="card c6">${fig("Plus fortes accélérations : "+lab.toLowerCase(),barChart({items:rows.slice(-12).reverse().map(r=>({l:r.t.label,v:r.d,c:"var(--s3)"})),dec:2,sign:true}),{src:srcTxt(["N29"]),note:"Points de croissance annuelle (2019-2025 moins 2012-2019).",data:[["Territoire","TCAM 2012-2019 (%)","TCAM 2019-2025 (%)","Écart (points)"],...rows.map(r=>[r.t.label,r.g1,r.g2,r.d])]})}</div>
+    <div class="card c6">${fig("Plus forts décrochages : "+lab.toLowerCase(),barChart({items:rows.slice(0,12).map(r=>({l:r.t.label,v:r.d,c:"var(--s2)"})),dec:2,sign:true}),{src:srcTxt(["N29"]),note:"Seuil : au moins "+(S.rupLev==="com5k"?20:50)+" établissements en 2025."})}</div></div>`}
+  if(S.an==="piv"){const groups=pivot(S.pivDim);const inds=S.pivInd.map(k=>INDM[k]);
+    body=`<div class="row"><label class="f">Lignes<select id="pivD">${DIMS.map(d=>`<option value="${d[0]}" ${d[0]===S.pivDim?"selected":""}>${d[1]}</option>`).join("")}</select></label>${[0,1,2,3].map(k=>`<label class="f">Colonne ${k+1}<select data-pi="${k}">${IND.map(i=>`<option value="${i.id}" ${i.id===S.pivInd[k]?"selected":""}>${esc(i.l)}</option>`).join("")}</select></label>`).join("")}</div>
+    <div class="tw"><table><thead><tr><th>${esc(DIMS.find(d=>d[0]===S.pivDim)[1])}</th><th class="n">Communes</th><th class="n">Habitants</th><th class="n">Commerces</th>${inds.map(i=>`<th class="n">${esc(i.l)}<br><span class="small muted">${esc(i.u)}</span></th>`).join("")}</tr></thead><tbody>${groups.map(g=>{const A=agg(g);return `<tr><td>${esc(g.label)}</td><td class="n">${fmt(g.idx.length)}</td><td class="n">${fmt(A.pop)}</td><td class="n">${fmt(A.r25)}</td>${inds.map(i=>`<td class="n">${i.comp?"–":(i.sg?sgn(i.f(A),i.d):fmt(i.f(A),i.d))}</td>`).join("")}</tr>`}).join("")}<tr class="hl"><td><b>France</b></td><td class="n">${fmt(N)}</td><td class="n">${fmt(agg(T.fr).pop)}</td><td class="n">${fmt(agg(T.fr).r25)}</td>${inds.map(i=>`<td class="n">${i.comp?"–":(i.sg?sgn(val(i,T.fr),i.d):fmt(val(i,T.fr),i.d))}</td>`).join("")}</tr></tbody></table></div>
+    <div class="row"><button class="btn" type="button" id="pivCsv">Exporter (CSV)</button><span class="small muted">Les indices composites, calculés par rapport aux territoires de même niveau, ne s'agrègent pas.</span></div>`}
+  if(S.an==="auto"){const ind=INDM[S.autoInd||"ev1925"];const groups=pivot(S.autoDim||"dens");
+    body=`<div class="row"><label class="f">Indicateur<select id="auI">${IND.filter(i=>!i.comp).map(i=>`<option value="${i.id}" ${i.id===ind.id?"selected":""}>Axe ${i.axe} · ${esc(i.l)}</option>`).join("")}</select></label><label class="f">Selon<select id="auD">${DIMS.map(d=>`<option value="${d[0]}" ${d[0]===(S.autoDim||"dens")?"selected":""}>${d[1]}</option>`).join("")}</select></label></div>
+    <div class="grid"><div class="card c12">${fig(ind.l+" selon "+DIMS.find(d=>d[0]===(S.autoDim||"dens"))[1].toLowerCase(),barChart({items:groups.map(g=>({l:g.label,v:ind.f(agg(g))})),dec:ind.d,sign:!!ind.sg,ref:val(ind,T.fr)}),{src:srcTxt(ind.s),note:"Ligne pointillée : France. "+esc(ind.def),data:[["Groupe",ind.l+" ("+ind.u+")"],...groups.map(g=>[g.label,ind.f(agg(g))])]})}</div></div>`}
+  return `<div class="stack"><h2>Analyses</h2><div class="subtabs">${tabs.map(t=>`<button type="button" data-an="${t[0]}" class="${S.an===t[0]?"on":""}">${t[1]}</button>`).join("")}</div>${body}</div>`;
+}
+AFTER.analyses=()=>{$$("[data-an]").forEach(b=>b.onclick=()=>{S.an=b.dataset.an;render()});
+  const on=(s,k)=>{const e=$(s);if(e)e.onchange=()=>{S[k]=e.value;render()}};on("#cx","cx");on("#cy","cy");on("#clev","clev");on("#rupI","rupInd");on("#rupL","rupLev");on("#pivD","pivDim");on("#auI","autoInd");on("#auD","autoDim");
+  $$("[data-pi]").forEach(s=>s.onchange=()=>{S.pivInd[+s.dataset.pi]=s.value;render()});
+  const p=$("#pivCsv");if(p)p.onclick=()=>{const groups=pivot(S.pivDim);const inds=S.pivInd.map(k=>INDM[k]);save("tableau-croise.csv",csv([[DIMS.find(d=>d[0]===S.pivDim)[1],"Communes","Habitants","Commerces",...inds.map(i=>i.l+" ("+i.u+")")],...groups.map(g=>{const A=agg(g);return[g.label,g.idx.length,A.pop,A.r25,...inds.map(i=>i.comp?"":i.f(A))]})]))}};
+
+/* ---------------- axes */
+function natCards(axe){const L=D.contenus.national.filter(x=>x.axe===axe);return L.map(x=>`<div class="kpi"><div class="v">${typeof x.valeur==="number"?(x.unite==="%"&&x.valeur>0&&/volution|Baisse|réduction/i.test(x.indicateur)?"+":"")+fmt(x.valeur,x.valeur%1?1:0):esc(x.valeur)} <span class="small muted" style="font-weight:400">${esc(x.unite)}</span></div><div class="l">${esc(x.indicateur)}${x.comparaison?` <span class="muted">(${Object.entries(x.comparaison).map(([k,v])=>esc(k)+" : "+fmt(v,v%1?1:0)).join(" ; ")})</span>`:""}</div><div class="s">${esc(x.annee)} · <span class="pill ${x.fiabilite}">${x.fiabilite}</span> · ${srcTxt([x.ref])}${x.champ?" · "+esc(x.champ):""}</div></div>`).join("")}
+function vAxes(){
+  const a=AXES.find(x=>x.n===S.axe), F=agg(T.fr); let charts="";
+  const byDim=(ind,dim)=>{const g=pivot(dim);return fig(ind.l+" selon "+DIMS.find(d=>d[0]===dim)[1].toLowerCase(),barChart({items:g.map(x=>({l:x.label,v:ind.f(agg(x))})),dec:ind.d,sign:!!ind.sg,ref:val(ind,T.fr)}),{src:srcTxt(ind.s),note:"Ligne pointillée : France.",data:[["Groupe",ind.l],...g.map(x=>[x.label,ind.f(agg(x))])]})};
+  if(a.n===1)charts=`<div class="card c6">${byDim(INDM.dens,"dens")}</div><div class="card c6">${byDim(INDM.ev1925,"taille")}</div><div class="card c6">${fig("Taille des points de vente (tranches d'effectifs)",stackChart({cats:["Sans salarié","1 à 9","10 à 49","50 et plus"],rows:[["France","fr"],["Départements frontaliers","g:front"],["Villes ACV","g:acv"],["Petites villes de demain","g:pvd"]].map(([l,id])=>{const A=agg(T[id]);return{l,v:[A.sz0,A.sz1,A.sz2,A.sz3]}})}),{src:srcTxt(["N29"])})}</div><div class="card c6">${byDim(INDM.preseau,"dens")}</div>`;
+  if(a.n===2)charts=`<div class="card c6">${byDim(INDM.iecom,"dens")}</div><div class="card c6">${fig("Indice national de maturité numérique des TPE et PME (expérimental)",barChart({items:[["Outil de visibilité en ligne",83],["Mesure de protection informatique",84],["Données utilisées pour piloter",76],["Au moins 5 % de clients via internet",46],["Usage de l'IA",40]].map(x=>({l:x[0],v:x[1]})),unit:" %",ref:65.8}),{src:srcTxt(["N05"]),note:"Indice = moyenne des cinq taux (65,8 / 100). Aucune donnée territoriale ouverte ne permet de le décliner par territoire ; l'intensité e-commerce sert d'indicateur territorial approché."})}</div>`;
+  if(a.n===3)charts=`<div class="card c6">${fig("Consommation d'espaces pour l'activité économique (ha par an)",lineChart({labels:D.artif_nat.annees,series:[{n:"Activité",v:D.artif_nat.activite}]}),{src:srcTxt(["N10"])})}</div><div class="card c6">${byDim(INDM.artacth,"aav")}</div><div class="card c6">${byDim(INDM.pperi,"dens")}</div>`;
+  if(a.n===4)charts=`<div class="card c6">${fig("Part des dépenses en magasin réalisées à l'étranger : les 22 départements les plus concernés (2024)",barChart({items:Object.entries(D.frontieres.part_depenses_dep).sort((x,y)=>y[1]-x[1]).slice(0,22).map(([d,v])=>({l:D.noms.dep[d]||d,v})),dec:1,unit:" %"}),{src:srcTxt(["N06"])})}</div><div class="card c6">${fig("Taux normal de TVA",barChart({items:D.contenus.tva.map(x=>({l:x.pays,v:x.taux,hl:x.pays==="France"})),dec:1,unit:" %"}),{src:srcTxt(["N27","N28"]),note:"Monaco applique la TVA française ; Andorre applique l'IGI."})}</div><div class="card c6">${fig("Travailleurs frontaliers résidant en France, par pays de travail (2021)",barChart({items:Object.entries(D.contenus.frontaliers.data).map(([k,v])=>({l:k,v}))}),{src:srcTxt(["N08"])})}</div><div class="card c6">${byDim(INDM.dtab,"front")}</div>`;
+  if(a.n===5)charts=`<div class="card c6">${byDim(INDM.evperi,"dens")}</div><div class="card c6">${byDim(INDM.zsurfh,"aav")}</div><div class="card c12">${fig("Les 15 zones périphériques comptant le plus de commerces en 2025",barChart({items:topZones(15).map(j=>({l:zoneLabel(j),v:D.zones.data.r25[j]}))}),{src:srcTxt(["N29","N30"])})}</div>`;
+  if(a.n===6)charts=`<div class="card c6">${byDim(INDM.evc,"prog")}</div><div class="card c6">${byDim(INDM.evc1925,"taille")}</div>`;
+  if(a.n===7)charts=`<div class="card c6">${byDim(INDM.evq,"reg")}</div><div class="card c6">${byDim(INDM.pqemp,"dens")}</div>`;
+  const pol=D.contenus.politiques.filter(p=>p.axes.includes(a.n)); const mis=MISSING.filter(m=>m[0]===a.n);
+  return `<div class="stack"><div class="subtabs">${AXES.map(x=>`<button type="button" data-ax="${x.n}" class="${x.n===S.axe?"on":""}">Axe ${x.n} · ${x.t}</button>`).join("")}</div>
+  <h2>Axe ${a.n} · ${a.t}</h2>
+  <div class="grid"><div class="card c12"><h3>Chiffres nationaux sourcés</h3><p class="sub">Niveau de fiabilité : A = statistique publique ou source primaire, B = source secondaire ou relayée, C = estimation.</p><div class="kpis" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">${natCards(a.n)||'<p class="muted">Pas de chiffre national spécifique : voir les indicateurs territoriaux.</p>'}</div></div>
+  <div class="card c12"><h3>Indicateurs territoriaux</h3><p class="sub">Valeurs pour la France ; chaque indicateur est disponible pour toutes les communes, intercommunalités, départements, régions et groupes.</p>${IND.filter(i=>i.axe===a.n).map(i=>indRow(i,T.fr,F)).join("")}</div>
+  ${charts}
+  <div class="card c6"><h3>Politiques et dispositifs</h3>${pol.length?pol.map(p=>`<div class="ind"><div class="lab"><b>${esc(p.nom)}</b></div><div class="val small">${esc(p.periode)}</div><div class="ref" style="display:block">${esc(p.description)} ${p.moyens?"· "+esc(p.moyens):""} · ${esc(p.porteur)} · ${srcTxt([p.ref])}</div></div>`).join(""):'<p class="muted">Aucun dispositif spécifique recensé.</p>'}</div>
+  <div class="card c6"><h3>Données manquantes</h3><p class="sub">Indicateurs demandés sans source territoriale ouverte, et où les trouver.</p>${mis.map(m=>`<div class="ind"><div class="lab"><b>${esc(m[1])}</b></div><div class="ref" style="display:block">${esc(m[2])}. ${esc(m[3])}</div></div>`).join("")||'<p class="muted">Aucune.</p>'}</div></div></div>`;
+}
+AFTER.axes=()=>$$("[data-ax]").forEach(b=>b.onclick=()=>{S.axe=+b.dataset.ax;render()});
+function topZones(n){const Z=D.zones.data;return [...Array(D.zones.n).keys()].sort((a,b)=>Z.r25[b]-Z.r25[a]).slice(0,n)}
+function zoneLabel(j){const i=CODE[D.zones.data.com[j]];return(i!=null?C.nom[i]:D.zones.data.com[j])+" ("+fmt(D.zones.data.surf[j])+" ha)"}
+
+/* ---------------- questions de recherche */
+function quart(vals){const s=[...vals].sort((a,b)=>a-b);return[.25,.5,.75].map(p=>s[Math.floor((s.length-1)*p)])}
+function vQ(){
+  const i=S.q, F=agg(T.fr); let body="", lim="", src=[];
+  if(i===0){const ce=D.centres.data;const q=quart(ce.surf10.filter(x=>x!=null));const g=[0,1,2,3].map(()=>({r12:0,r19:0,r25:0,e12:0,e25:0,n:0}));
+    for(let k=0;k<D.centres.n;k++){const v=ce.surf10[k];const b=v<=q[0]?0:v<=q[1]?1:v<=q[2]?2:3;g[b].r12+=ce.r12[k];g[b].r19+=ce.r19[k];g[b].r25+=ce.r25[k];g[b].e12+=ce.e12[k];g[b].e25+=ce.e25[k];g[b].n++}
+    const L=["1er quart (moins de "+fmt(q[0])+" ha)","2e quart","3e quart","4e quart (plus de "+fmt(q[2])+" ha)"];
+    body=`<div class="card c6">${fig("Évolution des commerces de centre-ville 2012-2025 selon la surface de zones périphériques à moins de 10 km",barChart({items:g.map((x,k)=>({l:L[k],v:pct(x.r25,x.r12)})),dec:1,sign:true,unit:" %"}),{src:srcTxt(["N29","N30"]),data:[["Groupe","Centres","Commerces 2012","Commerces 2025","Évolution (%)","Employeurs 2012","Employeurs 2025"],...g.map((x,k)=>[L[k],x.n,x.r12,x.r25,pct(x.r25,x.r12),x.e12,x.e25])]})}</div>
+    <div class="card c6">${fig("Même découpage : commerces employeurs de centre-ville 2012-2025",barChart({items:g.map((x,k)=>({l:L[k],v:pct(x.e25,x.e12)})),dec:1,sign:true,unit:" %"}),{src:srcTxt(["N29","N30"])})}</div>
+    <div class="card c12"><p>Les ${fmt(D.centres.n)} centres-villes des communes de 5 000 habitants ou plus sont répartis en quatre groupes égaux selon la surface de zones commerciales à moins de 10 km. Le nombre de commerces évolue de ${sgn(pct(g[3].r25,g[3].r12))} % dans les centres les plus exposés, contre ${sgn(pct(g[0].r25,g[0].r12))} % dans les moins exposés ; pour les employeurs, l'écart est de ${sgn(pct(g[3].e25,g[3].e12))} % contre ${sgn(pct(g[0].e25,g[0].e12))} %. Les centres les plus exposés sont surtout ceux des grandes villes, ce qui brouille la lecture. L'onglet Analyses permet de croiser cet écart avec la taille, la densité ou la région.</p></div>`;
+    lim="Description, pas une mesure causale : les grandes villes ont à la fois plus de périphérie et des centres différents. Le centre est approché par un cercle autour de la mairie. Pour une estimation à taille et région comparables, voir le rapport d'analyse du dépôt (régressions et panel à effets fixes).";src=["N29","N30","S05","S07"]}
+  if(i===1){const Q=D.qpv.data;const B=[["moins de 1 km",0,1],["1 à 2 km",1,2],["2 à 5 km",2,5],["5 km et plus",5,1e9]];const g=B.map(b=>({l:b[0],r12:0,r25:0,e25:0,n:0}));
+    for(let j=0;j<D.qpv.n;j++){const d=Q.dist[j];if(d==null)continue;const k=B.findIndex(b=>d>=b[1]&&d<b[2]);g[k].r12+=Q.r12[j];g[k].r25+=Q.r25[j];g[k].e25+=Q.e25[j];g[k].n++}
+    body=`<div class="card c6">${fig("Évolution des commerces en QPV 2012-2025 selon la distance à la zone périphérique la plus proche",barChart({items:g.map(x=>({l:x.l+" ("+x.n+" QPV)",v:pct(x.r25,x.r12)})),dec:1,sign:true,unit:" %",ref:pct(F.r25,F.r12)}),{src:srcTxt(["N29","N16","N30"]),note:"Ligne pointillée : ensemble des commerces en France.",data:[["Distance","QPV","Commerces 2012","Commerces 2025","Évolution (%)"],...g.map(x=>[x.l,x.n,x.r12,x.r25,pct(x.r25,x.r12)])]})}</div>
+    <div class="card c6">${fig("Part d'employeurs parmi les commerces en QPV, 2025",barChart({items:g.map(x=>({l:x.l,v:share(x.e25,x.r25)})),dec:1,unit:" %",ref:share(F.e25,F.r25)}),{src:srcTxt(["N29","N16"])})}</div>`;
+    lim="Les QPV proches d'une zone sont souvent situés dans de grandes agglomérations. La comparaison ne tient compte ni de la taille ni de la population des quartiers.";src=["N29","N16","N30","S30","S34"]}
+  if(i===2){const ts=[T["g:front"],T["g:nonfront"],...Object.keys(D.frontieres.pays).map(p=>T["bord:"+p])];const ks=["dens","dalim","dtab","dcarb","pgs","preseau","ev1925","pperi"];
+    body=`<div class="card c12"><div class="tw"><table><thead><tr><th>Indicateur</th>${ts.map(t=>`<th class="n">${esc(t.label.replace("Espace frontalier avec ",""))}</th>`).join("")}<th class="n">France</th></tr></thead><tbody>${ks.map(k=>{const ind=INDM[k];return `<tr><td>${esc(ind.l)} ${infoBtn(k)}<br><span class="small muted">${esc(ind.u)}</span></td>${ts.map(t=>`<td class="n">${ind.sg?sgn(val(ind,t),ind.d):fmt(val(ind,t),ind.d)}</td>`).join("")}<td class="n">${ind.sg?sgn(val(ind,T.fr),ind.d):fmt(val(ind,T.fr),ind.d)}</td></tr>`}).join("")}</tbody></table></div><p class="src">Espaces frontaliers définis par département. Source : ${srcTxt(["N29","N13"])}</p></div>
+    <div class="card c6">${fig("Débits de tabac pour 10 000 habitants",barChart({items:ts.map(t=>({l:t.label.replace("Espace frontalier avec ",""),v:val(INDM.dtab,t)})),dec:1,ref:val(INDM.dtab,T.fr)}),{src:srcTxt(["N29"])})}</div><div class="card c6">${fig("Stations-service pour 10 000 habitants",barChart({items:ts.map(t=>({l:t.label.replace("Espace frontalier avec ",""),v:val(INDM.dcarb,t)})),dec:1,ref:val(INDM.dcarb,T.fr)}),{src:srcTxt(["N29"])})}</div>`;
+    lim="Le découpage par département inclut des communes éloignées de la frontière ; l'effet frontalier est donc dilué. L'étude ESPON CROSSSHOP (2025-2027) mesurera finement les achats franco-allemands.";src=["N29","N06","N08","N20"]}
+  if(i===3){const P=D.frontieres.points_de_vente,Fq=D.frontieres.frequence;
+    body=`<div class="card c6">${fig("Où dépensent les ménages frontaliers à l'étranger ? Répartition par type de commerce (2024)",stackChart({cats:P.cols,rows:Object.entries(P.data).map(([k,v])=>({l:k,v}))}),{src:srcTxt(["N06"])})}</div>
+    <div class="card c6">${fig("Taux normal de TVA",barChart({items:D.contenus.tva.map(x=>({l:x.pays,v:x.taux,hl:x.pays==="France"})),dec:1,unit:" %"}),{src:srcTxt(["N27","N28"])})}</div>
+    <div class="card c6">${fig("Part des dépenses faites par des consommateurs très réguliers (2024)",barChart({items:Object.entries(Fq.data).map(([k,v])=>({l:k,v:v[2]})).sort((a,b)=>b.v-a.v),unit:" %"}),{src:srcTxt(["N06"])})}</div>
+    <div class="card c6"><h3>Ce que disent les sources</h3><ul class="msgs small"><li>Au Luxembourg, 59 % des dépenses des frontaliers vont aux stations-service et au tabac, où les écarts de taxes sont les plus forts (Insee, 2025).</li><li>Après l'introduction de la taxe carbone allemande en 2021, la part des achats de carburant des ménages frontaliers réalisés en Allemagne est passée de plus de 15 % à environ 8 % (Insee Analyses n° 97).</li><li>42 % des fumeurs des départements frontaliers ont acheté leur dernier paquet à l'étranger, contre 7 % ailleurs ; les ventes des buralistes y ont baissé de 33,2 % depuis 2017, contre 24,6 % ailleurs (Santé publique France et OFDT, 2024, fiabilité B).</li><li>Vers la Suisse et le Luxembourg, les achats sont le fait de consommateurs très réguliers, souvent travailleurs frontaliers : 224 000 personnes travaillent en Suisse et 105 000 au Luxembourg (Insee, 2021).</li></ul></div>`;
+    lim="Les données de cartes bancaires couvrent les clients d'un seul réseau (Crédit Mutuel Alliance Fédérale) et excluent les paiements en espèces et en ligne.";src=["N06","N07","N08","N09","N27"]}
+  if(i===4){const g=pivot("dens");
+    body=`<div class="card c6">${fig("TPE et PME : usages numériques (2026)",barChart({items:D.contenus.national.filter(x=>x.ref==="N05").map(x=>({l:x.indicateur.replace("TPE et PME ",""),v:x.valeur})),unit:" %"}),{src:srcTxt(["N05"])})}</div>
+    <div class="card c6">${fig("Entreprises utilisant l'IA, 10 salariés et plus (%)",barChart({items:[{l:"France 2020",v:4.8},{l:"UE-27 2020",v:6.0},{l:"France 2025",v:18.2,hl:1},{l:"UE-27 2025",v:19.9}],dec:1,unit:" %"}),{src:srcTxt(["N03"])})}</div>
+    <div class="card c6">${fig("Intensité e-commerce selon la densité des communes",barChart({items:g.map(x=>({l:x.label,v:INDM.iecom.f(agg(x))})),dec:1,ref:val(INDM.iecom,T.fr)}),{src:srcTxt(["N29"]),note:"Établissements de vente à distance (NAF 47.91) pour 100 commerces en magasin."})}</div>
+    <div class="card c6"><h3>Lecture</h3><p>Les grands détaillants et les PME de plus de 10 salariés ont rattrapé la moyenne européenne pour la vente en ligne (40 à 45 % ont un site permettant de commander). L'IA progresse vite chez les TPE et PME (40 % en 2026, +14 points en un an), mais les micro-commerces, 95 % des détaillants, restent mal mesurés : aucune source ouverte ne décline la maturité numérique par secteur fin et par territoire.</p></div>`;
+    lim="Le baromètre France Num ne publie pas de microdonnées ; l'OCDE exclut les entreprises de moins de 10 salariés.";src=["N03","N05","N29","N23"]}
+  if(i===5){const deps=Object.values(T).filter(t=>t.type==="dep").map(t=>({t,v:val(INDM.durab,t)})).filter(x=>x.v!=null).sort((a,b)=>b.v-a.v);
+    body=`<div class="card c6">${fig("Indice de durabilité du commerce : les 12 départements en tête",barChart({items:deps.slice(0,12).map(x=>({l:x.t.label,v:x.v,c:"var(--s3)"}))}),{src:srcTxt(["N29","N10","N30"]),data:[["Département","Indice"],...deps.map(x=>[x.t.label,x.v])]})}</div>
+    <div class="card c6">${fig("… et les 12 derniers",barChart({items:deps.slice(-12).map(x=>({l:x.t.label,v:x.v,c:"var(--s2)"}))}),{src:srcTxt(["N29","N10","N30"])})}</div>
+    <div class="card c12"><p>L'indice combine trois dimensions mesurables partout : une faible part de commerces en zone périphérique, une bonne densité de commerces alimentaires de proximité et une faible consommation d'espaces pour l'activité par habitant. La carte de l'indice est disponible dans l'onglet Carte (indicateur « Indice de durabilité du commerce »).</p></div>`;
+    lim="Indice expérimental. Il ne mesure ni les émissions, ni l'énergie des bâtiments, ni les mobilités, faute de données territoriales ouvertes.";src=["N29","N10","N30","N04"]}
+  if(i===6){const ts=[T["g:acv"],T["g:pvd"],T["g:horsprog"]];
+    const ce=D.centres.data;const gr={acv:{r12:0,r19:0,r25:0},hors:{r12:0,r19:0,r25:0}};for(let k=0;k<D.centres.n;k++){const ii=CODE[ce.code[k]];const key=ii!=null&&C.acv[ii]?"acv":"hors";gr[key].r12+=ce.r12[k];gr[key].r19+=ce.r19[k];gr[key].r25+=ce.r25[k]}
+    const tc=(a,b,n)=>(Math.pow(b/a,1/n)-1)*100;
+    body=`<div class="card c6">${fig("Commerces de centre-ville : croissance annuelle moyenne avant et depuis 2019",barChart({items:[{l:"Villes ACV, 2012-2019",v:tc(gr.acv.r12,gr.acv.r19,7)},{l:"Villes ACV, 2019-2025",v:tc(gr.acv.r19,gr.acv.r25,6),hl:1},{l:"Autres centres, 2012-2019",v:tc(gr.hors.r12,gr.hors.r19,7)},{l:"Autres centres, 2019-2025",v:tc(gr.hors.r19,gr.hors.r25,6)}],dec:2,sign:true,unit:" %"}),{src:srcTxt(["N29","N12"]),note:"Centres-villes des communes de 5 000 habitants ou plus. ACV a été lancé en 2018."})}</div>
+    <div class="card c6">${fig("Commerces en magasin : évolution 2019-2025 par programme",barChart({items:ts.map(t=>({l:t.label,v:val(INDM.ev1925,t)})),dec:1,sign:true,unit:" %",ref:val(INDM.ev1925,T.fr)}),{src:srcTxt(["N29","N11","N12"])})}</div>
+    <div class="card c12"><h3>Dispositifs recensés</h3><div class="tw"><table><thead><tr><th>Dispositif</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td>${srcTxt([p.ref])}</td></tr>`).join("")}</tbody></table></div></div>`;
+    lim="Comparaison descriptive « avant / après » : les villes ACV ont été choisies pour leurs difficultés. Une évaluation d'impact demanderait un groupe témoin apparié (méthode des doubles différences) ; la Cour des comptes (2022, 2026) souligne l'absence d'évaluation de ce type.";src=["N29","N11","N12","S26","S48"]}
+  if(i===7){const ts=levelTerrs("dep");const pts=ts.map(t=>({x:val(INDM.artacth,t),y:val(INDM.evc,t),l:t.label,id:t.id})).filter(p=>p.x!=null&&p.y!=null);const r=reg(pts);
+    body=`<div class="card c8">${fig("Artificialisation pour l'activité et vitalité des centres-villes, par département",scatter({pts,xl:"Artificialisation pour l'activité 2011-2024 (m² par hab.)",yl:"Évolution des commerces de centre-ville 2012-2025 (%)",dx:1,dy:1}),{src:srcTxt(["N10","N29"]),data:[["Département","m²/hab.","Évolution centre (%)"],...pts.map(p=>[p.l,p.x,p.y])]})}</div>
+    <div class="card c4"><h3>Lecture</h3><p>Corrélation entre les deux indicateurs : r = ${r?fmt(r.r,2):"–"} (${fmt(pts.length)} départements). Les départements en haut à gauche concilient faible artificialisation et centres-villes en progression : ce sont des cas à étudier en entretien. Utilisez l'onglet Analyses pour refaire ce croisement au niveau des intercommunalités ou des communes.</p></div>`;
+    lim="Relation descriptive entre deux mesures imparfaites ; la consommation d'espaces pour l'activité ne se limite pas au commerce.";src=["N10","N29","S41"]}
+  return `<div class="stack"><div class="subtabs">${QUESTIONS.map((q,k)=>`<button type="button" data-qq="${k}" class="${k===i?"on":""}">Q${k+1}</button>`).join("")}</div>
+   <p class="eyebrow">Question ${i+1}</p><h2 style="font-family:var(--f-serif);font-size:1.7rem">${esc(QUESTIONS[i])}</h2>
+   <div class="grid">${body}<div class="card c12"><h3>Limites</h3><p class="note">${esc(lim)}</p><p class="src" style="margin-top:8px">Sources : ${srcTxt(src)}</p></div></div></div>`;
+}
+AFTER.questions=()=>$$("[data-qq]").forEach(b=>b.onclick=()=>{S.q=+b.dataset.qq;render()});
+
+/* ---------------- research assistant */
+function messages(t,axe){
+  const A=t.type==="com"?rowAgg(t.i):agg(t),F=agg(T.fr),out=[]; const v=id=>val(INDM[id],t),f=id=>val(INDM[id],T.fr);
+  const isFr=t.id==="fr";
+  const cmpTxt=(a,b,u="")=>a==null||b==null||isFr?"":Math.abs(a-b)<=Math.abs(b)*.03?"proche de la moyenne nationale ("+fmt(b,1)+u+")":(a>b?"supérieur":"inférieur")+" à la moyenne nationale ("+fmt(b,1)+u+")";
+  const tc=(a,b,n)=>a>0&&b>0?(Math.pow(b/a,1/n)-1)*100:null;
+  const push=(ax,txt)=>{if(axe===0||axe===ax)out.push(txt)};
+  if(A.r25)push(1,`${t.label} compte ${fmt(A.r25)} commerces en magasin en 2025, soit ${fmt(v("dens"),1)} pour 1 000 habitants${isFr?"":", un niveau "+cmpTxt(v("dens"),f("dens"))}.`);
+  if(v("ev1925")!=null){const g1=tc(A.r12,A.r19,7),g2=tc(A.r19,A.r25,6);push(1,`Le nombre de commerces a évolué de ${sgn(v("ev1925"))} % entre 2019 et 2025${isFr?"":" (France : "+sgn(f("ev1925"))+" %)"}, après ${sgn(v("ev1219"))} % entre 2012 et 2019. Le rythme annuel est passé de ${sgn(g1,2)} % à ${sgn(g2,2)} % par an${g1!=null&&g2!=null?(g2-g1>.1?" : la dynamique s'est renforcée":g2-g1<-.1?" : la dynamique s'est ralentie":" : la dynamique est stable"):""}.`)}
+  if(v("pemp")!=null)push(1,`${fmt(v("pemp"),1)} % des commerces emploient au moins un salarié (France : ${fmt(f("pemp"),1)} %) ; ${fmt(v("preseau"),1)} % des points de vente appartiennent à une enseigne intégrée d'au moins 10 magasins.`);
+  if(v("iecom")!=null)push(2,`On compte ${fmt(A.ecom)} établissements de vente à distance, soit ${fmt(v("iecom"),1)} pour 100 commerces en magasin (France : ${fmt(f("iecom"),1)}). Les usages numériques des commerçants ne sont mesurés qu'au niveau national : 40 % des TPE et PME utilisaient l'IA en 2026.`);
+  if(v("artacth")!=null)push(3,`Entre 2011 et 2024, ${fmt(A.art_act,0)} ha ont été consommés pour l'activité économique, soit ${fmt(v("artacth"),1)} m² par habitant (France : ${fmt(f("artacth"),1)}), ${fmt(v("partact"),0)} % de la consommation totale d'espaces.`);
+  if(v("pperi")!=null)push(3,`${fmt(v("pperi"),1)} % des commerces sont situés en zone périphérique (France : ${fmt(f("pperi"),1)} %), un indicateur de dépendance à la voiture pour les achats.`);
+  if(v("etr")!=null)push(4,`Les ménages réalisent ${fmt(v("etr"),1)} % de leurs dépenses en magasin dans un pays voisin (Insee, 2024).`);
+  if(A.pop)push(4,`La densité de débits de tabac (${fmt(v("dtab"),1)} pour 10 000 hab.) et de stations-service (${fmt(v("dcarb"),1)}) se compare à ${fmt(f("dtab"),1)} et ${fmt(f("dcarb"),1)} en France.`);
+  if(A.p_r12>0)push(5,`Les zones périphériques comptent ${fmt(A.p_r25)} commerces en 2025 (${sgn(v("evperi"))} % depuis 2012, France : ${sgn(f("evperi"))} %)${A.nzone?" dans "+fmt(A.nzone)+" zones":""}.`);
+  if(A.c_r12>0)push(6,`Les centres-villes comptent ${fmt(A.c_r25)} commerces en 2025, soit ${sgn(v("evc"))} % depuis 2012 (France : ${sgn(f("evc"))} %) et ${sgn(v("evc1925"))} % depuis 2019.`);
+  if(A.q_r12>0)push(7,`Les ${fmt(A.nqpv)} quartiers prioritaires accueillent ${fmt(A.q_r25)} commerces (${sgn(v("evq"))} % depuis 2012, France : ${sgn(f("evq"))} %), dont ${fmt(v("pqemp"),1)} % d'employeurs.`);
+  if(!out.length)out.push("Pas de donnée disponible pour ce territoire sur cette thématique.");
+  return out;
+}
+function vAs(){
+  const t=terr(S.asT||S.cur); const axe=S.asAxe; const A=t.type==="com"?rowAgg(t.i):t.type==="zone"||t.type==="qpv"?null:agg(t);
+  if(!A)return `<div class="stack"><h2>Research Assistant</h2><div class="card"><p>Choisissez une commune, une intercommunalité, un département, une région, un espace frontalier ou un groupe. Les zones commerciales et les QPV ont leur propre fiche dans l'onglet Territoires.</p>${lsearch("Choisir un territoire…","asS")}</div></div>`;
+  const inds=IND.filter(i=>axe===0||i.axe===axe); const msgs=messages(t,axe); const yrs=["2012","2016","2019","2022","2025"]; const F=agg(T.fr);
+  const ix=a=>a.map(v=>a[0]>0?v/a[0]*100:null);
+  const figs=[];
+  if(axe===0||axe===1)figs.push(fig("Commerces en magasin, 2012 = 100",lineChart({labels:yrs,idx:true,series:[{n:t.label,v:ix(yrs.map(y=>A["r"+y.slice(2)])),c:"var(--pink)"},{n:"France",v:ix(yrs.map(y=>F["r"+y.slice(2)])),dash:1,c:"var(--muted)"}]}),{src:srcTxt(["N29"]),data:[["Année",t.label,"France"],...yrs.map(y=>[y,A["r"+y.slice(2)],F["r"+y.slice(2)]])]}));
+  if(axe===0||axe===1||axe===5||axe===6||axe===7)figs.push(fig("Répartition des commerces par lieu, 2025",stackChart({cats:["Centre-ville","Zone périphérique","QPV","Ailleurs"],rows:[{l:t.label.slice(0,26),v:[A.c_r25,A.p_r25,A.q_r25,A.r25-A.c_r25-A.p_r25-A.q_r25]},{l:"France",v:[F.c_r25,F.p_r25,F.q_r25,F.r25-F.c_r25-F.p_r25-F.q_r25]}]}),{src:srcTxt(["N29","N30","N16"])}));
+  const benchIds=inds.filter(i=>i.peer&&!i.comp).slice(0,8);
+  if(benchIds.length&&t.id!=="fr")figs.push(fig("Position par rapport à la France (France = 100)",barChart({items:benchIds.map(i=>{const a=val(i,t),b=val(i,T.fr);return{l:i.l,v:a!=null&&b?(i.sg?100+(a-b):a/b*100):null}}),ref:100}),{src:srcTxt([...new Set(benchIds.flatMap(i=>i.s))]),note:"Pour les évolutions, 100 + écart en points.",data:[["Indicateur",t.label,"France"],...benchIds.map(i=>[i.l,val(i,t),val(i,T.fr)])]}));
+  if(axe===3)figs.push(fig("Consommation d'espaces pour l'activité, ha par an",barChart({items:[{l:"2011-2014",v:A.art_act_1115/4},{l:"2015-2018",v:A.art_act_1519/4},{l:"2019-2024",v:A.art_act_1924/6}],dec:1}),{src:srcTxt(["N10"])}));
+  const stats=inds.map(i=>[i.l,val(i,t),i.u,val(i,T.fr),i.y,i.s.join(" "),i.q||"A"]);
+  S._as={t,stats,msgs};
+  return `<div class="stack"><div class="row"><h2 class="sp">Research Assistant</h2>${lsearch("Changer de territoire…","asS")}</div>
+   <div class="row"><span class="chip"><b>${esc(t.label)}</b> · ${TYPEL[t.type]}</span><label class="f">Thématique<select id="asAxe"><option value="0" ${axe===0?"selected":""}>Toutes les thématiques</option>${AXES.map(a=>`<option value="${a.n}" ${a.n===axe?"selected":""}>Axe ${a.n} · ${a.t}</option>`).join("")}</select></label></div>
+   <div class="grid"><div class="card c7"><h3>Messages clés</h3><p class="sub">Générés automatiquement à partir des indicateurs ; chaque chiffre renvoie au tableau de statistiques.</p><ul class="msgs">${msgs.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>
+    <div class="row" style="margin-top:12px">${SAMPLE?`<button class="btn pri" type="button" id="asAI">Rédiger un paragraphe de rapport avec Claude</button>`:`<span class="small muted">La rédaction assistée par Claude est disponible dans le visualiseur claude.ai.</span>`}</div><div id="asOut"></div></div>
+    <div class="card c5"><h3>Exports</h3><p class="sub">Données, figures et note de synthèse du territoire.</p><div class="stack" style="gap:8px"><button class="btn" type="button" id="asCsv">Statistiques essentielles (CSV)</button><button class="btn" type="button" id="asRaw">Toutes les données brutes du territoire (CSV)</button><button class="btn" type="button" id="asMd">Note de synthèse (Markdown)</button><button class="btn" type="button" id="asJson">Données et métadonnées (JSON)</button><p class="small muted">Chaque figure s'exporte aussi en SVG ou PNG (boutons au-dessus des graphiques).</p></div></div>
+    ${figs.map(f=>`<div class="card c6">${f}</div>`).join("")}
+    <div class="card c12"><h3>Statistiques essentielles</h3><div class="tw"><table><thead><tr><th>Indicateur</th><th class="n">${esc(t.label)}</th><th class="n">France</th><th>Unité</th><th>Millésime</th><th>Source</th></tr></thead><tbody>${inds.map(i=>{const a=val(i,t),b=val(i,T.fr);return `<tr><td>${esc(i.l)} ${infoBtn(i.id)}</td><td class="n">${i.sg?sgn(a,i.d):fmt(a,i.d)}</td><td class="n">${i.sg?sgn(b,i.d):fmt(b,i.d)}</td><td>${esc(i.u)}</td><td>${esc(i.y)}</td><td class="small">${srcTxt(i.s)}</td></tr>`}).join("")}</tbody></table></div></div></div></div>`;
+}
+AFTER.assistant=()=>{const box=$("#asS");if(box)localSearch(box,id=>{S.asT=id;render()});const s=$("#asAxe");if(s)s.onchange=()=>{S.asAxe=+s.value;render()};
+  const X=S._as; if(!X)return; const name=slug("observatoire "+X.t.label);
+  const head=["Indicateur","Valeur","Unité","France","Millésime","Sources","Fiabilité"];
+  $("#asCsv").onclick=()=>save(name+"-statistiques.csv",csv([head,...X.stats.map(r=>[r[0],r[1]==null?"":+r[1].toFixed(3),r[2],r[3]==null?"":+r[3].toFixed(3),r[4],r[5],r[6]])]));
+  $("#asRaw").onclick=()=>{const t=X.t;const A=t.type==="com"?rowAgg(t.i):agg(t);save(name+"-donnees-brutes.csv",csv([["Variable","Valeur"],...NUMS.filter(c=>!["etr_w","etr_p"].includes(c)).map(c=>[c,A[c]])]))};
+  $("#asMd").onclick=()=>{const refs=[...new Set(IND.flatMap(i=>i.s))];save(name+"-note.md",`# ${X.t.label}\n\n*${TYPEL[X.t.type]} · Observatoire du commerce de détail (v2) · généré le ${new Date().toLocaleDateString("fr-FR")}*\n\n## Messages clés\n\n${X.msgs.map(m=>"- "+m).join("\n")}\n\n## Statistiques essentielles\n\n| Indicateur | ${X.t.label} | France | Unité | Millésime |\n|---|---:|---:|---|---|\n${X.stats.map(r=>`| ${r[0]} | ${r[1]==null?"–":fmt(r[1],2)} | ${r[3]==null?"–":fmt(r[3],2)} | ${r[2]} | ${r[4]} |`).join("\n")}\n\n## Sources\n\n${refs.map(r=>D.src[r]?`- ${D.src[r].organisme}, *${D.src[r].titre}* (${D.src[r].date}). ${D.src[r].lien}`:"").join("\n")}\n`)};
+  $("#asJson").onclick=()=>save(name+".json",JSON.stringify({territoire:X.t.label,type:X.t.type,genere:new Date().toISOString(),messages:X.msgs,indicateurs:X.stats.map(r=>({indicateur:r[0],valeur:r[1],unite:r[2],france:r[3],millesime:r[4],sources:r[5],fiabilite:r[6]})),sources:Object.fromEntries([...new Set(IND.flatMap(i=>i.s))].map(r=>[r,D.src[r]]))},null,2));
+  const ai=$("#asAI"); if(ai)ai.onclick=async()=>{const out=$("#asOut");out.innerHTML=`<p class="small muted" style="margin-top:12px">Claude rédige…</p><div class="ai" style="margin-top:8px"></div>`;ai.disabled=true;
+    const facts=X.stats.filter(r=>r[1]!=null).map(r=>({indicateur:r[0],valeur:+(+r[1]).toFixed(2),france:r[3]==null?null:+(+r[3]).toFixed(2),unite:r[2],millesime:r[4],sources:r[5]}));
+    const prompt=`Tu rédiges un paragraphe pour une étude de l'OCDE destinée à la Direction générale des Entreprises sur le commerce de détail en France.\nTerritoire : ${X.t.label} (${TYPEL[X.t.type]}). Thématique : ${axe0()}.\nRègles : 1) français sobre, style rapport OCDE, 150 à 220 mots, un seul paragraphe puis une phrase « Points de vigilance : » ; 2) utilise uniquement les chiffres fournis ci-dessous, sans en inventer ni en arrondir autrement qu'à une décimale ; 3) compare au niveau national quand c'est utile ; 4) reste descriptif : n'attribue aucun effet causal ; 5) termine chaque chiffre important par la référence de source entre crochets, par exemple [N29].\nDonnées (JSON) : ${JSON.stringify(facts)}\nMessages déjà repérés : ${JSON.stringify(X.msgs)}`;
+    try{const r=await SAMPLE(prompt,{onText:({text})=>{$(".ai",out).textContent=text}});$(".ai",out).textContent=r.text;out.firstElementChild.textContent="Paragraphe rédigé par Claude à partir des seuls chiffres du tableau. Relisez-le avant usage."}
+    catch(e){out.innerHTML=`<p class="small muted" style="margin-top:12px">${e&&e.code==="not_granted"?"La rédaction n'a pas été autorisée.":"La rédaction n'a pas abouti ("+esc(e&&e.code||"erreur")+")."}</p>`}finally{ai.disabled=false}}};
+const axe0=()=>S.asAxe===0?"toutes les thématiques":"axe "+S.asAxe+" ("+AXES[S.asAxe-1].t+")";
+
+/* ---------------- sources et données */
+function vSrc(){
+  const tabs=[["ind","Indicateurs ("+IND.length+")"],["bases","Jeux de données ("+D.contenus.bases.length+")"],["sources","Sources ("+D.contenus.sources.length+")"],["chiffres","Chiffres clés ("+(D.contenus.chiffres.length+D.contenus.national.length)+")"],["pol","Politiques et dispositifs ("+D.contenus.politiques.length+")"],["miss","Données manquantes ("+MISSING.length+")"]];
+  const q=norm(S.srcQ); const m=s=>!q||norm(s).includes(q); let body="";
+  if(S.src==="ind")body=`<div class="tw"><table><thead><tr><th>Axe</th><th>Indicateur</th><th>Définition</th><th>Méthode</th><th>Millésime</th><th>Sources</th><th>Fiabilité</th></tr></thead><tbody>${IND.filter(i=>m(i.l+i.def)).map(i=>`<tr><td>${i.axe}</td><td><b>${esc(i.l)}</b><br><span class="small muted">${esc(i.u)}</span></td><td class="small">${esc(i.def)}</td><td class="small">${esc(i.m)}</td><td>${esc(i.y)}</td><td class="small">${srcTxt(i.s)}</td><td><span class="pill ${i.q||"A"}">${i.q||"A"}</span></td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="bases")body=`<div class="tw"><table><thead><tr><th>Jeu de données</th><th>Producteur</th><th>Contenu</th><th>Maille</th><th>Période</th><th>Accès</th><th>Usage</th></tr></thead><tbody>${D.contenus.bases.filter(b=>m(b.nom+b.producteur+b.contenu)).map(b=>`<tr><td>${b.lien?`<a href="${esc(b.lien)}" target="_blank" rel="noopener"><b>${esc(b.nom)}</b></a>`:`<b>${esc(b.nom)}</b>`}</td><td>${esc(b.producteur)}</td><td class="small">${esc(b.contenu)}</td><td>${esc(b.maille)}</td><td>${esc(b.periode)}</td><td>${esc(b.acces)}</td><td class="small">${esc(b.usage||b.apport)}</td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="sources")body=`<div class="tw"><table><thead><tr><th>Réf.</th><th>Organisme</th><th>Titre</th><th>Date</th><th>Type</th></tr></thead><tbody>${D.contenus.sources.filter(s=>m(s.ref+s.organisme+s.titre)).map(s=>`<tr><td class="mono">${esc(s.ref)}</td><td>${esc(s.organisme)}</td><td>${s.lien?`<a href="${esc(s.lien)}" target="_blank" rel="noopener">${esc(s.titre)}</a>`:esc(s.titre)}</td><td>${esc(s.date)}</td><td class="small">${esc(s.type)}</td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="chiffres"){const all=[...D.contenus.national.map(x=>({t:"Axe "+x.axe,i:x.indicateur,v:x.valeur,u:x.unite,a:x.annee,te:"France",r:x.ref,f:x.fiabilite})),...D.contenus.chiffres.map(x=>({t:x.theme,i:x.indicateur,v:x.valeur,u:x.unite,a:x.annees,te:x.territoire,r:x.ref,f:x.verification}))];
+    body=`<div class="tw"><table><thead><tr><th>Thème</th><th>Indicateur</th><th class="n">Valeur</th><th>Unité</th><th>Année</th><th>Territoire</th><th>Source</th><th>Fiabilité</th></tr></thead><tbody>${all.filter(x=>m(x.t+x.i+x.te)).map(x=>`<tr><td class="small">${esc(x.t)}</td><td>${esc(x.i)}</td><td class="n">${typeof x.v==="number"?fmt(x.v,x.v%1?1:0):esc(x.v)}</td><td>${esc(x.u)}</td><td>${esc(x.a)}</td><td>${esc(x.te)}</td><td class="small">${srcTxt([x.r])}</td><td><span class="pill ${esc(String(x.f||"").slice(0,1))}">${esc(x.f)}</span></td></tr>`).join("")}</tbody></table></div>`}
+  if(S.src==="pol")body=`<div class="tw"><table><thead><tr><th>Dispositif</th><th>Axes</th><th>Échelon</th><th>Type</th><th>Porteur</th><th>Période</th><th>Moyens</th><th>Source</th></tr></thead><tbody>${D.contenus.politiques.filter(p=>m(p.nom+p.description)).map(p=>`<tr><td><b>${esc(p.nom)}</b><br><span class="small muted">${esc(p.description)}</span></td><td>${p.axes.join(", ")}</td><td>${esc(p.echelon)}</td><td>${esc(p.type)}</td><td>${esc(p.porteur)}</td><td>${esc(p.periode)}</td><td>${esc(p.moyens)}</td><td class="small">${srcTxt([p.ref])}</td></tr>`).join("")}</tbody></table></div>`;
+  if(S.src==="miss")body=`<div class="tw"><table><thead><tr><th>Axe</th><th>Indicateur demandé</th><th>Où le trouver</th><th>État</th></tr></thead><tbody>${MISSING.filter(x=>m(x[1]+x[2])).map(x=>`<tr><td>${x[0]}</td><td><b>${esc(x[1])}</b></td><td class="small">${esc(x[2])}</td><td class="small">${esc(x[3])}</td></tr>`).join("")}</tbody></table></div>`;
+  return `<div class="stack"><div class="row"><h2 class="sp">Sources et données</h2><input class="inp" id="srcQ" type="search" placeholder="Filtrer…" value="${esc(S.srcQ)}" style="max-width:260px"><button class="btn" type="button" id="srcCsv">Exporter cette liste (CSV)</button></div>
+  <p class="note">Toutes les données de la plateforme sont publiques. Les indicateurs territoriaux sont recalculés à partir des fichiers sources (Sirene, Cerema, Insee, ANCT, IGN) ; les chiffres nationaux reprennent des publications officielles, avec leur niveau de fiabilité. Les fichiers de travail de l'observatoire (data/*.json) et les scripts de préparation sont versionnés avec la plateforme.</p>
+  <div class="subtabs">${tabs.map(t=>`<button type="button" data-st="${t[0]}" class="${S.src===t[0]?"on":""}">${t[1]}</button>`).join("")}</div>${body}</div>`;
+}
+AFTER.sources=()=>{$$("[data-st]").forEach(b=>b.onclick=()=>{S.src=b.dataset.st;render()});const q=$("#srcQ");q.oninput=()=>{S.srcQ=q.value;const p=q.selectionStart;render();const n=$("#srcQ");n.focus();n.setSelectionRange(p,p)};
+  $("#srcCsv").onclick=()=>{let rows;if(S.src==="ind")rows=[["Axe","Indicateur","Unité","Définition","Méthode","Millésime","Sources","Fiabilité"],...IND.map(i=>[i.axe,i.l,i.u,i.def,i.m,i.y,i.s.map(s=>D.src[s]?D.src[s].organisme+" - "+D.src[s].titre+" - "+D.src[s].lien:s).join(" | "),i.q||"A"])];
+    else if(S.src==="bases")rows=[["Nom","Producteur","Contenu","Maille","Période","Accès","Format","Lien"],...D.contenus.bases.map(b=>[b.nom,b.producteur,b.contenu,b.maille,b.periode,b.acces,b.format,b.lien])];
+    else if(S.src==="sources")rows=[["Réf","Organisme","Titre","Date","Lien","Type"],...D.contenus.sources.map(s=>[s.ref,s.organisme,s.titre,s.date,s.lien,s.type])];
+    else if(S.src==="pol")rows=[["Dispositif","Axes","Échelon","Type","Porteur","Période","Moyens","Description","Source"],...D.contenus.politiques.map(p=>[p.nom,p.axes.join(","),p.echelon,p.type,p.porteur,p.periode,p.moyens,p.description,p.ref])];
+    else if(S.src==="miss")rows=[["Axe","Indicateur","Où le trouver","État"],...MISSING];
+    else rows=[["Thème","Indicateur","Valeur","Unité","Année","Territoire","Source","Fiabilité"],...D.contenus.national.map(x=>["Axe "+x.axe,x.indicateur,x.valeur,x.unite,x.annee,"France",x.ref,x.fiabilite]),...D.contenus.chiffres.map(x=>[x.theme,x.indicateur,x.valeur,x.unite,x.annees,x.territoire,x.ref,x.verification])];
+    save("observatoire-"+S.src+".csv",csv(rows))}};
+
+/* ============================================================ démarrage */
+(async()=>{
+  try{await load();prepCodes();buildTerritories();const h=location.hash.slice(1);if(TABS.some(t=>t[0]===h))S.tab=h;if(!S.asT)S.asT=S.cur;render();caps();}
+  catch(e){$("#main").innerHTML=`<div class="card"><h2>Les données n'ont pas pu être chargées</h2><p class="muted">Rechargez la page. Détail : ${esc(e.message||e)}</p></div>`;console.error(e)}
+})();
+</script>
