@@ -2,6 +2,8 @@
 
 Prototype cliquable (HTML autonome, données fictives) : [maquettes/index.html](../maquettes/index.html) — ouvrir dans un navigateur.
 
+Captures du prototype : [accueil](../maquettes/captures/accueil.png) · [comparateur (tableau)](../maquettes/captures/comparateur-tableau.png) · [comparateur (matrice)](../maquettes/captures/comparateur-matrice.png) · [historique](../maquettes/captures/historique.png) · [alignement](../maquettes/captures/alignement.png) · [assistant](../maquettes/captures/assistant.png)
+
 ## 7.1 Principes UX/UI
 
 Références : la sobriété typographique du *Financial Times* et de *The Economist*, la pédagogie des graphiques d'*Our World in Data*, la densité d'information de *Politico*, le soin éditorial du *Grand Continent*.
