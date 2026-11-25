@@ -1,7 +1,7 @@
 """Vacance commerciale par type de site, 2021-2025 (Codata, Digest France 2026) : graphique Word natif
 (colonnes empilées vacance structurelle / frictionnelle, total en étiquette), définition et texte.
-Totaux : valeurs publiées par Codata. Répartition structurelle / frictionnelle : lue sur les graphiques
-publiés (mesure des aires, précision d'environ 0,2 point), à remplacer par les valeurs exactes si disponibles."""
+Totaux : valeurs publiées par Codata. Répartition structurelle / frictionnelle : calculée à partir des données vectorielles
+des graphiques du PDF Codata (p. 10), précision < 0,1 point."""
 import io, os, re, zipfile
 from openpyxl import Workbook
 from docx import Document
@@ -12,11 +12,11 @@ from docx.oxml import OxmlElement
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "figure_vacance_commerciale_par_type_de_site.docx")
 Y = [2021, 2022, 2023, 2024, 2025]
-SITES = [  # type, total publié, structurelle (plus d'un an, lue sur le graphique)
-    ("All sites", [10.1, 9.3, 9.8, 10.7, 11.6], [6.9, 6.3, 6.1, 6.7, 7.1]),
-    ("Street-level shops", [9.7, 9.1, 9.7, 10.8, 11.7], [6.5, 5.6, 5.7, 6.5, 6.8]),
-    ("Shopping centres", [14.4, 13.9, 14.8, 16.0, 16.8], [10.4, 10.3, 10.2, 11.2, 11.9]),
-    ("Commercial zones", [8.1, 6.9, 6.9, 7.4, 8.4], [5.5, 4.9, 4.3, 4.5, 4.8]),
+SITES = [  # type, total publié, structurelle (plus d'un an, extraite du graphique vectoriel)
+    ("All sites", [10.1, 9.3, 9.8, 10.7, 11.6], [6.9, 6.1, 6.0, 6.6, 7.0]),
+    ("Street-level shops", [9.7, 9.1, 9.7, 10.8, 11.7], [6.4, 5.5, 5.6, 6.4, 6.8]),
+    ("Shopping centres", [14.4, 13.9, 14.8, 16.0, 16.8], [10.4, 10.1, 10.0, 11.1, 11.7]),
+    ("Commercial zones", [8.1, 6.9, 6.9, 7.4, 8.4], [5.5, 4.7, 4.2, 4.4, 4.6]),
 ]
 rows = []
 for name, tot, st in SITES:
@@ -28,7 +28,7 @@ n = len(rows)
 wb = Workbook(); ws = wb.active; ws.title = "Sheet1"
 ws.append(["Type of site", "Year", "Vacant for more than one year (structural)", "Vacant for one year or less (frictional)", "Total vacancy rate"])
 for r in rows: ws.append(list(r))
-ws["G1"] = "Totals as published by Codata (2026). Structural/frictional split read from the published charts (about ±0.2 point): replace with exact values if available."
+ws["G1"] = "Totals as published by Codata (2026). Structural/frictional split: OECD calculations from the vector data of the Codata charts (p. 10), precision better than 0.1 point."
 buf = io.BytesIO(); wb.save(buf); XLSX = buf.getvalue()
 
 # ---------------------------------------------------------------- XML du graphique
@@ -102,22 +102,45 @@ para("Vacancy has two components. **Frictional vacancy** covers units that have 
      "turnover of tenants and is a feature of any functioning property market. **Structural vacancy** covers units that have been empty for more than "
      "one year. It signals a lasting mismatch between premises and demand: poor location, obsolete or oversized units, rents above what tenants can "
      "afford, or owners who prefer to keep units empty. Structural vacancy is the better indicator of retail decline.", 9.5, shade=B, after=2)
+para("The **turnover rate** is the number of units whose occupancy changed since the previous survey (a new occupant, a shop closing and leaving "
+     "the unit empty, or a vacant unit being re-let), as a share of all units.", 9.5, shade=B, after=2)
+para("**Coverage.** Codata surveys around 4 000 sites in mainland France every year (500 street-level sites, 1 500 shopping centres and 2 000 "
+     "commercial zones, around 315 000 units). Sites are mostly located in urban areas of more than 20 000 inhabitants and have at least "
+     "10 000 m² of sales area. Small towns and rural areas are therefore largely outside its scope.", 9.5, shade=B, after=2)
 para("Source: Codata (2026), Digest France 2026.", 8, color="595959", shade=B, after=12)
 
 para("Vacancy is rising on all types of site, and most vacant units have been empty for more than a year", 11, True)
 para("Commercial vacancy has increased for the third consecutive year. In 2025, 11.6% of commercial units in France were vacant, against 9.3% in "
      "2022 (Figure 3.x). Shopping centres are the most affected (16.8%), followed by street-level shops (11.7%), which are mostly located in town "
      "centres and neighbourhoods. Commercial zones on the periphery have the lowest rate (8.4%). Town centres are therefore not the worst performers, "
-     "but the periphery still does best.")
-para("Most vacant units have been empty for more than a year. In 2025, around 7% of all commercial units were structurally vacant, against around "
-     "4.5% vacant for one year or less, so structural vacancy accounts for around 60% of all vacancy. Structural vacancy is highest in shopping centres "
-     "(around 12% of units, or seven in ten vacant units), against around 7% for street-level shops and around 5% in commercial zones.")
+     "but the periphery still does best. In absolute terms, street-level sites hold most of the vacant units: 19 100 of the 34 400 vacant units "
+     "recorded in 2025 (56%), against 8 100 in shopping centres and 7 200 in commercial zones.")
+para("Most vacant units have been empty for more than a year. In 2025, 7.0% of all commercial units had been vacant for more than one year and "
+     "4.6% for one year or less, so structural vacancy accounts for 60% of all vacancy. Structural vacancy is highest in shopping centres (11.7% of "
+     "units, or seven in ten vacant units), against 6.8% in street-level shops and 4.6% in commercial zones. Since 2022, the increase has been driven "
+     "mainly by recent vacancies (+1.4 points), which may still be re-let, so the structural share of vacancy has fallen from 66% to 60%. Structural "
+     "vacancy has nonetheless also been rising since 2023 (+1.0 point).")
 para("The composition of recent increases differs by type of site. Between 2022 and 2025, vacancy in street-level shops rose by 2.6 percentage points "
-     "(from 9.1% to 11.7%), with long-term and short-term vacancy contributing roughly equally (around +1.2 and +1.4 points). In shopping centres, "
-     "vacancy rose by 2.9 points, more than half of it structural. In commercial zones, vacancy rose by 1.5 points (from 6.9% to 8.4%), and in 2025 "
+     "(from 9.1% to 11.7%), with long-term and short-term vacancy contributing equally (+1.3 points each). In shopping centres, vacancy rose by "
+     "2.9 points, more than half of it structural (+1.6 points). In commercial zones, vacancy rose by 1.5 points (from 6.9% to 8.4%), and in 2025 "
      "it increased slightly faster than in street-level shops (+1.0 point against +0.9). However, the whole of the increase in commercial zones is "
-     "frictional: structural vacancy there has remained broadly stable, at around 4.3-4.9% of units since 2022. This suggests more frequent tenant "
-     "turnover rather than an accumulation of long-term empty units, although the trend warrants monitoring.")
+     "frictional (+1.6 points): structural vacancy there has remained broadly stable, at 4.2-4.7% of units since 2022.")
+para("Turnover data show where this short-term vacancy comes from. The share of commercial units changing occupancy each year rose from 9.6% in "
+     "2021 to 12.4% in 2025, and from 7.4% to 9.3% in commercial zones. In commercial zones, the share of shops that closed and left their unit "
+     "empty almost doubled, from 1.7% of units in 2022 to 3.2% in 2025, while the share of vacant units being re-let remained at around 2%. "
+     "Closures now outpace re-lettings in the periphery, by around 1 point of the stock in 2025, a gap similar to that in street-level shops "
+     "(0.8 point). This points to more frequent closures in retail parks rather than to an accumulation of long-term empty units, but it is "
+     "an early sign that the trend warrants monitoring.")
+para("Closures are concentrated in personal goods. In 2025, street-level sites recorded 924 more closures than openings in clothing, 527 in "
+     "services, 221 in footwear and 196 in home equipment, against net gains in cafés, hotels and restaurants (+233) and in beauty (+135). Over "
+     "2015-2025, the share of clothing in street-level shops fell from 20.6% to 14.2% and that of footwear from 4.9% to 2.7%, while the share of "
+     "cafés, hotels and restaurants rose from 18.1% to 21.6%. In commercial zones, net losses are concentrated in home equipment (-395) and "
+     "clothing (-150). Independent shops remain the majority: the share of units occupied by retail chains fell slightly, from 48.2% in 2020 to "
+     "46.5% in 2025, and chains occupy only 30% of street-level shops, against 63% in commercial zones and 70% in shopping centres.")
+para("Vacancy rose in all 13 regions in 2025. It is highest in Occitanie (13.4%), Bourgogne-Franche-Comté (13.1%) and Centre-Val de Loire "
+     "(12.8%), and lowest in Bretagne (9.8%). Among the cross-border regions, vacancy is above the national average in Occitanie, "
+     "Hauts-de-France (12.3%) and Grand Est (12.0%), and below it in Auvergne-Rhône-Alpes (10.9%). In street-level shops, Occitanie has the "
+     "highest rate of all regions (16.4%). In commercial zones, Grand Est (9.4%) is also well above the national average (8.4%).")
 para("Over a longer period, the advantage of peripheral zones appears to be narrowing. Vacancy in peripheral zones is estimated to have roughly "
      "doubled, from under 4% in 2007 to over 8% in 2020 (Cerema). The two series are not strictly comparable, however, and the Codata rate for "
      "commercial zones fell temporarily after the COVID-19 period (from 8.1% in 2021 to 6.9% in 2022-2023) before rising again.")
@@ -126,9 +149,10 @@ para("Figure 3.x. Commercial vacancy is highest in shopping centres and mostly l
 para("Vacancy rate by type of site and duration of vacancy, % of commercial units, 2021-2025", 9.5, color="595959")
 para("[[CHART]]")
 para("Note: Structural vacancy: units vacant for more than one year; frictional vacancy: units vacant for one year or less. The total vacancy rate "
-     "(figure above each bar) is as published by Codata. The split between structural and frictional vacancy is read from the charts published by "
-     "Codata and is approximate (around ±0.2 percentage point).", 8, color="595959", after=2)
-para("Source: OECD based on Codata (2026), Digest France 2026.", 8, color="595959")
+     "(figure above each bar) is as published by Codata. The split between structural and frictional vacancy is derived from the charts "
+     "published by Codata (OECD calculations). Codata covers around 4 000 sites in mainland France, mostly in urban areas of more than 20 000 "
+     "inhabitants.", 8, color="595959", after=2)
+para("Source: OECD calculations based on Codata (2026), Digest France 2026.", 8, color="595959")
 tmp = io.BytesIO(); doc.save(tmp)
 
 # ---------------------------------------------------------------- insertion du graphique natif
