@@ -78,6 +78,60 @@ CHART = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <c:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr>{txpr(850, "666666")}
 <c:externalData r:id="rId1"><c:autoUpdate val="0"/></c:externalData></c:chartSpace>'''
 
+
+# ---------------------------------------------------------------- graphique 2 : flux (rotation)
+# Part des emplacements, en % : commerce devenu local vacant / local vacant redevenu commerce.
+# Calculs OCDE à partir des données vectorielles des graphiques Codata (p. 13), précision < 0,1 point.
+FLOWS = [
+    ("All sites", [2.7, 2.6, 3.3, 3.6, 4.1], [2.9, 3.0, 2.8, 2.7, 3.2]),
+    ("Street-level shops", [2.9, 2.7, 3.5, 3.9, 4.2], [3.1, 3.1, 3.0, 2.9, 3.4]),
+    ("Shopping centres", [3.5, 3.3, 4.4, 4.6, 4.8], [2.9, 3.3, 3.4, 3.5, 3.9]),
+    ("Commercial zones", [2.0, 1.7, 2.1, 2.5, 3.2], [2.3, 2.5, 1.9, 1.9, 2.2]),
+]
+rows2 = []
+for name, c2v, v2c in FLOWS:
+    for i, y in enumerate(Y):
+        rows2.append((name if i == 0 else "", str(y), c2v[i], v2c[i], round(c2v[i] - v2c[i], 1)))
+n2 = len(rows2)
+S2 = ["Shop closed, unit left vacant", "Vacant unit re-let", "Net change (closures minus re-lettings)"]
+wb2 = Workbook(); ws2 = wb2.active; ws2.title = "Sheet1"
+ws2.append(["Type of site", "Year"] + S2)
+for r in rows2: ws2.append(list(r))
+ws2["G1"] = "% of commercial units. OECD calculations from the vector data of the Codata turnover charts (Codata Digest France 2026, p. 13), precision better than 0.1 point."
+buf2 = io.BytesIO(); wb2.save(buf2); XLSX2 = buf2.getvalue()
+LV_Y2 = "".join('<c:pt idx="%d"><c:v>%s</c:v></c:pt>' % (i, r[1]) for i, r in enumerate(rows2))
+LV_T2 = "".join('<c:pt idx="%d"><c:v>%s</c:v></c:pt>' % (i, r[0]) for i, r in enumerate(rows2) if r[0])
+CAT2 = (f'<c:cat><c:multiLvlStrRef><c:f>Sheet1!$A$2:$B${n2 + 1}</c:f><c:multiLvlStrCache><c:ptCount val="{n2}"/>'
+        f'<c:lvl>{LV_Y2}</c:lvl><c:lvl>{LV_T2}</c:lvl></c:multiLvlStrCache></c:multiLvlStrRef></c:cat>')
+def vals2(col, k):
+    pts = "".join(f'<c:pt idx="{i}"><c:v>{r[k]}</c:v></c:pt>' for i, r in enumerate(rows2))
+    return f'<c:val><c:numRef><c:f>Sheet1!${col}$2:${col}${n2 + 1}</c:f><c:numCache><c:formatCode>0.0</c:formatCode><c:ptCount val="{n2}"/>{pts}</c:numCache></c:numRef></c:val>'
+bars2 = ""
+for j, (col, name, color) in enumerate([("C", S2[0], "F47230"), ("D", S2[1], "257DE0")]):
+    lbl = ('<c:dLbl><c:idx val="{i}"/><c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr>' + txpr(650, "1A1A1A") +
+           '<c:dLblPos val="outEnd"/><c:showLegendKey val="0"/><c:showVal val="1"/><c:showCatName val="0"/><c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/></c:dLbl>')
+    lbls = "".join(lbl.replace("{i}", str(i)) for i, r in enumerate(rows2) if r[1] == "2025")
+    dl = ('<c:dLbls>' + lbls + '<c:numFmt formatCode="0.0" sourceLinked="0"/><c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr>'
+          '<c:showLegendKey val="0"/><c:showVal val="0"/><c:showCatName val="0"/><c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/></c:dLbls>')
+    bars2 += (f'<c:ser><c:idx val="{j}"/><c:order val="{j}"/>{sertx(col, name)}'
+              f'<c:spPr><a:solidFill><a:srgbClr val="{color}"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr>'
+              f'<c:invertIfNegative val="0"/>{dl}{CAT2}{vals2(col, 2 + j)}</c:ser>')
+CHART2 = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<c:chartSpace xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><c:date1904 val="0"/><c:lang val="en-GB"/><c:roundedCorners val="0"/>
+<c:chart><c:autoTitleDeleted val="1"/><c:plotArea><c:layout/>
+<c:barChart><c:barDir val="col"/><c:grouping val="clustered"/><c:varyColors val="0"/>{bars2}<c:gapWidth val="60"/><c:overlap val="-5"/><c:axId val="60020001"/><c:axId val="60020002"/></c:barChart>
+<c:catAx><c:axId val="60020001"/><c:scaling><c:orientation val="minMax"/></c:scaling><c:delete val="0"/><c:axPos val="b"/><c:numFmt formatCode="General" sourceLinked="1"/>
+<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/><c:spPr><a:ln w="9525"><a:solidFill><a:srgbClr val="C8C8C8"/></a:solidFill></a:ln></c:spPr>{txpr(750, "666666")}
+<c:crossAx val="60020002"/><c:crosses val="autoZero"/><c:auto val="1"/><c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>
+<c:valAx><c:axId val="60020002"/><c:scaling><c:orientation val="minMax"/><c:max val="5"/><c:min val="0"/></c:scaling><c:delete val="0"/><c:axPos val="l"/>
+<c:majorGridlines><c:spPr><a:ln w="6350"><a:solidFill><a:srgbClr val="E6E6E6"/></a:solidFill></a:ln></c:spPr></c:majorGridlines>{title("% of commercial units", -5400000)}
+<c:numFmt formatCode="0" sourceLinked="0"/><c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>{noline}{txpr(850, "666666")}
+<c:crossAx val="60020001"/><c:crosses val="autoZero"/><c:crossBetween val="between"/><c:majorUnit val="1"/></c:valAx>{noline}</c:plotArea>
+<c:legend><c:legendPos val="t"/><c:overlay val="0"/>{txpr(850, "1A1A1A")}</c:legend>
+<c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/></c:chart>
+<c:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr>{txpr(850, "666666")}
+<c:externalData r:id="rId1"><c:autoUpdate val="0"/></c:externalData></c:chartSpace>'''
+
 # ---------------------------------------------------------------- document
 doc = Document()
 st = doc.styles["Normal"]; st.font.name = "Arial"; st.font.size = Pt(10)
@@ -85,6 +139,7 @@ sec = doc.sections[0]; sec.page_width, sec.page_height = Cm(21), Cm(29.7)
 for m in ("left_margin", "right_margin"): setattr(sec, m, Cm(2))
 def para(text, size=10, bold=False, color="1A1A1A", after=6, shade=None):
     p = doc.add_paragraph(); p.paragraph_format.space_after = Pt(after)
+    if text.startswith(("Figure", "Vacancy rate by", "Changes in occupancy", "[[CHART")): p.paragraph_format.keep_with_next = True
     for part in re.split(r"(\*\*[^*]+\*\*)", text):
         if not part: continue
         b = part.startswith("**"); r = p.add_run(part.strip("*") if b else part)
@@ -128,7 +183,7 @@ para("The composition of recent increases differs by type of site. Between 2022 
 para("Turnover data show where this short-term vacancy comes from. The share of commercial units changing occupancy each year rose from 9.6% in "
      "2021 to 12.4% in 2025, and from 7.4% to 9.3% in commercial zones. In commercial zones, the share of shops that closed and left their unit "
      "empty almost doubled, from 1.7% of units in 2022 to 3.2% in 2025, while the share of vacant units being re-let remained at around 2%. "
-     "Closures now outpace re-lettings in the periphery, by around 1 point of the stock in 2025, a gap similar to that in street-level shops "
+     "Since 2023, closures have outpaced re-lettings on all types of site (Figure 3.y). In the periphery, the gap reached around 1 point of the stock in 2025, a gap similar to that in street-level shops "
      "(0.8 point). This points to more frequent closures in retail parks rather than to an accumulation of long-term empty units, but it is "
      "an early sign that the trend warrants monitoring.")
 para("Closures are concentrated in personal goods. In 2025, street-level sites recorded 924 more closures than openings in clothing, 527 in "
@@ -145,13 +200,22 @@ para("Over a longer period, the advantage of peripheral zones appears to be narr
      "doubled, from under 4% in 2007 to over 8% in 2020 (Cerema). The two series are not strictly comparable, however, and the Codata rate for "
      "commercial zones fell temporarily after the COVID-19 period (from 8.1% in 2021 to 6.9% in 2022-2023) before rising again.")
 
-para("Figure 3.x. Commercial vacancy is highest in shopping centres and mostly long-lasting", 11, True, after=2)
+para("Figure 3.x. Commercial vacancy: 16.8% in shopping centres, 11.7% in street-level shops, 8.4% in commercial zones (2025)", 11, True, after=2)
 para("Vacancy rate by type of site and duration of vacancy, % of commercial units, 2021-2025", 9.5, color="595959")
 para("[[CHART]]")
 para("Note: Structural vacancy: units vacant for more than one year; frictional vacancy: units vacant for one year or less. The total vacancy rate "
      "(figure above each bar) is as published by Codata. The split between structural and frictional vacancy is derived from the charts "
      "published by Codata (OECD calculations). Codata covers around 4 000 sites in mainland France, mostly in urban areas of more than 20 000 "
      "inhabitants.", 8, color="595959", after=2)
+para("Source: OECD calculations based on Codata (2026), Digest France 2026.", 8, color="595959", after=14)
+
+para("Figure 3.y. Commercial zones: shops closing and leaving units vacant up from 1.7% to 3.2%, re-lettings around 2% (2022-2025)", 11, True, after=2)
+para("Changes in occupancy between two annual surveys, by type of site, % of commercial units, 2021-2025", 9.5, color="595959")
+para("[[CHART2]]")
+para("Note: \"Shop closed, unit left vacant\": units occupied by a shop at the previous survey and vacant at the current survey. \"Vacant unit "
+     "re-let\": units vacant at the previous survey and occupied by a shop at the current survey. When the first exceeds the second, the number "
+     "of vacant units increases. Units that changed occupant without being vacant (around 4-5% of all units a year) are not shown. Values are derived "
+     "from the turnover charts published by Codata (OECD calculations); figures above the bars are for 2025.", 8, color="595959", after=2)
 para("Source: OECD calculations based on Codata (2026), Digest France 2026.", 8, color="595959")
 tmp = io.BytesIO(); doc.save(tmp)
 
@@ -168,20 +232,29 @@ for it in zin.infolist():
     data = zin.read(it.filename)
     if it.filename == "word/document.xml":
         s, k = re.subn(r"<w:r>(?:(?!</w:r>).)*\[\[CHART\]\](?:(?!</w:r>).)*</w:r>", DRAW, data.decode("utf-8"), flags=re.S)
+        assert k == 1
+        DRAW2 = DRAW.replace('id="102" name="Chart 2"', 'id="103" name="Chart 3"').replace("rIdChart1", "rIdChart2").replace(
+            "Stacked column chart: commercial vacancy by type of site and duration, 2021-2025",
+            "Clustered column chart: shops closing and leaving units vacant vs vacant units re-let, by type of site, 2021-2025")
+        s, k = re.subn(r"<w:r>(?:(?!</w:r>).)*\[\[CHART2\]\](?:(?!</w:r>).)*</w:r>", DRAW2, s, flags=re.S)
         assert k == 1; data = s.encode("utf-8")
     elif it.filename == "word/settings.xml":
         data = re.sub(rb"<w:zoom (?![^>]*w:percent)", b'<w:zoom w:percent="100" ', data)
     elif it.filename == "word/_rels/document.xml.rels":
-        data = data.replace(b"</Relationships>", b'<Relationship Id="rIdChart1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="charts/chart1.xml"/></Relationships>')
+        data = data.replace(b"</Relationships>", b'<Relationship Id="rIdChart1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="charts/chart1.xml"/><Relationship Id="rIdChart2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="charts/chart2.xml"/></Relationships>')
     elif it.filename == "[Content_Types].xml":
         s = data.decode("utf-8")
         if 'Extension="xlsx"' not in s:
             s = s.replace("<Default ", '<Default Extension="xlsx" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/><Default ', 1)
-        data = s.replace("</Types>", '<Override PartName="/word/charts/chart1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/></Types>').encode("utf-8")
+        data = s.replace("</Types>", '<Override PartName="/word/charts/chart1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/><Override PartName="/word/charts/chart2.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/></Types>').encode("utf-8")
     zout.writestr(it, data)
 zout.writestr("word/charts/chart1.xml", CHART)
 zout.writestr("word/charts/_rels/chart1.xml.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
               '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/package" Target="../embeddings/Microsoft_Excel_Worksheet.xlsx"/></Relationships>')
 zout.writestr("word/embeddings/Microsoft_Excel_Worksheet.xlsx", XLSX)
+zout.writestr("word/charts/chart2.xml", CHART2)
+zout.writestr("word/charts/_rels/chart2.xml.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+              '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/package" Target="../embeddings/Microsoft_Excel_Worksheet1.xlsx"/></Relationships>')
+zout.writestr("word/embeddings/Microsoft_Excel_Worksheet1.xlsx", XLSX2)
 zout.close()
 print("ok", OUT)
