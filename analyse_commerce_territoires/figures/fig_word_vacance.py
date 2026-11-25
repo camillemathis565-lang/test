@@ -196,17 +196,11 @@ para("Vacancy rose in all 13 regions in 2025. It is highest in Occitanie (13.4%)
      "(12.8%), and lowest in Bretagne (9.8%). Among the cross-border regions, vacancy is above the national average in Occitanie, "
      "Hauts-de-France (12.3%) and Grand Est (12.0%), and below it in Auvergne-Rhône-Alpes (10.9%). In street-level shops, Occitanie has the "
      "highest rate of all regions (16.4%). In commercial zones, Grand Est (9.4%) is also well above the national average (8.4%).")
-para("Over a longer period, the advantage of peripheral zones appears to be narrowing. France has around 1 500 commercial zones, which "
-     "account for roughly three-quarters of retail sales (Procos, 2020, cited in Cerema, 2022). Many of them now face difficulties similar to "
-     "those that town centres have experienced since the late 2000s. According to Cerema (2022), vacancy in these zones roughly doubled between "
-     "2007 and 2020, from below 4% to above 8%, and their sales declined. Cerema points to three main causes. Road congestion now affects "
-     "peripheral zones as well as town centres. Very large sites make shopping trips longer and less convenient. E-commerce competes directly "
-     "with product categories that were traditionally sold in retail parks, such as household appliances, computers and consumer electronics. "
-     "In Cerema's assessment, peripheral zones are following the same path as town centres a few years later, and the COVID-19 crisis "
-     "accelerated this trend. These estimates are not strictly comparable with the Codata series, which shows vacancy in commercial zones "
-     "falling temporarily after the pandemic (from 8.1% in 2021 to 6.9% in 2022-2023) before rising to 8.4% in 2025. Taken together, the two "
-     "sources suggest that policy should move beyond opposing town centres and the periphery. The issue is increasingly how to manage the "
-     "complementarity between the two and how to plan for the conversion of under-used peripheral sites.")
+para("Over a longer period, the advantage of peripheral zones appears to be narrowing. According to Cerema (2022), vacancy in commercial "
+     "zones roughly doubled between 2007 and 2020, from below 4% to above 8%, as congestion, very large sites and competition from e-commerce "
+     "(notably in electronics and household appliances) eroded their appeal. Cerema considers that the periphery is following the path of town "
+     "centres a few years later. The Codata series is not strictly comparable, but it points the same way: after a post-COVID dip, vacancy in "
+     "commercial zones rose again to 8.4% in 2025.")
 
 para("Figure 3.x. Commercial vacancy: 16.8% in shopping centres, 11.7% in street-level shops, 8.4% in commercial zones (2025)", 11, True, after=2)
 para("Vacancy rate by type of site and duration of vacancy, % of commercial units, 2021-2025", 9.5, color="595959")
