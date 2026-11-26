@@ -101,6 +101,32 @@ CHB = (HEAD + f'<c:chart>{ctitle("B. Employment change 2016-2022 and its sources
        f'{NOFILL}</c:plotArea><c:legend><c:legendPos val="t"/><c:layout><c:manualLayout><c:xMode val="edge"/><c:yMode val="edge"/><c:x val="0.05"/><c:y val="0.08"/><c:w val="0.92"/><c:h val="0.09"/></c:manualLayout></c:layout>'
        f'<c:overlay val="0"/>{txpr(800, "1A1A1A")}</c:legend><c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/></c:chart>' + TAIL)
 
+
+# ------------------------------------------------------------ figure 5.B : évolution de l'emploi par secteur (Insee figure 4)
+C = [("Restaurants and bars", 28.0, 26.6), ("Estate agencies", 31.0, -19.2), ("Home equipment", -11.8, 20.9),
+     ("Car trade and services", -8.8, 13.5), ("Personal services", 4.0, 13.8), ("Food retail", 4.2, 0.8),
+     ("Personal equipment", -8.2, -0.2), ("Other services", -8.5, -3.7), ("Bank branches", -17.7, -50.8)]
+XC = xlsx([("Sector", "Town-centre poles", "Peripheral poles")] + C,
+          "Change in employment 2016-2022 (salaried and non-salaried jobs), %. Source: Insee Analyses Hauts-de-France No. 214 (2026), Figure 4.")
+catC = ('<c:cat><c:strRef><c:f>Sheet1!$A$2:$A$10</c:f><c:strCache><c:ptCount val="9"/>' +
+        "".join(f'<c:pt idx="{i}"><c:v>{r[0]}</c:v></c:pt>' for i, r in enumerate(C)) + '</c:strCache></c:strRef></c:cat>')
+serC = ""
+for j, (col, name, color) in enumerate([("B", "Town-centre poles", ORANGE), ("C", "Peripheral poles", BLUE)]):
+    serC += (f'<c:ser><c:idx val="{j}"/><c:order val="{j}"/>{sertx(col, name)}<c:spPr><a:solidFill><a:srgbClr val="{color}"/></a:solidFill></c:spPr>'
+             f'<c:invertIfNegative val="0"/>{lbls("+0.0;-0.0;0.0", "1A1A1A", "outEnd", False, 750)}{catC}{numref(col, [r[1 + j] for r in C])}</c:ser>')
+CHC = (HEAD + '<c:chart><c:autoTitleDeleted val="1"/><c:plotArea>'
+       '<c:layout><c:manualLayout><c:layoutTarget val="inner"/><c:xMode val="edge"/><c:yMode val="edge"/><c:x val="0.27"/><c:y val="0.08"/><c:w val="0.7"/><c:h val="0.84"/></c:manualLayout></c:layout>'
+       f'<c:barChart><c:barDir val="bar"/><c:grouping val="clustered"/><c:varyColors val="0"/>{serC}<c:gapWidth val="60"/><c:overlap val="0"/>'
+       '<c:axId val="62030001"/><c:axId val="62030002"/></c:barChart>'
+       '<c:catAx><c:axId val="62030001"/><c:scaling><c:orientation val="maxMin"/></c:scaling><c:delete val="0"/><c:axPos val="l"/><c:numFmt formatCode="General" sourceLinked="1"/>'
+       f'<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="low"/><c:spPr><a:ln w="9525"><a:solidFill><a:srgbClr val="8C8C8C"/></a:solidFill></a:ln></c:spPr>{txpr(850, "1A1A1A")}'
+       '<c:crossAx val="62030002"/><c:crosses val="autoZero"/><c:auto val="1"/><c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>'
+       '<c:valAx><c:axId val="62030002"/><c:scaling><c:orientation val="minMax"/><c:max val="50"/><c:min val="-75"/></c:scaling><c:delete val="0"/><c:axPos val="b"/>'
+       '<c:majorGridlines><c:spPr><a:ln w="6350"><a:solidFill><a:srgbClr val="E6E6E6"/></a:solidFill></a:ln></c:spPr></c:majorGridlines>'
+       f'<c:numFmt formatCode="+0;-0;0" sourceLinked="0"/><c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>{NOFILL}{txpr(800, "666666")}'
+       '<c:crossAx val="62030001"/><c:crosses val="max"/><c:crossBetween val="between"/><c:majorUnit val="25"/></c:valAx>'
+       f'{NOFILL}</c:plotArea><c:legend><c:legendPos val="t"/><c:overlay val="0"/>{txpr(850, "1A1A1A")}</c:legend><c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/></c:chart>' + TAIL)
+
 # ------------------------------------------------------------ document
 doc = Document()
 st = doc.styles["Normal"]; st.font.name = "Arial"; st.font.size = Pt(10)
@@ -124,11 +150,22 @@ para("Note: Insee defines town-centre poles as clusters of at least 20 points of
      "that existed in both years. Provincial France: France excluding Île-de-France.", 8, color="595959", after=2, keep=False)
 para("Source: OECD calculations based on Insee (2026), Insee Analyses Hauts-de-France, No. 214, Figures 1 and 3, based on the Points de vente, "
      "Sirene and Flores files.", 8, color="595959", keep=False)
+doc.add_paragraph().paragraph_format.space_after = Pt(10)
+para("Figure 5.B. In Hauts-de-France, goods retail moved to the periphery while town centres gained restaurants", 11, True, after=2)
+para("Change in employment in commercial poles by sector, Hauts-de-France, 2016-2022 (%)", 9.5, color="595959")
+para("[[CHART3]]")
+para("Note: Jobs include salaried and non-salaried workers. Sectors are ranked as in the source. Growth rates for sectors with few jobs in a "
+     "type of pole should be read with caution: in 2022, bank branches accounted for 0.2% of jobs in peripheral poles and estate agencies for "
+     "0.1%, against 7.7% and 2.8% in town-centre poles. See Figure 5.A for the definitions of town-centre and peripheral poles.",
+     8, color="595959", after=2, keep=False)
+para("Source: Insee (2026), Insee Analyses Hauts-de-France, No. 214, Figure 4, based on the Points de vente, Sirene and Flores files.",
+     8, color="595959", keep=False)
 tmp = io.BytesIO(); doc.save(tmp)
 
-SIZES = {1: (17.0, 5.6), 2: (17.0, 8.6)}
+SIZES = {1: (17.0, 5.6), 2: (17.0, 8.6), 3: (17.0, 10.5)}
 DESC = {1: "Stacked bar chart: share of town-centre and peripheral poles in poles, establishments, jobs and sales area, Hauts-de-France 2022",
-        2: "Stacked column chart: sources of employment change 2016-2022 by type of pole, Hauts-de-France and provincial France"}
+        2: "Stacked column chart: sources of employment change 2016-2022 by type of pole, Hauts-de-France and provincial France",
+        3: "Bar chart: change in employment 2016-2022 by sector in town-centre and peripheral poles, Hauts-de-France"}
 def drawing(i):
     w, h = SIZES[i]
     return (f'<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing">'
@@ -142,21 +179,21 @@ for it in zin.infolist():
     data = zin.read(it.filename)
     if it.filename == "word/document.xml":
         s = data.decode("utf-8")
-        for i in (1, 2):
+        for i in (1, 2, 3):
             s, k = re.subn(r"<w:r>(?:(?!</w:r>).)*\[\[CHART%d\]\](?:(?!</w:r>).)*</w:r>" % i, drawing(i), s, flags=re.S); assert k == 1
         data = s.encode("utf-8")
     elif it.filename == "word/settings.xml":
         data = re.sub(rb"<w:zoom (?![^>]*w:percent)", b'<w:zoom w:percent="100" ', data)
     elif it.filename == "word/_rels/document.xml.rels":
         data = data.replace(b"</Relationships>", "".join(
-            f'<Relationship Id="rIdChart{i}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="charts/chart{i}.xml"/>' for i in (1, 2)).encode() + b"</Relationships>")
+            f'<Relationship Id="rIdChart{i}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="charts/chart{i}.xml"/>' for i in (1, 2, 3)).encode() + b"</Relationships>")
     elif it.filename == "[Content_Types].xml":
         s = data.decode("utf-8")
         if 'Extension="xlsx"' not in s:
             s = s.replace("<Default ", '<Default Extension="xlsx" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/><Default ', 1)
-        data = s.replace("</Types>", "".join(f'<Override PartName="/word/charts/chart{i}.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/>' for i in (1, 2)) + "</Types>").encode("utf-8")
+        data = s.replace("</Types>", "".join(f'<Override PartName="/word/charts/chart{i}.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/>' for i in (1, 2, 3)) + "</Types>").encode("utf-8")
     zout.writestr(it, data)
-for i, (xml, xl) in enumerate([(CHA, XA), (CHB, XB)], start=1):
+for i, (xml, xl) in enumerate([(CHA, XA), (CHB, XB), (CHC, XC)], start=1):
     zout.writestr(f"word/charts/chart{i}.xml", xml)
     zout.writestr(f"word/charts/_rels/chart{i}.xml.rels", '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
                   f'<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/package" Target="../embeddings/Microsoft_Excel_Worksheet{i}.xlsx"/></Relationships>')
